@@ -1,0 +1,31 @@
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h2>Connexion</h2>
+
+    <p>
+      Connectez-vous à votre espace.
+    </p>
+
+    <label>Email :</label>
+    <input
+      type="email"
+      [(ngModel)]="email"
+      placeholder="exemple@email.com">
+
+    <label>Mot de passe :</label>
+    <input
+      type="password"
+      [(ngModel)]="password"
+      placeholder="Mot de passe">
+
+    <button
+      type="button"
+      (click)="login()">
+      Se connecter
+    </button>
+
+  </div>
+
+</div>

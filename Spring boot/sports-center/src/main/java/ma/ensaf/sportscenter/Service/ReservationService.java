@@ -5,6 +5,7 @@ import ma.ensaf.sportscenter.Repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 
 @Service
 public class ReservationService {
@@ -21,6 +22,12 @@ public class ReservationService {
                 reservation.getStartTime(),
                 reservation.getEndTime()
         ).toHours();
+
+        if (reservation.getReservationDate().isBefore(LocalDate.now())) {
+            throw new RuntimeException(
+                    "Impossible de réserver une date passée."
+            );
+        }
 
         if (durationHours < 2) {
             throw new RuntimeException(

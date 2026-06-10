@@ -1,0 +1,52 @@
+<div class="group-classes-page">
+
+  <div class="page-header">
+    <h1>Cours collectifs</h1>
+
+    <p>
+      Consultez les cours collectifs programmés au sein du centre sportif.
+    </p>
+
+    <button routerLink="/coach" class="back-btn">
+      Retour à l’espace coach
+    </button>
+  </div>
+
+  <div class="classes-grid">
+
+    @for (course of groupClasses; track course.title) {
+      <div class="class-card">
+
+        <h2>{{ course.title }}</h2>
+
+        <p>
+          <strong>Activité :</strong>
+          {{ course.activity }}
+        </p>
+
+        <p>
+          <strong>Jour :</strong>
+          {{ course.day }}
+        </p>
+
+        <p>
+          <strong>Heure :</strong>
+          {{ course.time }}
+        </p>
+
+        <p>
+          <strong>Niveau :</strong>
+          {{ course.level }}
+        </p>
+
+        <p>
+          <strong>Participants :</strong>
+          {{ course.participants }}
+        </p>
+
+      </div>
+    }
+
+  </div>
+
+</div>

@@ -1,0 +1,213 @@
+.tennis-page {
+  min-height: 100vh;
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  color: white;
+
+  background:
+    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.92)),
+    radial-gradient(circle at top left, rgba(255, 122, 0, 0.35), transparent 35%),
+    #07111f;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 44px;
+  color: #ff7a00;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  color: #d8e2ef;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  background: transparent;
+  border: 2px solid #42d65f;
+  color: #42d65f;
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #42d65f;
+  color: #07111f;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.courts-section {
+  width: 520px;
+}
+
+.courts-section h2,
+.reservation-card h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.courts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.court-card {
+  background: rgba(7, 17, 31, 0.85);
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+
+.court-card h3 {
+  color: #ff7a00;
+  margin-bottom: 8px;
+}
+
+.court-card p {
+  color: #d8e2ef;
+}
+
+.reservation-card {
+  width: 380px;
+  background: rgba(7, 17, 31, 0.9);
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  color: #d8e2ef;
+  font-weight: bold;
+}
+
+select,
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.confirm-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff7a00, #ff9d00);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.clear-btn {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #d8e2ef;
+  border-radius: 10px;
+  background: transparent;
+  color: #d8e2ef;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.45);
+}
+
+.clear-btn:hover {
+  background: #d8e2ef;
+  color: #07111f;
+}
+
+.available {
+  color: #42d65f;
+  font-weight: bold;
+}
+
+.maintenance {
+  color: #ff7a00;
+  font-weight: bold;
+}
+
+.maintenance-card {
+  opacity: 0.65;
+  border-color: rgba(255, 122, 0, 0.7);
+}
+
+.maintenance-message {
+  margin-top: 10px;
+  color: #ffb366;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.success-message,
+.error-message {
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  background: rgba(66, 214, 95, 0.15);
+  border: 1px solid rgba(66, 214, 95, 0.6);
+  color: #42d65f;
+}
+
+.error-message {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.6);
+  color: #ff4d4d;
+}
+
+@media (max-width: 900px) {
+  .courts-section,
+  .reservation-card {
+    width: 100%;
+  }
+
+  .courts-grid {
+    grid-template-columns: 1fr;
+  }
+}

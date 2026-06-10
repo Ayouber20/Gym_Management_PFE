@@ -1,1 +1,68 @@
-<p>client-dashboard works!</p>
+<div class="client-dashboard">
+
+  <h1>Espace Client</h1>
+
+  <button
+      type="button"
+      class="logout-btn"
+      (click)="logout()">
+      Déconnexion
+  </button>
+
+  <p class="subtitle">
+    Bienvenue dans votre espace client. Choisissez une fonctionnalité.
+  </p>
+
+  <div class="dashboard-cards">
+
+    <div class="dashboard-card">
+      <h2>🎾 Tennis</h2>
+
+      <p>
+        Réserver un terrain de tennis selon les créneaux disponibles.
+      </p>
+
+      <button routerLink="/client/tennis">
+        Réserver un terrain
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>💪 Demande de coach</h2>
+
+      <p>
+        Demander un coach pour le tennis, la salle de gym ou la piscine.
+      </p>
+
+      <button routerLink="/demande-coach">
+        Demander un coach
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>📅 Mes réservations</h2>
+
+      <p>
+        Consulter et annuler vos réservations de terrains.
+      </p>
+
+      <button routerLink="/client/reservations">
+        Voir mes réservations
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>📋 Mes demandes</h2>
+
+      <p>
+        Suivre l’état de vos demandes de coach.
+      </p>
+
+      <button routerLink="/client/coach-requests">
+        Voir mes demandes
+      </button>
+    </div>
+
+  </div>
+
+</div>

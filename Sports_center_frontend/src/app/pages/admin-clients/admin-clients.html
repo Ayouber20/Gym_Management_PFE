@@ -1,0 +1,110 @@
+<div class="admin-clients-page">
+
+  <div class="page-header">
+    <h1>Gestion des clients</h1>
+
+    <p>
+      Créez les profils clients à partir des utilisateurs ayant le rôle CLIENT.
+    </p>
+
+    <button routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="content">
+
+    <section class="form-card">
+      <h2>Nouveau client</h2>
+
+      <label>Utilisateur :</label>
+      <select [(ngModel)]="selectedUserId">
+        <option [ngValue]="null">Choisir un utilisateur CLIENT...</option>
+
+        @for (user of users(); track user.id) {
+          <option [ngValue]="user.id">
+            {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
+          </option>
+        }
+      </select>
+
+      <label>Numéro d’adhésion :</label>
+      <input
+        type="text"
+        [(ngModel)]="membershipNumber"
+        placeholder="Ex : CL-2026-001">
+
+      <div class="actions">
+        <button
+          type="button"
+          class="create-btn"
+          (click)="createClient()">
+          Créer client
+        </button>
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="resetForm()">
+          Vider
+        </button>
+      </div>
+    </section>
+
+    <section class="clients-list">
+      <h2>Liste des clients</h2>
+
+      @if (loaded() && clients().length === 0) {
+        <div class="empty-card">
+          Aucun client trouvé.
+        </div>
+      }
+
+      @if (clients().length > 0) {
+        <div class="table-container">
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID Client</th>
+                <th>Numéro adhésion</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>User ID</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (client of clients(); track client.id) {
+                <tr>
+                  <td>{{ client.id }}</td>
+                  <td>{{ client.membershipNumber }}</td>
+                  <td>
+                    {{ client.user.firstName }} {{ client.user.lastName }}
+                  </td>
+                  <td>{{ client.user.email }}</td>
+                  <td>{{ client.user.id }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+        </div>
+      }
+    </section>
+
+  </div>
+
+</div>

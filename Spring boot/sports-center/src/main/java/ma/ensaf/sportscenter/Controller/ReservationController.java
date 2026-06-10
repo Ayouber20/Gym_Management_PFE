@@ -4,11 +4,16 @@ import ma.ensaf.sportscenter.Entity.Reservation;
 import ma.ensaf.sportscenter.Repository.ReservationRepository;
 import ma.ensaf.sportscenter.Service.ReservationService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Map;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reservations")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReservationController {
 
     private final ReservationRepository reservationRepository;
@@ -27,6 +32,13 @@ public class ReservationController {
         return reservationRepository.findAll();
     }
 
+    @GetMapping("/client/{clientId}")
+    public List<Reservation> getReservationsByClient(
+            @PathVariable Long clientId) {
+
+        return reservationRepository.findByClientId(clientId);
+    }
+
     @PostMapping
     public Reservation createReservation(
             @RequestBody Reservation reservation) {
@@ -38,4 +50,17 @@ public class ReservationController {
     public void deleteReservation(@PathVariable Long id) {
         reservationRepository.deleteById(id);
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleRuntimeException(
+            RuntimeException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of(
+                        "message",
+                        ex.getMessage()
+                ));
+    }
+
 }

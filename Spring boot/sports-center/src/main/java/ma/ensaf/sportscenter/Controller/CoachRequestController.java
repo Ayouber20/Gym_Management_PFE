@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/coach-requests")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CoachRequestController {
 
     private final CoachRequestRepository coachRequestRepository;
@@ -25,6 +26,13 @@ public class CoachRequestController {
     @GetMapping
     public List<CoachRequest> getAllRequests() {
         return coachRequestRepository.findAll();
+    }
+
+    @GetMapping("/client/{clientId}")
+    public List<CoachRequest> getRequestsByClient(
+            @PathVariable Long clientId) {
+
+        return coachRequestRepository.findByClientId(clientId);
     }
 
     @PostMapping

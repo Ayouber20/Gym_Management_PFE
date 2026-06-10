@@ -2,6 +2,7 @@ package ma.ensaf.sportscenter.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "coach_requests")
@@ -23,6 +24,11 @@ public class CoachRequest {
     @ManyToOne
     @JoinColumn(name = "coach_id")
     private Coach coach;
+
+    private String activity;
+
+    @Column(name = "request_time")
+    private LocalTime requestTime;
 
     public CoachRequest() {
     }
@@ -61,5 +67,21 @@ public class CoachRequest {
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public LocalTime getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(LocalTime requestTime) {
+        this.requestTime = requestTime;
     }
 }

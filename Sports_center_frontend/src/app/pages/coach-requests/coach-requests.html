@@ -1,0 +1,95 @@
+<div class="coach-requests-page">
+
+  <div class="page-header">
+    <h1>Demandes de coaching</h1>
+
+    <p>
+      Consultez les demandes envoyées par les clients et acceptez ou refusez les séances.
+    </p>
+
+    <button routerLink="/coach" class="back-btn">
+      Retour à l’espace coach
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  @if (loaded() && requests().length === 0) {
+    <div class="empty-card">
+      <p>Aucune demande trouvée.</p>
+    </div>
+  }
+
+  @if (requests().length > 0) {
+    <div class="requests-grid">
+
+      @for (request of requests(); track request.id) {
+        <div class="request-card">
+
+          <h2>{{ request.activity }}</h2>
+
+          <p>
+            <strong>Client :</strong>
+            {{ request.client.user.firstName }} {{ request.client.user.lastName }}
+          </p>
+
+          <p>
+            <strong>Date :</strong>
+            {{ request.requestDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ request.requestTime }}
+          </p>
+
+          <p>
+            <strong>Coach :</strong>
+            {{ request.coach.user.firstName }} {{ request.coach.user.lastName }}
+          </p>
+
+          <p>
+            <strong>Statut :</strong>
+            <span
+              [class.pending]="request.status === 'PENDING'"
+              [class.accepted]="request.status === 'ACCEPTED'"
+              [class.rejected]="request.status === 'REJECTED'">
+              {{ request.status }}
+            </span>
+          </p>
+
+          @if (request.status === 'PENDING') {
+            <div class="actions">
+              <button
+                type="button"
+                class="accept-btn"
+                (click)="acceptRequest(request.id)">
+                Accepter
+              </button>
+
+              <button
+                type="button"
+                class="reject-btn"
+                (click)="rejectRequest(request.id)">
+                Refuser
+              </button>
+            </div>
+          }
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

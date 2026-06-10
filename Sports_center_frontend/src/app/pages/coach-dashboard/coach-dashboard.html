@@ -1,1 +1,56 @@
-<p>coach-dashboard works!</p>
+<div class="coach-dashboard">
+
+  <h1>Espace Coach</h1>
+
+  <button
+    type="button"
+    class="logout-btn"
+    (click)="logout()">
+    Déconnexion
+  </button>
+
+  <p class="subtitle">
+    Bienvenue dans votre espace coach. Gérez vos demandes, vos séances et vos cours collectifs.
+  </p>
+
+  <div class="dashboard-cards">
+
+    <div class="dashboard-card">
+      <h2>📩 Demandes de coaching</h2>
+
+      <p>
+        Consultez les demandes envoyées par les clients et acceptez ou refusez-les.
+      </p>
+
+      <button routerLink="/coach/requests">
+        Voir les demandes
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>📅 Mes séances</h2>
+
+      <p>
+        Consultez les séances acceptées avec les clients.
+      </p>
+
+      <button routerLink="/coach/sessions">
+        Voir mes séances
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>👥 Cours collectifs</h2>
+
+      <p>
+        Consultez ou gérez les cours collectifs du centre sportif.
+      </p>
+
+      <button routerLink="/coach/group-classes">
+        Voir les cours
+      </button>
+    </div>
+
+  </div>
+
+</div>

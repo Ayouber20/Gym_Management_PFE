@@ -1,0 +1,124 @@
+.admin-reservations-page {
+  min-height: 100vh;
+  padding: 50px;
+  background: #020b16;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  color: #25bfff;
+  font-size: 44px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.page-header p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.back-btn {
+  background: transparent;
+  border: 2px solid #25bfff;
+  color: #25bfff;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.back-btn:hover {
+  background: #25bfff;
+  color: #020b16;
+}
+
+.success-message,
+.error-message {
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  background: rgba(66, 214, 95, 0.15);
+  border: 1px solid rgba(66, 214, 95, 0.6);
+  color: #42d65f;
+}
+
+.error-message {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.6);
+  color: #ff4d4d;
+}
+
+.empty-card {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 18px;
+  background: #061221;
+  border: 1px solid rgba(37, 191, 255, 0.7);
+  text-align: center;
+  font-size: 18px;
+}
+
+.reservations-grid {
+  max-width: 1200px;
+  margin: 40px auto 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.reservation-card {
+  background: #061221;
+  border: 1px solid rgba(37, 191, 255, 0.7);
+  border-radius: 18px;
+  padding: 35px 28px;
+  box-shadow: 0 0 18px rgba(37, 191, 255, 0.08);
+}
+
+.reservation-card h2 {
+  color: #25bfff;
+  font-size: 24px;
+  margin-bottom: 22px;
+}
+
+.reservation-card p {
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.reservation-card strong {
+  color: white;
+}
+
+.delete-btn {
+  margin-top: 22px;
+  background: #ff3b3b;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.delete-btn:hover {
+  background: #ff1f1f;
+  transform: translateY(-2px);
+}

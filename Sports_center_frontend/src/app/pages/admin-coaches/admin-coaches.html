@@ -1,0 +1,128 @@
+<div class="admin-coaches-page">
+
+  <div class="page-header">
+    <h1>Gestion des coachs</h1>
+
+    <p>
+      Créez les profils coachs à partir des utilisateurs ayant le rôle COACH.
+    </p>
+
+    <button routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="content">
+
+    <section class="form-card">
+      <h2>Nouveau coach</h2>
+
+      <label>Utilisateur :</label>
+      <select [(ngModel)]="selectedUserId">
+        <option [ngValue]="null">Choisir un utilisateur COACH...</option>
+
+        @for (user of users(); track user.id) {
+          <option [ngValue]="user.id">
+            {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
+          </option>
+        }
+      </select>
+
+      <label>Spécialité :</label>
+      <select [(ngModel)]="speciality">
+        <option value="">Choisir une spécialité...</option>
+
+        @for (spec of specialities; track spec) {
+          <option [value]="spec">
+            {{ spec }}
+          </option>
+        }
+      </select>
+
+      <label>Disponibilité :</label>
+      <select [(ngModel)]="availability">
+        <option value="">Choisir une disponibilité...</option>
+
+        @for (av of availabilities; track av) {
+          <option [value]="av">
+            {{ av }}
+          </option>
+        }
+      </select>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="create-btn"
+          (click)="createCoach()">
+          Créer coach
+        </button>
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="resetForm()">
+          Vider
+        </button>
+      </div>
+    </section>
+
+    <section class="coaches-list">
+      <h2>Liste des coachs</h2>
+
+      @if (loaded() && coaches().length === 0) {
+        <div class="empty-card">
+          Aucun coach trouvé.
+        </div>
+      }
+
+      @if (coaches().length > 0) {
+        <div class="table-container">
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID Coach</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Spécialité</th>
+                <th>Disponibilité</th>
+                <th>User ID</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (coach of coaches(); track coach.id) {
+                <tr>
+                  <td>{{ coach.id }}</td>
+                  <td>
+                    {{ coach.user.firstName }} {{ coach.user.lastName }}
+                  </td>
+                  <td>{{ coach.user.email }}</td>
+                  <td>{{ coach.speciality }}</td>
+                  <td>{{ coach.availability }}</td>
+                  <td>{{ coach.user.id }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+        </div>
+      }
+    </section>
+
+  </div>
+
+</div>

@@ -1,0 +1,170 @@
+.coach-requests-page {
+  min-height: 100vh;
+  padding: 45px;
+  font-family: Arial, sans-serif;
+  background:
+    linear-gradient(rgba(3, 10, 20, 0.90), rgba(3, 10, 20, 0.95)),
+    radial-gradient(circle at top left, rgba(255, 122, 0, 0.25), transparent 35%),
+    #07111f;
+  color: white;
+  box-sizing: border-box;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  color: #ff7a00;
+  font-size: 44px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.page-header p {
+  color: #d8e2ef;
+  font-size: 17px;
+  max-width: 760px;
+  margin: 0 auto 20px auto;
+  line-height: 1.6;
+}
+
+.back-btn {
+  padding: 11px 22px;
+  border-radius: 10px;
+  border: 2px solid #ff7a00;
+  background: transparent;
+  color: #ff7a00;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #ff7a00;
+  color: #07111f;
+}
+
+.empty-card {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(7, 17, 31, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.requests-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.request-card {
+  padding: 28px;
+  border-radius: 20px;
+  background: rgba(7, 17, 31, 0.9);
+  border: 1px solid rgba(255, 122, 0, 0.45);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+}
+
+.request-card h2 {
+  color: #ff7a00;
+  margin-bottom: 18px;
+}
+
+.request-card p {
+  color: #d8e2ef;
+  line-height: 1.6;
+}
+
+.pending {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+.accepted {
+  color: #42d65f;
+  font-weight: bold;
+}
+
+.rejected {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.accept-btn,
+.reject-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.accept-btn {
+  background: linear-gradient(135deg, #42d65f, #1ea83d);
+  color: white;
+}
+
+.reject-btn {
+  background: linear-gradient(135deg, #ff3d3d, #c62828);
+  color: white;
+}
+
+.accept-btn:hover {
+  box-shadow: 0 8px 18px rgba(66, 214, 95, 0.35);
+}
+
+.reject-btn:hover {
+  box-shadow: 0 8px 18px rgba(255, 61, 61, 0.35);
+}
+
+.success-message,
+.error-message {
+  max-width: 700px;
+  margin: 0 auto 25px auto;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.success-message {
+  background: rgba(66, 214, 95, 0.15);
+  border: 1px solid rgba(66, 214, 95, 0.6);
+  color: #42d65f;
+}
+
+.error-message {
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.6);
+  color: #ff4d4d;
+}
+
+@media (max-width: 800px) {
+  .requests-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coach-requests-page {
+    padding: 30px;
+  }
+
+  .page-header h1 {
+    font-size: 34px;
+  }
+}

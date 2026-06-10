@@ -1,0 +1,74 @@
+<div class="admin-coach-requests-page">
+
+  <div class="page-header">
+    <h1>Demandes de coach</h1>
+
+    <p>
+      Consultez toutes les demandes de coaching envoyées par les clients.
+    </p>
+
+    <button routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </button>
+  </div>
+
+  @if (loaded() && requests().length === 0) {
+    <div class="empty-card">
+      Aucune demande de coach trouvée.
+    </div>
+  }
+
+  @if (requests().length > 0) {
+    <div class="table-container">
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Coach</th>
+            <th>Activité</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (request of requests(); track request.id) {
+            <tr>
+              <td>{{ request.id }}</td>
+
+              <td>
+                {{ request.client.user.firstName }}
+                {{ request.client.user.lastName }}
+              </td>
+
+              <td>
+                {{ request.coach.user.firstName }}
+                {{ request.coach.user.lastName }}
+              </td>
+
+              <td>{{ request.activity }}</td>
+
+              <td>{{ request.requestDate }}</td>
+
+              <td>{{ request.requestTime }}</td>
+
+              <td>
+                <span
+                  [class.pending]="request.status === 'PENDING'"
+                  [class.accepted]="request.status === 'ACCEPTED'"
+                  [class.rejected]="request.status === 'REJECTED'">
+                  {{ request.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+  }
+
+</div>

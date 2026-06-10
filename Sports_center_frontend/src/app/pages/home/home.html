@@ -1,1 +1,104 @@
-<p>home works!</p>
+<div class="home-container">
+
+  <div class="overlay"></div>
+
+  <section class="hero">
+    <h1>
+      CENTRE <span>SPORTIF</span>
+    </h1>
+
+    <p>
+      Bienvenue dans notre plateforme de gestion du centre sportif.
+      Choisissez une activité pour continuer.
+    </p>
+  </section>
+
+  <section class="activities">
+
+    <div class="activity-card gym-card">
+      <div class="icon-circle green">
+        🏋️
+      </div>
+
+      <h2>Salle de Gym</h2>
+
+      <p>
+        Accédez à l’espace gym pour vos séances de musculation
+        et de remise en forme.
+      </p>
+    </div>
+
+    <div class="activity-card tennis-card">
+      <div class="icon-circle orange">
+        🎾
+      </div>
+
+      <h2>Tennis</h2>
+
+      <p>
+        Réservez un terrain de tennis selon les créneaux disponibles.
+      </p>
+
+      <button routerLink="/client" class="orange-btn">
+        Réserver un terrain
+      </button>
+    </div>
+
+    <div class="activity-card pool-card">
+      <div class="icon-circle blue">
+        🏊
+      </div>
+
+      <h2>Piscine</h2>
+
+      <p>
+        Accédez à l’espace piscine pour vos séances de natation.
+      </p>
+    </div>
+
+  </section>
+
+  <section class="coach-section">
+
+    <div class="coach-icon">
+      💪
+    </div>
+
+    <div class="coach-text">
+      <h2>Besoin d’un coach ?</h2>
+
+      <p>
+        Vous pouvez demander l’accompagnement d’un coach pour le tennis,
+        la salle de gym ou la piscine.
+      </p>
+    </div>
+
+    <button routerLink="/demande-coach" class="coach-btn">
+      Demander un coach
+    </button>
+
+  </section>
+
+  <section class="access-section">
+    <h2>Espaces utilisateurs</h2>
+
+    <div class="access-buttons">
+      <button routerLink="/login">
+        Connexion
+      </button>
+      
+      <button routerLink="/client" class="green-outline">
+        Espace Client
+      </button>
+
+      <button routerLink="/coach" class="orange-outline">
+        Espace Coach
+      </button>
+
+      <button routerLink="/admin" class="blue-outline">
+        Espace Admin
+      </button>
+    </div>
+  </section>
+
+</div>

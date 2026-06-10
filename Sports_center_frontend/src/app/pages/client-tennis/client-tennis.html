@@ -1,0 +1,132 @@
+<div class="tennis-page">
+
+  <div class="page-header">
+    <h1>Réservation Tennis</h1>
+    <p>
+      Choisissez un terrain, une date et un créneau horaire pour réserver votre séance.
+    </p>
+
+    <button routerLink="/client" class="back-btn">
+      Retour à l'espace client
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="content">
+
+    <section class="courts-section">
+      <h2>Terrains disponibles</h2>
+
+      @if (courtsLoaded() && courts().length === 0) {
+        <div class="empty-card">
+          Aucun terrain trouvé.
+        </div>
+      }
+
+      @if (courts().length > 0) {
+        <div class="courts-grid">
+
+          @for (court of courts(); track court.id) {
+            <div
+              class="court-card"
+              [class.maintenance-card]="court.status === 'MAINTENANCE'">
+
+              <h3>Terrain {{ court.courtNumber }}</h3>
+
+              <p>
+                Status :
+                <span
+                  [class.available]="court.status === 'AVAILABLE'"
+                  [class.maintenance]="court.status === 'MAINTENANCE'">
+                  {{ court.status }}
+                </span>
+              </p>
+
+              @if (court.status === 'MAINTENANCE') {
+                <p class="maintenance-message">
+                  Ce terrain est actuellement en maintenance.
+                </p>
+              }
+
+            </div>
+          }
+
+        </div>
+      }
+    </section>
+
+    <section class="reservation-card">
+      <h2>Nouvelle réservation</h2>
+
+      <label>Terrain :</label>
+
+      <select [(ngModel)]="selectedCourtId">
+        <option [ngValue]="null">Choisir un terrain...</option>
+
+        @for (court of courts(); track court.id) {
+          <option
+            [ngValue]="court.id"
+            [disabled]="court.status === 'MAINTENANCE'">
+            Terrain {{ court.courtNumber }} - {{ court.status }}
+          </option>
+        }
+      </select>
+
+      <label>Date :</label>
+      <input
+        type="date"
+        [(ngModel)]="reservationDate"
+        [min]="today">
+
+      <label>Heure début :</label>
+      <select
+        [(ngModel)]="startTime"
+        (change)="updateEndTime()">
+
+        <option value="">Choisir...</option>
+
+        @for (slot of timeSlots; track slot) {
+          <option [value]="slot">
+            {{ slot }}
+          </option>
+        }
+
+      </select>
+
+      <label>Heure fin :</label>
+      <input
+        type="text"
+        [value]="endTime"
+        readonly>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="confirm-btn"
+          (click)="createReservation()">
+          Confirmer
+        </button>
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="resetReservationForm()">
+          Vider
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+</div>

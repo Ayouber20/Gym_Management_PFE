@@ -1,0 +1,57 @@
+<div class="coach-sessions-page">
+
+  <div class="page-header">
+    <h1>Mes séances</h1>
+
+    <p>
+      Consultez les séances acceptées avec les clients.
+    </p>
+
+    <button routerLink="/coach" class="back-btn">
+      Retour à l’espace coach
+    </button>
+  </div>
+
+  @if (loaded() && sessions().length === 0) {
+    <div class="empty-card">
+      <p>Aucune séance acceptée pour le moment.</p>
+    </div>
+  }
+
+  @if (sessions().length > 0) {
+    <div class="sessions-grid">
+
+      @for (session of sessions(); track session.id) {
+        <div class="session-card">
+
+          <h2>{{ session.activity }}</h2>
+
+          <p>
+            <strong>Client :</strong>
+            {{ session.client.user.firstName }} {{ session.client.user.lastName }}
+          </p>
+
+          <p>
+            <strong>Date :</strong>
+            {{ session.requestDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ session.requestTime }}
+          </p>
+
+          <p>
+            <strong>Statut :</strong>
+            <span class="accepted">
+              {{ session.status }}
+            </span>
+          </p>
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

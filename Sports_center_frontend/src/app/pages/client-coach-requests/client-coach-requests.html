@@ -1,0 +1,60 @@
+<div class="coach-requests-page">
+
+  <div class="page-header">
+    <h1>Mes demandes de coach</h1>
+
+    <p>
+      Consultez l’état de vos demandes de coach pour le tennis, la salle de gym ou la piscine.
+    </p>
+
+    <button routerLink="/client" class="back-btn">
+      Retour à l’espace client
+    </button>
+  </div>
+
+  @if (loaded() && requests().length === 0) {
+    <div class="empty-card">
+      <p>Aucune demande de coach trouvée.</p>
+    </div>
+  }
+
+  @if (requests().length > 0) {
+    <div class="requests-grid">
+
+      @for (request of requests(); track request.id) {
+        <div class="request-card">
+
+          <h2>{{ request.activity }}</h2>
+
+          <p>
+            <strong>Date :</strong>
+            {{ request.requestDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ request.requestTime }}
+          </p>
+
+          <p>
+            <strong>Coach :</strong>
+            {{ request.coach.user.firstName }} {{ request.coach.user.lastName }}
+          </p>
+
+          <p>
+            <strong>Statut :</strong>
+            <span
+              [class.pending]="request.status === 'PENDING'"
+              [class.accepted]="request.status === 'ACCEPTED'"
+              [class.rejected]="request.status === 'REJECTED'">
+              {{ request.status }}
+            </span>
+          </p>
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

@@ -1,0 +1,128 @@
+.admin-dashboard {
+  min-height: 100vh;
+  padding: 50px;
+  font-family: Arial, sans-serif;
+  background:
+    linear-gradient(rgba(3, 10, 20, 0.90), rgba(3, 10, 20, 0.95)),
+    radial-gradient(circle at top left, rgba(41, 182, 246, 0.25), transparent 35%),
+    #07111f;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.admin-dashboard h1 {
+  font-size: 46px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  color: #29b6f6;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #d8e2ef;
+  font-size: 18px;
+  max-width: 850px;
+  margin: 0 auto 45px auto;
+  line-height: 1.6;
+}
+
+.dashboard-cards {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.dashboard-card {
+  min-height: 250px;
+  padding: 28px;
+  border-radius: 20px;
+  box-sizing: border-box;
+
+  background: rgba(7, 17, 31, 0.9);
+  border: 1px solid rgba(41, 182, 246, 0.45);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-card h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #29b6f6;
+}
+
+.dashboard-card p {
+  color: #d8e2ef;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.statistics-card {
+  grid-column: 2 / 3;
+}
+
+button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #29b6f6, #0288d1);
+  color: white;
+
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+button:hover {
+  box-shadow: 0 8px 18px rgba(41, 182, 246, 0.4);
+}
+
+.logout-btn {
+  margin-bottom: 25px;
+  padding: 11px 22px;
+  border: 2px solid #ff4d4d;
+  border-radius: 10px;
+  background: transparent;
+  color: #ff4d4d;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.logout-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+@media (max-width: 1000px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .statistics-card {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard {
+    padding: 30px;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 34px;
+  }
+}

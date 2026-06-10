@@ -1,0 +1,69 @@
+<div class="reservations-page">
+
+  <div class="page-header">
+    <h1>Mes réservations</h1>
+
+    <p>
+      Consultez vos réservations de terrains de tennis et annulez celles que vous ne souhaitez plus garder.
+    </p>
+
+    <button routerLink="/client" class="back-btn">
+      Retour à l’espace client
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  @if (loaded() && reservations().length === 0) {
+    <div class="empty-card">
+      <p>Aucune réservation trouvée.</p>
+    </div>
+  }
+
+  @if (reservations().length > 0) {
+    <div class="reservations-grid">
+
+      @for (reservation of reservations(); track reservation.id) {
+        <div class="reservation-card">
+
+          <h2>Terrain {{ reservation.court.courtNumber }}</h2>
+
+          <p>
+            <strong>Date :</strong>
+            {{ reservation.reservationDate }}
+          </p>
+
+          <p>
+            <strong>Créneau :</strong>
+            {{ reservation.startTime }} - {{ reservation.endTime }}
+          </p>
+
+          <p>
+            <strong>Statut :</strong>
+            {{ reservation.status }}
+          </p>
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="deleteReservation(reservation.id)">
+            Annuler
+          </button>
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

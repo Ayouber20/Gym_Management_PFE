@@ -1,0 +1,86 @@
+<div class="coach-request-page">
+
+  <div class="page-header">
+    <h1>Demande de Coach</h1>
+
+    <p>
+      Choisissez une activité, une date, une heure et un coach pour envoyer votre demande.
+    </p>
+
+    <button routerLink="/client" class="back-btn">
+      Retour à l’espace client
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="form-card">
+
+    <label>Activité :</label>
+
+    <select [(ngModel)]="selectedActivity">
+      <option value="">Choisir une activité...</option>
+
+      @for (activity of activities; track activity) {
+        <option [value]="activity">
+          {{ activity }}
+        </option>
+      }
+    </select>
+
+    <label>Date :</label>
+
+    <input
+      type="date"
+      [(ngModel)]="requestDate"
+      [min]="today">
+
+    <label>Heure :</label>
+
+    <select [(ngModel)]="requestTime">
+      <option value="">Choisir une heure...</option>
+
+      @for (slot of timeSlots; track slot) {
+        <option [value]="slot">
+          {{ slot }}
+        </option>
+      }
+    </select>
+
+    <label>Coach :</label>
+
+    <select [(ngModel)]="coachId">
+      <option [ngValue]="null">Choisir un coach...</option>
+      <option [ngValue]="2">Coach 2</option>
+      <option [ngValue]="3">Coach 3</option>
+    </select>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="send-btn"
+        (click)="sendRequest()">
+        Envoyer la demande
+      </button>
+
+      <button
+        type="button"
+        class="clear-btn"
+        (click)="resetForm()">
+        Vider
+      </button>
+    </div>
+
+  </div>
+
+</div>

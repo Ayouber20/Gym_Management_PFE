@@ -1,1 +1,83 @@
-<p>admin-dashboard works!</p>
+<div class="admin-dashboard">
+
+  <h1>Espace Admin</h1>
+
+  <button
+    type="button"
+    class="logout-btn"
+    (click)="logout()">
+    Déconnexion
+  </button>
+
+  <p class="subtitle">
+    Bienvenue dans votre espace administrateur. Gérez les utilisateurs, les ressources et les activités du centre sportif.
+  </p>
+
+  <div class="dashboard-cards">
+
+    <div class="dashboard-card">
+      <h2>👤 Utilisateurs</h2>
+      <p>Créer, consulter, modifier ou supprimer les comptes utilisateurs.</p>
+
+      <button routerLink="/admin/users">
+        Gérer les utilisateurs
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>🧍 Clients</h2>
+      <p>Inscrire les clients du club et consulter leurs informations.</p>
+
+      <button routerLink="/admin/clients">
+        Gérer les clients
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>🏋️ Coachs</h2>
+      <p>Ajouter les coachs, gérer leurs spécialités et leurs disponibilités.</p>
+
+      <button routerLink="/admin/coaches">
+        Gérer les coachs
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>🎾 Terrains</h2>
+      <p>Consulter les terrains et modifier leur statut.</p>
+
+      <button routerLink="/admin/courts">
+        Gérer les terrains
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>📅 Réservations</h2>
+      <p>Voir toutes les réservations et les annuler si nécessaire.</p>
+
+      <button routerLink="/admin/reservations">
+        Voir les réservations
+      </button>
+    </div>
+
+    <div class="dashboard-card">
+      <h2>💪 Demandes coach</h2>
+      <p>Consulter toutes les demandes de coaching et leur état.</p>
+
+      <button routerLink="/admin/coach-requests">
+        Voir les demandes
+      </button>
+    </div>
+
+    <div class="dashboard-card statistics-card">
+      <h2>📊 Statistiques</h2>
+      <p>Consulter les statistiques générales du centre sportif.</p>
+
+      <button routerLink="/admin/statistics">
+        Voir les statistiques
+      </button>
+    </div>
+
+  </div>
+
+</div>

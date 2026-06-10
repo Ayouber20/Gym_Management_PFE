@@ -1,0 +1,133 @@
+<div class="admin-users-page">
+
+  <div class="page-header">
+    <h1>Gestion des utilisateurs</h1>
+
+    <p>
+      Créez et consultez les comptes utilisateurs du centre sportif.
+    </p>
+
+    <button routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="content">
+
+    <section class="form-card">
+      <h2>Nouvel utilisateur</h2>
+
+      <label>Prénom :</label>
+      <input
+        type="text"
+        [(ngModel)]="firstName"
+        placeholder="Prénom">
+
+      <label>Nom :</label>
+      <input
+        type="text"
+        [(ngModel)]="lastName"
+        placeholder="Nom">
+
+      <label>Email :</label>
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="email@example.com">
+
+      <label>Mot de passe :</label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Mot de passe">
+
+      <label>Rôle :</label>
+      <select [(ngModel)]="role">
+        <option value="">Choisir un rôle...</option>
+
+        @for (r of roles; track r) {
+          <option [value]="r">
+            {{ r }}
+          </option>
+        }
+      </select>
+
+      <div class="actions">
+        <button
+          type="button"
+          class="create-btn"
+          (click)="createUser()">
+          Créer
+        </button>
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="resetForm()">
+          Vider
+        </button>
+      </div>
+    </section>
+
+    <section class="users-list">
+      <h2>Liste des utilisateurs</h2>
+
+      @if (loaded() && users().length === 0) {
+        <div class="empty-card">
+          Aucun utilisateur trouvé.
+        </div>
+      }
+
+      @if (users().length > 0) {
+        <div class="table-container">
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (user of users(); track user.id) {
+                <tr>
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.firstName }}</td>
+                  <td>{{ user.lastName }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>
+                    <span
+                      [class.client-role]="user.role === 'CLIENT'"
+                      [class.coach-role]="user.role === 'COACH'"
+                      [class.admin-role]="user.role === 'ADMIN'">
+                      {{ user.role }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+        </div>
+      }
+    </section>
+
+  </div>
+
+</div>
