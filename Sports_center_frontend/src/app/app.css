@@ -1,0 +1,11 @@
+.app-loading {
+  min-height: 100vh;
+  background: #020b16;
+  color: #25bfff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}

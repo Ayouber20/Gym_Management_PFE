@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, afterNextRender, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,5 +8,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('Sports_center_frontend');
+  appReady = signal(false);
+
+  constructor() {
+    afterNextRender(() => {
+      this.appReady.set(true);
+    });
+  }
 }

@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+@if (appReady()) {
+  <router-outlet></router-outlet>
+} @else {
+  <div class="app-loading">
+    Chargement...
+  </div>
+}

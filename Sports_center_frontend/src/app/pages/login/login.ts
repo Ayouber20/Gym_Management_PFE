@@ -15,6 +15,7 @@ export class Login {
 
   email = '';
   password = '';
+  errorMessage = '';
 
   constructor(
     private authService: AuthService,
@@ -37,15 +38,24 @@ export class Login {
     }
 
     this.authService.login(this.email, this.password)
-      .subscribe({
-        next: (user) => {
-          this.authService.saveUser(user);
-          this.redirectByRole(user.role);
-        },
-        error: () => {
-          alert('Email ou mot de passe incorrect.');
-        }
-      });
+  .subscribe({
+    next: (response) => {
+      this.authService.saveAuthData(response);
+
+      const user = response.user;
+
+      if (user.role === 'ADMIN') {
+        this.router.navigate(['/admin']);
+      } else if (user.role === 'CLIENT') {
+        this.router.navigate(['/client']);
+      } else if (user.role === 'COACH') {
+        this.router.navigate(['/coach']);
+      }
+    },
+    error: () => {
+      this.errorMessage = 'Email ou mot de passe incorrect.';
+    }
+  });
   }
 
   redirectByRole(role: string): void {

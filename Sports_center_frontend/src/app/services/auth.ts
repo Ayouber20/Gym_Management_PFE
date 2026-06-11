@@ -21,9 +21,10 @@ export class AuthService {
     });
   }
 
-  saveUser(user: any): void {
+  saveAuthData(response: any): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      localStorage.setItem('currentUser', JSON.stringify(response.user));
+      localStorage.setItem('token', response.token);
     }
   }
 
@@ -36,13 +37,22 @@ export class AuthService {
     return null;
   }
 
+  getToken(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token');
+    }
+
+    return null;
+  }
+
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('token');
     }
   }
 
   isLoggedIn(): boolean {
-    return this.getUser() !== null;
+    return this.getUser() !== null && this.getToken() !== null;
   }
 }

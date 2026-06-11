@@ -1,5 +1,7 @@
 package ma.ensaf.sportscenter.Controller;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import ma.ensaf.sportscenter.Entity.User;
 import ma.ensaf.sportscenter.Repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,14 @@ import java.util.Map;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -38,6 +45,8 @@ public class UserController {
                     .badRequest()
                     .body(error);
         }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = userRepository.save(user);
 

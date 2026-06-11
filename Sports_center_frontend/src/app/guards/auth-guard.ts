@@ -5,23 +5,18 @@ import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../services/auth';
 
 export const authGuard: CanActivateFn = (route, state) => {
-
   const authService = inject(AuthService);
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
 
-  /*
-    Important avec Angular SSR :
-    Pendant le rendu serveur, localStorage n'existe pas.
-    Donc on laisse passer côté serveur, puis le navigateur fera la vraie vérification.
-  */
   if (!isPlatformBrowser(platformId)) {
     return true;
   }
 
   const user = authService.getUser();
+  const token = authService.getToken();
 
-  if (!user) {
+  if (!user || !token) {
     router.navigate(['/login']);
     return false;
   }
@@ -30,8 +25,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (expectedRoles && expectedRoles.length > 0) {
     if (!expectedRoles.includes(user.role)) {
-      alert('Accès non autorisé.');
-
       if (user.role === 'CLIENT') {
         router.navigate(['/client']);
       } else if (user.role === 'COACH') {
