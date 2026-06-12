@@ -112,6 +112,16 @@ public class SecurityConfig {
                         .requestMatchers("/api/coach-requests", "/api/coach-requests/**")
                         .hasAuthority("ROLE_ADMIN")
 
+                        // NOTIFICATIONS
+                        .requestMatchers(HttpMethod.GET, "/api/notifications/client/**")
+                        .hasAuthority("ROLE_CLIENT")
+
+                        .requestMatchers(HttpMethod.GET, "/api/notifications/coach/**")
+                        .hasAuthority("ROLE_COACH")
+
+                        .requestMatchers(HttpMethod.GET, "/api/notifications/admin")
+                        .hasAuthority("ROLE_ADMIN")
+
                         // Everything else
                         .anyRequest().authenticated()
                 )

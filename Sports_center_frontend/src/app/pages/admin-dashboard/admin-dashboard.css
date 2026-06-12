@@ -103,6 +103,39 @@ button:hover {
   color: white;
 }
 
+.notifications-card {
+  max-width: 950px;
+  margin: 25px auto 35px auto;
+  padding: 25px;
+  background: #061221;
+  border: 1px solid rgba(216, 18, 18, 0.37);
+  border-radius: 18px;
+  color: white;
+}
+
+.notifications-card h2 {
+  color: #25bfff;
+  margin-bottom: 18px;
+}
+
+.notification-item {
+  background: rgba(37, 191, 255, 0.08);
+  border-left: 4px solid #ec1111ce;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.notification-item p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.notifications-card.empty p {
+  color: #d7f3ff;
+  margin: 0;
+}
+
 @media (max-width: 1000px) {
   .dashboard-cards {
     grid-template-columns: repeat(2, 1fr);

@@ -13,6 +13,25 @@
     Bienvenue dans votre espace client. Choisissez une fonctionnalité.
   </p>
 
+  @if (notificationsLoaded() && notifications().length > 0) {
+    <section class="notifications-card">
+      <h2>🔔 Notifications</h2>
+
+      @for (notification of notifications(); track notification.message) {
+        <div class="notification-item">
+          <p>{{ notification.message }}</p>
+        </div>
+      }
+    </section>
+  }
+
+  @if (notificationsLoaded() && notifications().length === 0) {
+    <section class="notifications-card empty">
+      <h2>🔔 Notifications</h2>
+      <p>Aucune séance prévue pour demain.</p>
+    </section>
+  }
+
   <div class="dashboard-cards">
 
     <div class="dashboard-card">
