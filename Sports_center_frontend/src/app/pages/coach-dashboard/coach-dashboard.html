@@ -14,23 +14,55 @@
   </p>
 
   @if (notificationsLoaded() && notifications().length > 0) {
-  <section class="notifications-card">
-    <h2>🔔 Notifications</h2>
+    <section class="notifications-card">
 
-    @for (notification of notifications(); track notification.message) {
-      <div class="notification-item">
-        <p>{{ notification.message }}</p>
+      <div class="notifications-header">
+        <h2>🔔 Notifications de demain</h2>
+        <span class="notification-badge">
+          {{ notifications().length }}
+        </span>
       </div>
-    }
-  </section>
-}
 
-@if (notificationsLoaded() && notifications().length === 0) {
-  <section class="notifications-card empty">
-    <h2>🔔 Notifications</h2>
-    <p>Aucune séance prévue pour demain.</p>
-  </section>
-}
+      @for (notification of notifications(); track notification.message) {
+        <div
+          class="notification-item"
+          [class.reservation]="notification.type === 'RESERVATION'"
+          [class.coach-session]="notification.type === 'COACH_SESSION'">
+
+          <div class="notification-icon">
+            @if (notification.type === 'RESERVATION') {
+              🎾
+            }
+
+            @if (notification.type === 'COACH_SESSION') {
+              🏋️
+            }
+          </div>
+
+          <div class="notification-content">
+            <p>{{ notification.message }}</p>
+
+            <small>
+              {{ notification.date }} à {{ notification.time.slice(0, 5) }}
+            </small>
+          </div>
+
+        </div>
+      }
+
+    </section>
+  }
+
+  @if (notificationsLoaded() && notifications().length === 0) {
+    <section class="notifications-card empty">
+      <div class="notifications-header">
+        <h2>🔔 Notifications de demain</h2>
+        <span class="notification-badge zero">0</span>
+      </div>
+
+      <p>Aucune séance ou réservation prévue pour demain.</p>
+    </section>
+  }
 
   <div class="dashboard-cards">
 
