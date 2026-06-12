@@ -1,6 +1,7 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 import { UserService } from '../../services/user';
 import { ClientService } from '../../services/client';
@@ -18,19 +19,21 @@ import { CoachRequestService } from '../../services/coach-request';
 })
 export class AdminStatistics {
 
-  usersCount = signal(0);
-  clientsCount = signal(0);
-  coachesCount = signal(0);
-  courtsCount = signal(0);
-  reservationsCount = signal(0);
-  coachRequestsCount = signal(0);
+  loaded = signal(false);
+  errorMessage = signal('');
 
-  pendingRequestsCount = signal(0);
-  acceptedRequestsCount = signal(0);
-  rejectedRequestsCount = signal(0);
+  totalUsers = signal(0);
+  totalClients = signal(0);
+  totalCoaches = signal(0);
+  totalReservations = signal(0);
+  totalCoachRequests = signal(0);
 
-  availableCourtsCount = signal(0);
-  maintenanceCourtsCount = signal(0);
+  availableCourts = signal(0);
+  maintenanceCourts = signal(0);
+
+  pendingRequests = signal(0);
+  acceptedRequests = signal(0);
+  rejectedRequests = signal(0);
 
   constructor(
     private userService: UserService,
@@ -46,54 +49,50 @@ export class AdminStatistics {
   }
 
   loadStatistics(): void {
-    this.userService.getUsers()
-      .subscribe(users => {
-        this.usersCount.set(users.length);
-      });
+    this.errorMessage.set('');
+    this.loaded.set(false);
 
-    this.clientService.getClients()
-      .subscribe(clients => {
-        this.clientsCount.set(clients.length);
-      });
+    forkJoin({
+      users: this.userService.getUsers(),
+      clients: this.clientService.getClients(),
+      coaches: this.coachService.getCoaches(),
+      courts: this.courtService.getCourts(),
+      reservations: this.reservationService.getReservations(),
+      coachRequests: this.coachRequestService.getRequests()
+    }).subscribe({
+      next: (data) => {
+        this.totalUsers.set(data.users.length);
+        this.totalClients.set(data.clients.length);
+        this.totalCoaches.set(data.coaches.length);
+        this.totalReservations.set(data.reservations.length);
+        this.totalCoachRequests.set(data.coachRequests.length);
 
-    this.coachService.getCoaches()
-      .subscribe(coaches => {
-        this.coachesCount.set(coaches.length);
-      });
-
-    this.courtService.getCourts()
-      .subscribe(courts => {
-        this.courtsCount.set(courts.length);
-
-        this.availableCourtsCount.set(
-          courts.filter(court => court.status === 'AVAILABLE').length
+        this.availableCourts.set(
+          data.courts.filter(court => court.status === 'AVAILABLE').length
         );
 
-        this.maintenanceCourtsCount.set(
-          courts.filter(court => court.status === 'MAINTENANCE').length
-        );
-      });
-
-    this.reservationService.getReservations()
-      .subscribe(reservations => {
-        this.reservationsCount.set(reservations.length);
-      });
-
-    this.coachRequestService.getRequests()
-      .subscribe(requests => {
-        this.coachRequestsCount.set(requests.length);
-
-        this.pendingRequestsCount.set(
-          requests.filter(request => request.status === 'PENDING').length
+        this.maintenanceCourts.set(
+          data.courts.filter(court => court.status === 'MAINTENANCE').length
         );
 
-        this.acceptedRequestsCount.set(
-          requests.filter(request => request.status === 'ACCEPTED').length
+        this.pendingRequests.set(
+          data.coachRequests.filter(request => request.status === 'PENDING').length
         );
 
-        this.rejectedRequestsCount.set(
-          requests.filter(request => request.status === 'REJECTED').length
+        this.acceptedRequests.set(
+          data.coachRequests.filter(request => request.status === 'ACCEPTED').length
         );
-      });
+
+        this.rejectedRequests.set(
+          data.coachRequests.filter(request => request.status === 'REJECTED').length
+        );
+
+        this.loaded.set(true);
+      },
+      error: () => {
+        this.loaded.set(true);
+        this.errorMessage.set('Erreur lors du chargement des statistiques.');
+      }
+    });
   }
 }

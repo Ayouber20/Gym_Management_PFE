@@ -4,7 +4,7 @@
     <h1>Statistiques</h1>
 
     <p>
-      Consultez les statistiques générales du centre sportif.
+      Vue générale de l’activité du centre sportif.
     </p>
 
     <button routerLink="/admin" class="back-btn">
@@ -12,75 +12,80 @@
     </button>
   </div>
 
-  <div class="stats-grid">
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
 
-    <div class="stat-card">
-      <h2>{{ usersCount() }}</h2>
-      <p>Utilisateurs</p>
+  @if (!loaded()) {
+    <div class="loading-card">
+      Chargement des statistiques...
+    </div>
+  }
+
+  @if (loaded() && !errorMessage()) {
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <h2>{{ totalUsers() }}</h2>
+        <p>Utilisateurs</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ totalClients() }}</h2>
+        <p>Clients</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ totalCoaches() }}</h2>
+        <p>Coachs</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ totalReservations() }}</h2>
+        <p>Réservations</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ totalCoachRequests() }}</h2>
+        <p>Demandes de coach</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ availableCourts() }}</h2>
+        <p>Terrains disponibles</p>
+      </div>
+
+      <div class="stat-card warning">
+        <h2>{{ maintenanceCourts() }}</h2>
+        <p>Terrains en maintenance</p>
+      </div>
+
     </div>
 
-    <div class="stat-card">
-      <h2>{{ clientsCount() }}</h2>
-      <p>Clients</p>
+    <div class="section-title">
+      <h2>État des demandes de coach</h2>
     </div>
 
-    <div class="stat-card">
-      <h2>{{ coachesCount() }}</h2>
-      <p>Coachs</p>
+    <div class="stats-grid small-grid">
+
+      <div class="stat-card pending">
+        <h2>{{ pendingRequests() }}</h2>
+        <p>En attente</p>
+      </div>
+
+      <div class="stat-card accepted">
+        <h2>{{ acceptedRequests() }}</h2>
+        <p>Acceptées</p>
+      </div>
+
+      <div class="stat-card rejected">
+        <h2>{{ rejectedRequests() }}</h2>
+        <p>Refusées</p>
+      </div>
+
     </div>
-
-    <div class="stat-card">
-      <h2>{{ courtsCount() }}</h2>
-      <p>Terrains</p>
-    </div>
-
-    <div class="stat-card">
-      <h2>{{ reservationsCount() }}</h2>
-      <p>Réservations</p>
-    </div>
-
-    <div class="stat-card">
-      <h2>{{ coachRequestsCount() }}</h2>
-      <p>Demandes coach</p>
-    </div>
-
-  </div>
-
-  <div class="details-grid">
-
-    <div class="details-card">
-      <h2>État des terrains de tennis</h2>
-
-      <p>
-        <span class="available-dot"></span>
-        Disponibles : {{ availableCourtsCount() }}
-      </p>
-
-      <p>
-        <span class="maintenance-dot"></span>
-        En maintenance : {{ maintenanceCourtsCount() }}
-      </p>
-    </div>
-
-    <div class="details-card">
-      <h2>État des demandes coach</h2>
-
-      <p>
-        <span class="pending">PENDING</span>
-        {{ pendingRequestsCount() }}
-      </p>
-
-      <p>
-        <span class="accepted">ACCEPTED</span>
-        {{ acceptedRequestsCount() }}
-      </p>
-
-      <p>
-        <span class="rejected">REJECTED</span>
-        {{ rejectedRequestsCount() }}
-      </p>
-    </div>
-
-  </div>
+  }
 
 </div>
