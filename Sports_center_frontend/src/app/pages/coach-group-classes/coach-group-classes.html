@@ -12,41 +12,112 @@
     </button>
   </div>
 
-  <div class="classes-grid">
+  <div class="filters-card">
 
-    @for (course of groupClasses; track course.title) {
-      <div class="class-card">
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Rechercher par titre...">
+    </div>
 
-        <h2>{{ course.title }}</h2>
+    <div class="filter-group">
+      <label>Activité :</label>
+      <select
+        [ngModel]="selectedActivityFilter()"
+        (ngModelChange)="selectedActivityFilter.set($event)">
+        @for (activity of activityFilters; track activity) {
+          <option [value]="activity">
+            {{ activity === 'ALL' ? 'Toutes les activités' : activity }}
+          </option>
+        }
+      </select>
+    </div>
 
-        <p>
-          <strong>Activité :</strong>
-          {{ course.activity }}
-        </p>
+    <div class="filter-group">
+      <label>Jour :</label>
+      <select
+        [ngModel]="selectedDayFilter()"
+        (ngModelChange)="selectedDayFilter.set($event)">
+        @for (day of dayFilters; track day) {
+          <option [value]="day">
+            {{ day === 'ALL' ? 'Tous les jours' : day }}
+          </option>
+        }
+      </select>
+    </div>
 
-        <p>
-          <strong>Jour :</strong>
-          {{ course.day }}
-        </p>
+    <div class="filter-group">
+      <label>Niveau :</label>
+      <select
+        [ngModel]="selectedLevelFilter()"
+        (ngModelChange)="selectedLevelFilter.set($event)">
+        @for (level of levelFilters; track level) {
+          <option [value]="level">
+            {{ level === 'ALL' ? 'Tous les niveaux' : level }}
+          </option>
+        }
+      </select>
+    </div>
 
-        <p>
-          <strong>Heure :</strong>
-          {{ course.time }}
-        </p>
-
-        <p>
-          <strong>Niveau :</strong>
-          {{ course.level }}
-        </p>
-
-        <p>
-          <strong>Participants :</strong>
-          {{ course.participants }}
-        </p>
-
-      </div>
-    }
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
 
   </div>
+
+  <div class="results-count">
+    {{ filteredGroupClasses().length }} cours affiché(s)
+  </div>
+
+  @if (filteredGroupClasses().length === 0) {
+    <div class="empty-card">
+      Aucun cours collectif ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredGroupClasses().length > 0) {
+    <div class="classes-grid">
+
+      @for (course of filteredGroupClasses(); track course.title) {
+        <div class="class-card">
+
+          <h2>{{ course.title }}</h2>
+
+          <p>
+            <strong>Activité :</strong>
+            {{ course.activity }}
+          </p>
+
+          <p>
+            <strong>Jour :</strong>
+            {{ course.day }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ course.time }}
+          </p>
+
+          <p>
+            <strong>Niveau :</strong>
+            {{ course.level }}
+          </p>
+
+          <p>
+            <strong>Participants :</strong>
+            {{ course.participants }}
+          </p>
+
+        </div>
+      }
+
+    </div>
+  }
 
 </div>

@@ -1,6 +1,7 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { ReservationService } from '../../services/reservation';
 import { AuthService } from '../../services/auth';
@@ -9,7 +10,7 @@ import { ClientService } from '../../services/client';
 @Component({
   selector: 'app-client-reservations',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './client-reservations.html',
   styleUrls: ['./client-reservations.css']
 })
@@ -22,6 +23,18 @@ export class ClientReservations {
   errorMessage = signal('');
 
   currentClientId: number | null = null;
+
+  selectedDate = signal('');
+  selectedCourtFilter = signal('ALL');
+  selectedStatusFilter = signal('ALL');
+
+  statusFilters: string[] = [
+    'ALL',
+    'CONFIRMED',
+    'PENDING',
+    'CANCELLED',
+    'COMPLETED'
+  ];
 
   constructor(
     private reservationService: ReservationService,
@@ -67,7 +80,17 @@ export class ClientReservations {
       .getReservationsByClient(this.currentClientId)
       .subscribe({
         next: (data) => {
-          this.reservations.set(data);
+          const sortedReservations = data.sort((a, b) => {
+            if (a.reservationDate < b.reservationDate) return -1;
+            if (a.reservationDate > b.reservationDate) return 1;
+
+            if (a.startTime < b.startTime) return -1;
+            if (a.startTime > b.startTime) return 1;
+
+            return 0;
+          });
+
+          this.reservations.set(sortedReservations);
           this.loaded.set(true);
         },
         error: () => {
@@ -76,6 +99,38 @@ export class ClientReservations {
           this.successMessage.set('');
         }
       });
+  }
+
+  filteredReservations(): any[] {
+    return this.reservations().filter(reservation => {
+      const matchesDate =
+        !this.selectedDate() ||
+        reservation.reservationDate === this.selectedDate();
+
+      const matchesCourt =
+        this.selectedCourtFilter() === 'ALL' ||
+        String(reservation.court?.courtNumber) === this.selectedCourtFilter();
+
+      const matchesStatus =
+        this.selectedStatusFilter() === 'ALL' ||
+        reservation.status === this.selectedStatusFilter();
+
+      return matchesDate && matchesCourt && matchesStatus;
+    });
+  }
+
+  getCourtNumbers(): number[] {
+    const courtNumbers = this.reservations()
+      .map(reservation => reservation.court?.courtNumber)
+      .filter(courtNumber => courtNumber !== undefined && courtNumber !== null);
+
+    return [...new Set(courtNumbers)].sort((a, b) => a - b);
+  }
+
+  resetFilters(): void {
+    this.selectedDate.set('');
+    this.selectedCourtFilter.set('ALL');
+    this.selectedStatusFilter.set('ALL');
   }
 
   deleteReservation(id: number): void {

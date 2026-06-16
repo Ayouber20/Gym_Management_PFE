@@ -24,16 +24,82 @@
     </div>
   }
 
+  <div class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche client :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Nom, prénom ou email...">
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDate()"
+        (ngModelChange)="selectedDate.set($event)">
+    </div>
+
+    <div class="filter-group">
+      <label>Terrain :</label>
+      <select
+        [ngModel]="selectedCourtFilter()"
+        (ngModelChange)="selectedCourtFilter.set($event)">
+        <option value="ALL">Tous les terrains</option>
+
+        @for (courtNumber of getCourtNumbers(); track courtNumber) {
+          <option [value]="courtNumber">
+            Terrain {{ courtNumber }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Statut :</label>
+      <select
+        [ngModel]="selectedStatusFilter()"
+        (ngModelChange)="selectedStatusFilter.set($event)">
+        @for (status of statusFilters; track status) {
+          <option [value]="status">
+            {{ status === 'ALL' ? 'Tous les statuts' : status }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </div>
+
+  <div class="results-count">
+    {{ filteredReservations().length }} réservation(s) affichée(s)
+  </div>
+
   @if (loaded() && reservations().length === 0) {
     <div class="empty-card">
       Aucune réservation trouvée.
     </div>
   }
 
-  @if (reservations().length > 0) {
+  @if (loaded() && reservations().length > 0 && filteredReservations().length === 0) {
+    <div class="empty-card">
+      Aucune réservation ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredReservations().length > 0) {
     <div class="reservations-grid">
 
-      @for (reservation of reservations(); track reservation.id) {
+      @for (reservation of filteredReservations(); track reservation.id) {
         <div class="reservation-card">
 
           <h2>Terrain {{ reservation.court.courtNumber }}</h2>

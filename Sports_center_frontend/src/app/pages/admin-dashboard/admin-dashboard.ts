@@ -16,6 +16,8 @@ export class AdminDashboard {
   notifications = signal<any[]>([]);
   notificationsLoaded = signal(false);
 
+  errorMessage = signal('');
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -35,12 +37,28 @@ export class AdminDashboard {
     this.notificationService.getAdminNotifications()
       .subscribe({
         next: (data) => {
-          this.notifications.set(data);
+          const sortedNotifications = data.sort((a, b) => {
+            const timeA = a.time || '';
+            const timeB = b.time || '';
+
+            return timeA.localeCompare(timeB);
+          });
+
+          this.notifications.set(sortedNotifications);
           this.notificationsLoaded.set(true);
         },
         error: () => {
           this.notificationsLoaded.set(true);
+          this.errorMessage.set('Erreur lors du chargement des notifications.');
         }
       });
+  }
+
+  formatTime(time: string): string {
+    if (!time) {
+      return '';
+    }
+
+    return time.slice(0, 5);
   }
 }

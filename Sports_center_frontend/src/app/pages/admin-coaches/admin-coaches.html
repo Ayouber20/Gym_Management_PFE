@@ -30,7 +30,9 @@
       <h2>Nouveau coach</h2>
 
       <label>Utilisateur :</label>
-      <select [(ngModel)]="selectedUserId">
+      <select
+        [ngModel]="selectedUserId()"
+        (ngModelChange)="selectedUserId.set($event)">
         <option [ngValue]="null">Choisir un utilisateur COACH...</option>
 
         @for (user of users(); track user.id) {
@@ -41,7 +43,9 @@
       </select>
 
       <label>Spécialité :</label>
-      <select [(ngModel)]="speciality">
+      <select
+        [ngModel]="speciality()"
+        (ngModelChange)="speciality.set($event)">
         <option value="">Choisir une spécialité...</option>
 
         @for (spec of specialities; track spec) {
@@ -52,7 +56,9 @@
       </select>
 
       <label>Disponibilité :</label>
-      <select [(ngModel)]="availability">
+      <select
+        [ngModel]="availability()"
+        (ngModelChange)="availability.set($event)">
         <option value="">Choisir une disponibilité...</option>
 
         @for (av of availabilities; track av) {
@@ -82,13 +88,73 @@
     <section class="coaches-list">
       <h2>Liste des coachs</h2>
 
+      <div class="filters-card">
+
+        <div class="filter-group">
+          <label>Recherche :</label>
+          <input
+            type="text"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)"
+            placeholder="Nom, prénom ou email...">
+        </div>
+
+        <div class="filter-group">
+          <label>Spécialité :</label>
+          <select
+            [ngModel]="selectedSpecialityFilter()"
+            (ngModelChange)="selectedSpecialityFilter.set($event)">
+            <option value="ALL">Toutes les spécialités</option>
+
+            @for (spec of specialities; track spec) {
+              <option [value]="spec">
+                {{ spec }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Disponibilité :</label>
+          <select
+            [ngModel]="selectedAvailabilityFilter()"
+            (ngModelChange)="selectedAvailabilityFilter.set($event)">
+            <option value="ALL">Toutes les disponibilités</option>
+
+            @for (av of availabilities; track av) {
+              <option [value]="av">
+                {{ av }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <button
+          type="button"
+          class="clear-filters-btn"
+          (click)="resetFilters()">
+          Réinitialiser
+        </button>
+
+      </div>
+
+      <div class="results-count">
+        {{ filteredCoaches().length }} coach(s) affiché(s)
+      </div>
+
       @if (loaded() && coaches().length === 0) {
         <div class="empty-card">
           Aucun coach trouvé.
         </div>
       }
 
-      @if (coaches().length > 0) {
+      @if (loaded() && coaches().length > 0 && filteredCoaches().length === 0) {
+        <div class="empty-card">
+          Aucun coach ne correspond aux filtres.
+        </div>
+      }
+
+      @if (filteredCoaches().length > 0) {
         <div class="table-container">
 
           <table>
@@ -104,7 +170,7 @@
             </thead>
 
             <tbody>
-              @for (coach of coaches(); track coach.id) {
+              @for (coach of filteredCoaches(); track coach.id) {
                 <tr>
                   <td>{{ coach.id }}</td>
                   <td>

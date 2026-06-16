@@ -1,104 +1,51 @@
-<div class="home-container">
+<div class="home-page">
 
-  <div class="overlay"></div>
+  <header class="hero-section">
 
-  <section class="hero">
-    <h1>
-      CENTRE <span>SPORTIF</span>
-    </h1>
+    <div class="hero-content">
+      <h1>Sports Center</h1>
 
-    <p>
-      Bienvenue dans notre plateforme de gestion du centre sportif.
-      Choisissez une activité pour continuer.
-    </p>
-  </section>
+      <p class="subtitle">
+        Plateforme de gestion moderne dédiée aux activités sportives, aux réservations de terrains
+        et au suivi des séances avec les coachs.
+      </p>
 
-  <section class="activities">
+      <p class="description">
+        Notre centre sportif propose un espace organisé pour les clients, les coachs et les administrateurs.
+        Les clients peuvent réserver des terrains et demander un coach, les coachs peuvent gérer leurs séances,
+        et l’administration supervise l’ensemble des ressources du centre.
+      </p>
 
-    <div class="activity-card gym-card">
-      <div class="icon-circle green">
-        🏋️
-      </div>
+      <button routerLink="/login" class="login-btn">
+        Se connecter
+      </button>
+    </div>
 
-      <h2>Salle de Gym</h2>
+  </header>
 
+  <section class="features-section">
+
+    <div class="feature-card">
+      <h2>🎾 Réservations</h2>
       <p>
-        Accédez à l’espace gym pour vos séances de musculation
-        et de remise en forme.
+        Réservation simple des terrains de tennis selon les créneaux disponibles.
       </p>
     </div>
 
-    <div class="activity-card tennis-card">
-      <div class="icon-circle orange">
-        🎾
-      </div>
-
-      <h2>Tennis</h2>
-
+    <div class="feature-card">
+      <h2>🏋️ Coaching</h2>
       <p>
-        Réservez un terrain de tennis selon les créneaux disponibles.
-      </p>
-
-      <button routerLink="/client" class="orange-btn">
-        Réserver un terrain
-      </button>
-    </div>
-
-    <div class="activity-card pool-card">
-      <div class="icon-circle blue">
-        🏊
-      </div>
-
-      <h2>Piscine</h2>
-
-      <p>
-        Accédez à l’espace piscine pour vos séances de natation.
+        Demande de coach pour différentes activités sportives selon les besoins des clients.
       </p>
     </div>
 
-  </section>
-
-  <section class="coach-section">
-
-    <div class="coach-icon">
-      💪
-    </div>
-
-    <div class="coach-text">
-      <h2>Besoin d’un coach ?</h2>
-
+    <div class="feature-card">
+      <h2>⚙️ Administration</h2>
       <p>
-        Vous pouvez demander l’accompagnement d’un coach pour le tennis,
-        la salle de gym ou la piscine.
+        Gestion centralisée des utilisateurs, coachs, clients, terrains, réservations et statistiques.
       </p>
     </div>
 
-    <button routerLink="/demande-coach" class="coach-btn">
-      Demander un coach
-    </button>
-
-  </section>
-
-  <section class="access-section">
-    <h2>Espaces utilisateurs</h2>
-
-    <div class="access-buttons">
-      <button routerLink="/login">
-        Connexion
-      </button>
-      
-      <button routerLink="/client" class="green-outline">
-        Espace Client
-      </button>
-
-      <button routerLink="/coach" class="orange-outline">
-        Espace Coach
-      </button>
-
-      <button routerLink="/admin" class="blue-outline">
-        Espace Admin
-      </button>
-    </div>
   </section>
 
 </div>

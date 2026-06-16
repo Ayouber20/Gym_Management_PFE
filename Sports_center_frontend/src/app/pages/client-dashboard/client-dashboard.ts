@@ -17,6 +17,8 @@ export class ClientDashboard {
   notifications = signal<any[]>([]);
   notificationsLoaded = signal(false);
 
+  errorMessage = signal('');
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -38,6 +40,7 @@ export class ClientDashboard {
 
     if (!user) {
       this.notificationsLoaded.set(true);
+      this.errorMessage.set('Vous devez être connecté.');
       return;
     }
 
@@ -47,17 +50,34 @@ export class ClientDashboard {
           this.notificationService.getClientNotifications(client.id)
             .subscribe({
               next: (data) => {
-                this.notifications.set(data);
+                const sortedNotifications = data.sort((a, b) => {
+                  const timeA = a.time || '';
+                  const timeB = b.time || '';
+
+                  return timeA.localeCompare(timeB);
+                });
+
+                this.notifications.set(sortedNotifications);
                 this.notificationsLoaded.set(true);
               },
               error: () => {
                 this.notificationsLoaded.set(true);
+                this.errorMessage.set('Erreur lors du chargement des notifications.');
               }
             });
         },
         error: () => {
           this.notificationsLoaded.set(true);
+          this.errorMessage.set('Profil client introuvable.');
         }
       });
+  }
+
+  formatTime(time: string): string {
+    if (!time) {
+      return '';
+    }
+
+    return time.slice(0, 5);
   }
 }

@@ -17,6 +17,8 @@ export class CoachDashboard {
   notifications = signal<any[]>([]);
   notificationsLoaded = signal(false);
 
+  errorMessage = signal('');
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -38,6 +40,7 @@ export class CoachDashboard {
 
     if (!user) {
       this.notificationsLoaded.set(true);
+      this.errorMessage.set('Vous devez être connecté.');
       return;
     }
 
@@ -47,17 +50,34 @@ export class CoachDashboard {
           this.notificationService.getCoachNotifications(coach.id)
             .subscribe({
               next: (data) => {
-                this.notifications.set(data);
+                const sortedNotifications = data.sort((a, b) => {
+                  const timeA = a.time || '';
+                  const timeB = b.time || '';
+
+                  return timeA.localeCompare(timeB);
+                });
+
+                this.notifications.set(sortedNotifications);
                 this.notificationsLoaded.set(true);
               },
               error: () => {
                 this.notificationsLoaded.set(true);
+                this.errorMessage.set('Erreur lors du chargement des notifications.');
               }
             });
         },
         error: () => {
           this.notificationsLoaded.set(true);
+          this.errorMessage.set('Profil coach introuvable.');
         }
       });
+  }
+
+  formatTime(time: string): string {
+    if (!time) {
+      return '';
+    }
+
+    return time.slice(0, 5);
   }
 }

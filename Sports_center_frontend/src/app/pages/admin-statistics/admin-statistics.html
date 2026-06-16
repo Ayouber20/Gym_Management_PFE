@@ -43,6 +43,11 @@
       </div>
 
       <div class="stat-card">
+        <h2>{{ totalCourts() }}</h2>
+        <p>Terrains</p>
+      </div>
+
+      <div class="stat-card">
         <h2>{{ totalReservations() }}</h2>
         <p>Réservations</p>
       </div>
@@ -52,7 +57,7 @@
         <p>Demandes de coach</p>
       </div>
 
-      <div class="stat-card">
+      <div class="stat-card accepted">
         <h2>{{ availableCourts() }}</h2>
         <p>Terrains disponibles</p>
       </div>
@@ -60,6 +65,52 @@
       <div class="stat-card warning">
         <h2>{{ maintenanceCourts() }}</h2>
         <p>Terrains en maintenance</p>
+      </div>
+
+    </div>
+
+    <div class="section-title">
+      <h2>Indicateurs rapides</h2>
+    </div>
+
+    <div class="stats-grid small-grid">
+
+      <div class="stat-card">
+        <h2>{{ courtAvailabilityRate() }}%</h2>
+        <p>Taux de disponibilité des terrains</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ coachRequestAcceptanceRate() }}%</h2>
+        <p>Taux d’acceptation des demandes coach</p>
+      </div>
+
+    </div>
+
+    <div class="section-title">
+      <h2>État des réservations</h2>
+    </div>
+
+    <div class="stats-grid small-grid">
+
+      <div class="stat-card accepted">
+        <h2>{{ confirmedReservations() }}</h2>
+        <p>Confirmées</p>
+      </div>
+
+      <div class="stat-card pending">
+        <h2>{{ pendingReservations() }}</h2>
+        <p>En attente</p>
+      </div>
+
+      <div class="stat-card rejected">
+        <h2>{{ cancelledReservations() }}</h2>
+        <p>Annulées</p>
+      </div>
+
+      <div class="stat-card">
+        <h2>{{ completedReservations() }}</h2>
+        <p>Terminées</p>
       </div>
 
     </div>

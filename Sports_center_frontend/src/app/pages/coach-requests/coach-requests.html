@@ -24,16 +24,80 @@
     </div>
   }
 
+  <div class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche client :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Nom, prénom ou email...">
+    </div>
+
+    <div class="filter-group">
+      <label>Activité :</label>
+      <select
+        [ngModel]="selectedActivityFilter()"
+        (ngModelChange)="selectedActivityFilter.set($event)">
+        @for (activity of activityFilters; track activity) {
+          <option [value]="activity">
+            {{ activity === 'ALL' ? 'Toutes les activités' : activity }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Statut :</label>
+      <select
+        [ngModel]="selectedStatusFilter()"
+        (ngModelChange)="selectedStatusFilter.set($event)">
+        @for (status of statusFilters; track status) {
+          <option [value]="status">
+            {{ status === 'ALL' ? 'Tous les statuts' : status }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDate()"
+        (ngModelChange)="selectedDate.set($event)">
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </div>
+
+  <div class="results-count">
+    {{ filteredRequests().length }} demande(s) affichée(s)
+  </div>
+
   @if (loaded() && requests().length === 0) {
     <div class="empty-card">
       <p>Aucune demande trouvée.</p>
     </div>
   }
 
-  @if (requests().length > 0) {
+  @if (loaded() && requests().length > 0 && filteredRequests().length === 0) {
+    <div class="empty-card">
+      <p>Aucune demande ne correspond aux filtres.</p>
+    </div>
+  }
+
+  @if (filteredRequests().length > 0) {
     <div class="requests-grid">
 
-      @for (request of requests(); track request.id) {
+      @for (request of filteredRequests(); track request.id) {
         <div class="request-card">
 
           <h2>{{ request.activity }}</h2>
@@ -50,7 +114,7 @@
 
           <p>
             <strong>Heure :</strong>
-            {{ request.requestTime }}
+            {{ request.requestTime.slice(0, 5) }}
           </p>
 
           <p>

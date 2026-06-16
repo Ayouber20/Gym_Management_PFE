@@ -29,6 +29,10 @@ public class ReservationService {
             );
         }
 
+        if (!reservation.getReservationDate().isAfter(LocalDate.now())) {
+            throw new RuntimeException("Les réservations doivent être faites au minimum un jour à l’avance.");
+        }
+
         if (durationHours < 2) {
             throw new RuntimeException(
                     "Une réservation doit durer au minimum 2 heures."

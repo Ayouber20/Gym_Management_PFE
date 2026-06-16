@@ -1,6 +1,7 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { CoachRequestService } from '../../services/coach-request';
 import { AuthService } from '../../services/auth';
@@ -9,7 +10,7 @@ import { ClientService } from '../../services/client';
 @Component({
   selector: 'app-client-coach-requests',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './client-coach-requests.html',
   styleUrls: ['./client-coach-requests.css']
 })
@@ -18,7 +19,27 @@ export class ClientCoachRequests {
   requests = signal<any[]>([]);
   loaded = signal(false);
 
+  errorMessage = signal('');
+
   currentClientId: number | null = null;
+
+  selectedActivityFilter = signal('ALL');
+  selectedStatusFilter = signal('ALL');
+  selectedDate = signal('');
+
+  activityFilters: string[] = [
+    'ALL',
+    'TENNIS',
+    'GYM',
+    'PISCINE'
+  ];
+
+  statusFilters: string[] = [
+    'ALL',
+    'PENDING',
+    'ACCEPTED',
+    'REJECTED'
+  ];
 
   constructor(
     private coachRequestService: CoachRequestService,
@@ -35,7 +56,7 @@ export class ClientCoachRequests {
 
     if (!user) {
       this.loaded.set(true);
-      alert('Vous devez être connecté.');
+      this.errorMessage.set('Vous devez être connecté.');
       return;
     }
 
@@ -47,7 +68,7 @@ export class ClientCoachRequests {
         },
         error: () => {
           this.loaded.set(true);
-          alert('Profil client introuvable.');
+          this.errorMessage.set('Profil client introuvable.');
         }
       });
   }
@@ -62,13 +83,47 @@ export class ClientCoachRequests {
       .getRequestsByClient(this.currentClientId)
       .subscribe({
         next: (data) => {
-          this.requests.set(data);
+          const sortedRequests = data.sort((a, b) => {
+            if (a.requestDate < b.requestDate) return -1;
+            if (a.requestDate > b.requestDate) return 1;
+
+            if (a.requestTime < b.requestTime) return -1;
+            if (a.requestTime > b.requestTime) return 1;
+
+            return 0;
+          });
+
+          this.requests.set(sortedRequests);
           this.loaded.set(true);
         },
         error: () => {
           this.loaded.set(true);
-          alert('Erreur lors du chargement des demandes.');
+          this.errorMessage.set('Erreur lors du chargement des demandes.');
         }
       });
+  }
+
+  filteredRequests(): any[] {
+    return this.requests().filter(request => {
+      const matchesActivity =
+        this.selectedActivityFilter() === 'ALL' ||
+        request.activity === this.selectedActivityFilter();
+
+      const matchesStatus =
+        this.selectedStatusFilter() === 'ALL' ||
+        request.status === this.selectedStatusFilter();
+
+      const matchesDate =
+        !this.selectedDate() ||
+        request.requestDate === this.selectedDate();
+
+      return matchesActivity && matchesStatus && matchesDate;
+    });
+  }
+
+  resetFilters(): void {
+    this.selectedActivityFilter.set('ALL');
+    this.selectedStatusFilter.set('ALL');
+    this.selectedDate.set('');
   }
 }

@@ -22,9 +22,13 @@ export class AdminCoaches {
   successMessage = signal('');
   errorMessage = signal('');
 
-  selectedUserId: number | null = null;
-  speciality = '';
-  availability = '';
+  selectedUserId = signal<number | null>(null);
+  speciality = signal('');
+  availability = signal('');
+
+  searchTerm = signal('');
+  selectedSpecialityFilter = signal('ALL');
+  selectedAvailabilityFilter = signal('ALL');
 
   specialities: string[] = [
     'TENNIS',
@@ -53,7 +57,14 @@ export class AdminCoaches {
     this.coachService.getCoaches()
       .subscribe({
         next: (data) => {
-          this.coaches.set(data);
+          const sortedCoaches = data.sort((a, b) => {
+            const nameA = `${a.user?.firstName || ''} ${a.user?.lastName || ''}`.toLowerCase();
+            const nameB = `${b.user?.firstName || ''} ${b.user?.lastName || ''}`.toLowerCase();
+
+            return nameA.localeCompare(nameB);
+          });
+
+          this.coaches.set(sortedCoaches);
           this.loaded.set(true);
         },
         error: () => {
@@ -68,7 +79,15 @@ export class AdminCoaches {
     this.userService.getUsers()
       .subscribe({
         next: (data) => {
-          const coachUsers = data.filter(user => user.role === 'COACH');
+          const coachUsers = data
+            .filter(user => user.role === 'COACH')
+            .sort((a, b) => {
+              const nameA = `${a.firstName || ''} ${a.lastName || ''}`.toLowerCase();
+              const nameB = `${b.firstName || ''} ${b.lastName || ''}`.toLowerCase();
+
+              return nameA.localeCompare(nameB);
+            });
+
           this.users.set(coachUsers);
         },
         error: () => {
@@ -78,20 +97,52 @@ export class AdminCoaches {
       });
   }
 
+  filteredCoaches(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.coaches().filter(coach => {
+      const fullName =
+        `${coach.user?.firstName || ''} ${coach.user?.lastName || ''}`.toLowerCase();
+
+      const email =
+        coach.user?.email?.toLowerCase() || '';
+
+      const matchesSearch =
+        fullName.includes(search) ||
+        email.includes(search);
+
+      const matchesSpeciality =
+        this.selectedSpecialityFilter() === 'ALL' ||
+        coach.speciality === this.selectedSpecialityFilter();
+
+      const matchesAvailability =
+        this.selectedAvailabilityFilter() === 'ALL' ||
+        coach.availability === this.selectedAvailabilityFilter();
+
+      return matchesSearch && matchesSpeciality && matchesAvailability;
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedSpecialityFilter.set('ALL');
+    this.selectedAvailabilityFilter.set('ALL');
+  }
+
   createCoach(): void {
     this.successMessage.set('');
     this.errorMessage.set('');
 
-    if (!this.selectedUserId || !this.speciality || !this.availability) {
+    if (!this.selectedUserId() || !this.speciality() || !this.availability()) {
       this.errorMessage.set('Veuillez remplir tous les champs.');
       return;
     }
 
     const coach = {
-      speciality: this.speciality,
-      availability: this.availability,
+      speciality: this.speciality(),
+      availability: this.availability(),
       user: {
-        id: this.selectedUserId
+        id: this.selectedUserId()
       }
     };
 
@@ -116,8 +167,8 @@ export class AdminCoaches {
   }
 
   resetForm(): void {
-    this.selectedUserId = null;
-    this.speciality = '';
-    this.availability = '';
+    this.selectedUserId.set(null);
+    this.speciality.set('');
+    this.availability.set('');
   }
 }

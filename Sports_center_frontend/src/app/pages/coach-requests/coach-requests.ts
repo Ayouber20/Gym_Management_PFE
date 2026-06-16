@@ -1,6 +1,7 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { CoachRequestService } from '../../services/coach-request';
 import { AuthService } from '../../services/auth';
@@ -9,7 +10,7 @@ import { CoachService } from '../../services/coach';
 @Component({
   selector: 'app-coach-requests',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './coach-requests.html',
   styleUrls: ['./coach-requests.css']
 })
@@ -22,6 +23,25 @@ export class CoachRequests {
   errorMessage = signal('');
 
   currentCoachId: number | null = null;
+
+  searchTerm = signal('');
+  selectedActivityFilter = signal('ALL');
+  selectedStatusFilter = signal('ALL');
+  selectedDate = signal('');
+
+  activityFilters: string[] = [
+    'ALL',
+    'TENNIS',
+    'GYM',
+    'PISCINE'
+  ];
+
+  statusFilters: string[] = [
+    'ALL',
+    'PENDING',
+    'ACCEPTED',
+    'REJECTED'
+  ];
 
   constructor(
     private coachRequestService: CoachRequestService,
@@ -66,9 +86,17 @@ export class CoachRequests {
     this.coachRequestService.getRequests()
       .subscribe({
         next: (data) => {
-          const coachRequests = data.filter(
-            request => request.coach.id === this.currentCoachId
-          );
+          const coachRequests = data
+            .filter(request => request.coach.id === this.currentCoachId)
+            .sort((a, b) => {
+              if (a.requestDate < b.requestDate) return -1;
+              if (a.requestDate > b.requestDate) return 1;
+
+              if (a.requestTime < b.requestTime) return -1;
+              if (a.requestTime > b.requestTime) return 1;
+
+              return 0;
+            });
 
           this.requests.set(coachRequests);
           this.loaded.set(true);
@@ -79,6 +107,43 @@ export class CoachRequests {
           this.successMessage.set('');
         }
       });
+  }
+
+  filteredRequests(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.requests().filter(request => {
+      const clientFullName =
+        `${request.client?.user?.firstName || ''} ${request.client?.user?.lastName || ''}`.toLowerCase();
+
+      const clientEmail =
+        request.client?.user?.email?.toLowerCase() || '';
+
+      const matchesSearch =
+        clientFullName.includes(search) ||
+        clientEmail.includes(search);
+
+      const matchesActivity =
+        this.selectedActivityFilter() === 'ALL' ||
+        request.activity === this.selectedActivityFilter();
+
+      const matchesStatus =
+        this.selectedStatusFilter() === 'ALL' ||
+        request.status === this.selectedStatusFilter();
+
+      const matchesDate =
+        !this.selectedDate() ||
+        request.requestDate === this.selectedDate();
+
+      return matchesSearch && matchesActivity && matchesStatus && matchesDate;
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedActivityFilter.set('ALL');
+    this.selectedStatusFilter.set('ALL');
+    this.selectedDate.set('');
   }
 
   acceptRequest(id: number): void {

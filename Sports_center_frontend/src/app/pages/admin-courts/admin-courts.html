@@ -24,16 +24,59 @@
     </div>
   }
 
+  <div class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Ex : terrain 1 ou 1...">
+    </div>
+
+    <div class="filter-group">
+      <label>Statut :</label>
+      <select
+        [ngModel]="selectedStatusFilter()"
+        (ngModelChange)="selectedStatusFilter.set($event)">
+        @for (status of statusFilters; track status) {
+          <option [value]="status">
+            {{ status === 'ALL' ? 'Tous les statuts' : status }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </div>
+
+  <div class="results-count">
+    {{ filteredCourts().length }} terrain(s) affiché(s)
+  </div>
+
   @if (loaded() && courts().length === 0) {
     <div class="empty-card">
       Aucun terrain trouvé.
     </div>
   }
 
-  @if (courts().length > 0) {
+  @if (loaded() && courts().length > 0 && filteredCourts().length === 0) {
+    <div class="empty-card">
+      Aucun terrain ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredCourts().length > 0) {
     <div class="courts-grid">
 
-      @for (court of courts(); track court.id) {
+      @for (court of filteredCourts(); track court.id) {
         <div class="court-card">
 
           <h2>Terrain {{ court.courtNumber }}</h2>

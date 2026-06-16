@@ -32,29 +32,39 @@
       <label>Prénom :</label>
       <input
         type="text"
-        [(ngModel)]="firstName"
+        [ngModel]="firstName()"
+        (ngModelChange)="firstName.set($event)"
         placeholder="Prénom">
 
       <label>Nom :</label>
       <input
         type="text"
-        [(ngModel)]="lastName"
+        [ngModel]="lastName()"
+        (ngModelChange)="lastName.set($event)"
         placeholder="Nom">
 
       <label>Email :</label>
       <input
         type="email"
-        [(ngModel)]="email"
+        name="newUserEmail"
+        autocomplete="new-password"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
         placeholder="email@example.com">
 
       <label>Mot de passe :</label>
       <input
         type="password"
-        [(ngModel)]="password"
+        name="newUserPassword"
+        autocomplete="new-password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
         placeholder="Mot de passe">
 
       <label>Rôle :</label>
-      <select [(ngModel)]="role">
+      <select
+        [ngModel]="role()"
+        (ngModelChange)="role.set($event)">
         <option value="">Choisir un rôle...</option>
 
         @for (r of roles; track r) {
@@ -84,13 +94,56 @@
     <section class="users-list">
       <h2>Liste des utilisateurs</h2>
 
+      <div class="filters-card">
+
+        <div class="filter-group">
+          <label>Recherche :</label>
+          <input
+            type="text"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)"
+            placeholder="Rechercher par prénom, nom ou email...">
+        </div>
+
+        <div class="filter-group">
+          <label>Rôle :</label>
+          <select
+            [ngModel]="selectedRoleFilter()"
+            (ngModelChange)="selectedRoleFilter.set($event)">
+            @for (filter of roleFilters; track filter) {
+              <option [value]="filter">
+                {{ filter === 'ALL' ? 'Tous les rôles' : filter }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <button
+          type="button"
+          class="clear-filters-btn"
+          (click)="resetFilters()">
+          Réinitialiser
+        </button>
+
+      </div>
+
+      <div class="results-count">
+        {{ filteredUsers().length }} utilisateur(s) affiché(s)
+      </div>
+
       @if (loaded() && users().length === 0) {
         <div class="empty-card">
           Aucun utilisateur trouvé.
         </div>
       }
 
-      @if (users().length > 0) {
+      @if (loaded() && users().length > 0 && filteredUsers().length === 0) {
+        <div class="empty-card">
+          Aucun utilisateur ne correspond aux filtres.
+        </div>
+      }
+
+      @if (filteredUsers().length > 0) {
         <div class="table-container">
 
           <table>
@@ -105,7 +158,7 @@
             </thead>
 
             <tbody>
-              @for (user of users(); track user.id) {
+              @for (user of filteredUsers(); track user.id) {
                 <tr>
                   <td>{{ user.id }}</td>
                   <td>{{ user.firstName }}</td>

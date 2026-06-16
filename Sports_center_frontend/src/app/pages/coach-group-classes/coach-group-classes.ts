@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-coach-group-classes',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './coach-group-classes.html',
   styleUrls: ['./coach-group-classes.css']
 })
 export class CoachGroupClasses {
+
+  searchTerm = signal('');
+  selectedActivityFilter = signal('ALL');
+  selectedDayFilter = signal('ALL');
+  selectedLevelFilter = signal('ALL');
 
   groupClasses = [
     {
@@ -45,4 +51,62 @@ export class CoachGroupClasses {
       participants: 15
     }
   ];
+
+  activityFilters: string[] = [
+    'ALL',
+    'TENNIS',
+    'GYM',
+    'PISCINE'
+  ];
+
+  dayFilters: string[] = [
+    'ALL',
+    'Lundi',
+    'Mardi',
+    'Mercredi',
+    'Jeudi',
+    'Vendredi',
+    'Samedi',
+    'Dimanche'
+  ];
+
+  levelFilters: string[] = [
+    'ALL',
+    'Débutant',
+    'Intermédiaire',
+    'Avancé',
+    'Junior'
+  ];
+
+  filteredGroupClasses(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.groupClasses.filter(course => {
+      const title = course.title.toLowerCase();
+
+      const matchesSearch =
+        title.includes(search);
+
+      const matchesActivity =
+        this.selectedActivityFilter() === 'ALL' ||
+        course.activity === this.selectedActivityFilter();
+
+      const matchesDay =
+        this.selectedDayFilter() === 'ALL' ||
+        course.day === this.selectedDayFilter();
+
+      const matchesLevel =
+        this.selectedLevelFilter() === 'ALL' ||
+        course.level === this.selectedLevelFilter();
+
+      return matchesSearch && matchesActivity && matchesDay && matchesLevel;
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedActivityFilter.set('ALL');
+    this.selectedDayFilter.set('ALL');
+    this.selectedLevelFilter.set('ALL');
+  }
 }

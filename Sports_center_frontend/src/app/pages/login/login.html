@@ -8,22 +8,32 @@
       Connectez-vous à votre espace.
     </p>
 
+    @if (errorMessage()) {
+      <div class="error-message">
+        ❌ {{ errorMessage() }}
+      </div>
+    }
+
     <label>Email :</label>
     <input
       type="email"
-      [(ngModel)]="email"
+      [ngModel]="email()"
+      (ngModelChange)="email.set($event)"
       placeholder="exemple@email.com">
 
     <label>Mot de passe :</label>
     <input
       type="password"
-      [(ngModel)]="password"
-      placeholder="Mot de passe">
+      [ngModel]="password()"
+      (ngModelChange)="password.set($event)"
+      placeholder="Mot de passe"
+      (keyup.enter)="login()">
 
     <button
       type="button"
+      [disabled]="loading()"
       (click)="login()">
-      Se connecter
+      {{ loading() ? 'Connexion...' : 'Se connecter' }}
     </button>
 
   </div>

@@ -1,7 +1,8 @@
-import { Component, afterNextRender } from '@angular/core';
+import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -13,9 +14,11 @@ import { AuthService } from '../../services/auth';
 })
 export class Login {
 
-  email = '';
-  password = '';
-  errorMessage = '';
+  email = signal('');
+  password = signal('');
+
+  errorMessage = signal('');
+  loading = signal(false);
 
   constructor(
     private authService: AuthService,
@@ -31,42 +34,42 @@ export class Login {
   }
 
   login(): void {
+    this.errorMessage.set('');
 
-    if (!this.email || !this.password) {
-      alert('Veuillez remplir tous les champs.');
+    if (!this.email() || !this.password()) {
+      this.errorMessage.set('Veuillez remplir tous les champs.');
       return;
     }
 
-    this.authService.login(this.email, this.password)
-  .subscribe({
-    next: (response) => {
-      this.authService.saveAuthData(response);
+    this.loading.set(true);
 
-      const user = response.user;
+    this.authService.login(this.email(), this.password())
+      .subscribe({
+        next: (response) => {
+          this.authService.saveAuthData(response);
 
-      if (user.role === 'ADMIN') {
-        this.router.navigate(['/admin']);
-      } else if (user.role === 'CLIENT') {
-        this.router.navigate(['/client']);
-      } else if (user.role === 'COACH') {
-        this.router.navigate(['/coach']);
-      }
-    },
-    error: () => {
-      this.errorMessage = 'Email ou mot de passe incorrect.';
-    }
-  });
+          const user = response.user;
+
+          this.loading.set(false);
+          this.redirectByRole(user.role);
+        },
+        error: () => {
+          this.loading.set(false);
+          this.errorMessage.set('Email ou mot de passe incorrect.');
+        }
+      });
   }
 
   redirectByRole(role: string): void {
-    if (role === 'CLIENT') {
+    if (role === 'ADMIN') {
+      this.router.navigate(['/admin']);
+    } else if (role === 'CLIENT') {
       this.router.navigate(['/client']);
     } else if (role === 'COACH') {
       this.router.navigate(['/coach']);
-    } else if (role === 'ADMIN') {
-      this.router.navigate(['/admin']);
     } else {
-      alert('Rôle inconnu.');
+      this.errorMessage.set('Rôle utilisateur inconnu.');
+      this.authService.logout();
     }
   }
 }

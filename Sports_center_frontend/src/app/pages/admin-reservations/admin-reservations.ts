@@ -1,13 +1,14 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { ReservationService } from '../../services/reservation';
 
 @Component({
   selector: 'app-admin-reservations',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './admin-reservations.html',
   styleUrls: ['./admin-reservations.css']
 })
@@ -18,6 +19,19 @@ export class AdminReservations {
 
   successMessage = signal('');
   errorMessage = signal('');
+
+  searchTerm = signal('');
+  selectedDate = signal('');
+  selectedCourtFilter = signal('ALL');
+  selectedStatusFilter = signal('ALL');
+
+  statusFilters: string[] = [
+    'ALL',
+    'CONFIRMED',
+    'PENDING',
+    'CANCELLED',
+    'COMPLETED'
+  ];
 
   constructor(private reservationService: ReservationService) {
     afterNextRender(() => {
@@ -48,6 +62,51 @@ export class AdminReservations {
           this.successMessage.set('');
         }
       });
+  }
+
+  filteredReservations(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.reservations().filter(reservation => {
+      const clientFullName =
+        `${reservation.client?.user?.firstName || ''} ${reservation.client?.user?.lastName || ''}`.toLowerCase();
+
+      const clientEmail =
+        reservation.client?.user?.email?.toLowerCase() || '';
+
+      const matchesSearch =
+        clientFullName.includes(search) ||
+        clientEmail.includes(search);
+
+      const matchesDate =
+        !this.selectedDate() ||
+        reservation.reservationDate === this.selectedDate();
+
+      const matchesCourt =
+        this.selectedCourtFilter() === 'ALL' ||
+        String(reservation.court?.courtNumber) === this.selectedCourtFilter();
+
+      const matchesStatus =
+        this.selectedStatusFilter() === 'ALL' ||
+        reservation.status === this.selectedStatusFilter();
+
+      return matchesSearch && matchesDate && matchesCourt && matchesStatus;
+    });
+  }
+
+  getCourtNumbers(): number[] {
+    const courtNumbers = this.reservations()
+      .map(reservation => reservation.court?.courtNumber)
+      .filter(courtNumber => courtNumber !== undefined && courtNumber !== null);
+
+    return [...new Set(courtNumbers)].sort((a, b) => a - b);
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedDate.set('');
+    this.selectedCourtFilter.set('ALL');
+    this.selectedStatusFilter.set('ALL');
   }
 
   deleteReservation(id: number): void {

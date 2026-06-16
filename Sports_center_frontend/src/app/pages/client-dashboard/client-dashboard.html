@@ -13,7 +13,18 @@
     Bienvenue dans votre espace client. Choisissez une fonctionnalité.
   </p>
 
-  @if (notificationsLoaded() && notifications().length > 0) {
+  @if (errorMessage()) {
+    <section class="notifications-card empty">
+      <div class="notifications-header">
+        <h2>🔔 Notifications</h2>
+        <span class="notification-badge zero">!</span>
+      </div>
+
+      <p>{{ errorMessage() }}</p>
+    </section>
+  }
+
+  @if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
     <section class="notifications-card">
 
       <div class="notifications-header">
@@ -43,7 +54,7 @@
             <p>{{ notification.message }}</p>
 
             <small>
-              {{ notification.date }} à {{ notification.time.slice(0, 5) }}
+              {{ notification.date }} à {{ formatTime(notification.time) }}
             </small>
           </div>
 
@@ -53,7 +64,7 @@
     </section>
   }
 
-  @if (notificationsLoaded() && notifications().length === 0) {
+  @if (!errorMessage() && notificationsLoaded() && notifications().length === 0) {
     <section class="notifications-card empty">
       <div class="notifications-header">
         <h2>🔔 Notifications de demain</h2>

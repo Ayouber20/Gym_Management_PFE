@@ -30,7 +30,9 @@
       <h2>Nouveau client</h2>
 
       <label>Utilisateur :</label>
-      <select [(ngModel)]="selectedUserId">
+      <select
+        [ngModel]="selectedUserId()"
+        (ngModelChange)="selectedUserId.set($event)">
         <option [ngValue]="null">Choisir un utilisateur CLIENT...</option>
 
         @for (user of users(); track user.id) {
@@ -43,7 +45,8 @@
       <label>Numéro d’adhésion :</label>
       <input
         type="text"
-        [(ngModel)]="membershipNumber"
+        [ngModel]="membershipNumber()"
+        (ngModelChange)="membershipNumber.set($event)"
         placeholder="Ex : CL-2026-001">
 
       <div class="actions">
@@ -66,13 +69,43 @@
     <section class="clients-list">
       <h2>Liste des clients</h2>
 
+      <div class="filters-card">
+
+        <div class="filter-group">
+          <label>Recherche :</label>
+          <input
+            type="text"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)"
+            placeholder="Nom, email ou numéro d’adhésion...">
+        </div>
+
+        <button
+          type="button"
+          class="clear-filters-btn"
+          (click)="resetFilters()">
+          Réinitialiser
+        </button>
+
+      </div>
+
+      <div class="results-count">
+        {{ filteredClients().length }} client(s) affiché(s)
+      </div>
+
       @if (loaded() && clients().length === 0) {
         <div class="empty-card">
           Aucun client trouvé.
         </div>
       }
 
-      @if (clients().length > 0) {
+      @if (loaded() && clients().length > 0 && filteredClients().length === 0) {
+        <div class="empty-card">
+          Aucun client ne correspond aux filtres.
+        </div>
+      }
+
+      @if (filteredClients().length > 0) {
         <div class="table-container">
 
           <table>
@@ -87,7 +120,7 @@
             </thead>
 
             <tbody>
-              @for (client of clients(); track client.id) {
+              @for (client of filteredClients(); track client.id) {
                 <tr>
                   <td>{{ client.id }}</td>
                   <td>{{ client.membershipNumber }}</td>

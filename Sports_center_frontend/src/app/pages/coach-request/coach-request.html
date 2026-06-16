@@ -28,7 +28,9 @@
 
     <label>Activité :</label>
 
-    <select [(ngModel)]="selectedActivity">
+    <select
+      [ngModel]="selectedActivity()"
+      (ngModelChange)="onActivityChange($event)">
       <option value="">Choisir une activité...</option>
 
       @for (activity of activities; track activity) {
@@ -42,12 +44,15 @@
 
     <input
       type="date"
-      [(ngModel)]="requestDate"
-      [min]="today">
+      [ngModel]="requestDate()"
+      (ngModelChange)="requestDate.set($event)"
+      [min]="tomorrow">
 
     <label>Heure :</label>
 
-    <select [(ngModel)]="requestTime">
+    <select
+      [ngModel]="requestTime()"
+      (ngModelChange)="requestTime.set($event)">
       <option value="">Choisir une heure...</option>
 
       @for (slot of timeSlots; track slot) {
@@ -59,11 +64,56 @@
 
     <label>Coach :</label>
 
-    <select [(ngModel)]="coachId">
+    <select
+      name="coachId"
+      [ngModel]="coachId()"
+      (ngModelChange)="coachId.set($event)">
       <option [ngValue]="null">Choisir un coach...</option>
-      <option [ngValue]="2">Coach 2</option>
-      <option [ngValue]="3">Coach 3</option>
+
+      @for (coach of filteredCoaches(); track coach.id) {
+        <option [ngValue]="coach.id">
+          {{ coach.user.firstName }} {{ coach.user.lastName }} - {{ coach.speciality }} - {{ coach.availability }}
+        </option>
+      }
     </select>
+
+    @if (coachesLoaded() && coaches().length === 0) {
+      <p class="empty-message">
+        Aucun coach disponible pour le moment.
+      </p>
+    }
+
+    @if (coachesLoaded() && selectedActivity() && filteredCoaches().length === 0) {
+      <p class="empty-message">
+        Aucun coach disponible pour cette activité.
+      </p>
+    }
+
+    @if (selectedActivity() && requestDate() && requestTime() && coachId()) {
+      <div class="request-summary">
+        <h3>Résumé</h3>
+
+        <p>
+          <strong>Activité :</strong>
+          {{ selectedActivity() }}
+        </p>
+
+        <p>
+          <strong>Date :</strong>
+          {{ requestDate() }}
+        </p>
+
+        <p>
+          <strong>Heure :</strong>
+          {{ requestTime() }}
+        </p>
+
+        <p>
+          <strong>Coach :</strong>
+          {{ getSelectedCoach()?.user?.firstName }} {{ getSelectedCoach()?.user?.lastName }}
+        </p>
+      </div>
+    }
 
     <div class="actions">
       <button

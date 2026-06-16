@@ -22,8 +22,10 @@ export class AdminClients {
   successMessage = signal('');
   errorMessage = signal('');
 
-  selectedUserId: number | null = null;
-  membershipNumber = '';
+  selectedUserId = signal<number | null>(null);
+  membershipNumber = signal('');
+
+  searchTerm = signal('');
 
   constructor(
     private clientService: ClientService,
@@ -39,7 +41,14 @@ export class AdminClients {
     this.clientService.getClients()
       .subscribe({
         next: (data) => {
-          this.clients.set(data);
+          const sortedClients = data.sort((a, b) => {
+            const nameA = `${a.user?.firstName || ''} ${a.user?.lastName || ''}`.toLowerCase();
+            const nameB = `${b.user?.firstName || ''} ${b.user?.lastName || ''}`.toLowerCase();
+
+            return nameA.localeCompare(nameB);
+          });
+
+          this.clients.set(sortedClients);
           this.loaded.set(true);
         },
         error: () => {
@@ -54,7 +63,15 @@ export class AdminClients {
     this.userService.getUsers()
       .subscribe({
         next: (data) => {
-          const clientUsers = data.filter(user => user.role === 'CLIENT');
+          const clientUsers = data
+            .filter(user => user.role === 'CLIENT')
+            .sort((a, b) => {
+              const nameA = `${a.firstName || ''} ${a.lastName || ''}`.toLowerCase();
+              const nameB = `${b.firstName || ''} ${b.lastName || ''}`.toLowerCase();
+
+              return nameA.localeCompare(nameB);
+            });
+
           this.users.set(clientUsers);
         },
         error: () => {
@@ -64,19 +81,44 @@ export class AdminClients {
       });
   }
 
+  filteredClients(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.clients().filter(client => {
+      const fullName =
+        `${client.user?.firstName || ''} ${client.user?.lastName || ''}`.toLowerCase();
+
+      const email =
+        client.user?.email?.toLowerCase() || '';
+
+      const membership =
+        client.membershipNumber?.toLowerCase() || '';
+
+      return (
+        fullName.includes(search) ||
+        email.includes(search) ||
+        membership.includes(search)
+      );
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+  }
+
   createClient(): void {
     this.successMessage.set('');
     this.errorMessage.set('');
 
-    if (!this.selectedUserId || !this.membershipNumber) {
+    if (!this.selectedUserId() || !this.membershipNumber()) {
       this.errorMessage.set('Veuillez choisir un utilisateur et saisir un numéro d’adhésion.');
       return;
     }
 
     const client = {
-      membershipNumber: this.membershipNumber,
+      membershipNumber: this.membershipNumber(),
       user: {
-        id: this.selectedUserId
+        id: this.selectedUserId()
       }
     };
 
@@ -101,7 +143,7 @@ export class AdminClients {
   }
 
   resetForm(): void {
-    this.selectedUserId = null;
-    this.membershipNumber = '';
+    this.selectedUserId.set(null);
+    this.membershipNumber.set('');
   }
 }

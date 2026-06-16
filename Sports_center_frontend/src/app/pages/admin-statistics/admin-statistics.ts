@@ -25,15 +25,24 @@ export class AdminStatistics {
   totalUsers = signal(0);
   totalClients = signal(0);
   totalCoaches = signal(0);
+  totalCourts = signal(0);
   totalReservations = signal(0);
   totalCoachRequests = signal(0);
 
   availableCourts = signal(0);
   maintenanceCourts = signal(0);
 
+  confirmedReservations = signal(0);
+  pendingReservations = signal(0);
+  cancelledReservations = signal(0);
+  completedReservations = signal(0);
+
   pendingRequests = signal(0);
   acceptedRequests = signal(0);
   rejectedRequests = signal(0);
+
+  courtAvailabilityRate = signal(0);
+  coachRequestAcceptanceRate = signal(0);
 
   constructor(
     private userService: UserService,
@@ -61,31 +70,57 @@ export class AdminStatistics {
       coachRequests: this.coachRequestService.getRequests()
     }).subscribe({
       next: (data) => {
-        this.totalUsers.set(data.users.length);
-        this.totalClients.set(data.clients.length);
-        this.totalCoaches.set(data.coaches.length);
-        this.totalReservations.set(data.reservations.length);
-        this.totalCoachRequests.set(data.coachRequests.length);
+        const users = data.users || [];
+        const clients = data.clients || [];
+        const coaches = data.coaches || [];
+        const courts = data.courts || [];
+        const reservations = data.reservations || [];
+        const coachRequests = data.coachRequests || [];
+
+        this.totalUsers.set(users.length);
+        this.totalClients.set(clients.length);
+        this.totalCoaches.set(coaches.length);
+        this.totalCourts.set(courts.length);
+        this.totalReservations.set(reservations.length);
+        this.totalCoachRequests.set(coachRequests.length);
 
         this.availableCourts.set(
-          data.courts.filter(court => court.status === 'AVAILABLE').length
+          courts.filter(court => court.status === 'AVAILABLE').length
         );
 
         this.maintenanceCourts.set(
-          data.courts.filter(court => court.status === 'MAINTENANCE').length
+          courts.filter(court => court.status === 'MAINTENANCE').length
+        );
+
+        this.confirmedReservations.set(
+          reservations.filter(reservation => reservation.status === 'CONFIRMED').length
+        );
+
+        this.pendingReservations.set(
+          reservations.filter(reservation => reservation.status === 'PENDING').length
+        );
+
+        this.cancelledReservations.set(
+          reservations.filter(reservation => reservation.status === 'CANCELLED').length
+        );
+
+        this.completedReservations.set(
+          reservations.filter(reservation => reservation.status === 'COMPLETED').length
         );
 
         this.pendingRequests.set(
-          data.coachRequests.filter(request => request.status === 'PENDING').length
+          coachRequests.filter(request => request.status === 'PENDING').length
         );
 
         this.acceptedRequests.set(
-          data.coachRequests.filter(request => request.status === 'ACCEPTED').length
+          coachRequests.filter(request => request.status === 'ACCEPTED').length
         );
 
         this.rejectedRequests.set(
-          data.coachRequests.filter(request => request.status === 'REJECTED').length
+          coachRequests.filter(request => request.status === 'REJECTED').length
         );
+
+        this.calculateRates();
 
         this.loaded.set(true);
       },
@@ -94,5 +129,30 @@ export class AdminStatistics {
         this.errorMessage.set('Erreur lors du chargement des statistiques.');
       }
     });
+  }
+
+  calculateRates(): void {
+    if (this.totalCourts() > 0) {
+      const availabilityRate = Math.round(
+        (this.availableCourts() / this.totalCourts()) * 100
+      );
+
+      this.courtAvailabilityRate.set(availabilityRate);
+    } else {
+      this.courtAvailabilityRate.set(0);
+    }
+
+    const decidedRequests =
+      this.acceptedRequests() + this.rejectedRequests();
+
+    if (decidedRequests > 0) {
+      const acceptanceRate = Math.round(
+        (this.acceptedRequests() / decidedRequests) * 100
+      );
+
+      this.coachRequestAcceptanceRate.set(acceptanceRate);
+    } else {
+      this.coachRequestAcceptanceRate.set(0);
+    }
   }
 }

@@ -34,30 +34,47 @@
         </div>
       }
 
-      @if (courts().length > 0) {
+      @if (availableCourts().length > 0) {
         <div class="courts-grid">
 
-          @for (court of courts(); track court.id) {
-            <div
-              class="court-card"
-              [class.maintenance-card]="court.status === 'MAINTENANCE'">
+          @for (court of availableCourts(); track court.id) {
+            <div class="court-card">
 
               <h3>Terrain {{ court.courtNumber }}</h3>
 
               <p>
-                Status :
-                <span
-                  [class.available]="court.status === 'AVAILABLE'"
-                  [class.maintenance]="court.status === 'MAINTENANCE'">
+                Statut :
+                <span class="available">
                   {{ court.status }}
                 </span>
               </p>
 
-              @if (court.status === 'MAINTENANCE') {
-                <p class="maintenance-message">
-                  Ce terrain est actuellement en maintenance.
-                </p>
-              }
+            </div>
+          }
+
+        </div>
+      }
+
+      @if (maintenanceCourts().length > 0) {
+        <h2 class="maintenance-title">Terrains en maintenance</h2>
+
+        <div class="courts-grid">
+
+          @for (court of maintenanceCourts(); track court.id) {
+            <div class="court-card maintenance-card">
+
+              <h3>Terrain {{ court.courtNumber }}</h3>
+
+              <p>
+                Statut :
+                <span class="maintenance">
+                  {{ court.status }}
+                </span>
+              </p>
+
+              <p class="maintenance-message">
+                Ce terrain est actuellement en maintenance.
+              </p>
 
             </div>
           }
@@ -71,7 +88,10 @@
 
       <label>Terrain :</label>
 
-      <select [(ngModel)]="selectedCourtId">
+      <select
+        [ngModel]="selectedCourtId()"
+        (ngModelChange)="selectedCourtId.set($event)">
+
         <option [ngValue]="null">Choisir un terrain...</option>
 
         @for (court of courts(); track court.id) {
@@ -86,17 +106,18 @@
       <label>Date :</label>
       <input
         type="date"
-        [(ngModel)]="reservationDate"
-        [min]="today">
+        [ngModel]="reservationDate()"
+        (ngModelChange)="reservationDate.set($event)"
+        [min]="tomorrow">
 
       <label>Heure début :</label>
       <select
-        [(ngModel)]="startTime"
-        (change)="updateEndTime()">
+        [ngModel]="startTime()"
+        (ngModelChange)="startTime.set($event); updateEndTime()">
 
         <option value="">Choisir...</option>
 
-        @for (slot of timeSlots; track slot) {
+        @for (slot of selectableTimeSlots(); track slot) {
           <option [value]="slot">
             {{ slot }}
           </option>
@@ -107,8 +128,29 @@
       <label>Heure fin :</label>
       <input
         type="text"
-        [value]="endTime"
+        [value]="endTime()"
         readonly>
+
+      @if (selectedCourtId() && reservationDate() && startTime() && endTime()) {
+        <div class="reservation-summary">
+          <h3>Résumé</h3>
+
+          <p>
+            <strong>Terrain :</strong>
+            Terrain {{ getSelectedCourt()?.courtNumber }}
+          </p>
+
+          <p>
+            <strong>Date :</strong>
+            {{ reservationDate() }}
+          </p>
+
+          <p>
+            <strong>Créneau :</strong>
+            {{ startTime() }} - {{ endTime() }}
+          </p>
+        </div>
+      }
 
       <div class="actions">
         <button

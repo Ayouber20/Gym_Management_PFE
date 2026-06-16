@@ -20,13 +20,23 @@ export class AdminUsers {
   successMessage = signal('');
   errorMessage = signal('');
 
-  firstName = '';
-  lastName = '';
-  email = '';
-  password = '';
-  role = '';
+  firstName = signal('');
+  lastName = signal('');
+  email = signal('');
+  password = signal('');
+  role = signal('');
+
+  searchTerm = signal('');
+  selectedRoleFilter = signal('ALL');
 
   roles: string[] = [
+    'CLIENT',
+    'COACH',
+    'ADMIN'
+  ];
+
+  roleFilters: string[] = [
+    'ALL',
     'CLIENT',
     'COACH',
     'ADMIN'
@@ -42,7 +52,14 @@ export class AdminUsers {
     this.userService.getUsers()
       .subscribe({
         next: (data) => {
-          this.users.set(data);
+          const sortedUsers = data.sort((a, b) => {
+            const nameA = `${a.firstName || ''} ${a.lastName || ''}`.toLowerCase();
+            const nameB = `${b.firstName || ''} ${b.lastName || ''}`.toLowerCase();
+
+            return nameA.localeCompare(nameB);
+          });
+
+          this.users.set(sortedUsers);
           this.loaded.set(true);
         },
         error: () => {
@@ -53,21 +70,47 @@ export class AdminUsers {
       });
   }
 
+  filteredUsers(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.users().filter(user => {
+      const firstName = user.firstName?.toLowerCase() || '';
+      const lastName = user.lastName?.toLowerCase() || '';
+      const email = user.email?.toLowerCase() || '';
+
+      const matchesSearch =
+        firstName.includes(search) ||
+        lastName.includes(search) ||
+        email.includes(search);
+
+      const matchesRole =
+        this.selectedRoleFilter() === 'ALL' ||
+        user.role === this.selectedRoleFilter();
+
+      return matchesSearch && matchesRole;
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedRoleFilter.set('ALL');
+  }
+
   createUser(): void {
     this.successMessage.set('');
     this.errorMessage.set('');
 
-    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.role) {
+    if (!this.firstName() || !this.lastName() || !this.email() || !this.password() || !this.role()) {
       this.errorMessage.set('Veuillez remplir tous les champs.');
       return;
     }
 
     const user = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      password: this.password,
-      role: this.role
+      firstName: this.firstName(),
+      lastName: this.lastName(),
+      email: this.email(),
+      password: this.password(),
+      role: this.role()
     };
 
     this.userService.createUser(user)
@@ -91,10 +134,10 @@ export class AdminUsers {
   }
 
   resetForm(): void {
-    this.firstName = '';
-    this.lastName = '';
-    this.email = '';
-    this.password = '';
-    this.role = '';
+    this.firstName.set('');
+    this.lastName.set('');
+    this.email.set('');
+    this.password.set('');
+    this.role.set('');
   }
 }

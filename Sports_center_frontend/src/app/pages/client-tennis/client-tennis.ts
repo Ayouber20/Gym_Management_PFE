@@ -27,10 +27,14 @@ export class ClientTennis {
 
   today = new Date().toISOString().split('T')[0];
 
-  selectedCourtId: number | null = null;
-  reservationDate = '';
-  startTime = '';
-  endTime = '';
+  tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0];
+
+  selectedCourtId = signal<number | null>(null);
+  reservationDate = signal('');
+  startTime = signal('');
+  endTime = signal('');
 
   timeSlots: string[] = [
     '08:00',
@@ -80,7 +84,11 @@ export class ClientTennis {
     this.courtService.getCourts()
       .subscribe({
         next: (data) => {
-          this.courts.set(data);
+          const sortedCourts = data.sort(
+            (a, b) => a.courtNumber - b.courtNumber
+          );
+
+          this.courts.set(sortedCourts);
           this.courtsLoaded.set(true);
         },
         error: () => {
@@ -91,21 +99,41 @@ export class ClientTennis {
       });
   }
 
+  availableCourts(): any[] {
+    return this.courts().filter(court => court.status === 'AVAILABLE');
+  }
+
+  maintenanceCourts(): any[] {
+    return this.courts().filter(court => court.status === 'MAINTENANCE');
+  }
+
+  selectableTimeSlots(): string[] {
+    return this.timeSlots.slice(0, this.timeSlots.length - 1);
+  }
+
   updateEndTime(): void {
-    const index = this.timeSlots.indexOf(this.startTime);
+    const index = this.timeSlots.indexOf(this.startTime());
 
     if (index >= 0 && index < this.timeSlots.length - 1) {
-      this.endTime = this.timeSlots[index + 1];
+      this.endTime.set(this.timeSlots[index + 1]);
     } else {
-      this.endTime = '';
+      this.endTime.set('');
     }
   }
 
+  getSelectedCourt(): any {
+    if (!this.selectedCourtId()) {
+      return null;
+    }
+
+    return this.courts().find(court => court.id === this.selectedCourtId());
+  }
+
   resetReservationForm(): void {
-    this.selectedCourtId = null;
-    this.reservationDate = '';
-    this.startTime = '';
-    this.endTime = '';
+    this.selectedCourtId.set(null);
+    this.reservationDate.set('');
+    this.startTime.set('');
+    this.endTime.set('');
   }
 
   createReservation(): void {
@@ -117,35 +145,33 @@ export class ClientTennis {
       return;
     }
 
-    if (!this.selectedCourtId || !this.reservationDate || !this.startTime || !this.endTime) {
+    if (!this.selectedCourtId() || !this.reservationDate() || !this.startTime() || !this.endTime()) {
       this.errorMessage.set('Veuillez remplir tous les champs.');
       return;
     }
 
-    const selectedCourt = this.courts().find(
-      court => court.id === this.selectedCourtId
-    );
+    const selectedCourt = this.getSelectedCourt();
 
     if (selectedCourt?.status === 'MAINTENANCE') {
       this.errorMessage.set('Ce terrain est en maintenance et ne peut pas être réservé.');
       return;
     }
 
-    if (this.reservationDate < this.today) {
-      this.errorMessage.set('Impossible de réserver une date passée.');
+    if (this.reservationDate() <= this.today) {
+      this.errorMessage.set('Les réservations doivent être faites au minimum un jour à l’avance.');
       return;
     }
 
     const reservation = {
-      reservationDate: this.reservationDate,
-      startTime: this.startTime + ':00',
-      endTime: this.endTime + ':00',
+      reservationDate: this.reservationDate(),
+      startTime: this.startTime() + ':00',
+      endTime: this.endTime() + ':00',
       status: 'CONFIRMED',
       client: {
         id: this.currentClientId
       },
       court: {
-        id: this.selectedCourtId
+        id: this.selectedCourtId()
       }
     };
 

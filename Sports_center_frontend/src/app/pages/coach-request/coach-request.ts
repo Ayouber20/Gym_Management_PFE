@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { CoachRequestService } from '../../services/coach-request';
 import { AuthService } from '../../services/auth';
 import { ClientService } from '../../services/client';
+import { CoachService } from '../../services/coach';
 
 @Component({
   selector: 'app-coach-request',
@@ -18,6 +19,9 @@ export class CoachRequest {
 
   successMessage = signal('');
   errorMessage = signal('');
+
+  coaches = signal<any[]>([]);
+  coachesLoaded = signal(false);
 
   currentClientId: number | null = null;
 
@@ -37,20 +41,26 @@ export class CoachRequest {
     '20:00'
   ];
 
-  selectedActivity = '';
-  requestDate = '';
-  requestTime = '';
-  coachId: number | null = null;
+  selectedActivity = signal('');
+  requestDate = signal('');
+  requestTime = signal('');
+  coachId = signal<number | null>(null);
 
   today = new Date().toISOString().split('T')[0];
+
+  tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000)
+  .toISOString()
+  .split('T')[0];
 
   constructor(
     private coachRequestService: CoachRequestService,
     private authService: AuthService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private coachService: CoachService
   ) {
     afterNextRender(() => {
       this.loadCurrentClient();
+      this.loadCoaches();
     });
   }
 
@@ -75,6 +85,51 @@ export class CoachRequest {
       });
   }
 
+  loadCoaches(): void {
+    this.coachService.getCoaches()
+      .subscribe({
+        next: (data) => {
+          const sortedCoaches = data.sort((a, b) => {
+            const nameA = `${a.user?.firstName || ''} ${a.user?.lastName || ''}`.toLowerCase();
+            const nameB = `${b.user?.firstName || ''} ${b.user?.lastName || ''}`.toLowerCase();
+
+            return nameA.localeCompare(nameB);
+          });
+
+          this.coaches.set(sortedCoaches);
+          this.coachesLoaded.set(true);
+        },
+        error: () => {
+          this.coachesLoaded.set(true);
+          this.errorMessage.set('Erreur lors du chargement des coachs.');
+          this.successMessage.set('');
+        }
+      });
+  }
+
+  onActivityChange(activity: string): void {
+    this.selectedActivity.set(activity);
+    this.coachId.set(null);
+  }
+
+  filteredCoaches(): any[] {
+    if (!this.selectedActivity()) {
+      return this.coaches();
+    }
+
+    return this.coaches().filter(coach =>
+      coach.speciality === this.selectedActivity()
+    );
+  }
+
+  getSelectedCoach(): any {
+    if (!this.coachId()) {
+      return null;
+    }
+
+    return this.coaches().find(coach => coach.id === this.coachId());
+  }
+
   sendRequest(): void {
     this.successMessage.set('');
     this.errorMessage.set('');
@@ -84,26 +139,38 @@ export class CoachRequest {
       return;
     }
 
-    if (!this.selectedActivity || !this.requestDate || !this.requestTime || !this.coachId) {
+    if (!this.selectedActivity() || !this.requestDate() || !this.requestTime() || !this.coachId()) {
       this.errorMessage.set('Veuillez remplir tous les champs.');
       return;
     }
 
-    if (this.requestDate < this.today) {
-      this.errorMessage.set('Impossible de choisir une date passée.');
+    if (this.requestDate() <= this.today) {
+      this.errorMessage.set('Les demandes de coach doivent être faites au minimum un jour à l’avance.');
+      return;
+    }
+
+    const selectedCoach = this.getSelectedCoach();
+
+    if (!selectedCoach) {
+      this.errorMessage.set('Coach introuvable.');
+      return;
+    }
+
+    if (selectedCoach.speciality !== this.selectedActivity()) {
+      this.errorMessage.set('Le coach choisi ne correspond pas à l’activité sélectionnée.');
       return;
     }
 
     const request = {
-      requestDate: this.requestDate,
-      requestTime: this.requestTime + ':00',
-      activity: this.selectedActivity,
+      requestDate: this.requestDate(),
+      requestTime: this.requestTime() + ':00',
+      activity: this.selectedActivity(),
       status: 'PENDING',
       client: {
         id: this.currentClientId
       },
       coach: {
-        id: this.coachId
+        id: this.coachId()
       }
     };
 
@@ -115,17 +182,29 @@ export class CoachRequest {
 
           this.resetForm();
         },
-        error: () => {
-          this.errorMessage.set('Erreur lors de l’envoi de la demande.');
+        error: (err) => {
+          this.errorMessage.set(this.getErrorMessage(err));
           this.successMessage.set('');
         }
       });
   }
 
   resetForm(): void {
-    this.selectedActivity = '';
-    this.requestDate = '';
-    this.requestTime = '';
-    this.coachId = null;
+    this.selectedActivity.set('');
+    this.requestDate.set('');
+    this.requestTime.set('');
+    this.coachId.set(null);
+  }
+
+  private getErrorMessage(err: any): string {
+    if (err?.error?.message) {
+      return err.error.message;
+    }
+
+    if (typeof err?.error === 'string') {
+      return err.error;
+    }
+
+    return 'Erreur lors de l’envoi de la demande.';
   }
 }

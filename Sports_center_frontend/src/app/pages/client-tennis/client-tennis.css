@@ -201,6 +201,28 @@ button:hover {
   color: #ff4d4d;
 }
 
+.maintenance-title {
+  margin-top: 35px;
+}
+
+.reservation-summary {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  background: rgba(37, 191, 255, 0.08);
+  border: 1px solid rgba(37, 191, 255, 0.4);
+}
+
+.reservation-summary h3 {
+  margin-bottom: 12px;
+  color: #25bfff;
+}
+
+.reservation-summary p {
+  margin: 8px 0;
+  color: #d7f3ff;
+}
+
 @media (max-width: 900px) {
   .courts-section,
   .reservation-card {
