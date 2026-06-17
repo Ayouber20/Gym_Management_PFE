@@ -18,20 +18,16 @@ public class ReservationService {
 
     public Reservation createReservation(Reservation reservation) {
 
+        if (!reservation.getReservationDate().isAfter(LocalDate.now())) {
+            throw new RuntimeException(
+                    "Les réservations doivent être faites au minimum un jour à l’avance."
+            );
+        }
+
         long durationHours = Duration.between(
                 reservation.getStartTime(),
                 reservation.getEndTime()
         ).toHours();
-
-        if (reservation.getReservationDate().isBefore(LocalDate.now())) {
-            throw new RuntimeException(
-                    "Impossible de réserver une date passée."
-            );
-        }
-
-        if (!reservation.getReservationDate().isAfter(LocalDate.now())) {
-            throw new RuntimeException("Les réservations doivent être faites au minimum un jour à l’avance.");
-        }
 
         if (durationHours < 2) {
             throw new RuntimeException(

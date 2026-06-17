@@ -39,7 +39,7 @@ public class CoachRequestController {
     public CoachRequest createRequest(
             @RequestBody CoachRequest request) {
 
-        return coachRequestRepository.save(request);
+        return coachRequestService.createRequest(request);
     }
 
     @PutMapping("/{id}/accept")

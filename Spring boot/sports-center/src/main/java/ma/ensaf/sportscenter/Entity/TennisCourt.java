@@ -2,6 +2,8 @@ package ma.ensaf.sportscenter.Entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tennis_courts")
 public class TennisCourt {
@@ -14,6 +16,12 @@ public class TennisCourt {
     private Integer courtNumber;
 
     private String status;
+
+    @Column(name = "maintenance_start_date")
+    private LocalDate maintenanceStartDate;
+
+    @Column(name = "maintenance_end_date")
+    private LocalDate maintenanceEndDate;
 
     public TennisCourt() {
     }
@@ -36,5 +44,21 @@ public class TennisCourt {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDate getMaintenanceStartDate() {
+        return maintenanceStartDate;
+    }
+
+    public void setMaintenanceStartDate(LocalDate maintenanceStartDate) {
+        this.maintenanceStartDate = maintenanceStartDate;
+    }
+
+    public LocalDate getMaintenanceEndDate() {
+        return maintenanceEndDate;
+    }
+
+    public void setMaintenanceEndDate(LocalDate maintenanceEndDate) {
+        this.maintenanceEndDate = maintenanceEndDate;
     }
 }

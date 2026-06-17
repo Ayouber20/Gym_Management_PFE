@@ -15,12 +15,18 @@ export class CourtService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  setMaintenance(id: number) {
-  return this.http.put(`${this.apiUrl}/${id}/maintenance`, {});
+  setMaintenance(
+    id: number,
+    maintenanceStartDate: string,
+    maintenanceEndDate: string
+  ) {
+    return this.http.put(`${this.apiUrl}/${id}/maintenance`, {
+      maintenanceStartDate,
+      maintenanceEndDate
+    });
   }
 
   setAvailable(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/available`, {});
   }
-
 }

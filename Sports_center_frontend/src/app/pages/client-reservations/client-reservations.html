@@ -110,12 +110,14 @@
             {{ reservation.status }}
           </p>
 
-          <button
-            type="button"
-            class="cancel-btn"
-            (click)="deleteReservation(reservation.id)">
-            Annuler
-          </button>
+          @if (reservation.status !== 'CANCELLED') {
+            <button
+              type="button"
+              class="cancel-btn"
+              (click)="deleteReservation(reservation.id)">
+              Annuler
+            </button>
+          }
 
         </div>
       }

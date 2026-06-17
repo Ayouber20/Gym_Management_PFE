@@ -1,14 +1,18 @@
 package ma.ensaf.sportscenter.Dto;
 
+import ma.ensaf.sportscenter.Entity.Notification;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class NotificationDTO {
 
+    private Long id;
     private String type;
     private String message;
     private LocalDate date;
     private LocalTime time;
+    private boolean readStatus;
 
     public NotificationDTO() {
     }
@@ -18,6 +22,20 @@ public class NotificationDTO {
         this.message = message;
         this.date = date;
         this.time = time;
+        this.readStatus = false;
+    }
+
+    public NotificationDTO(Notification notification) {
+        this.id = notification.getId();
+        this.type = notification.getType();
+        this.message = notification.getMessage();
+        this.date = notification.getNotificationDate();
+        this.time = notification.getNotificationTime();
+        this.readStatus = notification.isReadStatus();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getType() {
@@ -36,6 +54,14 @@ public class NotificationDTO {
         return time;
     }
 
+    public boolean isReadStatus() {
+        return readStatus;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -50,5 +76,9 @@ public class NotificationDTO {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public void setReadStatus(boolean readStatus) {
+        this.readStatus = readStatus;
     }
 }

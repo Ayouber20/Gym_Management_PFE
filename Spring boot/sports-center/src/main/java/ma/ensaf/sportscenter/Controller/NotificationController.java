@@ -2,9 +2,11 @@ package ma.ensaf.sportscenter.Controller;
 
 import ma.ensaf.sportscenter.Dto.NotificationDTO;
 import ma.ensaf.sportscenter.Entity.CoachRequest;
+import ma.ensaf.sportscenter.Entity.Notification;
 import ma.ensaf.sportscenter.Entity.Reservation;
 import ma.ensaf.sportscenter.Repository.CoachRequestRepository;
 import ma.ensaf.sportscenter.Repository.ReservationRepository;
+import ma.ensaf.sportscenter.Service.NotificationService;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +21,16 @@ public class NotificationController {
 
     private final ReservationRepository reservationRepository;
     private final CoachRequestRepository coachRequestRepository;
+    private final NotificationService notificationService;
 
     public NotificationController(
             ReservationRepository reservationRepository,
-            CoachRequestRepository coachRequestRepository
+            CoachRequestRepository coachRequestRepository,
+            NotificationService notificationService
     ) {
         this.reservationRepository = reservationRepository;
         this.coachRequestRepository = coachRequestRepository;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/client/{clientId}")
@@ -34,29 +39,41 @@ public class NotificationController {
 
         List<NotificationDTO> notifications = new ArrayList<>();
 
+        // 1. Notifications persistantes enregistrées en base
+        List<Notification> persistentNotifications =
+                notificationService.getClientNotifications(clientId);
+
+        for (Notification notification : persistentNotifications) {
+            notifications.add(new NotificationDTO(notification));
+        }
+
+        // 2. Notifications automatiques pour les réservations de demain
         List<Reservation> reservations =
                 reservationRepository.findByClientIdAndReservationDate(clientId, tomorrow);
 
         for (Reservation reservation : reservations) {
-            String message =
-                    "Vous avez une réservation demain de "
-                            + reservation.getStartTime()
-                            + " à "
-                            + reservation.getEndTime()
-                            + " sur le terrain de tennis "
-                            + reservation.getCourt().getCourtNumber()
-                            + ".";
+            if (!"CANCELLED".equals(reservation.getStatus())) {
+                String message =
+                        "Vous avez une réservation demain de "
+                                + reservation.getStartTime()
+                                + " à "
+                                + reservation.getEndTime()
+                                + " sur le terrain de tennis "
+                                + reservation.getCourt().getCourtNumber()
+                                + ".";
 
-            notifications.add(
-                    new NotificationDTO(
-                            "RESERVATION",
-                            message,
-                            reservation.getReservationDate(),
-                            reservation.getStartTime()
-                    )
-            );
+                notifications.add(
+                        new NotificationDTO(
+                                "RESERVATION",
+                                message,
+                                reservation.getReservationDate(),
+                                reservation.getStartTime()
+                        )
+                );
+            }
         }
 
+        // 3. Notifications automatiques pour les séances coach de demain
         List<CoachRequest> coachRequests =
                 coachRequestRepository.findByClientIdAndRequestDateAndStatus(
                         clientId,
@@ -95,6 +112,15 @@ public class NotificationController {
 
         List<NotificationDTO> notifications = new ArrayList<>();
 
+        // 1. Notifications persistantes enregistrées en base
+        List<Notification> persistentNotifications =
+                notificationService.getCoachNotifications(coachId);
+
+        for (Notification notification : persistentNotifications) {
+            notifications.add(new NotificationDTO(notification));
+        }
+
+        // 2. Notifications automatiques pour les séances de demain
         List<CoachRequest> coachRequests =
                 coachRequestRepository.findByCoachIdAndRequestDateAndStatus(
                         coachId,
@@ -133,33 +159,45 @@ public class NotificationController {
 
         List<NotificationDTO> notifications = new ArrayList<>();
 
+        // 1. Notifications persistantes enregistrées en base
+        List<Notification> persistentNotifications =
+                notificationService.getAdminNotifications();
+
+        for (Notification notification : persistentNotifications) {
+            notifications.add(new NotificationDTO(notification));
+        }
+
+        // 2. Notifications automatiques pour les réservations de demain
         List<Reservation> reservations =
                 reservationRepository.findByReservationDate(tomorrow);
 
         for (Reservation reservation : reservations) {
-            String message =
-                    "Réservation demain : terrain "
-                            + reservation.getCourt().getCourtNumber()
-                            + " de "
-                            + reservation.getStartTime()
-                            + " à "
-                            + reservation.getEndTime()
-                            + " par "
-                            + reservation.getClient().getUser().getFirstName()
-                            + " "
-                            + reservation.getClient().getUser().getLastName()
-                            + ".";
+            if (!"CANCELLED".equals(reservation.getStatus())) {
+                String message =
+                        "Réservation demain : terrain "
+                                + reservation.getCourt().getCourtNumber()
+                                + " de "
+                                + reservation.getStartTime()
+                                + " à "
+                                + reservation.getEndTime()
+                                + " par "
+                                + reservation.getClient().getUser().getFirstName()
+                                + " "
+                                + reservation.getClient().getUser().getLastName()
+                                + ".";
 
-            notifications.add(
-                    new NotificationDTO(
-                            "RESERVATION",
-                            message,
-                            reservation.getReservationDate(),
-                            reservation.getStartTime()
-                    )
-            );
+                notifications.add(
+                        new NotificationDTO(
+                                "RESERVATION",
+                                message,
+                                reservation.getReservationDate(),
+                                reservation.getStartTime()
+                        )
+                );
+            }
         }
 
+        // 3. Notifications automatiques pour les séances coach de demain
         List<CoachRequest> coachRequests =
                 coachRequestRepository.findByRequestDateAndStatus(
                         tomorrow,

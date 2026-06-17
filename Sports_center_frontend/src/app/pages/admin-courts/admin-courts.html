@@ -96,23 +96,63 @@
           </p>
 
           <div class="actions">
+
             @if (court.status === 'AVAILABLE') {
-              <button
-                type="button"
-                class="maintenance-btn"
-                (click)="setMaintenance(court.id)">
-                Mettre en maintenance
-              </button>
+              <div class="maintenance-box">
+
+                <h3>Planifier une maintenance</h3>
+
+                <div class="date-row">
+                  <div class="date-field">
+                    <label>Début</label>
+                    <input
+                      type="date"
+                      [min]="today"
+                      [ngModel]="getMaintenanceStartDate(court.id)"
+                      (ngModelChange)="setMaintenanceStartDate(court.id, $event)">
+                  </div>
+
+                  <div class="date-field">
+                    <label>Fin</label>
+                    <input
+                      type="date"
+                      [min]="getMaintenanceStartDate(court.id) || today"
+                      [ngModel]="getMaintenanceEndDate(court.id)"
+                      (ngModelChange)="setMaintenanceEndDate(court.id, $event)">
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="maintenance-btn"
+                  (click)="setMaintenance(court.id)">
+                  Mettre en maintenance
+                </button>
+
+              </div>
             }
 
             @if (court.status === 'MAINTENANCE') {
-              <button
-                type="button"
-                class="available-btn"
-                (click)="setAvailable(court.id)">
-                Rendre disponible
-              </button>
+              <div class="maintenance-active-box">
+
+                <p class="maintenance-label">
+                  Maintenance en cours
+                </p>
+
+                <p class="maintenance-period">
+                  {{ court.maintenanceStartDate }} → {{ court.maintenanceEndDate }}
+                </p>
+
+                <button
+                  type="button"
+                  class="available-btn"
+                  (click)="setAvailable(court.id)">
+                  Rendre disponible
+                </button>
+
+              </div>
             }
+
           </div>
 
         </div>
