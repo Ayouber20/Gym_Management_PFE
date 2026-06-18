@@ -7,6 +7,15 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
+    List<Notification> findByTargetRoleAndTargetIdAndReadStatusFalseOrderByCreatedAtDesc(
+            String targetRole,
+            Long targetId
+    );
+
+    List<Notification> findByTargetRoleAndReadStatusFalseOrderByCreatedAtDesc(
+            String targetRole
+    );
+
     List<Notification> findByTargetRoleAndTargetIdOrderByCreatedAtDesc(
             String targetRole,
             Long targetId

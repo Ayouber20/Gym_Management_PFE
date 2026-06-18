@@ -220,6 +220,39 @@
   font-weight: bold;
 }
 
+.status-badge {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.status-badge.pending {
+  background: rgba(255, 193, 7, 0.18);
+  color: #ffc107;
+}
+
+.status-badge.accepted {
+  background: rgba(66, 214, 95, 0.18);
+  color: #42d65f;
+}
+
+.status-badge.rejected {
+  background: rgba(255, 77, 77, 0.18);
+  color: #ff4d4d;
+}
+
+.status-badge.completed {
+  background: rgba(41, 182, 246, 0.18);
+  color: #29b6f6;
+}
+
+.status-badge.cancelled {
+  background: rgba(255, 77, 77, 0.18);
+  color: #ff4d4d;
+}
+
 @media (max-width: 800px) {
   .requests-grid {
     grid-template-columns: 1fr;

@@ -125,10 +125,13 @@
           <p>
             <strong>Statut :</strong>
             <span
+              class="status-badge"
               [class.pending]="request.status === 'PENDING'"
               [class.accepted]="request.status === 'ACCEPTED'"
-              [class.rejected]="request.status === 'REJECTED'">
-              {{ request.status }}
+              [class.rejected]="request.status === 'REJECTED'"
+              [class.completed]="request.status === 'COMPLETED'"
+              [class.cancelled]="request.status === 'CANCELLED'">
+              {{ getStatusLabel(request.status) }}
             </span>
           </p>
 

@@ -153,6 +153,11 @@ public class NotificationController {
         return notifications;
     }
 
+    @PutMapping("/{id}/read")
+    public Notification markNotificationAsRead(@PathVariable Long id) {
+        return notificationService.markAsRead(id);
+    }
+
     @GetMapping("/admin")
     public List<NotificationDTO> getAdminNotifications() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);

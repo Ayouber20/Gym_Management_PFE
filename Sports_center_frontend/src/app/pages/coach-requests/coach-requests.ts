@@ -40,7 +40,9 @@ export class CoachRequests {
     'ALL',
     'PENDING',
     'ACCEPTED',
-    'REJECTED'
+    'REJECTED',
+    'COMPLETED',
+    'CANCELLED'
   ];
 
   constructor(
@@ -190,5 +192,29 @@ export class CoachRequests {
           this.successMessage.set('');
         }
       });
+  }
+
+  getStatusLabel(status: string): string {
+    if (status === 'PENDING') {
+      return 'En attente';
+    }
+
+    if (status === 'ACCEPTED') {
+      return 'Acceptée';
+    }
+
+    if (status === 'REJECTED') {
+      return 'Refusée';
+    }
+
+    if (status === 'COMPLETED') {
+      return 'Terminée';
+    }
+
+    if (status === 'CANCELLED') {
+      return 'Annulée';
+    }
+
+    return status;
   }
 }

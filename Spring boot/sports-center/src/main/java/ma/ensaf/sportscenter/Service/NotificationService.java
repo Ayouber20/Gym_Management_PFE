@@ -22,8 +22,8 @@ public class NotificationService {
             String type,
             String message,
             LocalDate date,
-            LocalTime time
-    ) {
+            LocalTime time) {
+
         Notification notification = new Notification(
                 "CLIENT",
                 clientId,
@@ -41,8 +41,8 @@ public class NotificationService {
             String type,
             String message,
             LocalDate date,
-            LocalTime time
-    ) {
+            LocalTime time) {
+
         Notification notification = new Notification(
                 "COACH",
                 coachId,
@@ -59,8 +59,8 @@ public class NotificationService {
             String type,
             String message,
             LocalDate date,
-            LocalTime time
-    ) {
+            LocalTime time) {
+
         Notification notification = new Notification(
                 "ADMIN",
                 null,
@@ -74,20 +74,33 @@ public class NotificationService {
     }
 
     public List<Notification> getClientNotifications(Long clientId) {
-        return notificationRepository.findByTargetRoleAndTargetIdOrderByCreatedAtDesc(
-                "CLIENT",
-                clientId
-        );
+        return notificationRepository
+                .findByTargetRoleAndTargetIdAndReadStatusFalseOrderByCreatedAtDesc(
+                        "CLIENT",
+                        clientId
+                );
     }
 
     public List<Notification> getCoachNotifications(Long coachId) {
-        return notificationRepository.findByTargetRoleAndTargetIdOrderByCreatedAtDesc(
-                "COACH",
-                coachId
-        );
+        return notificationRepository
+                .findByTargetRoleAndTargetIdAndReadStatusFalseOrderByCreatedAtDesc(
+                        "COACH",
+                        coachId
+                );
     }
 
     public List<Notification> getAdminNotifications() {
-        return notificationRepository.findByTargetRoleOrderByCreatedAtDesc("ADMIN");
+        return notificationRepository
+                .findByTargetRoleAndReadStatusFalseOrderByCreatedAtDesc("ADMIN");
+    }
+
+    public Notification markAsRead(Long id) {
+        Notification notification = notificationRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Notification introuvable."));
+
+        notification.setReadStatus(true);
+
+        return notificationRepository.save(notification);
     }
 }

@@ -122,6 +122,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/notifications/admin")
                         .hasAuthority("ROLE_ADMIN")
 
+                        .requestMatchers(HttpMethod.PUT, "/api/notifications/*/read")
+                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
+
                         // COACH LEAVES
                         .requestMatchers(HttpMethod.POST, "/api/coach-leaves", "/api/coach-leaves/**")
                         .hasAuthority("ROLE_COACH")
