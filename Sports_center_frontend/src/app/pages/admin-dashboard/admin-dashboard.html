@@ -25,49 +25,88 @@
   }
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
-    <section class="notifications-card">
+  <section class="notifications-card">
 
-      <div class="notifications-header">
-        <h2>🔔 Notifications de demain</h2>
-        <span class="notification-badge">
-          {{ notifications().length }}
-        </span>
-      </div>
+    <div class="notifications-header">
+      <h2>🔔 Mes notifications</h2>
+      <span class="notification-badge">
+        {{ notifications().length }}
+      </span>
+    </div>
 
-      @for (notification of notifications(); track notification.message) {
-        <div
-          class="notification-item"
-          [class.reservation]="notification.type === 'RESERVATION'"
-          [class.coach-session]="notification.type === 'COACH_SESSION'">
+    @for (notification of notifications(); track notification.message) {
+      <div
+        class="notification-item"
+        [class.reservation]="notification.type === 'RESERVATION'"
+        [class.coach-session]="notification.type === 'COACH_SESSION'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
 
-          <div class="notification-icon">
-            @if (notification.type === 'RESERVATION') {
-              🎾
-            }
-
-            @if (notification.type === 'COACH_SESSION') {
-              🏋️
-            }
-          </div>
-
-          <div class="notification-content">
-            <p>{{ notification.message }}</p>
-
-            <small>
-              {{ notification.date }} à {{ formatTime(notification.time) }}
-            </small>
-          </div>
-
+        <div class="notification-icon">
+          {{ getNotificationIcon(notification.type) }}
         </div>
-      }
 
-    </section>
-  }
+        <div class="notification-content">
+          <strong>{{ getNotificationTitle(notification.type) }}</strong>
+
+          <p>{{ notification.message }}</p>
+
+          <small>
+            {{ notification.date }}
+            @if (notification.time) {
+              à {{ formatTime(notification.time) }}
+            }
+          </small>
+        </div>
+
+      </div>
+    }
+
+  </section>
+}
+@if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
+  <section class="notifications-card">
+
+    <div class="notifications-header">
+      <h2>🔔 Mes notifications</h2>
+      <span class="notification-badge">
+        {{ notifications().length }}
+      </span>
+    </div>
+
+    @for (notification of notifications(); track notification.message) {
+      <div
+        class="notification-item"
+        [class.reservation]="notification.type === 'RESERVATION'"
+        [class.coach-session]="notification.type === 'COACH_SESSION'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
+
+        <div class="notification-icon">
+          {{ getNotificationIcon(notification.type) }}
+        </div>
+
+        <div class="notification-content">
+          <strong>{{ getNotificationTitle(notification.type) }}</strong>
+
+          <p>{{ notification.message }}</p>
+
+          <small>
+            {{ notification.date }}
+            @if (notification.time) {
+              à {{ formatTime(notification.time) }}
+            }
+          </small>
+        </div>
+
+      </div>
+    }
+
+  </section>
+}
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length === 0) {
     <section class="notifications-card empty">
       <div class="notifications-header">
-        <h2>🔔 Notifications de demain</h2>
+        <h2>🔔 Notifications</h2>
         <span class="notification-badge zero">0</span>
       </div>
 
@@ -77,7 +116,7 @@
 
   <div class="dashboard-cards">
 
-    <div class="dashboard-card">
+    <div class="dashboard-card users-card">
       <h2>👤 Utilisateurs</h2>
       <p>Créer, consulter, modifier ou supprimer les comptes utilisateurs.</p>
 
@@ -86,7 +125,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card clients-card">
       <h2>🧍 Clients</h2>
       <p>Inscrire les clients du club et consulter leurs informations.</p>
 
@@ -95,7 +134,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card coaches-card">
       <h2>🏋️ Coachs</h2>
       <p>Ajouter les coachs, gérer leurs spécialités et leurs disponibilités.</p>
 
@@ -104,7 +143,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card courts-card">
       <h2>🎾 Terrains</h2>
       <p>Consulter les terrains et modifier leur statut.</p>
 
@@ -113,7 +152,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card reservations-card">
       <h2>📅 Réservations</h2>
       <p>Voir toutes les réservations et les annuler si nécessaire.</p>
 
@@ -122,7 +161,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card requests-card">
       <h2>💪 Demandes coach</h2>
       <p>Consulter toutes les demandes de coaching et leur état.</p>
 

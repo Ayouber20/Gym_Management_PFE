@@ -2,12 +2,17 @@
   min-height: 100vh;
   padding: 50px;
   font-family: Arial, sans-serif;
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.90), rgba(3, 10, 20, 0.95)),
-    #07111f;
   color: white;
   text-align: center;
   box-sizing: border-box;
+
+  background:
+    linear-gradient(rgba(3, 10, 20, 0.96), rgba(5, 18, 31, 0.96)),
+    url('/assets/images/sports-bg.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .client-dashboard h1 {
@@ -24,67 +29,12 @@
   margin-bottom: 45px;
 }
 
-.dashboard-cards {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
-
-.dashboard-card {
-  min-height: 260px;
-  padding: 30px;
-  border-radius: 20px;
-  box-sizing: border-box;
-
-  background: rgba(7, 17, 31, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.dashboard-card h2 {
-  font-size: 25px;
-  margin: 0 0 15px 0;
-}
-
-.dashboard-card p {
-  color: #d8e2ef;
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 0 25px 0;
-}
-
-.dashboard-card button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-
-  background: linear-gradient(135deg, #42d65f, #1ea83d);
-  color: white;
-
-  font-weight: bold;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.dashboard-card button:hover {
-  box-shadow: 0 8px 18px rgba(66, 214, 95, 0.4);
-}
-
 .logout-btn {
   margin-bottom: 25px;
   padding: 11px 22px;
   border: 2px solid #ff4d4d;
   border-radius: 10px;
-  background: transparent;
+  background: rgba(3, 10, 20, 0.6);
   color: #ff4d4d;
   font-weight: bold;
   cursor: pointer;
@@ -96,17 +46,19 @@
   color: white;
 }
 
+/* NOTIFICATIONS */
+
 .notifications-card {
   max-width: 950px;
   margin: 30px auto 40px auto;
   padding: 28px;
   background:
-    linear-gradient(145deg, rgba(6, 18, 33, 0.98), rgba(8, 26, 44, 0.98));
-  border: 1px solid rgba(37, 191, 255, 0.7);
+    linear-gradient(145deg, rgba(6, 33, 17, 0.96), rgba(8, 26, 44, 0.96));
+  border: 1px solid rgba(37, 114, 50, 0.7);
   border-radius: 22px;
   color: white;
   box-shadow:
-    0 0 22px rgba(37, 191, 255, 0.12),
+    0 0 22px rgba(62, 255, 37, 0.12),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
@@ -151,6 +103,7 @@
   margin-bottom: 14px;
   background: rgba(37, 191, 255, 0.08);
   border-left: 5px solid #25bfff;
+  text-align: left;
 }
 
 .notification-item.reservation {
@@ -159,6 +112,11 @@
 
 .notification-item.coach-session {
   border-left-color: #42d65f;
+}
+
+.notification-item.cancelled {
+  border-left-color: #ff4d4d;
+  background: rgba(255, 77, 77, 0.12);
 }
 
 .notification-icon {
@@ -171,6 +129,17 @@
   justify-content: center;
   font-size: 22px;
   flex-shrink: 0;
+}
+
+.notification-item.cancelled .notification-icon {
+  background: rgba(255, 77, 77, 0.18);
+  color: #ff4d4d;
+}
+
+.notification-content strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #ffffff;
 }
 
 .notification-content p {
@@ -190,6 +159,128 @@
   font-weight: bold;
 }
 
+/* DASHBOARD CARDS */
+
+.dashboard-cards {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 260px;
+  padding: 30px;
+  border-radius: 20px;
+  box-sizing: border-box;
+
+  border: 1px solid rgb(37, 114, 50);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+
+  background-size: cover;
+  background-position: center;
+  transition: 0.3s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(66, 214, 95, 0.8);
+  box-shadow: 0 18px 40px rgba(66, 214, 95, 0.18);
+}
+
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      rgba(3, 10, 20, 0.527),
+      rgba(3, 10, 20, 0.877)
+    );
+  z-index: 0;
+  backdrop-filter: grayscale(30%);
+}
+
+.dashboard-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 10, 20, 0.25);
+  backdrop-filter: grayscale(30%) saturate(30%);
+  z-index: 0;
+}
+
+.dashboard-card h2,
+.dashboard-card p,
+.dashboard-card button {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-card h2 {
+  font-size: 27px;
+  margin: 0 0 15px 0;
+  color: white;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
+}
+
+.dashboard-card p {
+  color: #eef6ff;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.dashboard-card button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #42d65f, #1ea83d);
+  color: white;
+
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.dashboard-card button:hover {
+  box-shadow: 0 8px 18px rgba(66, 214, 95, 0.4);
+}
+
+/* IMAGES DES CARTES */
+
+.tennis-card {
+  background-image: url('/assets/images/tennis-card.jpg');
+}
+
+.coach-card {
+  background-image: url('/assets/images/coach-card.jpg');
+}
+
+.reservations-card {
+  background-image: url('/assets/images/reservations-card.jpg');
+}
+
+.requests-card {
+  background-image: url('/assets/images/requests-card.jpg');
+}
+
+/* RESPONSIVE */
+
 @media (max-width: 800px) {
   .dashboard-cards {
     grid-template-columns: 1fr;
@@ -201,5 +292,16 @@
 
   .client-dashboard h1 {
     font-size: 34px;
+  }
+
+  .notifications-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .notification-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }

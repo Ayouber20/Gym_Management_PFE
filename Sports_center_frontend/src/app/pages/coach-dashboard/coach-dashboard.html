@@ -25,49 +25,49 @@
   }
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
-    <section class="notifications-card">
+  <section class="notifications-card">
 
-      <div class="notifications-header">
-        <h2>🔔 Notifications de demain</h2>
-        <span class="notification-badge">
-          {{ notifications().length }}
-        </span>
-      </div>
+    <div class="notifications-header">
+      <h2>🔔 Mes notifications</h2>
+      <span class="notification-badge">
+        {{ notifications().length }}
+      </span>
+    </div>
 
-      @for (notification of notifications(); track notification.message) {
-        <div
-          class="notification-item"
-          [class.reservation]="notification.type === 'RESERVATION'"
-          [class.coach-session]="notification.type === 'COACH_SESSION'">
+    @for (notification of notifications(); track notification.message) {
+      <div
+        class="notification-item"
+        [class.reservation]="notification.type === 'RESERVATION'"
+        [class.coach-session]="notification.type === 'COACH_SESSION'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
 
-          <div class="notification-icon">
-            @if (notification.type === 'RESERVATION') {
-              🎾
-            }
-
-            @if (notification.type === 'COACH_SESSION') {
-              🏋️
-            }
-          </div>
-
-          <div class="notification-content">
-            <p>{{ notification.message }}</p>
-
-            <small>
-              {{ notification.date }} à {{ formatTime(notification.time) }}
-            </small>
-          </div>
-
+        <div class="notification-icon">
+          {{ getNotificationIcon(notification.type) }}
         </div>
-      }
 
-    </section>
-  }
+        <div class="notification-content">
+          <strong>{{ getNotificationTitle(notification.type) }}</strong>
+
+          <p>{{ notification.message }}</p>
+
+          <small>
+            {{ notification.date }}
+            @if (notification.time) {
+              à {{ formatTime(notification.time) }}
+            }
+          </small>
+        </div>
+
+      </div>
+    }
+
+  </section>
+}
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length === 0) {
     <section class="notifications-card empty">
       <div class="notifications-header">
-        <h2>🔔 Notifications de demain</h2>
+        <h2>🔔 Notifications</h2>
         <span class="notification-badge zero">0</span>
       </div>
 
@@ -77,7 +77,7 @@
 
   <div class="dashboard-cards">
 
-    <div class="dashboard-card">
+    <div class="dashboard-card requests-card">
       <h2>📩 Demandes de coaching</h2>
 
       <p>
@@ -89,7 +89,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card sessions-card">
       <h2>📅 Mes séances</h2>
 
       <p>
@@ -101,7 +101,7 @@
       </button>
     </div>
 
-    <div class="dashboard-card">
+    <div class="dashboard-card lessons-card">
       <h2>👥 Cours collectifs</h2>
 
       <p>

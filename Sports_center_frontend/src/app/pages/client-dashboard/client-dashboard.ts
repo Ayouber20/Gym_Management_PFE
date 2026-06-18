@@ -51,12 +51,17 @@ export class ClientDashboard {
             .subscribe({
               next: (data) => {
                 const sortedNotifications = data.sort((a, b) => {
+                  const dateA = a.date || '';
+                  const dateB = b.date || '';
+
+                  if (dateA > dateB) return -1;
+                  if (dateA < dateB) return 1;
+
                   const timeA = a.time || '';
                   const timeB = b.time || '';
 
                   return timeA.localeCompare(timeB);
                 });
-
                 this.notifications.set(sortedNotifications);
                 this.notificationsLoaded.set(true);
               },
@@ -80,4 +85,36 @@ export class ClientDashboard {
 
     return time.slice(0, 5);
   }
+
+  getNotificationIcon(type: string): string {
+  if (type === 'RESERVATION') {
+    return '🎾';
+  }
+
+  if (type === 'COACH_SESSION') {
+    return '🏋️';
+  }
+
+  if (type === 'RESERVATION_CANCELLED') {
+    return '❌';
+  }
+
+  return '🔔';
+}
+
+getNotificationTitle(type: string): string {
+  if (type === 'RESERVATION') {
+    return 'Réservation';
+  }
+
+  if (type === 'COACH_SESSION') {
+    return 'Séance coach';
+  }
+
+  if (type === 'RESERVATION_CANCELLED') {
+    return 'Réservation annulée';
+  }
+
+  return 'Notification';
+}
 }
