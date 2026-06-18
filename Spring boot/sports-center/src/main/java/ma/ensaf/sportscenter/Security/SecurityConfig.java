@@ -122,6 +122,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/notifications/admin")
                         .hasAuthority("ROLE_ADMIN")
 
+                        // COACH LEAVES
+                        .requestMatchers(HttpMethod.POST, "/api/coach-leaves", "/api/coach-leaves/**")
+                        .hasAuthority("ROLE_COACH")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-leaves/*/accept")
+                        .hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-leaves/*/reject")
+                        .hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/coach-leaves", "/api/coach-leaves/**")
+                        .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
+
+                        .requestMatchers("/api/coach-leaves", "/api/coach-leaves/**")
+                        .hasAuthority("ROLE_ADMIN")
+
                         // Everything else
                         .anyRequest().authenticated()
                 )
