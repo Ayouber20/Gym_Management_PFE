@@ -39,7 +39,8 @@
         class="notification-item"
         [class.reservation]="notification.type === 'RESERVATION'"
         [class.coach-session]="notification.type === 'COACH_SESSION'"
-        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
 
         <div class="notification-icon">
           {{ getNotificationIcon(notification.type) }}
@@ -169,6 +170,15 @@
         Voir les demandes
       </button>
     </div>
+
+    <div class="dashboard-card coach-leavings-card">
+    <h2>🌴 Congés coachs</h2>
+    <p>Consulter et traiter les demandes de congé envoyées par les coachs.</p>
+
+    <button routerLink="/admin/coach-leavings">
+      Voir les congés
+    </button>
+  </div>
 
     <div class="dashboard-card statistics-card">
       <h2>📊 Statistiques</h2>

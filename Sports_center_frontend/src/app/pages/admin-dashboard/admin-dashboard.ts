@@ -78,8 +78,12 @@ export class AdminDashboard {
   }
 
   if (type === 'RESERVATION_CANCELLED') {
-    return '❌';
+    return '✖';
   }
+
+  if (type === 'COACH_SESSION_CANCELLED') {
+  return '❌';
+}
 
   return '🔔';
 }
@@ -95,6 +99,10 @@ getNotificationTitle(type: string): string {
 
   if (type === 'RESERVATION_CANCELLED') {
     return 'Réservation annulée';
+  }
+
+  if (type === 'COACH_SESSION_CANCELLED') {
+    return 'Séance coach annulée';
   }
 
   return 'Notification';

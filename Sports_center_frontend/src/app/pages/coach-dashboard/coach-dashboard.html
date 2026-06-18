@@ -39,7 +39,8 @@
         class="notification-item"
         [class.reservation]="notification.type === 'RESERVATION'"
         [class.coach-session]="notification.type === 'COACH_SESSION'"
-        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
 
         <div class="notification-icon">
           {{ getNotificationIcon(notification.type) }}
@@ -110,6 +111,18 @@
 
       <button routerLink="/coach/group-classes">
         Voir les cours
+      </button>
+    </div>
+
+    <div class="dashboard-card leavings-card">
+      <h2>🌴 Congés</h2>
+
+      <p>
+        Envoyez une demande de congé et suivez son état.
+      </p>
+
+      <button routerLink="/coach/leavings">
+        Mes congés
       </button>
     </div>
 

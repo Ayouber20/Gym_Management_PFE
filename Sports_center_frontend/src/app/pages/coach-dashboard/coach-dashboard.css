@@ -163,11 +163,11 @@
 
 .dashboard-cards {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
 }
 
@@ -180,7 +180,7 @@
   border-radius: 20px;
   box-sizing: border-box;
 
-border: 1px solid rgb(163, 75, 24);
+  border: 1px solid rgb(85, 46, 10);
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
 
   display: flex;
@@ -274,9 +274,13 @@ button:hover {
   background-image: url('/assets/images/coach-lessons-card.jpg');
 }
 
+.leavings-card {
+  background-image: url('/assets/images/coach-leavings-card.jpg');
+}
+
 /* RESPONSIVE */
 
-@media (max-width: 900px) {
+@media (max-width: 800px) {
   .dashboard-cards {
     grid-template-columns: 1fr;
   }

@@ -1,0 +1,220 @@
+.coach-leavings-page {
+  min-height: 100vh;
+  padding: 50px;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(rgba(3, 10, 20, 0.84), rgba(3, 10, 20, 0.94)),
+    url('/assets/images/coach-bg.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.coach-leavings-page h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  color: #ff7a00;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #d8e2ef;
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+
+.top-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.back-btn,
+.logout-btn,
+.submit-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.logout-btn {
+  border: 2px solid #ff4d4d;
+  background: rgba(3, 10, 20, 0.6);
+  color: #ff4d4d;
+}
+
+.logout-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+.form-card,
+.list-card {
+  max-width: 950px;
+  margin: 0 auto 35px auto;
+  padding: 30px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(6, 18, 33, 0.96), rgba(8, 26, 44, 0.96));
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+}
+
+.form-card h2,
+.list-card h2 {
+  color: #ff7a00;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #d8e2ef;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  background: rgba(3, 10, 20, 0.72);
+  color: white;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff7a00;
+  box-shadow: 0 0 12px rgba(255, 122, 0, 0.25);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #ff7a00, #ff9d00);
+  color: white;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.4);
+}
+
+.success-message,
+.error-message {
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.success-message {
+  background: rgba(66, 214, 95, 0.16);
+  border: 1px solid rgba(66, 214, 95, 0.45);
+  color: #42d65f;
+}
+
+.error-message {
+  background: rgba(255, 77, 77, 0.16);
+  border: 1px solid rgba(255, 77, 77, 0.45);
+  color: #ff6b6b;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: left;
+}
+
+th {
+  color: #ff7a00;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+td {
+  color: #eaf3ff;
+}
+
+.status {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.status.pending {
+  background: rgba(255, 193, 7, 0.18);
+  color: #ffc107;
+}
+
+.status.accepted {
+  background: rgba(66, 214, 95, 0.18);
+  color: #42d65f;
+}
+
+.status.rejected {
+  background: rgba(255, 77, 77, 0.18);
+  color: #ff4d4d;
+}
+
+@media (max-width: 800px) {
+  .coach-leavings-page {
+    padding: 30px;
+  }
+
+  .coach-leavings-page h1 {
+    font-size: 32px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .top-actions {
+    flex-direction: column;
+  }
+}

@@ -19,6 +19,7 @@ import { ClientCoachRequests } from './pages/client-coach-requests/client-coach-
 import { CoachRequests } from './pages/coach-requests/coach-requests';
 import { CoachSessions } from './pages/coach-sessions/coach-sessions';
 import { CoachGroupClasses } from './pages/coach-group-classes/coach-group-classes';
+import { CoachLeavings } from './pages/coach-leavings/coach-leavings';
 
 import { AdminUsers } from './pages/admin-users/admin-users';
 import { AdminClients } from './pages/admin-clients/admin-clients';
@@ -27,8 +28,11 @@ import { AdminCourts } from './pages/admin-courts/admin-courts';
 import { AdminReservations } from './pages/admin-reservations/admin-reservations';
 import { AdminCoachRequests } from './pages/admin-coach-requests/admin-coach-requests';
 import { AdminStatistics } from './pages/admin-statistics/admin-statistics';
+import { AdminCoachLeavings } from './pages/admin-coach-leavings/admin-coach-leavings';
 
 import { authGuard } from './guards/auth-guard';
+
+
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -93,6 +97,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['COACH'] }
   },
+  {
+    path: 'coach/leavings',
+    component: CoachLeavings,
+    canActivate: [authGuard],
+    data: { roles: ['COACH'] }
+  },
 
   {
     path: 'admin',
@@ -136,6 +146,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] }
   },
+
+  {
+    path: 'admin/coach-leavings',
+    component: AdminCoachLeavings,
+    canActivate: [authGuard],
+    data: { roles: ['ADMIN'] }
+  },
+
   {
     path: 'admin/statistics',
     component: AdminStatistics,

@@ -292,6 +292,10 @@ button:hover {
   background-image: url('/assets/images/admin-requests-card.jpg');
 }
 
+.coach-leavings-card {
+  background-image: url('/assets/images/coach-leavings-card.jpg');
+}
+
 .statistics-card {
   background-image: url('/assets/images/admin-statistics-card.jpg');
 }

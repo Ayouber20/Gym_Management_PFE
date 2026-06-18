@@ -39,7 +39,8 @@
         class="notification-item"
         [class.reservation]="notification.type === 'RESERVATION'"
         [class.coach-session]="notification.type === 'COACH_SESSION'"
-        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'">
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
 
         <div class="notification-icon">
           {{ getNotificationIcon(notification.type) }}

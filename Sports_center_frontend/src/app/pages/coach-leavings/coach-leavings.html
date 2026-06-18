@@ -1,0 +1,117 @@
+<div class="coach-leavings-page">
+
+  <h1>Mes demandes de congé</h1>
+
+  <div class="top-actions">
+    <button routerLink="/coach" class="back-btn">
+      Retour
+    </button>
+  </div>
+
+  <p class="subtitle">
+    Envoyez une demande de congé à l’administrateur et suivez son état.
+  </p>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="form-card">
+    <h2>Nouvelle demande de congé</h2>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Date de début</label>
+        <input
+          type="date"
+          name="startDate"
+          [min]="tomorrow"
+          [ngModel]="startDate()"
+          (ngModelChange)="startDate.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Date de fin</label>
+        <input
+          type="date"
+          name="endDate"
+          [min]="startDate() || tomorrow"
+          [ngModel]="endDate()"
+          (ngModelChange)="endDate.set($event)">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Raison</label>
+      <textarea
+        name="reason"
+        rows="4"
+        placeholder="Exemple : congé personnel, indisponibilité..."
+        [ngModel]="reason()"
+        (ngModelChange)="reason.set($event)">
+      </textarea>
+    </div>
+
+    <button type="button" class="submit-btn" (click)="submitLeaveRequest()">
+      Envoyer la demande
+    </button>
+  </section>
+
+  <section class="list-card">
+    <h2>Historique de mes demandes</h2>
+
+    @if (!loaded()) {
+      <p>Chargement...</p>
+    }
+
+    @if (loaded() && leaves().length === 0) {
+      <p>Aucune demande de congé pour le moment.</p>
+    }
+
+    @if (loaded() && leaves().length > 0) {
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Raison</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (leave of leaves(); track leave.id) {
+              <tr>
+                <td>{{ leave.startDate }}</td>
+                <td>{{ leave.endDate }}</td>
+                <td>{{ leave.reason || '-' }}</td>
+                <td>
+                  <span
+                    class="status"
+                    [class.pending]="leave.status === 'PENDING'"
+                    [class.accepted]="leave.status === 'ACCEPTED'"
+                    [class.rejected]="leave.status === 'REJECTED'">
+                    {{ getStatusLabel(leave.status) }}
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+  </section>
+
+</div>
