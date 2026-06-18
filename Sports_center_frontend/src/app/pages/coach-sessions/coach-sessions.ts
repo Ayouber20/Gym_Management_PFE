@@ -72,14 +72,14 @@ export class CoachSessions {
       return;
     }
 
-    this.coachRequestService.getRequests()
+    this.coachRequestService.getRequestsByCoach(this.currentCoachId)
       .subscribe({
         next: (data) => {
-          const acceptedSessions = data
-            .filter(
-              request =>
-                request.coach.id === this.currentCoachId &&
-                request.status === 'ACCEPTED'
+          const visibleSessions = data
+            .filter(request =>
+              request.status === 'ACCEPTED' ||
+              request.status === 'COMPLETED' ||
+              request.status === 'CANCELLED'
             )
             .sort((a, b) => {
               if (a.requestDate < b.requestDate) return -1;
@@ -91,7 +91,7 @@ export class CoachSessions {
               return 0;
             });
 
-          this.sessions.set(acceptedSessions);
+          this.sessions.set(visibleSessions);
           this.loaded.set(true);
         },
         error: () => {
@@ -131,5 +131,21 @@ export class CoachSessions {
     this.searchTerm.set('');
     this.selectedActivityFilter.set('ALL');
     this.selectedDate.set('');
+  }
+
+  getStatusLabel(status: string): string {
+    if (status === 'ACCEPTED') {
+      return 'Acceptée';
+    }
+
+    if (status === 'COMPLETED') {
+      return 'Terminée';
+    }
+
+    if (status === 'CANCELLED') {
+      return 'Annulée';
+    }
+
+    return status;
   }
 }

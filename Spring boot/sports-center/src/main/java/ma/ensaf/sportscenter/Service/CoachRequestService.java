@@ -5,6 +5,9 @@ import ma.ensaf.sportscenter.Repository.CoachRequestRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CoachRequestService {
@@ -49,5 +52,85 @@ public class CoachRequestService {
         request.setStatus("REJECTED");
 
         return coachRequestRepository.save(request);
+    }
+
+    public void updatePastCoachRequestsStatus() {
+
+        List<CoachRequest> acceptedRequests =
+                coachRequestRepository.findByStatus("ACCEPTED");
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (CoachRequest request : acceptedRequests) {
+
+            LocalDateTime sessionEndDateTime =
+                    LocalDateTime.of(
+                            request.getRequestDate(),
+                            request.getRequestTime().plusHours(2)
+                    );
+
+            if (sessionEndDateTime.isBefore(now)) {
+                request.setStatus("COMPLETED");
+                coachRequestRepository.save(request);
+            }
+        }
+    }
+
+    public List<CoachRequest> getVisibleRequestsByClient(Long clientId) {
+
+        updatePastCoachRequestsStatus();
+
+        List<CoachRequest> allClientRequests =
+                coachRequestRepository.findByClientId(clientId);
+
+        List<CoachRequest> visibleRequests = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+
+        for (CoachRequest request : allClientRequests) {
+
+            boolean isOldCompleted =
+                    "COMPLETED".equals(request.getStatus())
+                            && request.getRequestDate().isBefore(today);
+
+            boolean isOldCancelled =
+                    "CANCELLED".equals(request.getStatus())
+                            && request.getRequestDate().isBefore(today);
+
+            if (!isOldCompleted && !isOldCancelled) {
+                visibleRequests.add(request);
+            }
+        }
+
+        return visibleRequests;
+    }
+
+    public List<CoachRequest> getVisibleRequestsByCoach(Long coachId) {
+
+        updatePastCoachRequestsStatus();
+
+        List<CoachRequest> allCoachRequests =
+                coachRequestRepository.findByCoachId(coachId);
+
+        List<CoachRequest> visibleRequests = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+
+        for (CoachRequest request : allCoachRequests) {
+
+            boolean isOldCompleted =
+                    "COMPLETED".equals(request.getStatus())
+                            && request.getRequestDate().isBefore(today);
+
+            boolean isOldCancelled =
+                    "CANCELLED".equals(request.getStatus())
+                            && request.getRequestDate().isBefore(today);
+
+            if (!isOldCompleted && !isOldCancelled) {
+                visibleRequests.add(request);
+            }
+        }
+
+        return visibleRequests;
     }
 }

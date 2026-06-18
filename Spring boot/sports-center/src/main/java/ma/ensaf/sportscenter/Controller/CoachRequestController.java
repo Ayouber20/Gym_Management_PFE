@@ -25,6 +25,7 @@ public class CoachRequestController {
 
     @GetMapping
     public List<CoachRequest> getAllRequests() {
+        coachRequestService.updatePastCoachRequestsStatus();
         return coachRequestRepository.findAll();
     }
 
@@ -32,7 +33,14 @@ public class CoachRequestController {
     public List<CoachRequest> getRequestsByClient(
             @PathVariable Long clientId) {
 
-        return coachRequestRepository.findByClientId(clientId);
+        return coachRequestService.getVisibleRequestsByClient(clientId);
+    }
+
+    @GetMapping("/coach/{coachId}")
+    public List<CoachRequest> getRequestsByCoach(
+            @PathVariable Long coachId) {
+
+        return coachRequestService.getVisibleRequestsByCoach(coachId);
     }
 
     @PostMapping

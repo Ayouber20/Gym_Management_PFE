@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -56,5 +60,56 @@ public class ReservationService {
         }
 
         return reservationRepository.save(reservation);
+    }
+
+    public void updatePastReservationsStatus() {
+
+        List<Reservation> confirmedReservations =
+                reservationRepository.findByStatus("CONFIRMED");
+
+        LocalDateTime now = LocalDateTime.now();
+
+        for (Reservation reservation : confirmedReservations) {
+
+            LocalDateTime reservationEndDateTime =
+                    LocalDateTime.of(
+                            reservation.getReservationDate(),
+                            reservation.getEndTime()
+                    );
+
+            if (reservationEndDateTime.isBefore(now)) {
+                reservation.setStatus("COMPLETED");
+                reservationRepository.save(reservation);
+            }
+        }
+    }
+
+    public List<Reservation> getVisibleReservationsByClient(Long clientId) {
+
+        updatePastReservationsStatus();
+
+        List<Reservation> allClientReservations =
+                reservationRepository.findByClientId(clientId);
+
+        List<Reservation> visibleReservations = new ArrayList<>();
+
+        LocalDate today = LocalDate.now();
+
+        for (Reservation reservation : allClientReservations) {
+
+            boolean isOldCompleted =
+                    "COMPLETED".equals(reservation.getStatus())
+                            && reservation.getReservationDate().isBefore(today);
+
+            boolean isOldCancelled =
+                    "CANCELLED".equals(reservation.getStatus())
+                            && reservation.getReservationDate().isBefore(today);
+
+            if (!isOldCompleted && !isOldCancelled) {
+                visibleReservations.add(reservation);
+            }
+        }
+
+        return visibleReservations;
     }
 }

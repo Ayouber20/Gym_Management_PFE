@@ -29,14 +29,13 @@ public class ReservationController {
 
     @GetMapping
     public List<Reservation> getAllReservations() {
+        reservationService.updatePastReservationsStatus();
         return reservationRepository.findAll();
     }
 
     @GetMapping("/client/{clientId}")
-    public List<Reservation> getReservationsByClient(
-            @PathVariable Long clientId) {
-
-        return reservationRepository.findByClientId(clientId);
+    public List<Reservation> getReservationsByClient(@PathVariable Long clientId) {
+        return reservationService.getVisibleReservationsByClient(clientId);
     }
 
     @PostMapping

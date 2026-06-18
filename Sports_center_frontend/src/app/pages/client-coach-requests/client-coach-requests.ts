@@ -38,7 +38,9 @@ export class ClientCoachRequests {
     'ALL',
     'PENDING',
     'ACCEPTED',
-    'REJECTED'
+    'REJECTED',
+    'COMPLETED',
+    'CANCELLED'
   ];
 
   constructor(
@@ -125,5 +127,29 @@ export class ClientCoachRequests {
     this.selectedActivityFilter.set('ALL');
     this.selectedStatusFilter.set('ALL');
     this.selectedDate.set('');
+  }
+
+  getStatusLabel(status: string): string {
+    if (status === 'PENDING') {
+      return 'En attente';
+    }
+
+    if (status === 'ACCEPTED') {
+      return 'Acceptée';
+    }
+
+    if (status === 'REJECTED') {
+      return 'Refusée';
+    }
+
+    if (status === 'COMPLETED') {
+      return 'Terminée';
+    }
+
+    if (status === 'CANCELLED') {
+      return 'Annulée';
+    }
+
+    return status;
   }
 }

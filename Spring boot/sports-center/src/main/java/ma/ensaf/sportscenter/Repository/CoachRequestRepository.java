@@ -16,6 +16,10 @@ public interface CoachRequestRepository
 
     List<CoachRequest> findByCoachIdAndRequestDateAndStatus(Long coachId, LocalDate requestDate, String status);
 
+    List<CoachRequest> findByStatus(String status);
+
+    List<CoachRequest> findByCoachId(Long coachId);
+
     List<CoachRequest> findByCoachIdAndRequestDateBetweenAndStatus(
             Long coachId,
             LocalDate startDate,

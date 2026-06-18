@@ -24,6 +24,12 @@ export class CoachRequestService {
     );
   }
 
+  getRequestsByCoach(coachId: number) {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/coach/${coachId}`
+    );
+  }
+
   acceptRequest(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/accept`, {});
   }
