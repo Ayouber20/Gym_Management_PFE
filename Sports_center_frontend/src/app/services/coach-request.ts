@@ -37,4 +37,8 @@ export class CoachRequestService {
   rejectRequest(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/reject`, {});
   }
+
+  hideRequestForClient(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/hide-for-client`, {});
+  }
 }

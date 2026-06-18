@@ -63,4 +63,9 @@ public class CoachRequestController {
 
         return coachRequestService.rejectRequest(id);
     }
+
+    @PutMapping("/{id}/hide-for-client")
+    public CoachRequest hideRequestForClient(@PathVariable Long id) {
+        return coachRequestService.hideRequestForClient(id);
+    }
 }

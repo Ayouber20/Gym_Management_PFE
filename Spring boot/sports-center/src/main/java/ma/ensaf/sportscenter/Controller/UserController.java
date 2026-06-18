@@ -4,6 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ma.ensaf.sportscenter.Entity.User;
 import ma.ensaf.sportscenter.Repository.UserRepository;
+import ma.ensaf.sportscenter.Dto.ChangePasswordRequest;
+import ma.ensaf.sportscenter.Service.UserService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +21,16 @@ public class UserController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     public UserController(
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            UserService userService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -51,5 +57,17 @@ public class UserController {
         User savedUser = userRepository.save(user);
 
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(
+            @RequestBody ChangePasswordRequest request) {
+
+        userService.changePassword(request);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Mot de passe modifié avec succès.");
+
+        return ResponseEntity.ok(response);
     }
 }

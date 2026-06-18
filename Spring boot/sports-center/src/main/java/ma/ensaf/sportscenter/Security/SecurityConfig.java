@@ -50,8 +50,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login").permitAll()
 
                         // USERS
+                        .requestMatchers(HttpMethod.PUT, "/api/users/change-password")
+                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
+                        
                         .requestMatchers("/api/users", "/api/users/**")
                         .hasAuthority("ROLE_ADMIN")
+
+
 
                         // CLIENTS
                         .requestMatchers(HttpMethod.GET, "/api/clients/user/**")
@@ -98,6 +103,9 @@ public class SecurityConfig {
 
                         // COACH REQUESTS
                         .requestMatchers(HttpMethod.POST, "/api/coach-requests", "/api/coach-requests/**")
+                        .hasAuthority("ROLE_CLIENT")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/hide-for-client")
                         .hasAuthority("ROLE_CLIENT")
 
                         .requestMatchers("/api/coach-requests/*/accept")

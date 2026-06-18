@@ -97,7 +97,9 @@ public class CoachRequestService {
                     "CANCELLED".equals(request.getStatus())
                             && request.getRequestDate().isBefore(today);
 
-            if (!isOldCompleted && !isOldCancelled) {
+            boolean isHiddenByClient = request.isHiddenByClient();
+
+            if (!isOldCompleted && !isOldCancelled && !isHiddenByClient) {
                 visibleRequests.add(request);
             }
         }
@@ -132,5 +134,22 @@ public class CoachRequestService {
         }
 
         return visibleRequests;
+    }
+
+    public CoachRequest hideRequestForClient(Long id) {
+
+        CoachRequest request = coachRequestRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Demande introuvable."));
+
+        if (!"REJECTED".equals(request.getStatus())) {
+            throw new RuntimeException(
+                    "Seules les demandes refusées peuvent être masquées."
+            );
+        }
+
+        request.setHiddenByClient(true);
+
+        return coachRequestRepository.save(request);
     }
 }

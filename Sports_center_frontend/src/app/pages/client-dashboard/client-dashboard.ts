@@ -125,4 +125,18 @@ getNotificationTitle(type: string): string {
 
   return 'Notification';
 }
+
+markNotificationAsRead(notificationId: number): void {
+  this.notificationService.markAsRead(notificationId)
+    .subscribe({
+      next: () => {
+        this.notifications.update(notifications =>
+          notifications.filter(notification => notification.id !== notificationId)
+        );
+      },
+      error: () => {
+        this.errorMessage.set('Erreur lors de la suppression de la notification.');
+      }
+    });
+}
 }

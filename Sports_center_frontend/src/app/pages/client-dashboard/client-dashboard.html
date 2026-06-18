@@ -57,6 +57,12 @@
               à {{ formatTime(notification.time) }}
             }
           </small>
+          <button
+            type="button"
+            class="delete-notification-btn"
+            (click)="markNotificationAsRead(notification.id)">
+            ✕
+          </button>
         </div>
 
       </div>

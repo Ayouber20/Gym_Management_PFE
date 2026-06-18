@@ -85,6 +85,15 @@
       @for (request of filteredRequests(); track request.id) {
         <div class="request-card">
 
+          @if (request.status === 'REJECTED') {
+            <button
+              type="button"
+              class="hide-request-btn"
+              (click)="hideRejectedRequest(request.id)">
+              ✕
+            </button>
+          }
+
           <h2>{{ request.activity }}</h2>
 
           <p>

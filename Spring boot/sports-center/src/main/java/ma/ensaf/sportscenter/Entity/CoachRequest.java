@@ -30,6 +30,9 @@ public class CoachRequest {
     @Column(name = "request_time")
     private LocalTime requestTime;
 
+    @Column(name = "hidden_by_client")
+    private boolean hiddenByClient = false;
+
     public CoachRequest() {
     }
 
@@ -83,5 +86,13 @@ public class CoachRequest {
 
     public void setRequestTime(LocalTime requestTime) {
         this.requestTime = requestTime;
+    }
+
+    public boolean isHiddenByClient() {
+        return hiddenByClient;
+    }
+
+    public void setHiddenByClient(boolean hiddenByClient) {
+        this.hiddenByClient = hiddenByClient;
     }
 }

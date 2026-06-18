@@ -152,4 +152,18 @@ export class ClientCoachRequests {
 
     return status;
   }
+
+  hideRejectedRequest(id: number): void {
+    this.coachRequestService.hideRequestForClient(id)
+      .subscribe({
+        next: () => {
+          this.requests.update(requests =>
+            requests.filter(request => request.id !== id)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la demande.');
+        }
+      });
+  }
 }

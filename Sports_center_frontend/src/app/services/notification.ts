@@ -21,4 +21,8 @@ export class NotificationService {
   getAdminNotifications() {
     return this.http.get<any[]>(`${this.apiUrl}/admin`);
   }
+
+  markAsRead(notificationId: number) {
+    return this.http.put<any>(`${this.apiUrl}/${notificationId}/read`, {});
+  }
 }
