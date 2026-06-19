@@ -1,13 +1,8 @@
 <div class="client-dashboard">
 
-  <h1>Espace Client</h1>
+  <app-profile-menu></app-profile-menu>
 
-  <button
-      type="button"
-      class="logout-btn"
-      (click)="logout()">
-      Déconnexion
-  </button>
+  <h1>Espace Client</h1>
 
   <p class="subtitle">
     Bienvenue dans votre espace client. Choisissez une fonctionnalité.
@@ -25,51 +20,53 @@
   }
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
-  <section class="notifications-card">
+    <section class="notifications-card">
 
-    <div class="notifications-header">
-      <h2>🔔 Mes notifications</h2>
-      <span class="notification-badge">
-        {{ notifications().length }}
-      </span>
-    </div>
-
-    @for (notification of notifications(); track notification.message) {
-      <div
-        class="notification-item"
-        [class.reservation]="notification.type === 'RESERVATION'"
-        [class.coach-session]="notification.type === 'COACH_SESSION'"
-        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED'"
-        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
-
-        <div class="notification-icon">
-          {{ getNotificationIcon(notification.type) }}
-        </div>
-
-        <div class="notification-content">
-          <strong>{{ getNotificationTitle(notification.type) }}</strong>
-
-          <p>{{ notification.message }}</p>
-
-          <small>
-            {{ notification.date }}
-            @if (notification.time) {
-              à {{ formatTime(notification.time) }}
-            }
-          </small>
-          <button
-            type="button"
-            class="delete-notification-btn"
-            (click)="markNotificationAsRead(notification.id)">
-            ✕
-          </button>
-        </div>
-
+      <div class="notifications-header">
+        <h2>🔔 Mes notifications</h2>
+        <span class="notification-badge">
+          {{ notifications().length }}
+        </span>
       </div>
-    }
 
-  </section>
-}
+      @for (notification of notifications(); track notification.message) {
+        <div
+          class="notification-item"
+          [class.reservation]="notification.type === 'RESERVATION'"
+          [class.coach-session]="notification.type === 'COACH_SESSION'"
+          [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
+
+          <div class="notification-icon">
+            {{ getNotificationIcon(notification.type) }}
+          </div>
+
+          <div class="notification-content">
+            <strong>{{ getNotificationTitle(notification.type) }}</strong>
+
+            <p>{{ notification.message }}</p>
+
+            <small>
+              {{ notification.date }}
+              @if (notification.time) {
+                à {{ formatTime(notification.time) }}
+              }
+            </small>
+          </div>
+
+          @if (notification.id) {
+            <button
+              type="button"
+              class="delete-notification-btn"
+              (click)="markNotificationAsRead(notification.id)">
+              ✕
+            </button>
+          }
+
+        </div>
+      }
+
+    </section>
+  }
 
   @if (!errorMessage() && notificationsLoaded() && notifications().length === 0) {
     <section class="notifications-card empty">
@@ -78,7 +75,7 @@
         <span class="notification-badge zero">0</span>
       </div>
 
-      <p>Aucune séance ou réservation prévue pour demain.</p>
+      <p>Aucune notification pour le moment.</p>
     </section>
   }
 

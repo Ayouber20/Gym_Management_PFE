@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +51,18 @@ public class ReservationService {
                             &&
                             reservation.getEndTime().isAfter(existing.getStartTime());
 
-            if (overlap) {
+            boolean existingIsCancelled =
+                    "CANCELLED".equals(existing.getStatus());
+
+            if (overlap && !existingIsCancelled) {
                 throw new RuntimeException(
                         "Ce terrain est déjà réservé sur ce créneau."
                 );
             }
         }
+
+        reservation.setStatus("CONFIRMED");
+        reservation.setHiddenByClient(false);
 
         return reservationRepository.save(reservation);
     }
@@ -105,11 +110,31 @@ public class ReservationService {
                     "CANCELLED".equals(reservation.getStatus())
                             && reservation.getReservationDate().isBefore(today);
 
-            if (!isOldCompleted && !isOldCancelled) {
+            boolean isHiddenByClient =
+                    reservation.isHiddenByClient();
+
+            if (!isOldCompleted && !isOldCancelled && !isHiddenByClient) {
                 visibleReservations.add(reservation);
             }
         }
 
         return visibleReservations;
+    }
+
+    public Reservation hideReservationForClient(Long id) {
+
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Réservation introuvable."));
+
+        if (!"CANCELLED".equals(reservation.getStatus())) {
+            throw new RuntimeException(
+                    "Seules les réservations annulées peuvent être masquées."
+            );
+        }
+
+        reservation.setHiddenByClient(true);
+
+        return reservationRepository.save(reservation);
     }
 }

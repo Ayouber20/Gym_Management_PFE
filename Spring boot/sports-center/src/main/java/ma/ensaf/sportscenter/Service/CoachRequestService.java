@@ -59,6 +59,9 @@ public class CoachRequestService {
         List<CoachRequest> acceptedRequests =
                 coachRequestRepository.findByStatus("ACCEPTED");
 
+        List<CoachRequest> pendingRequests =
+                coachRequestRepository.findByStatus("PENDING");
+
         LocalDateTime now = LocalDateTime.now();
 
         for (CoachRequest request : acceptedRequests) {
@@ -71,6 +74,20 @@ public class CoachRequestService {
 
             if (sessionEndDateTime.isBefore(now)) {
                 request.setStatus("COMPLETED");
+                coachRequestRepository.save(request);
+            }
+        }
+
+        for (CoachRequest request : pendingRequests) {
+
+            LocalDateTime requestDateTime =
+                    LocalDateTime.of(
+                            request.getRequestDate(),
+                            request.getRequestTime()
+                    );
+
+            if (requestDateTime.isBefore(now)) {
+                request.setStatus("EXPIRED");
                 coachRequestRepository.save(request);
             }
         }
@@ -142,9 +159,14 @@ public class CoachRequestService {
                 .orElseThrow(() ->
                         new RuntimeException("Demande introuvable."));
 
-        if (!"REJECTED".equals(request.getStatus())) {
+        boolean canBeHidden =
+                "REJECTED".equals(request.getStatus()) ||
+                        "CANCELLED".equals(request.getStatus()) ||
+                        "EXPIRED".equals(request.getStatus());
+
+        if (!canBeHidden) {
             throw new RuntimeException(
-                    "Seules les demandes refusées peuvent être masquées."
+                    "Seules les demandes refusées, annulées ou expirées peuvent être masquées."
             );
         }
 

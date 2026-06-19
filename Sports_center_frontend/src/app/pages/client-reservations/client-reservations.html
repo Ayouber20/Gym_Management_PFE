@@ -93,6 +93,15 @@
       @for (reservation of filteredReservations(); track reservation.id) {
         <div class="reservation-card">
 
+          @if (reservation.status === 'CANCELLED') {
+            <button
+              type="button"
+              class="hide-reservation-btn"
+              (click)="hideCancelledReservation(reservation.id)">
+              ✕
+            </button>
+          }
+
           <h2>Terrain {{ reservation.court.courtNumber }}</h2>
 
           <p>

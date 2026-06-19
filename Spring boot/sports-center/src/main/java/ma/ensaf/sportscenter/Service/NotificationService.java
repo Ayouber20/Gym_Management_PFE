@@ -33,6 +33,8 @@ public class NotificationService {
                 time
         );
 
+        notification.setReadStatus(false);
+
         return notificationRepository.save(notification);
     }
 
@@ -52,6 +54,8 @@ public class NotificationService {
                 time
         );
 
+        notification.setReadStatus(false);
+
         return notificationRepository.save(notification);
     }
 
@@ -69,6 +73,8 @@ public class NotificationService {
                 date,
                 time
         );
+
+        notification.setReadStatus(false);
 
         return notificationRepository.save(notification);
     }

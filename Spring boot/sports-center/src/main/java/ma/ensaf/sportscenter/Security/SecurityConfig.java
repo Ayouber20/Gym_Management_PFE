@@ -89,6 +89,9 @@ public class SecurityConfig {
                         .hasAuthority("ROLE_ADMIN")
 
                         // RESERVATIONS
+                        .requestMatchers(HttpMethod.PUT, "/api/reservations/*/hide-for-client")
+                        .hasAuthority("ROLE_CLIENT")
+
                         .requestMatchers(HttpMethod.GET, "/api/reservations/client/**")
                         .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
 

@@ -3,11 +3,12 @@ import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth';
 import { NotificationService } from '../../services/notification';
+import { ProfileMenu } from '../../components/profile-menu/profile-menu';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, ProfileMenu],
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.css']
 })
@@ -109,6 +110,10 @@ getNotificationTitle(type: string): string {
 }
 
 markNotificationAsRead(notificationId: number): void {
+  if (!notificationId) {
+    return;
+  }
+
   this.notificationService.markAsRead(notificationId)
     .subscribe({
       next: () => {
@@ -117,7 +122,7 @@ markNotificationAsRead(notificationId: number): void {
         );
       },
       error: () => {
-        this.errorMessage.set('Erreur lors de la suppression de la notification.');
+        this.errorMessage.set('Erreur lors du masquage de la notification.');
       }
     });
 }

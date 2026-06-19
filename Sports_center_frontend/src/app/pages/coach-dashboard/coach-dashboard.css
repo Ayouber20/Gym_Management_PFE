@@ -5,6 +5,7 @@
   color: white;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
 
   background:
     linear-gradient(rgba(3, 10, 20, 0.82), rgba(3, 10, 20, 0.94)),

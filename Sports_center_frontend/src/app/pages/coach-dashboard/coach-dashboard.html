@@ -1,13 +1,14 @@
 <div class="coach-dashboard">
+  <app-profile-menu></app-profile-menu>
 
   <h1>Espace Coach</h1>
 
-  <button
+  <!--<button
     type="button"
     class="logout-btn"
     (click)="logout()">
     Déconnexion
-  </button>
+  </button>-->
 
   <p class="subtitle">
     Bienvenue dans votre espace coach. Gérez vos demandes, vos séances et vos cours collectifs.
@@ -57,12 +58,16 @@
               à {{ formatTime(notification.time) }}
             }
           </small>
-          <button
-            type="button"
-            class="delete-notification-btn"
-            (click)="markNotificationAsRead(notification.id)">
-            ✕
-          </button>
+
+          @if (notification.id) {
+            <button
+              type="button"
+              class="delete-notification-btn"
+              (click)="markNotificationAsRead(notification.id)">
+              ✕
+            </button>
+          }
+          
         </div>
 
       </div>

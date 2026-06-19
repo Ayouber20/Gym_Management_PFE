@@ -281,33 +281,42 @@
 
 .notification-item {
   position: relative;
+  padding-right: 55px;
 }
 
 .delete-notification-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
 
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 50%;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
 
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+
+  background: rgba(255, 77, 77, 0.18) !important;
+  color: #ff4d4d !important;
 
   font-size: 16px;
   font-weight: bold;
-  cursor: pointer;
+  line-height: 1;
 
-  display: flex;
+  cursor: pointer;
+  text-transform: none !important;
+
+  display: flex !important;
   align-items: center;
   justify-content: center;
 }
 
 .delete-notification-btn:hover {
-  background: #ff4d4d;
-  color: white;
+  background: #ff4d4d !important;
+  color: white !important;
+  box-shadow: none !important;
 }
 
 /* RESPONSIVE */

@@ -5,6 +5,7 @@
   color: white;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
 
   background:
     linear-gradient(rgba(3, 10, 20, 0.82), rgba(3, 10, 20, 0.94)),
@@ -329,6 +330,36 @@ button:hover {
 .delete-notification-btn:hover {
   background: #ff4d4d;
   color: white;
+}
+
+.delete-notification-btn {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+
+  border: none !important;
+  border-radius: 50% !important;
+
+  background: rgba(255, 77, 77, 0.18) !important;
+  color: #ff4d4d !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  text-transform: none !important;
+}
+
+.delete-notification-btn:hover {
+  background: #ff4d4d !important;
+  color: white !important;
+  box-shadow: none !important;
 }
 
 /* RESPONSIVE */

@@ -55,4 +55,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.getUser() !== null && this.getToken() !== null;
   }
+
+  changePassword(request: any) {
+  return this.http.put('http://localhost:8080/api/users/change-password', request);
+}
 }

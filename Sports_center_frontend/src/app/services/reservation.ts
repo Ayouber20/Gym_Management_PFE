@@ -27,4 +27,8 @@ export class ReservationService {
   deleteReservation(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  hideReservationForClient(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/hide-for-client`, {});
+  }
 }

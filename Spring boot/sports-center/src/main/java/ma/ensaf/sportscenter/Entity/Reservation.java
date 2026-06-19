@@ -22,6 +22,9 @@ public class Reservation {
     @Column(name = "end_time")
     private LocalTime endTime;
 
+    @Column(name = "hidden_by_client")
+    private boolean hiddenByClient = false;
+
     private String status;
 
     @ManyToOne
@@ -85,5 +88,13 @@ public class Reservation {
 
     public void setCourt(TennisCourt court) {
         this.court = court;
+    }
+
+    public boolean isHiddenByClient() {
+        return hiddenByClient;
+    }
+
+    public void setHiddenByClient(boolean hiddenByClient) {
+        this.hiddenByClient = hiddenByClient;
     }
 }

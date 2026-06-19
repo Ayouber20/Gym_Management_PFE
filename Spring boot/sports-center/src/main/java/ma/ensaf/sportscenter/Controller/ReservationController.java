@@ -50,6 +50,11 @@ public class ReservationController {
         reservationRepository.deleteById(id);
     }
 
+    @PutMapping("/{id}/hide-for-client")
+    public Reservation hideReservationForClient(@PathVariable Long id) {
+        return reservationService.hideReservationForClient(id);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleRuntimeException(
             RuntimeException ex) {

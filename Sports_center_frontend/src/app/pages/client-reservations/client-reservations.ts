@@ -155,4 +155,18 @@ export class ClientReservations {
         }
       });
   }
+
+  hideCancelledReservation(id: number): void {
+    this.reservationService.hideReservationForClient(id)
+      .subscribe({
+        next: () => {
+          this.reservations.update(reservations =>
+            reservations.filter(reservation => reservation.id !== id)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la réservation.');
+        }
+      });
+  }
 }

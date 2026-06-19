@@ -40,7 +40,8 @@ export class ClientCoachRequests {
     'ACCEPTED',
     'REJECTED',
     'COMPLETED',
-    'CANCELLED'
+    'CANCELLED',
+    'EXPIRED'
   ];
 
   constructor(
@@ -148,6 +149,10 @@ export class ClientCoachRequests {
 
     if (status === 'CANCELLED') {
       return 'Annulée';
+    }
+
+    if (status === 'EXPIRED') {
+      return 'Expirée';
     }
 
     return status;
