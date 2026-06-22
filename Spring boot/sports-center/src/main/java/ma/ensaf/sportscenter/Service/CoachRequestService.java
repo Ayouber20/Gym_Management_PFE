@@ -28,6 +28,8 @@ public class CoachRequestService {
         }
 
         coachRequest.setStatus("PENDING");
+        coachRequest.setHiddenByClient(false);
+        coachRequest.setHiddenByCoach(false);
 
         return coachRequestRepository.save(coachRequest);
     }
@@ -114,7 +116,8 @@ public class CoachRequestService {
                     "CANCELLED".equals(request.getStatus())
                             && request.getRequestDate().isBefore(today);
 
-            boolean isHiddenByClient = request.isHiddenByClient();
+            boolean isHiddenByClient =
+                    request.isHiddenByClient();
 
             if (!isOldCompleted && !isOldCancelled && !isHiddenByClient) {
                 visibleRequests.add(request);
@@ -145,7 +148,10 @@ public class CoachRequestService {
                     "CANCELLED".equals(request.getStatus())
                             && request.getRequestDate().isBefore(today);
 
-            if (!isOldCompleted && !isOldCancelled) {
+            boolean isHiddenByCoach =
+                    request.isHiddenByCoach();
+
+            if (!isOldCompleted && !isOldCancelled && !isHiddenByCoach) {
                 visibleRequests.add(request);
             }
         }
@@ -171,6 +177,29 @@ public class CoachRequestService {
         }
 
         request.setHiddenByClient(true);
+
+        return coachRequestRepository.save(request);
+    }
+
+    public CoachRequest hideRequestForCoach(Long id) {
+
+        CoachRequest request = coachRequestRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Demande introuvable."));
+
+        boolean canBeHidden =
+                "REJECTED".equals(request.getStatus()) ||
+                        "CANCELLED".equals(request.getStatus()) ||
+                        "EXPIRED".equals(request.getStatus()) ||
+                        "COMPLETED".equals(request.getStatus());
+
+        if (!canBeHidden) {
+            throw new RuntimeException(
+                    "Seules les demandes refusées, annulées, expirées ou terminées peuvent être masquées."
+            );
+        }
+
+        request.setHiddenByCoach(true);
 
         return coachRequestRepository.save(request);
     }

@@ -81,6 +81,15 @@
       @for (session of filteredSessions(); track session.id) {
         <div class="session-card">
 
+          @if (session.status === 'COMPLETED' || session.status === 'CANCELLED') {
+            <button
+              type="button"
+              class="hide-session-btn"
+              (click)="hideSessionForCoach(session.id)">
+              ✕
+            </button>
+          }
+
           <h2>{{ session.activity }}</h2>
 
           <p>

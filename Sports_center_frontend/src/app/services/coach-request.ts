@@ -41,4 +41,8 @@ export class CoachRequestService {
   hideRequestForClient(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/hide-for-client`, {});
   }
+
+  hideRequestForCoach(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/hide-for-coach`, {});
+  }
 }

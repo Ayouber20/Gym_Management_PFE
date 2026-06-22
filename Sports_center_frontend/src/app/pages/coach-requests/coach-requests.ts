@@ -42,7 +42,8 @@ export class CoachRequests {
     'ACCEPTED',
     'REJECTED',
     'COMPLETED',
-    'CANCELLED'
+    'CANCELLED',
+    'EXPIRED'
   ];
 
   constructor(
@@ -207,6 +208,10 @@ export class CoachRequests {
       return 'Refusée';
     }
 
+    if (status === 'EXPIRED') {
+      return 'Expirée';
+    }
+
     if (status === 'COMPLETED') {
       return 'Terminée';
     }
@@ -216,5 +221,19 @@ export class CoachRequests {
     }
 
     return status;
+  }
+
+  hideRequestForCoach(id: number): void {
+    this.coachRequestService.hideRequestForCoach(id)
+      .subscribe({
+        next: () => {
+          this.requests.update(requests =>
+            requests.filter(request => request.id !== id)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la demande.');
+        }
+      });
   }
 }

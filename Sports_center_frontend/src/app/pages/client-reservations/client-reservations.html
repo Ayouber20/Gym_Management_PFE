@@ -93,7 +93,7 @@
       @for (reservation of filteredReservations(); track reservation.id) {
         <div class="reservation-card">
 
-          @if (reservation.status === 'CANCELLED') {
+          @if (reservation.status === 'CANCELLED' || reservation.status === 'COMPLETED') {
             <button
               type="button"
               class="hide-reservation-btn"
@@ -119,7 +119,7 @@
             {{ reservation.status }}
           </p>
 
-          @if (reservation.status !== 'CANCELLED') {
+          @if (reservation.status === 'CONFIRMED') {
             <button
               type="button"
               class="cancel-btn"

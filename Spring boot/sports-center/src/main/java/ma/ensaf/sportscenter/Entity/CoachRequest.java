@@ -33,6 +33,9 @@ public class CoachRequest {
     @Column(name = "hidden_by_client")
     private boolean hiddenByClient = false;
 
+    @Column(name = "hidden_by_coach")
+    private boolean hiddenByCoach = false;
+
     public CoachRequest() {
     }
 
@@ -94,5 +97,13 @@ public class CoachRequest {
 
     public void setHiddenByClient(boolean hiddenByClient) {
         this.hiddenByClient = hiddenByClient;
+    }
+
+    public boolean isHiddenByCoach() {
+        return hiddenByCoach;
+    }
+
+    public void setHiddenByCoach(boolean hiddenByCoach) {
+        this.hiddenByCoach = hiddenByCoach;
     }
 }

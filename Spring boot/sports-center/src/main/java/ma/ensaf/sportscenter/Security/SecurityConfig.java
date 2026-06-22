@@ -111,6 +111,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/hide-for-client")
                         .hasAuthority("ROLE_CLIENT")
 
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/hide-for-coach")
+                        .hasAuthority("ROLE_COACH")
+
                         .requestMatchers("/api/coach-requests/*/accept")
                         .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
 

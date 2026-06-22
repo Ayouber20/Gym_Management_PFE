@@ -99,6 +99,19 @@
 
       @for (request of filteredRequests(); track request.id) {
         <div class="request-card">
+          @if (
+            request.status === 'REJECTED' ||
+            request.status === 'EXPIRED' ||
+            request.status === 'CANCELLED' ||
+            request.status === 'COMPLETED'
+          ) {
+            <button
+              type="button"
+              class="hide-request-btn"
+              (click)="hideRequestForCoach(request.id)">
+              ✕
+            </button>
+          }
 
           <h2>{{ request.activity }}</h2>
 

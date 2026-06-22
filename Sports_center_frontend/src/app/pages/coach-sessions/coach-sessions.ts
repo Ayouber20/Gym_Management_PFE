@@ -148,4 +148,18 @@ export class CoachSessions {
 
     return status;
   }
+
+  hideSessionForCoach(id: number): void {
+    this.coachRequestService.hideRequestForCoach(id)
+      .subscribe({
+        next: () => {
+          this.sessions.update(sessions =>
+            sessions.filter(session => session.id !== id)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la séance.');
+        }
+      });
+  }
 }

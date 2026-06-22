@@ -127,9 +127,13 @@ public class ReservationService {
                 .orElseThrow(() ->
                         new RuntimeException("Réservation introuvable."));
 
-        if (!"CANCELLED".equals(reservation.getStatus())) {
+        boolean canBeHidden =
+                "CANCELLED".equals(reservation.getStatus()) ||
+                        "COMPLETED".equals(reservation.getStatus());
+
+        if (!canBeHidden) {
             throw new RuntimeException(
-                    "Seules les réservations annulées peuvent être masquées."
+                    "Seules les réservations annulées ou terminées peuvent être masquées."
             );
         }
 
