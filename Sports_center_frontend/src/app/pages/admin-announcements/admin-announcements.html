@@ -1,0 +1,108 @@
+<div class="admin-announcements-page">
+
+  <app-profile-menu></app-profile-menu>
+
+  <h1>Gestion des annonces</h1>
+  <p class="subtitle">
+    Publier des annonces visibles par les clients et/ou les coachs.
+  </p>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <div class="form-card">
+    <h2>Nouvelle annonce</h2>
+
+    <label>Titre</label>
+    <input
+      type="text"
+      [ngModel]="title()"
+      (ngModelChange)="title.set($event)"
+      placeholder="Ex : Fermeture exceptionnelle">
+
+    <label>Message</label>
+    <textarea
+      rows="5"
+      [ngModel]="message()"
+      (ngModelChange)="message.set($event)"
+      placeholder="Écrivez le contenu de l’annonce...">
+    </textarea>
+
+    <label>Destinataire</label>
+    <select
+      [ngModel]="targetAudience()"
+      (ngModelChange)="targetAudience.set($event)">
+      <option value="ALL">Clients et coachs</option>
+      <option value="CLIENT">Clients uniquement</option>
+      <option value="COACH">Coachs uniquement</option>
+    </select>
+
+    <button type="button" (click)="createAnnouncement()">
+      Publier l’annonce
+    </button>
+  </div>
+
+  <div class="list-card">
+    <h2>Annonces publiées</h2>
+
+    @if (!loaded()) {
+      <p>Chargement des annonces...</p>
+    }
+
+    @if (loaded() && announcements().length === 0) {
+      <p>Aucune annonce pour le moment.</p>
+    }
+
+    @if (loaded() && announcements().length > 0) {
+      <div class="announcements-list">
+
+        @for (announcement of announcements(); track announcement.id) {
+          <div class="announcement-card" [class.disabled]="!announcement.active">
+
+            <div class="announcement-header">
+              <h3>{{ announcement.title }}</h3>
+
+              <span class="target-badge">
+                {{ getTargetLabel(announcement.targetAudience) }}
+              </span>
+            </div>
+
+            <p>{{ announcement.message }}</p>
+
+            <div class="announcement-footer">
+              <span>
+                Statut :
+                @if (announcement.active) {
+                  Active
+                } @else {
+                  Désactivée
+                }
+              </span>
+
+              @if (announcement.active) {
+                <button
+                  type="button"
+                  class="disable-btn"
+                  (click)="disableAnnouncement(announcement.id)">
+                  Désactiver
+                </button>
+              }
+            </div>
+
+          </div>
+        }
+
+      </div>
+    }
+  </div>
+
+</div>

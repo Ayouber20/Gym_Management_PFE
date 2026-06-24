@@ -155,6 +155,22 @@ public class SecurityConfig {
                         .requestMatchers("/api/coach-leaves", "/api/coach-leaves/**")
                         .hasAuthority("ROLE_ADMIN")
 
+                        // ANNOUNCEMENTS
+                        .requestMatchers(HttpMethod.POST, "/api/announcements")
+                        .hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/announcements")
+                        .hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/announcements/*/disable")
+                        .hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/announcements/client")
+                        .hasAuthority("ROLE_CLIENT")
+
+                        .requestMatchers(HttpMethod.GET, "/api/announcements/coach")
+                        .hasAuthority("ROLE_COACH")
+
                         // Everything else
                         .anyRequest().authenticated()
                 )

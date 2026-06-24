@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth';
 import { NotificationService } from '../../services/notification';
 import { CoachService } from '../../services/coach';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
+import { AnnouncementService } from '../../services/announcement';
 
 @Component({
   selector: 'app-coach-dashboard',
@@ -20,14 +21,19 @@ export class CoachDashboard {
 
   errorMessage = signal('');
 
+  announcements = signal<any[]>([]);
+  announcementsLoaded = signal(false);
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private coachService: CoachService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private announcementService: AnnouncementService
   ) {
     afterNextRender(() => {
       this.loadNotifications();
+      this.loadAnnouncements();
     });
   }
 
@@ -142,6 +148,21 @@ markNotificationAsRead(notificationId: number): void {
       },
       error: () => {
         this.errorMessage.set('Erreur lors du masquage de la notification.');
+      }
+    });
+}
+
+loadAnnouncements(): void {
+  this.announcementsLoaded.set(false);
+
+  this.announcementService.getCoachAnnouncements()
+    .subscribe({
+      next: (data) => {
+        this.announcements.set(data);
+        this.announcementsLoaded.set(true);
+      },
+      error: () => {
+        this.announcementsLoaded.set(true);
       }
     });
 }

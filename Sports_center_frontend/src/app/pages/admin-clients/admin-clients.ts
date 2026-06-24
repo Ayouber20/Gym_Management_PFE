@@ -115,6 +115,11 @@ export class AdminClients {
       return;
     }
 
+    if (this.isAlreadyClient(Number(this.selectedUserId()))) {
+      this.errorMessage.set('Cet utilisateur est déjà enregistré comme client.');
+      return;
+    }
+
     const client = {
       membershipNumber: this.membershipNumber(),
       user: {
@@ -145,5 +150,9 @@ export class AdminClients {
   resetForm(): void {
     this.selectedUserId.set(null);
     this.membershipNumber.set('');
+  }
+
+  isAlreadyClient(userId: number): boolean {
+    return this.clients().some(client => client.user?.id === userId);
   }
 }

@@ -98,10 +98,11 @@
 }
 
 .notification-item {
+  position: relative;
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 16px 18px;
+  padding: 16px 55px 16px 18px;
   border-radius: 16px;
   margin-bottom: 14px;
   background: rgba(37, 191, 255, 0.08);
@@ -162,15 +163,50 @@
   font-weight: bold;
 }
 
+.delete-notification-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 50% !important;
+
+  background: rgba(255, 77, 77, 0.18) !important;
+  color: #ff4d4d !important;
+
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+
+  cursor: pointer;
+  text-transform: none !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-notification-btn:hover {
+  background: #ff4d4d !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
 /* DASHBOARD CARDS */
 
 .dashboard-cards {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 92%;
+  max-width: 1300px;
+  margin: 40px auto;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 28px;
 }
 
@@ -194,7 +230,9 @@
 
   background-size: cover;
   background-position: center;
+
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .dashboard-card:hover {
@@ -246,11 +284,7 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
-.statistics-card {
-  grid-column: 2 / 3;
-}
-
-button {
+.dashboard-card button {
   padding: 12px 22px;
   border: none;
   border-radius: 10px;
@@ -258,12 +292,18 @@ button {
   background: linear-gradient(135deg, #29b6f6, #0288d1);
   color: white;
 
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
+
+  box-shadow: 0 8px 20px rgba(41, 182, 246, 0.25);
+  transition: 0.3s;
 }
 
-button:hover {
+.dashboard-card button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #4fc3f7, #039be5);
   box-shadow: 0 8px 18px rgba(41, 182, 246, 0.4);
 }
 
@@ -297,80 +337,30 @@ button:hover {
   background-image: url('/assets/images/coach-leavings-card.jpg');
 }
 
+.announcements-card {
+  background-image: url('/assets/images/admin-announcements-card.jpg');
+}
+
 .statistics-card {
   background-image: url('/assets/images/admin-statistics-card.jpg');
 }
 
-.notification-item {
-  position: relative;
-}
-
-.delete-notification-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
-
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.delete-notification-btn:hover {
-  background: #ff4d4d;
-  color: white;
-}
-
-.delete-notification-btn {
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  min-height: 28px !important;
-  padding: 0 !important;
-
-  border: none !important;
-  border-radius: 50% !important;
-
-  background: rgba(255, 77, 77, 0.18) !important;
-  color: #ff4d4d !important;
-
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 1;
-  cursor: pointer;
-  text-transform: none !important;
-}
-
-.delete-notification-btn:hover {
-  background: #ff4d4d !important;
-  color: white !important;
-  box-shadow: none !important;
-}
-
 /* RESPONSIVE */
 
-@media (max-width: 1000px) {
+@media (max-width: 1250px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 950px) {
   .dashboard-cards {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .statistics-card {
-    grid-column: auto;
+  .admin-dashboard {
+    padding: 35px;
   }
 }
 
@@ -387,6 +377,10 @@ button:hover {
     font-size: 34px;
   }
 
+  .subtitle {
+    font-size: 16px;
+  }
+
   .notifications-header {
     flex-direction: column;
     gap: 12px;
@@ -396,5 +390,6 @@ button:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 18px 55px 18px 18px;
   }
 }

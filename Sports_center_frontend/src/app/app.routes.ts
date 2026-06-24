@@ -29,6 +29,7 @@ import { AdminReservations } from './pages/admin-reservations/admin-reservations
 import { AdminCoachRequests } from './pages/admin-coach-requests/admin-coach-requests';
 import { AdminStatistics } from './pages/admin-statistics/admin-statistics';
 import { AdminCoachLeavings } from './pages/admin-coach-leavings/admin-coach-leavings';
+import { AdminAnnouncements } from './pages/admin-announcements/admin-announcements';
 
 import { authGuard } from './guards/auth-guard';
 
@@ -159,5 +160,11 @@ export const routes: Routes = [
     component: AdminStatistics,
     canActivate: [authGuard],
     data: { roles: ['ADMIN'] }
+  },
+  
+  {
+    path: 'admin/announcements',
+    component: AdminAnnouncements
   }
+  
 ];

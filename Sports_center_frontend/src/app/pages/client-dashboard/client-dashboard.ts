@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth';
 import { NotificationService } from '../../services/notification';
 import { ClientService } from '../../services/client';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
+import { AnnouncementService } from '../../services/announcement';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -20,14 +21,19 @@ export class ClientDashboard {
 
   errorMessage = signal('');
 
+  announcements = signal<any[]>([]);
+  announcementsLoaded = signal(false);
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private clientService: ClientService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private announcementService: AnnouncementService
   ) {
     afterNextRender(() => {
       this.loadNotifications();
+      this.loadAnnouncements();
     });
   }
 
@@ -127,21 +133,35 @@ getNotificationTitle(type: string): string {
   return 'Notification';
 }
 
-markNotificationAsRead(notificationId: number): void {
-  if (!notificationId) {
-    return;
-  }
+  markNotificationAsRead(notificationId: number): void {
+    if (!notificationId) {
+      return;
+    }
 
-  this.notificationService.markAsRead(notificationId)
-    .subscribe({
-      next: () => {
-        this.notifications.update(notifications =>
-          notifications.filter(notification => notification.id !== notificationId)
-        );
-      },
-      error: () => {
-        this.errorMessage.set('Erreur lors du masquage de la notification.');
-      }
-    });
-}
+    this.notificationService.markAsRead(notificationId)
+      .subscribe({
+        next: () => {
+          this.notifications.update(notifications =>
+            notifications.filter(notification => notification.id !== notificationId)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la notification.');
+        }
+      });
+  }
+  loadAnnouncements(): void {
+    this.announcementsLoaded.set(false);
+
+    this.announcementService.getClientAnnouncements()
+      .subscribe({
+        next: (data) => {
+          this.announcements.set(data);
+          this.announcementsLoaded.set(true);
+        },
+        error: () => {
+          this.announcementsLoaded.set(true);
+        }
+      });
+  }
 }
