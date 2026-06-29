@@ -43,4 +43,11 @@ public interface CoachRequestRepository
             LocalTime requestTime,
             List<String> statuses
     );
+
+    List<CoachRequest> findByClientIdAndRequestDateAndRequestTimeAndStatusIn(
+            Long clientId,
+            LocalDate requestDate,
+            LocalTime requestTime,
+            List<String> statuses
+    );
 }

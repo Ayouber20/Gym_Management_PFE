@@ -32,6 +32,20 @@ public class CoachRequestService {
             );
         }
 
+        List<CoachRequest> clientRequestsAtSameTime =
+                coachRequestRepository.findByClientIdAndRequestDateAndRequestTimeAndStatusIn(
+                        coachRequest.getClient().getId(),
+                        coachRequest.getRequestDate(),
+                        coachRequest.getRequestTime(),
+                        List.of("PENDING", "ACCEPTED")
+                );
+
+        if (!clientRequestsAtSameTime.isEmpty()) {
+            throw new RuntimeException(
+                    "Vous avez déjà une demande de coaching sur ce créneau."
+            );
+        }
+
         List<CoachRequest> existingRequests =
                 coachRequestRepository
                         .findByClientIdAndCoachIdAndActivityAndRequestDateAndRequestTimeAndStatusIn(
