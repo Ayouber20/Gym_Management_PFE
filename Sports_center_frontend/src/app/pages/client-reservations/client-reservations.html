@@ -128,6 +128,32 @@
             </button>
           }
 
+          @if (reservation.status === 'CANCELLED') {
+            <div class="suggestion-box">
+              <h4>💡 Suggestion</h4>
+
+              <p>
+                Cette réservation a été annulée car le terrain n’est plus disponible.
+                Vous pouvez consulter les autres terrains disponibles ou abandonner cette réservation.
+              </p>
+
+              <div class="suggestion-actions">
+                <button
+                  type="button"
+                  class="available-courts-btn"
+                  (click)="goToAvailableCourts()">
+                  Voir terrains disponibles
+                </button>
+
+                <button
+                  type="button"
+                  class="abandon-btn"
+                  (click)="abandonCancelledReservation(reservation.id)">
+                  Abandonner
+                </button>
+              </div>
+            </div>
+          }
         </div>
       }
 

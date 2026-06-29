@@ -3,6 +3,8 @@ package ma.ensaf.sportscenter.Controller;
 import ma.ensaf.sportscenter.Entity.CoachRequest;
 import ma.ensaf.sportscenter.Repository.CoachRequestRepository;
 import ma.ensaf.sportscenter.Service.CoachRequestService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,47 +32,72 @@ public class CoachRequestController {
     }
 
     @GetMapping("/client/{clientId}")
-    public List<CoachRequest> getRequestsByClient(
-            @PathVariable Long clientId) {
-
+    public List<CoachRequest> getRequestsByClient(@PathVariable Long clientId) {
         return coachRequestService.getVisibleRequestsByClient(clientId);
     }
 
     @GetMapping("/coach/{coachId}")
-    public List<CoachRequest> getRequestsByCoach(
-            @PathVariable Long coachId) {
-
+    public List<CoachRequest> getRequestsByCoach(@PathVariable Long coachId) {
         return coachRequestService.getVisibleRequestsByCoach(coachId);
     }
 
     @PostMapping
-    public CoachRequest createRequest(
-            @RequestBody CoachRequest request) {
-
-        return coachRequestService.createRequest(request);
+    public ResponseEntity<?> createRequest(@RequestBody CoachRequest request) {
+        try {
+            CoachRequest savedRequest = coachRequestService.createRequest(request);
+            return ResponseEntity.ok(savedRequest);
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(exception.getMessage());
+        }
     }
 
     @PutMapping("/{id}/accept")
-    public CoachRequest acceptRequest(
-            @PathVariable Long id) {
-
-        return coachRequestService.acceptRequest(id);
+    public ResponseEntity<?> acceptRequest(@PathVariable Long id) {
+        try {
+            CoachRequest acceptedRequest = coachRequestService.acceptRequest(id);
+            return ResponseEntity.ok(acceptedRequest);
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(exception.getMessage());
+        }
     }
 
     @PutMapping("/{id}/reject")
-    public CoachRequest rejectRequest(
-            @PathVariable Long id) {
-
-        return coachRequestService.rejectRequest(id);
+    public ResponseEntity<?> rejectRequest(@PathVariable Long id) {
+        try {
+            CoachRequest rejectedRequest = coachRequestService.rejectRequest(id);
+            return ResponseEntity.ok(rejectedRequest);
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(exception.getMessage());
+        }
     }
 
     @PutMapping("/{id}/hide-for-client")
-    public CoachRequest hideRequestForClient(@PathVariable Long id) {
-        return coachRequestService.hideRequestForClient(id);
+    public ResponseEntity<?> hideRequestForClient(@PathVariable Long id) {
+        try {
+            CoachRequest hiddenRequest = coachRequestService.hideRequestForClient(id);
+            return ResponseEntity.ok(hiddenRequest);
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(exception.getMessage());
+        }
     }
 
     @PutMapping("/{id}/hide-for-coach")
-    public CoachRequest hideRequestForCoach(@PathVariable Long id) {
-        return coachRequestService.hideRequestForCoach(id);
+    public ResponseEntity<?> hideRequestForCoach(@PathVariable Long id) {
+        try {
+            CoachRequest hiddenRequest = coachRequestService.hideRequestForCoach(id);
+            return ResponseEntity.ok(hiddenRequest);
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(exception.getMessage());
+        }
     }
 }

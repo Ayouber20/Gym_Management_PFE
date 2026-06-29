@@ -44,10 +44,11 @@
 
       @for (notification of notifications(); track notification.message) {
         <div
-          class="notification-item"
-          [class.reservation]="notification.type === 'RESERVATION'"
-          [class.coach-session]="notification.type === 'COACH_SESSION'"
-          [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
+        class="notification-item"
+        [class.reservation]="notification.type === 'RESERVATION'"
+        [class.coach-session]="notification.type === 'COACH_SESSION'"
+        [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'"
+        (click)="goToNotificationTarget(notification)">
 
           <div class="notification-icon">
             {{ getNotificationIcon(notification.type) }}
@@ -70,7 +71,7 @@
             <button
               type="button"
               class="delete-notification-btn"
-              (click)="markNotificationAsRead(notification.id)">
+              (click)="$event.stopPropagation(); markNotificationAsRead(notification.id)">
               ✕
             </button>
           }
@@ -107,6 +108,7 @@
     </div>
 
     <div class="dashboard-card coach-card">
+      
       <h2>💪 Demande de coach</h2>
 
       <p>
@@ -119,6 +121,9 @@
     </div>
 
     <div class="dashboard-card reservations-card">
+      @if (hasReservationNotification()) {
+        <span class="red-dot"></span>
+      }
       <h2>📅 Mes réservations</h2>
 
       <p>
@@ -131,6 +136,9 @@
     </div>
 
     <div class="dashboard-card requests-card">
+      @if (hasCoachRequestNotification()) {
+        <span class="red-dot"></span>
+      }
       <h2>📋 Mes demandes</h2>
 
       <p>

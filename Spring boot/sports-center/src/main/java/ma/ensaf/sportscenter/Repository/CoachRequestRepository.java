@@ -4,6 +4,7 @@ import ma.ensaf.sportscenter.Entity.CoachRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface CoachRequestRepository
@@ -25,5 +26,21 @@ public interface CoachRequestRepository
             LocalDate startDate,
             LocalDate endDate,
             String status
+    );
+
+    List<CoachRequest> findByCoachIdAndRequestDateAndRequestTimeAndStatus(
+            Long coachId,
+            LocalDate requestDate,
+            LocalTime requestTime,
+            String status
+    );
+
+    List<CoachRequest> findByClientIdAndCoachIdAndActivityAndRequestDateAndRequestTimeAndStatusIn(
+            Long clientId,
+            Long coachId,
+            String activity,
+            LocalDate requestDate,
+            LocalTime requestTime,
+            List<String> statuses
     );
 }

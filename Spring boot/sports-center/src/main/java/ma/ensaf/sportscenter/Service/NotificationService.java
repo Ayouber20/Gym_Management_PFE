@@ -1,6 +1,7 @@
 package ma.ensaf.sportscenter.Service;
 
 import ma.ensaf.sportscenter.Entity.Notification;
+import ma.ensaf.sportscenter.Entity.CoachRequest;
 import ma.ensaf.sportscenter.Repository.NotificationRepository;
 import org.springframework.stereotype.Service;
 
@@ -108,5 +109,82 @@ public class NotificationService {
         notification.setReadStatus(true);
 
         return notificationRepository.save(notification);
+    }
+
+    public void createCoachRequestAcceptedNotification(CoachRequest request) {
+
+        String message =
+                "Votre demande de coach avec "
+                        + request.getCoach().getUser().getFirstName()
+                        + " "
+                        + request.getCoach().getUser().getLastName()
+                        + " pour l'activité "
+                        + request.getActivity()
+                        + " le "
+                        + request.getRequestDate()
+                        + " à "
+                        + request.getRequestTime()
+                        + " a été acceptée.";
+
+        Notification notification = new Notification(
+                "CLIENT",
+                request.getClient().getId(),
+                "COACH_REQUEST_ACCEPTED",
+                message,
+                request.getRequestDate(),
+                request.getRequestTime()
+        );
+
+        notificationRepository.save(notification);
+    }
+
+    public void createCoachRequestRejectedNotification(CoachRequest request) {
+
+        String message =
+                "Votre demande de coach avec "
+                        + request.getCoach().getUser().getFirstName()
+                        + " "
+                        + request.getCoach().getUser().getLastName()
+                        + " pour l'activité "
+                        + request.getActivity()
+                        + " le "
+                        + request.getRequestDate()
+                        + " à "
+                        + request.getRequestTime()
+                        + " a été refusée.";
+
+        Notification notification = new Notification(
+                "CLIENT",
+                request.getClient().getId(),
+                "COACH_REQUEST_REJECTED",
+                message,
+                request.getRequestDate(),
+                request.getRequestTime()
+        );
+
+        notificationRepository.save(notification);
+    }
+
+    public void createNewCoachRequestNotification(CoachRequest request) {
+
+        String message =
+                "Vous avez reçu une nouvelle demande de coaching pour l'activité "
+                        + request.getActivity()
+                        + " le "
+                        + request.getRequestDate()
+                        + " à "
+                        + request.getRequestTime()
+                        + ".";
+
+        Notification notification = new Notification(
+                "COACH",
+                request.getCoach().getId(),
+                "COACH_REQUEST",
+                message,
+                request.getRequestDate(),
+                request.getRequestTime()
+        );
+
+        notificationRepository.save(notification);
     }
 }

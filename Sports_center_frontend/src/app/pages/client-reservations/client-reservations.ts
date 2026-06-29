@@ -7,6 +7,8 @@ import { ReservationService } from '../../services/reservation';
 import { AuthService } from '../../services/auth';
 import { ClientService } from '../../services/client';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-client-reservations',
   standalone: true,
@@ -39,11 +41,21 @@ export class ClientReservations {
   constructor(
     private reservationService: ReservationService,
     private authService: AuthService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router,
   ) {
     afterNextRender(() => {
+      sessionStorage.setItem('client_reservations_seen', 'true');
       this.loadCurrentClient();
     });
+  }
+
+  goToAvailableCourts(): void {
+    this.router.navigate(['/client/tennis']);
+  }
+
+  abandonCancelledReservation(id: number): void {
+    this.hideCancelledReservation(id);
   }
 
   loadCurrentClient(): void {
@@ -102,21 +114,28 @@ export class ClientReservations {
   }
 
   filteredReservations(): any[] {
-    return this.reservations().filter(reservation => {
-      const matchesDate =
-        !this.selectedDate() ||
-        reservation.reservationDate === this.selectedDate();
+    return this.reservations()
+      .filter(reservation => {
+        const matchesDate =
+          !this.selectedDate() ||
+          reservation.reservationDate === this.selectedDate();
 
-      const matchesCourt =
-        this.selectedCourtFilter() === 'ALL' ||
-        String(reservation.court?.courtNumber) === this.selectedCourtFilter();
+        const matchesCourt =
+          this.selectedCourtFilter() === 'ALL' ||
+          String(reservation.court?.courtNumber) === this.selectedCourtFilter();
 
-      const matchesStatus =
-        this.selectedStatusFilter() === 'ALL' ||
-        reservation.status === this.selectedStatusFilter();
+        const matchesStatus =
+          this.selectedStatusFilter() === 'ALL' ||
+          reservation.status === this.selectedStatusFilter();
 
-      return matchesDate && matchesCourt && matchesStatus;
-    });
+        return matchesDate && matchesCourt && matchesStatus;
+      })
+      .sort((a, b) => {
+        const dateTimeA = `${a.reservationDate} ${a.startTime}`;
+        const dateTimeB = `${b.reservationDate} ${b.startTime}`;
+
+        return dateTimeA.localeCompare(dateTimeB);
+      });
   }
 
   getCourtNumbers(): number[] {

@@ -7,6 +7,8 @@ import { CoachRequestService } from '../../services/coach-request';
 import { AuthService } from '../../services/auth';
 import { ClientService } from '../../services/client';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-client-coach-requests',
   standalone: true,
@@ -20,6 +22,7 @@ export class ClientCoachRequests {
   loaded = signal(false);
 
   errorMessage = signal('');
+  successMessage = signal('');
 
   currentClientId: number | null = null;
 
@@ -47,11 +50,17 @@ export class ClientCoachRequests {
   constructor(
     private coachRequestService: CoachRequestService,
     private authService: AuthService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) {
     afterNextRender(() => {
+      sessionStorage.setItem('client_coach_requests_seen', 'true');
       this.loadCurrentClient();
     });
+  }
+
+  goToCoachRequestForm(): void {
+    this.router.navigate(['/demande-coach']);
   }
 
   loadCurrentClient(): void {
@@ -60,6 +69,7 @@ export class ClientCoachRequests {
     if (!user) {
       this.loaded.set(true);
       this.errorMessage.set('Vous devez être connecté.');
+      this.successMessage.set('');
       return;
     }
 
@@ -69,9 +79,14 @@ export class ClientCoachRequests {
           this.currentClientId = client.id;
           this.loadRequests();
         },
-        error: () => {
+        error: (error) => {
+          const backendMessage = this.getBackendErrorMessage(error);
+
           this.loaded.set(true);
-          this.errorMessage.set('Profil client introuvable.');
+          this.errorMessage.set(
+            backendMessage || 'Profil client introuvable.'
+          );
+          this.successMessage.set('');
         }
       });
   }
@@ -87,41 +102,66 @@ export class ClientCoachRequests {
       .subscribe({
         next: (data) => {
           const sortedRequests = data.sort((a, b) => {
-            if (a.requestDate < b.requestDate) return -1;
-            if (a.requestDate > b.requestDate) return 1;
+            if (a.status === 'PENDING' && b.status !== 'PENDING') {
+              return -1;
+            }
 
-            if (a.requestTime < b.requestTime) return -1;
-            if (a.requestTime > b.requestTime) return 1;
+            if (a.status !== 'PENDING' && b.status === 'PENDING') {
+              return 1;
+            }
 
-            return 0;
+            const dateTimeA = `${a.requestDate} ${a.requestTime}`;
+            const dateTimeB = `${b.requestDate} ${b.requestTime}`;
+
+            return dateTimeA.localeCompare(dateTimeB);
           });
 
           this.requests.set(sortedRequests);
           this.loaded.set(true);
         },
-        error: () => {
+        error: (error) => {
+          const backendMessage = this.getBackendErrorMessage(error);
+
           this.loaded.set(true);
-          this.errorMessage.set('Erreur lors du chargement des demandes.');
+          this.errorMessage.set(
+            backendMessage || 'Erreur lors du chargement des demandes.'
+          );
+          this.successMessage.set('');
         }
       });
   }
 
   filteredRequests(): any[] {
-    return this.requests().filter(request => {
-      const matchesActivity =
-        this.selectedActivityFilter() === 'ALL' ||
-        request.activity === this.selectedActivityFilter();
+    return this.requests()
+      .filter(request => {
+        const matchesActivity =
+          this.selectedActivityFilter() === 'ALL' ||
+          request.activity === this.selectedActivityFilter();
 
-      const matchesStatus =
-        this.selectedStatusFilter() === 'ALL' ||
-        request.status === this.selectedStatusFilter();
+        const matchesStatus =
+          this.selectedStatusFilter() === 'ALL' ||
+          request.status === this.selectedStatusFilter();
 
-      const matchesDate =
-        !this.selectedDate() ||
-        request.requestDate === this.selectedDate();
+        const matchesDate =
+          !this.selectedDate() ||
+          request.requestDate === this.selectedDate();
 
-      return matchesActivity && matchesStatus && matchesDate;
-    });
+        return matchesActivity && matchesStatus && matchesDate;
+      })
+      .sort((a, b) => {
+        if (a.status === 'PENDING' && b.status !== 'PENDING') {
+          return -1;
+        }
+
+        if (a.status !== 'PENDING' && b.status === 'PENDING') {
+          return 1;
+        }
+
+        const dateTimeA = `${a.requestDate} ${a.requestTime}`;
+        const dateTimeB = `${b.requestDate} ${b.requestTime}`;
+
+        return dateTimeA.localeCompare(dateTimeB);
+      });
   }
 
   resetFilters(): void {
@@ -159,16 +199,43 @@ export class ClientCoachRequests {
   }
 
   hideRejectedRequest(id: number): void {
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
     this.coachRequestService.hideRequestForClient(id)
       .subscribe({
         next: () => {
           this.requests.update(requests =>
             requests.filter(request => request.id !== id)
           );
+
+          this.successMessage.set('Demande masquée avec succès.');
+          this.errorMessage.set('');
         },
-        error: () => {
-          this.errorMessage.set('Erreur lors du masquage de la demande.');
+        error: (error) => {
+          const backendMessage = this.getBackendErrorMessage(error);
+
+          this.errorMessage.set(
+            backendMessage || 'Erreur lors du masquage de la demande.'
+          );
+          this.successMessage.set('');
         }
       });
+  }
+
+  private getBackendErrorMessage(error: any): string {
+    if (typeof error?.error === 'string') {
+      return error.error;
+    }
+
+    if (error?.error?.message) {
+      return error.error.message;
+    }
+
+    if (error?.message) {
+      return error.message;
+    }
+
+    return '';
   }
 }

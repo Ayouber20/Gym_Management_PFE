@@ -197,12 +197,16 @@ export class CoachRequest {
   }
 
   private getErrorMessage(err: any): string {
+    if (typeof err?.error === 'string') {
+      return err.error;
+    }
+
     if (err?.error?.message) {
       return err.error.message;
     }
 
-    if (typeof err?.error === 'string') {
-      return err.error;
+    if (err?.message) {
+      return err.message;
     }
 
     return 'Erreur lors de l’envoi de la demande.';

@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        System.out.println("JWT FILTER CALLED FOR: " + request.getRequestURI());
+        System.out.println("JWT FILTER CALLED FOR: " + request.getMethod() + " " + request.getRequestURI());
 
         String authHeader = request.getHeader("Authorization");
 
@@ -50,6 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = authHeader.substring(7);
 
         if (!jwtService.isTokenValid(token)) {
+            System.out.println("JWT TOKEN INVALID");
             filterChain.doFilter(request, response);
             return;
         }
@@ -59,24 +60,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         User user = userRepository.findByEmail(email).orElse(null);
 
         if (user == null) {
+            System.out.println("JWT USER NOT FOUND");
             filterChain.doFilter(request, response);
             return;
         }
 
         String role = String.valueOf(user.getRole()).trim().toUpperCase();
 
-        SimpleGrantedAuthority authority =
+        if (role.startsWith("ROLE_")) {
+            role = role.substring(5);
+        }
+
+        SimpleGrantedAuthority authorityWithoutPrefix =
+                new SimpleGrantedAuthority(role);
+
+        SimpleGrantedAuthority authorityWithPrefix =
                 new SimpleGrantedAuthority("ROLE_" + role);
 
         System.out.println("JWT USER: " + user.getEmail());
         System.out.println("JWT ROLE FROM DB: " + user.getRole());
-        System.out.println("JWT AUTHORITY SENT TO SPRING: " + authority.getAuthority());
+        System.out.println("JWT AUTHORITY 1: " + authorityWithoutPrefix.getAuthority());
+        System.out.println("JWT AUTHORITY 2: " + authorityWithPrefix.getAuthority());
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
                         user.getEmail(),
                         null,
-                        List.of(authority)
+                        List.of(authorityWithoutPrefix, authorityWithPrefix)
                 );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

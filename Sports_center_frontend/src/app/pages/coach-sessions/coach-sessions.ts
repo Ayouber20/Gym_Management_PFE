@@ -40,6 +40,7 @@ export class CoachSessions {
     private coachService: CoachService
   ) {
     afterNextRender(() => {
+      sessionStorage.setItem('coach_sessions_seen', 'true');
       this.loadCurrentCoach();
     });
   }
@@ -104,27 +105,34 @@ export class CoachSessions {
   filteredSessions(): any[] {
     const search = this.searchTerm().toLowerCase().trim();
 
-    return this.sessions().filter(session => {
-      const clientFullName =
-        `${session.client?.user?.firstName || ''} ${session.client?.user?.lastName || ''}`.toLowerCase();
+    return this.sessions()
+      .filter(session => {
+        const clientFullName =
+          `${session.client?.user?.firstName || ''} ${session.client?.user?.lastName || ''}`.toLowerCase();
 
-      const clientEmail =
-        session.client?.user?.email?.toLowerCase() || '';
+        const clientEmail =
+          session.client?.user?.email?.toLowerCase() || '';
 
-      const matchesSearch =
-        clientFullName.includes(search) ||
-        clientEmail.includes(search);
+        const matchesSearch =
+          clientFullName.includes(search) ||
+          clientEmail.includes(search);
 
-      const matchesActivity =
-        this.selectedActivityFilter() === 'ALL' ||
-        session.activity === this.selectedActivityFilter();
+        const matchesActivity =
+          this.selectedActivityFilter() === 'ALL' ||
+          session.activity === this.selectedActivityFilter();
 
-      const matchesDate =
-        !this.selectedDate() ||
-        session.requestDate === this.selectedDate();
+        const matchesDate =
+          !this.selectedDate() ||
+          session.requestDate === this.selectedDate();
 
-      return matchesSearch && matchesActivity && matchesDate;
-    });
+        return matchesSearch && matchesActivity && matchesDate;
+      })
+      .sort((a, b) => {
+        const dateTimeA = `${a.requestDate} ${a.requestTime}`;
+        const dateTimeB = `${b.requestDate} ${b.requestTime}`;
+
+        return dateTimeA.localeCompare(dateTimeB);
+      });
   }
 
   resetFilters(): void {
@@ -150,6 +158,8 @@ export class CoachSessions {
   }
 
   hideSessionForCoach(id: number): void {
+    localStorage.setItem('coach_session_notification_handled', 'true');
+
     this.coachRequestService.hideRequestForCoach(id)
       .subscribe({
         next: () => {

@@ -85,7 +85,12 @@
       @for (request of filteredRequests(); track request.id) {
         <div class="request-card">
 
-          @if (request.status === 'REJECTED' || request.status === 'CANCELLED' || request.status === 'EXPIRED') {
+          @if (
+            request.status === 'REJECTED' ||
+            request.status === 'CANCELLED' ||
+            request.status === 'EXPIRED' ||
+            request.status === 'COMPLETED'
+          ) {
             <button
               type="button"
               class="hide-request-btn"
@@ -116,10 +121,43 @@
             <span
               [class.pending]="request.status === 'PENDING'"
               [class.accepted]="request.status === 'ACCEPTED'"
-              [class.rejected]="request.status === 'REJECTED'">
+              [class.rejected]="request.status === 'REJECTED'"
+              [class.cancelled]="request.status === 'CANCELLED'"
+              [class.expired]="request.status === 'EXPIRED'">
               {{ request.status }}
             </span>
           </p>
+
+          @if (
+            request.status === 'REJECTED' ||
+            request.status === 'CANCELLED' ||
+            request.status === 'EXPIRED'
+          ) {
+            <div class="suggestion-box">
+              <h4>💡 Suggestion</h4>
+
+              <p>
+                Cette demande de coach n’a pas abouti. Vous pouvez envoyer une nouvelle
+                demande à un coach ou abandonner cette demande.
+              </p>
+
+              <div class="suggestion-actions">
+                <button
+                  type="button"
+                  class="new-request-btn"
+                  (click)="goToCoachRequestForm()">
+                  Faire une nouvelle demande
+                </button>
+
+                <button
+                  type="button"
+                  class="abandon-btn"
+                  (click)="hideRejectedRequest(request.id)">
+                  Abandonner
+                </button>
+              </div>
+            </div>
+          }
 
         </div>
       }

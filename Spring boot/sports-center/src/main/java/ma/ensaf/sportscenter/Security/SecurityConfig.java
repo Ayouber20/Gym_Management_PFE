@@ -51,125 +51,126 @@ public class SecurityConfig {
 
                         // USERS
                         .requestMatchers(HttpMethod.PUT, "/api/users/change-password")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
-                        
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
                         .requestMatchers("/api/users", "/api/users/**")
-                        .hasAuthority("ROLE_ADMIN")
-
-
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // CLIENTS
                         .requestMatchers(HttpMethod.GET, "/api/clients/user/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers("/api/clients", "/api/clients/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // COACHES
                         .requestMatchers(HttpMethod.GET, "/api/coaches/user/**")
-                        .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/coaches", "/api/coaches/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers("/api/coaches", "/api/coaches/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // COURTS
                         .requestMatchers("/api/courts/*/maintenance")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers("/api/courts/*/available")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/courts", "/api/courts/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers("/api/courts", "/api/courts/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // RESERVATIONS
                         .requestMatchers(HttpMethod.PUT, "/api/reservations/*/hide-for-client")
-                        .hasAuthority("ROLE_CLIENT")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 
                         .requestMatchers(HttpMethod.GET, "/api/reservations/client/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/api/reservations", "/api/reservations/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.DELETE, "/api/reservations", "/api/reservations/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/reservations", "/api/reservations/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // COACH REQUESTS
-                        .requestMatchers(HttpMethod.POST, "/api/coach-requests", "/api/coach-requests/**")
-                        .hasAuthority("ROLE_CLIENT")
+                        .requestMatchers(HttpMethod.POST, "/api/coach-requests")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
+
+                        .requestMatchers(HttpMethod.GET, "/api/coach-requests/client/**")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/coach-requests/coach/**")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/accept")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/reject")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/hide-for-client")
-                        .hasAuthority("ROLE_CLIENT")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 
                         .requestMatchers(HttpMethod.PUT, "/api/coach-requests/*/hide-for-coach")
-                        .hasAuthority("ROLE_COACH")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
 
-                        .requestMatchers("/api/coach-requests/*/accept")
-                        .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
-
-                        .requestMatchers("/api/coach-requests/*/reject")
-                        .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
-
-                        .requestMatchers(HttpMethod.GET, "/api/coach-requests", "/api/coach-requests/**")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
-
-                        .requestMatchers("/api/coach-requests", "/api/coach-requests/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/coach-requests")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // NOTIFICATIONS
                         .requestMatchers(HttpMethod.GET, "/api/notifications/client/**")
-                        .hasAuthority("ROLE_CLIENT")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 
                         .requestMatchers(HttpMethod.GET, "/api/notifications/coach/**")
-                        .hasAuthority("ROLE_COACH")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
 
                         .requestMatchers(HttpMethod.GET, "/api/notifications/admin")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.PUT, "/api/notifications/*/read")
-                        .hasAnyAuthority("ROLE_CLIENT", "ROLE_COACH", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
 
                         // COACH LEAVES
                         .requestMatchers(HttpMethod.POST, "/api/coach-leaves", "/api/coach-leaves/**")
-                        .hasAuthority("ROLE_COACH")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
 
                         .requestMatchers(HttpMethod.PUT, "/api/coach-leaves/*/accept")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.PUT, "/api/coach-leaves/*/reject")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/coach-leaves", "/api/coach-leaves/**")
-                        .hasAnyAuthority("ROLE_COACH", "ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers("/api/coach-leaves", "/api/coach-leaves/**")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         // ANNOUNCEMENTS
                         .requestMatchers(HttpMethod.POST, "/api/announcements")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/announcements")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.PUT, "/api/announcements/*/disable")
-                        .hasAuthority("ROLE_ADMIN")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/api/announcements/client")
-                        .hasAuthority("ROLE_CLIENT")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 
                         .requestMatchers(HttpMethod.GET, "/api/announcements/coach")
-                        .hasAuthority("ROLE_COACH")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
 
                         // Everything else
                         .anyRequest().authenticated()
@@ -189,9 +190,14 @@ public class SecurityConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
 
-                config.setAllowedOrigins(List.of("http://localhost:4200"));
+                config.setAllowedOriginPatterns(List.of(
+                        "http://localhost:4200",
+                        "http://127.0.0.1:4200"
+                ));
+
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 config.setAllowedHeaders(List.of("*"));
+                config.setExposedHeaders(List.of("Authorization"));
                 config.setAllowCredentials(true);
 
                 return config;

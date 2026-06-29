@@ -1,6 +1,7 @@
 package ma.ensaf.sportscenter.Service;
 
 import ma.ensaf.sportscenter.Entity.CoachRequest;
+import ma.ensaf.sportscenter.Service.NotificationService;
 import ma.ensaf.sportscenter.Repository.CoachRequestRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,14 @@ import java.util.List;
 public class CoachRequestService {
 
     private final CoachRequestRepository coachRequestRepository;
+    private final NotificationService notificationService;
 
     public CoachRequestService(
-            CoachRequestRepository coachRequestRepository) {
+            CoachRequestRepository coachRequestRepository,
+            NotificationService notificationService
+    ) {
         this.coachRequestRepository = coachRequestRepository;
+        this.notificationService = notificationService;
     }
 
     public CoachRequest createRequest(CoachRequest coachRequest) {
@@ -27,11 +32,32 @@ public class CoachRequestService {
             );
         }
 
+        List<CoachRequest> existingRequests =
+                coachRequestRepository
+                        .findByClientIdAndCoachIdAndActivityAndRequestDateAndRequestTimeAndStatusIn(
+                                coachRequest.getClient().getId(),
+                                coachRequest.getCoach().getId(),
+                                coachRequest.getActivity(),
+                                coachRequest.getRequestDate(),
+                                coachRequest.getRequestTime(),
+                                List.of("PENDING", "ACCEPTED")
+                        );
+
+        if (!existingRequests.isEmpty()) {
+            throw new RuntimeException(
+                    "Vous avez déjà envoyé une demande pour ce coach sur ce créneau."
+            );
+        }
+
         coachRequest.setStatus("PENDING");
         coachRequest.setHiddenByClient(false);
         coachRequest.setHiddenByCoach(false);
 
-        return coachRequestRepository.save(coachRequest);
+        CoachRequest savedRequest = coachRequestRepository.save(coachRequest);
+
+        notificationService.createNewCoachRequestNotification(savedRequest);
+
+        return savedRequest;
     }
 
     public CoachRequest acceptRequest(Long id) {
@@ -40,9 +66,27 @@ public class CoachRequestService {
                 .orElseThrow(() ->
                         new RuntimeException("Demande introuvable"));
 
+        List<CoachRequest> acceptedRequestsAtSameTime =
+                coachRequestRepository.findByCoachIdAndRequestDateAndRequestTimeAndStatus(
+                        request.getCoach().getId(),
+                        request.getRequestDate(),
+                        request.getRequestTime(),
+                        "ACCEPTED"
+                );
+
+        if (!acceptedRequestsAtSameTime.isEmpty()) {
+            throw new RuntimeException(
+                    "Une séance est déjà acceptée sur ce créneau."
+            );
+        }
+
         request.setStatus("ACCEPTED");
 
-        return coachRequestRepository.save(request);
+        CoachRequest savedRequest = coachRequestRepository.save(request);
+
+        notificationService.createCoachRequestAcceptedNotification(savedRequest);
+
+        return savedRequest;
     }
 
     public CoachRequest rejectRequest(Long id) {
@@ -53,7 +97,11 @@ public class CoachRequestService {
 
         request.setStatus("REJECTED");
 
-        return coachRequestRepository.save(request);
+        CoachRequest savedRequest = coachRequestRepository.save(request);
+
+        notificationService.createCoachRequestRejectedNotification(savedRequest);
+
+        return savedRequest;
     }
 
     public void updatePastCoachRequestsStatus() {
@@ -168,11 +216,12 @@ public class CoachRequestService {
         boolean canBeHidden =
                 "REJECTED".equals(request.getStatus()) ||
                         "CANCELLED".equals(request.getStatus()) ||
-                        "EXPIRED".equals(request.getStatus());
+                        "EXPIRED".equals(request.getStatus()) ||
+                        "COMPLETED".equals(request.getStatus());
 
         if (!canBeHidden) {
             throw new RuntimeException(
-                    "Seules les demandes refusées, annulées ou expirées peuvent être masquées."
+                    "Seules les demandes refusées, annulées, expirées ou terminées peuvent être masquées."
             );
         }
 

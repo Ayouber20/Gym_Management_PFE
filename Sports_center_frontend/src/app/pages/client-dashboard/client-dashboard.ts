@@ -57,18 +57,8 @@ export class ClientDashboard {
           this.notificationService.getClientNotifications(client.id)
             .subscribe({
               next: (data) => {
-                const sortedNotifications = data.sort((a, b) => {
-                  const dateA = a.date || '';
-                  const dateB = b.date || '';
+                const sortedNotifications = this.sortNotifications(data);
 
-                  if (dateA > dateB) return -1;
-                  if (dateA < dateB) return 1;
-
-                  const timeA = a.time || '';
-                  const timeB = b.time || '';
-
-                  return timeA.localeCompare(timeB);
-                });
                 this.notifications.set(sortedNotifications);
                 this.notificationsLoaded.set(true);
               },
@@ -85,6 +75,37 @@ export class ClientDashboard {
       });
   }
 
+  private sortNotifications(data: any[]): any[] {
+    return data.sort((a, b) => {
+      const aRead = a.readStatus === true;
+      const bRead = b.readStatus === true;
+
+      if (!aRead && bRead) {
+        return -1;
+      }
+
+      if (aRead && !bRead) {
+        return 1;
+      }
+
+      const dateA = a.date || a.notificationDate || '';
+      const dateB = b.date || b.notificationDate || '';
+
+      if (dateA > dateB) {
+        return -1;
+      }
+
+      if (dateA < dateB) {
+        return 1;
+      }
+
+      const timeA = a.time || a.notificationTime || '';
+      const timeB = b.time || b.notificationTime || '';
+
+      return timeB.localeCompare(timeA);
+    });
+  }
+
   formatTime(time: string): string {
     if (!time) {
       return '';
@@ -94,44 +115,76 @@ export class ClientDashboard {
   }
 
   getNotificationIcon(type: string): string {
-  if (type === 'RESERVATION') {
-    return '🎾';
+    if (type === 'RESERVATION') {
+      return '🎾';
+    }
+
+    if (type === 'COACH_SESSION') {
+      return '🏋️';
+    }
+
+    if (type === 'RESERVATION_CANCELLED') {
+      return '✖';
+    }
+
+    if (type === 'COACH_SESSION_CANCELLED') {
+      return '❌';
+    }
+
+    if (type === 'COACH_REQUEST_ACCEPTED') {
+      return '✅';
+    }
+
+    if (type === 'COACH_REQUEST_REJECTED') {
+      return '❌';
+    }
+
+    if (type === 'COACH_REQUEST_CANCELLED') {
+      return '🚫';
+    }
+
+    if (type === 'COACH_REQUEST_EXPIRED') {
+      return '⌛';
+    }
+
+    return '🔔';
   }
 
-  if (type === 'COACH_SESSION') {
-    return '🏋️';
+  getNotificationTitle(type: string): string {
+    if (type === 'RESERVATION') {
+      return 'Réservation';
+    }
+
+    if (type === 'COACH_SESSION') {
+      return 'Séance coach';
+    }
+
+    if (type === 'RESERVATION_CANCELLED') {
+      return 'Réservation annulée';
+    }
+
+    if (type === 'COACH_SESSION_CANCELLED') {
+      return 'Séance coach annulée';
+    }
+
+    if (type === 'COACH_REQUEST_ACCEPTED') {
+      return 'Demande coach acceptée';
+    }
+
+    if (type === 'COACH_REQUEST_REJECTED') {
+      return 'Demande coach refusée';
+    }
+
+    if (type === 'COACH_REQUEST_CANCELLED') {
+      return 'Demande coach annulée';
+    }
+
+    if (type === 'COACH_REQUEST_EXPIRED') {
+      return 'Demande coach expirée';
+    }
+
+    return 'Notification';
   }
-
-  if (type === 'RESERVATION_CANCELLED') {
-    return '✖';
-  }
-
-  if (type === 'COACH_SESSION_CANCELLED') {
-    return '❌';
-  }
-
-  return '🔔';
-}
-
-getNotificationTitle(type: string): string {
-  if (type === 'RESERVATION') {
-    return 'Réservation';
-  }
-
-  if (type === 'COACH_SESSION') {
-    return 'Séance coach';
-  }
-
-  if (type === 'RESERVATION_CANCELLED') {
-    return 'Réservation annulée';
-  }
-
-  if (type === 'COACH_SESSION_CANCELLED') {
-    return 'Séance coach annulée';
-  }
-
-  return 'Notification';
-}
 
   markNotificationAsRead(notificationId: number): void {
     if (!notificationId) {
@@ -150,6 +203,7 @@ getNotificationTitle(type: string): string {
         }
       });
   }
+
   loadAnnouncements(): void {
     this.announcementsLoaded.set(false);
 
@@ -163,5 +217,64 @@ getNotificationTitle(type: string): string {
           this.announcementsLoaded.set(true);
         }
       });
+  }
+
+  goToNotificationTarget(notification: any): void {
+    if (
+      notification.type === 'RESERVATION_CANCELLED' ||
+      notification.type === 'RESERVATION'
+    ) {
+      sessionStorage.setItem('client_reservations_seen', 'true');
+      this.router.navigate(['/client/reservations']);
+      return;
+    }
+
+    if (
+      notification.type === 'COACH_SESSION_CANCELLED' ||
+      notification.type === 'COACH_SESSION' ||
+      notification.type === 'COACH_REQUEST_ACCEPTED' ||
+      notification.type === 'COACH_REQUEST_REJECTED' ||
+      notification.type === 'COACH_REQUEST_CANCELLED' ||
+      notification.type === 'COACH_REQUEST_EXPIRED'
+    ) {
+      sessionStorage.setItem('client_coach_requests_seen', 'true');
+      this.router.navigate(['/client/coach-requests']);
+      return;
+    }
+  }
+
+  hasReservationNotification(): boolean {
+    const reservationsSeen =
+      sessionStorage.getItem('client_reservations_seen') === 'true';
+
+    if (reservationsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.type === 'RESERVATION_CANCELLED' ||
+      notification.type === 'RESERVATION'
+    );
+  }
+
+  hasCoachRequestNotification(): boolean {
+    const coachRequestsSeen =
+      sessionStorage.getItem('client_coach_requests_seen') === 'true';
+
+    if (coachRequestsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.type === 'COACH_REQUEST_ACCEPTED' ||
+      notification.type === 'COACH_REQUEST_REJECTED' ||
+      notification.type === 'COACH_REQUEST_CANCELLED' ||
+      notification.type === 'COACH_REQUEST_EXPIRED' ||
+      notification.type === 'COACH_SESSION_CANCELLED'
+    );
+  }
+
+  hasAnyNotification(): boolean {
+    return this.notifications().length > 0;
   }
 }

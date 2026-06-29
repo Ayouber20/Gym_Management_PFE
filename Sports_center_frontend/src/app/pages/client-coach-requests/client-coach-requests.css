@@ -205,6 +205,61 @@
   color: white;
 }
 
+.suggestion-box {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(41, 182, 246, 0.5);
+  background: rgba(41, 182, 246, 0.08);
+  text-align: left;
+}
+
+.suggestion-box h4 {
+  margin: 0 0 10px 0;
+  color: #29b6f6;
+  font-size: 17px;
+}
+
+.suggestion-box p {
+  margin: 0 0 16px 0;
+  color: #dcefff;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.suggestion-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.suggestion-actions button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.new-request-btn {
+  background: #29b6f6;
+  color: white;
+}
+
+.new-request-btn:hover {
+  background: #0288d1;
+}
+
+.abandon-btn {
+  background: rgba(255, 77, 77, 0.2);
+  color: #ff4d4d;
+}
+
+.abandon-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
 @media (max-width: 800px) {
   .requests-grid {
     grid-template-columns: 1fr;

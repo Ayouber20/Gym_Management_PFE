@@ -57,18 +57,7 @@ export class CoachDashboard {
           this.notificationService.getCoachNotifications(coach.id)
             .subscribe({
               next: (data) => {
-                const sortedNotifications = data.sort((a, b) => {
-                  const dateA = a.date || '';
-                  const dateB = b.date || '';
-
-                  if (dateA > dateB) return -1;
-                  if (dateA < dateB) return 1;
-
-                  const timeA = a.time || '';
-                  const timeB = b.time || '';
-
-                  return timeA.localeCompare(timeB);
-                });
+                const sortedNotifications = this.sortNotifications(data);
 
                 this.notifications.set(sortedNotifications);
                 this.notificationsLoaded.set(true);
@@ -86,6 +75,37 @@ export class CoachDashboard {
       });
   }
 
+  private sortNotifications(data: any[]): any[] {
+    return data.sort((a, b) => {
+      const aRead = a.readStatus === true;
+      const bRead = b.readStatus === true;
+
+      if (!aRead && bRead) {
+        return -1;
+      }
+
+      if (aRead && !bRead) {
+        return 1;
+      }
+
+      const dateA = a.date || a.notificationDate || '';
+      const dateB = b.date || b.notificationDate || '';
+
+      if (dateA > dateB) {
+        return -1;
+      }
+
+      if (dateA < dateB) {
+        return 1;
+      }
+
+      const timeA = a.time || a.notificationTime || '';
+      const timeB = b.time || b.notificationTime || '';
+
+      return timeB.localeCompare(timeA);
+    });
+  }
+
   formatTime(time: string): string {
     if (!time) {
       return '';
@@ -95,75 +115,114 @@ export class CoachDashboard {
   }
 
   getNotificationIcon(type: string): string {
-  if (type === 'RESERVATION') {
-    return '🎾';
+    if (type === 'COACH_REQUEST') {
+      return '📩';
+    }
+
+    if (type === 'COACH_SESSION') {
+      return '🏋️';
+    }
+
+    if (type === 'COACH_SESSION_CANCELLED') {
+      return '❌';
+    }
+
+    return '🔔';
   }
 
-  if (type === 'COACH_SESSION') {
-    return '🏋️';
+  getNotificationTitle(type: string): string {
+    if (type === 'COACH_REQUEST') {
+      return 'Nouvelle demande de coaching';
+    }
+
+    if (type === 'COACH_SESSION') {
+      return 'Séance coach';
+    }
+
+    if (type === 'COACH_SESSION_CANCELLED') {
+      return 'Séance coach annulée';
+    }
+
+    return 'Notification';
   }
 
-  if (type === 'RESERVATION_CANCELLED') {
-    return '✖';
+  markNotificationAsRead(notificationId: number): void {
+    if (!notificationId) {
+      return;
+    }
+
+    this.notificationService.markAsRead(notificationId)
+      .subscribe({
+        next: () => {
+          this.notifications.update(notifications =>
+            notifications.filter(notification => notification.id !== notificationId)
+          );
+        },
+        error: () => {
+          this.errorMessage.set('Erreur lors du masquage de la notification.');
+        }
+      });
   }
 
-  if (type === 'COACH_SESSION_CANCELLED') {
-    return '❌';
+  loadAnnouncements(): void {
+    this.announcementsLoaded.set(false);
+
+    this.announcementService.getCoachAnnouncements()
+      .subscribe({
+        next: (data) => {
+          this.announcements.set(data);
+          this.announcementsLoaded.set(true);
+        },
+        error: () => {
+          this.announcementsLoaded.set(true);
+        }
+      });
   }
 
-  return '🔔';
-}
+  goToNotificationTarget(notification: any): void {
+    if (notification.type === 'COACH_REQUEST') {
+      sessionStorage.setItem('coach_requests_seen', 'true');
+      this.router.navigate(['/coach/requests']);
+      return;
+    }
 
-getNotificationTitle(type: string): string {
-  if (type === 'RESERVATION') {
-    return 'Réservation';
+    if (
+      notification.type === 'COACH_SESSION' ||
+      notification.type === 'COACH_SESSION_CANCELLED'
+    ) {
+      sessionStorage.setItem('coach_sessions_seen', 'true');
+      this.router.navigate(['/coach/sessions']);
+      return;
+    }
   }
 
-  if (type === 'COACH_SESSION') {
-    return 'Séance coach';
+  hasSessionNotification(): boolean {
+    const coachSessionsSeen =
+      sessionStorage.getItem('coach_sessions_seen') === 'true';
+
+    if (coachSessionsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.type === 'COACH_SESSION_CANCELLED'
+    );
   }
 
-  if (type === 'RESERVATION_CANCELLED') {
-    return 'Réservation annulée';
+  hasCoachRequestNotification(): boolean {
+    const coachRequestsSeen =
+      sessionStorage.getItem('coach_requests_seen') === 'true';
+
+    if (coachRequestsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.type === 'COACH_REQUEST'
+    );
   }
 
-  if (type === 'COACH_SESSION_CANCELLED') {
-    return 'Séance coach annulée';
+  hasAnyNotification(): boolean {
+    return this.notifications().length > 0;
   }
-
-  return 'Notification';
-}
-
-markNotificationAsRead(notificationId: number): void {
-  if (!notificationId) {
-    return;
-  }
-
-  this.notificationService.markAsRead(notificationId)
-    .subscribe({
-      next: () => {
-        this.notifications.update(notifications =>
-          notifications.filter(notification => notification.id !== notificationId)
-        );
-      },
-      error: () => {
-        this.errorMessage.set('Erreur lors du masquage de la notification.');
-      }
-    });
-}
-
-loadAnnouncements(): void {
-  this.announcementsLoaded.set(false);
-
-  this.announcementService.getCoachAnnouncements()
-    .subscribe({
-      next: (data) => {
-        this.announcements.set(data);
-        this.announcementsLoaded.set(true);
-      },
-      error: () => {
-        this.announcementsLoaded.set(true);
-      }
-    });
-}
 }
