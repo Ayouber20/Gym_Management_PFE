@@ -1,4 +1,6 @@
 import { Component, afterNextRender, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth';
@@ -7,7 +9,7 @@ import { CoachLeavingService } from '../../services/coach-leaving';
 @Component({
   selector: 'app-admin-coach-leavings',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './admin-coach-leavings.html',
   styleUrls: ['./admin-coach-leavings.css']
 })
@@ -18,6 +20,16 @@ export class AdminCoachLeavings {
 
   successMessage = signal('');
   errorMessage = signal('');
+
+  searchTerm = signal('');
+  selectedStatusFilter = signal('ALL');
+  selectedDateFilter = signal('');
+
+  statuses: string[] = [
+    'PENDING',
+    'ACCEPTED',
+    'REJECTED'
+  ];
 
   constructor(
     private authService: AuthService,
@@ -33,7 +45,8 @@ export class AdminCoachLeavings {
     this.coachLeavingService.getAllLeaves()
       .subscribe({
         next: (data) => {
-          this.leaves.set(data);
+          const sortedLeaves = this.sortLeaves(data);
+          this.leaves.set(sortedLeaves);
           this.loaded.set(true);
         },
         error: () => {
@@ -41,6 +54,66 @@ export class AdminCoachLeavings {
           this.loaded.set(true);
         }
       });
+  }
+
+  private sortLeaves(data: any[]): any[] {
+    return data.sort((a, b) => {
+      const statusOrder: any = {
+        PENDING: 1,
+        ACCEPTED: 2,
+        REJECTED: 3
+      };
+
+      const orderA = statusOrder[a.status] || 99;
+      const orderB = statusOrder[b.status] || 99;
+
+      if (orderA !== orderB) {
+        return orderA - orderB;
+      }
+
+      const dateA = a.startDate || '';
+      const dateB = b.startDate || '';
+
+      if (dateA > dateB) {
+        return -1;
+      }
+
+      if (dateA < dateB) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
+  filteredLeaves(): any[] {
+    const search = this.searchTerm().toLowerCase().trim();
+
+    return this.leaves().filter(leave => {
+      const coachName = this.getCoachName(leave).toLowerCase();
+      const reason = (leave.reason || '').toLowerCase();
+
+      const matchesSearch =
+        coachName.includes(search) ||
+        reason.includes(search);
+
+      const matchesStatus =
+        this.selectedStatusFilter() === 'ALL' ||
+        leave.status === this.selectedStatusFilter();
+
+      const matchesDate =
+        !this.selectedDateFilter() ||
+        leave.startDate === this.selectedDateFilter() ||
+        leave.endDate === this.selectedDateFilter();
+
+      return matchesSearch && matchesStatus && matchesDate;
+    });
+  }
+
+  resetFilters(): void {
+    this.searchTerm.set('');
+    this.selectedStatusFilter.set('ALL');
+    this.selectedDateFilter.set('');
   }
 
   acceptLeave(id: number): void {

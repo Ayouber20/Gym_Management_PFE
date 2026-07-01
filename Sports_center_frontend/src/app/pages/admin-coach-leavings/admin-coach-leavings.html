@@ -1,42 +1,93 @@
 <div class="admin-coach-leavings-page">
 
-  <h1>Congés des coachs</h1>
+  <div class="page-header">
+    <h1>Congés des coachs</h1>
 
-  <div class="top-actions">
+    <p class="subtitle">
+      Consultez les demandes de congé envoyées par les coachs et acceptez ou refusez-les.
+    </p>
+
     <button routerLink="/admin" class="back-btn">
-        Retour
+      Retour à l’espace admin
     </button>
-    </div>
-
-  <p class="subtitle">
-    Consultez les demandes de congé envoyées par les coachs et acceptez ou refusez-les.
-  </p>
+  </div>
 
   @if (successMessage()) {
     <div class="success-message">
-      {{ successMessage() }}
+      ✅ {{ successMessage() }}
     </div>
   }
 
   @if (errorMessage()) {
     <div class="error-message">
-      {{ errorMessage() }}
+      ❌ {{ errorMessage() }}
     </div>
   }
+
+  <section class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Coach ou raison...">
+    </div>
+
+    <div class="filter-group">
+      <label>Statut :</label>
+      <select
+        [ngModel]="selectedStatusFilter()"
+        (ngModelChange)="selectedStatusFilter.set($event)">
+        <option value="ALL">Tous les statuts</option>
+
+        @for (status of statuses; track status) {
+          <option [value]="status">
+            {{ getStatusLabel(status) }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDateFilter()"
+        (ngModelChange)="selectedDateFilter.set($event)">
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </section>
+
+  <div class="results-count">
+    {{ filteredLeaves().length }} demande(s) affichée(s)
+  </div>
 
   <section class="list-card">
 
     <h2>Liste des demandes</h2>
 
     @if (!loaded()) {
-      <p>Chargement...</p>
+      <p class="empty-text">Chargement...</p>
     }
 
     @if (loaded() && leaves().length === 0) {
-      <p>Aucune demande de congé pour le moment.</p>
+      <p class="empty-text">Aucune demande de congé pour le moment.</p>
     }
 
-    @if (loaded() && leaves().length > 0) {
+    @if (loaded() && leaves().length > 0 && filteredLeaves().length === 0) {
+      <p class="empty-text">Aucune demande ne correspond aux filtres.</p>
+    }
+
+    @if (loaded() && filteredLeaves().length > 0) {
       <div class="table-wrapper">
         <table>
           <thead>
@@ -51,7 +102,7 @@
           </thead>
 
           <tbody>
-            @for (leave of leaves(); track leave.id) {
+            @for (leave of filteredLeaves(); track leave.id) {
               <tr>
                 <td>{{ getCoachName(leave) }}</td>
                 <td>{{ leave.startDate }}</td>

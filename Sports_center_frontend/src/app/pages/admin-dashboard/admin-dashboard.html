@@ -34,7 +34,8 @@
           class="notification-item"
           [class.reservation]="notification.type === 'RESERVATION'"
           [class.coach-session]="notification.type === 'COACH_SESSION'"
-          [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'">
+          [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'"
+          (click)="goToNotificationTarget(notification)">
 
           <div class="notification-icon">
             {{ getNotificationIcon(notification.type) }}
@@ -57,7 +58,7 @@
             <button
               type="button"
               class="delete-notification-btn"
-              (click)="markNotificationAsRead(notification.id)">
+              (click)="$event.stopPropagation(); markNotificationAsRead(notification.id)">
               ✕
             </button>
           }

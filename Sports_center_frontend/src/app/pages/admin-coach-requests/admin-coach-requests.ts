@@ -35,7 +35,10 @@ export class AdminCoachRequests {
     'ALL',
     'PENDING',
     'ACCEPTED',
-    'REJECTED'
+    'REJECTED',
+    'CANCELLED',
+    'COMPLETED',
+    'EXPIRED'
   ];
 
   constructor(private coachRequestService: CoachRequestService) {
@@ -107,9 +110,42 @@ export class AdminCoachRequests {
   }
 
   resetFilters(): void {
-    this.searchTerm.set('');
-    this.selectedActivityFilter.set('ALL');
-    this.selectedStatusFilter.set('ALL');
-    this.selectedDate.set('');
+      this.searchTerm.set('');
+      this.selectedActivityFilter.set('ALL');
+      this.selectedStatusFilter.set('ALL');
+      this.selectedDate.set('');
+    }
+
+    getStatusLabel(status: string): string {
+    if (status === 'ALL') {
+      return 'Tous les statuts';
+    }
+
+    if (status === 'PENDING') {
+      return 'En attente';
+    }
+
+    if (status === 'ACCEPTED') {
+      return 'Acceptée';
+    }
+
+    if (status === 'REJECTED') {
+      return 'Refusée';
+    }
+
+    if (status === 'CANCELLED') {
+      return 'Annulée';
+    }
+
+    if (status === 'COMPLETED') {
+      return 'Terminée';
+    }
+
+    if (status === 'EXPIRED') {
+      return 'Expirée';
+    }
+
+    return status;
   }
+
 }

@@ -49,7 +49,7 @@
         (ngModelChange)="selectedStatusFilter.set($event)">
         @for (status of statusFilters; track status) {
           <option [value]="status">
-            {{ status === 'ALL' ? 'Tous les statuts' : status }}
+            {{ getStatusLabel(status) }}
           </option>
         }
       </select>
@@ -127,10 +127,14 @@
 
               <td>
                 <span
+                  class="status-badge"
                   [class.pending]="request.status === 'PENDING'"
                   [class.accepted]="request.status === 'ACCEPTED'"
-                  [class.rejected]="request.status === 'REJECTED'">
-                  {{ request.status }}
+                  [class.rejected]="request.status === 'REJECTED'"
+                  [class.cancelled]="request.status === 'CANCELLED'"
+                  [class.completed]="request.status === 'COMPLETED'"
+                  [class.expired]="request.status === 'EXPIRED'">
+                  {{ getStatusLabel(request.status) }}
                 </span>
               </td>
             </tr>

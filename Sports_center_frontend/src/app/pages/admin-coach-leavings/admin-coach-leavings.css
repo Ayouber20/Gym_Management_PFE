@@ -3,21 +3,19 @@
   width: 100%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .admin-coach-leavings-page {
   min-height: 100vh;
   width: 100%;
-  padding: 50px;
+  padding: 45px 70px;
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   background:
-    linear-gradient(rgba(3, 10, 20, 0.84), rgba(3, 10, 20, 0.94)),
+    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
     url('/assets/images/admin-bg.jpg');
 
   background-size: cover;
@@ -25,111 +23,173 @@
   background-attachment: fixed;
 }
 
-.admin-coach-leavings-page h1 {
-  width: 100%;
-  font-size: 42px;
-  margin: 0 0 20px 0;
-  text-transform: uppercase;
-  color: #29b6f6;
-  letter-spacing: 2px;
+/* Header */
+
+.page-header {
   text-align: center;
+  margin-bottom: 42px;
 }
 
-.top-actions {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 25px auto;
-}
-
-.back-btn {
-  width: auto !important;
-  min-width: 110px;
-  height: 44px !important;
-  min-height: 44px !important;
-  max-height: 44px !important;
-
-  padding: 0 22px;
-  border-radius: 10px;
-  box-sizing: border-box;
-
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  font-weight: bold;
-  cursor: pointer;
+.page-header h1 {
+  margin: 0;
+  font-size: 44px;
+  color: #29b6f6;
   text-transform: uppercase;
-
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-
-  flex: 0 0 auto !important;
-  align-self: center !important;
-}
-
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  letter-spacing: 4px;
 }
 
 .subtitle {
-  width: 100%;
   max-width: 850px;
+  margin: 14px auto 25px auto;
   color: #d8e2ef;
-  font-size: 18px;
-  margin: 0 auto 35px auto;
+  font-size: 17px;
   line-height: 1.6;
-  text-align: center;
 }
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 210px;
+  height: 42px;
+  padding: 0 22px;
+
+  border-radius: 9px;
+  border: 1px solid #00c8ff;
+  background: transparent;
+  color: #00c8ff;
+
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.back-btn:hover {
+  background: #00c8ff;
+  color: #06101f;
+}
+
+/* Messages */
 
 .success-message,
 .error-message {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 20px auto;
-  padding: 15px;
+  max-width: 1215px;
+  margin: 0 auto 22px auto;
+  padding: 14px 18px;
   border-radius: 12px;
-  font-weight: bold;
-  box-sizing: border-box;
+  font-weight: 800;
 }
 
 .success-message {
-  background: rgba(66, 214, 95, 0.16);
-  border: 1px solid rgba(66, 214, 95, 0.45);
-  color: #42d65f;
+  background: rgba(46, 204, 113, 0.16);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.7);
 }
 
 .error-message {
   background: rgba(255, 77, 77, 0.16);
-  border: 1px solid rgba(255, 77, 77, 0.45);
-  color: #ff6b6b;
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.7);
 }
 
-.list-card {
+/* Filters */
+
+.filters-card {
+  max-width: 1215px;
+  margin: 0 auto 22px auto;
+  padding: 24px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr auto;
+  gap: 18px;
+  align-items: end;
+
+  background: rgba(6, 16, 31, 0.92);
+  border: 1px solid rgba(0, 200, 255, 0.65);
+  border-radius: 16px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  color: #00c8ff;
+  font-weight: 800;
+}
+
+.filter-group input,
+.filter-group select {
   width: 100%;
-  max-width: 1150px;
+  height: 43px;
+  padding: 0 14px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0, 200, 255, 0.55);
+  outline: none;
+
+  background: rgba(2, 10, 22, 0.95);
+  color: white;
+}
+
+.filter-group input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.clear-filters-btn {
+  height: 43px;
+  padding: 0 22px;
+
+  border-radius: 10px;
+  border: 1px solid #ffd700;
+  background: transparent;
+  color: #ffd700;
+
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.clear-filters-btn:hover {
+  background: #ffd700;
+  color: #06101f;
+}
+
+.results-count {
+  max-width: 1215px;
+  margin: 0 auto 22px auto;
+  font-weight: 800;
+  color: white;
+}
+
+/* List */
+
+.list-card {
+  max-width: 1215px;
   margin: 0 auto 35px auto;
-  padding: 30px;
-  border-radius: 22px;
-  box-sizing: border-box;
+  padding: 26px;
 
-  background: linear-gradient(
-    145deg,
-    rgba(6, 18, 33, 0.96),
-    rgba(8, 26, 44, 0.96)
-  );
-
-  border: 1px solid rgba(41, 182, 246, 0.5);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+  background: rgba(6, 16, 31, 0.94);
+  border: 1px solid rgba(0, 200, 255, 0.65);
+  border-radius: 18px;
 }
 
 .list-card h2 {
-  color: #29b6f6;
-  margin: 0 0 25px 0;
-  font-size: 26px;
+  text-align: center;
+  color: #00c8ff;
+  font-size: 28px;
+  margin: 0 0 26px 0;
 }
+
+.empty-text {
+  color: #d8e2ef;
+  text-align: center;
+}
+
+/* Table */
 
 .table-wrapper {
   width: 100%;
@@ -150,7 +210,7 @@ td {
 }
 
 th {
-  color: #29b6f6;
+  color: #00c8ff;
   text-transform: uppercase;
   font-size: 13px;
 }
@@ -159,12 +219,18 @@ td {
   color: #eaf3ff;
 }
 
+tbody tr:hover {
+  background: rgba(0, 200, 255, 0.05);
+}
+
+/* Status */
+
 .status {
   display: inline-block;
-  padding: 7px 12px;
+  padding: 7px 13px;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 800;
   white-space: nowrap;
 }
 
@@ -174,14 +240,16 @@ td {
 }
 
 .status.accepted {
-  background: rgba(66, 214, 95, 0.18);
-  color: #42d65f;
+  background: rgba(46, 204, 113, 0.18);
+  color: #2ecc71;
 }
 
 .status.rejected {
   background: rgba(255, 77, 77, 0.18);
   color: #ff4d4d;
 }
+
+/* Actions */
 
 .action-buttons {
   display: flex;
@@ -191,63 +259,60 @@ td {
 
 .accept-btn,
 .reject-btn {
-  width: auto;
-  height: 42px;
-  padding: 0 20px;
+  height: 38px;
+  padding: 0 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 9px;
 
-  font-weight: bold;
+  font-weight: 800;
   cursor: pointer;
-  text-transform: uppercase;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: 0.25s;
 }
 
 .accept-btn {
-  background: linear-gradient(135deg, #42d65f, #1ea83d);
-  color: white;
+  background: rgba(46, 204, 113, 0.2);
+  border: 1px solid rgba(46, 204, 113, 0.75);
+  color: #2ecc71;
 }
 
 .accept-btn:hover {
-  box-shadow: 0 8px 18px rgba(66, 214, 95, 0.35);
-}
-
-.reject-btn {
-  background: linear-gradient(135deg, #ff4d4d, #d62828);
+  background: #2ecc71;
   color: white;
 }
 
+.reject-btn {
+  background: rgba(255, 77, 77, 0.2);
+  border: 1px solid rgba(255, 77, 77, 0.75);
+  color: #ff4d4d;
+}
+
 .reject-btn:hover {
-  box-shadow: 0 8px 18px rgba(255, 77, 77, 0.35);
+  background: #ff4d4d;
+  color: white;
 }
 
 .no-action {
   color: #9fdff7;
-  font-weight: bold;
+  font-weight: 800;
 }
 
-@media (max-width: 800px) {
+/* Responsive */
+
+@media (max-width: 1000px) {
   .admin-coach-leavings-page {
-    padding: 30px;
+    padding: 35px 24px;
   }
 
-  .admin-coach-leavings-page h1 {
-    font-size: 32px;
+  .filters-card {
+    grid-template-columns: 1fr;
   }
 
-  .top-actions {
-    margin-bottom: 22px;
+  .clear-filters-btn {
+    width: 100%;
   }
 
-  .subtitle {
-    font-size: 16px;
-  }
-
-  .list-card {
-    padding: 22px;
+  .page-header h1 {
+    font-size: 34px;
   }
 
   .action-buttons {

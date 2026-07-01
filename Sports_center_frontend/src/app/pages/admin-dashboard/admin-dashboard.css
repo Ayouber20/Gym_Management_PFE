@@ -345,6 +345,14 @@
   background-image: url('/assets/images/admin-statistics-card.jpg');
 }
 
+.notification-item {
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  transform: translateY(-2px);
+}
+
 /* RESPONSIVE */
 
 @media (max-width: 1250px) {
