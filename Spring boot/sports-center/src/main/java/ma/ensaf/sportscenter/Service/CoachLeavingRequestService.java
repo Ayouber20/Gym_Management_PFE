@@ -1,8 +1,10 @@
 package ma.ensaf.sportscenter.Service;
 
+import ma.ensaf.sportscenter.Entity.Coach;
 import ma.ensaf.sportscenter.Entity.CoachLeavingRequest;
 import ma.ensaf.sportscenter.Entity.CoachRequest;
 import ma.ensaf.sportscenter.Repository.CoachLeavingRequestRepository;
+import ma.ensaf.sportscenter.Repository.CoachRepository;
 import ma.ensaf.sportscenter.Repository.CoachRequestRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +16,28 @@ public class CoachLeavingRequestService {
 
     private final CoachLeavingRequestRepository coachLeavingRequestRepository;
     private final CoachRequestRepository coachRequestRepository;
+    private final CoachRepository coachRepository;
     private final NotificationService notificationService;
 
     public CoachLeavingRequestService(
             CoachLeavingRequestRepository coachLeaveRequestRepository,
             CoachRequestRepository coachRequestRepository,
+            CoachRepository coachRepository,
             NotificationService notificationService) {
 
         this.coachLeavingRequestRepository = coachLeaveRequestRepository;
         this.coachRequestRepository = coachRequestRepository;
+        this.coachRepository = coachRepository;
         this.notificationService = notificationService;
     }
 
     public CoachLeavingRequest createLeaveRequest(CoachLeavingRequest leaveRequest) {
+
+        if (leaveRequest.getStartDate() == null || leaveRequest.getEndDate() == null) {
+            throw new RuntimeException(
+                    "Veuillez choisir une date de début et une date de fin."
+            );
+        }
 
         if (!leaveRequest.getStartDate().isAfter(LocalDate.now())) {
             throw new RuntimeException(
@@ -40,9 +51,42 @@ public class CoachLeavingRequestService {
             );
         }
 
+        if (leaveRequest.getCoach() == null || leaveRequest.getCoach().getId() == null) {
+            throw new RuntimeException("Coach introuvable.");
+        }
+
+        Coach coach = coachRepository.findById(leaveRequest.getCoach().getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Coach introuvable."));
+
+        leaveRequest.setCoach(coach);
         leaveRequest.setStatus("PENDING");
 
-        return coachLeavingRequestRepository.save(leaveRequest);
+        CoachLeavingRequest savedLeaveRequest =
+                coachLeavingRequestRepository.save(leaveRequest);
+
+        String coachName =
+                coach.getUser().getFirstName()
+                        + " "
+                        + coach.getUser().getLastName();
+
+        String message =
+                "Nouvelle demande de congé envoyée par le coach "
+                        + coachName
+                        + " du "
+                        + savedLeaveRequest.getStartDate()
+                        + " au "
+                        + savedLeaveRequest.getEndDate()
+                        + ".";
+
+        notificationService.createAdminNotification(
+                "COACH_LEAVE_REQUEST",
+                message,
+                savedLeaveRequest.getStartDate(),
+                null
+        );
+
+        return savedLeaveRequest;
     }
 
     public CoachLeavingRequest acceptLeaveRequest(Long id) {

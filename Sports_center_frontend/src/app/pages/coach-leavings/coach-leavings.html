@@ -1,26 +1,26 @@
 <div class="coach-leavings-page">
 
-  <h1>Mes demandes de congé</h1>
+  <div class="page-header">
+    <h1>Mes demandes de congé</h1>
 
-  <div class="top-actions">
+    <p class="subtitle">
+      Envoyez une demande de congé à l’administrateur et suivez son état.
+    </p>
+
     <button routerLink="/coach" class="back-btn">
-      Retour
+      Retour à l’espace coach
     </button>
   </div>
 
-  <p class="subtitle">
-    Envoyez une demande de congé à l’administrateur et suivez son état.
-  </p>
-
   @if (successMessage()) {
     <div class="success-message">
-      {{ successMessage() }}
+      ✅ {{ successMessage() }}
     </div>
   }
 
   @if (errorMessage()) {
     <div class="error-message">
-      {{ errorMessage() }}
+      ❌ {{ errorMessage() }}
     </div>
   }
 
@@ -71,11 +71,11 @@
     <h2>Historique de mes demandes</h2>
 
     @if (!loaded()) {
-      <p>Chargement...</p>
+      <p class="empty-text">Chargement...</p>
     }
 
     @if (loaded() && leaves().length === 0) {
-      <p>Aucune demande de congé pour le moment.</p>
+      <p class="empty-text">Aucune demande de congé pour le moment.</p>
     }
 
     @if (loaded() && leaves().length > 0) {

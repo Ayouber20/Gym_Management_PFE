@@ -38,11 +38,14 @@ export class AdminDashboard {
     this.notificationService.getAdminNotifications()
       .subscribe({
         next: (data) => {
+          console.log('ADMIN NOTIFICATIONS:', data);
+
           const sortedNotifications = this.sortNotifications(data);
 
           this.notifications.set(sortedNotifications);
           this.notificationsLoaded.set(true);
         },
+        
         error: () => {
           this.notificationsLoaded.set(true);
           this.errorMessage.set('Erreur lors du chargement des notifications.');
@@ -216,5 +219,67 @@ export class AdminDashboard {
           this.errorMessage.set('Erreur lors du masquage de la notification.');
         }
       });
+  }
+
+  hasCoachLeaveNotification(): boolean {
+    const latestLeaveNotification = this.notifications()
+      .filter(notification =>
+        notification.type === 'COACH_LEAVE_REQUEST' ||
+        notification.type === 'COACH_LEAVE'
+      )
+      .sort((a, b) => {
+        const dateA = a.date || '';
+        const dateB = b.date || '';
+
+        if (dateA > dateB) return -1;
+        if (dateA < dateB) return 1;
+
+        const timeA = a.time || '';
+        const timeB = b.time || '';
+
+        return timeB.localeCompare(timeA);
+      })[0];
+
+    if (!latestLeaveNotification) {
+      return false;
+    }
+
+    const currentKey =
+      latestLeaveNotification.id ||
+      `${latestLeaveNotification.type}-${latestLeaveNotification.date}-${latestLeaveNotification.message}`;
+
+    const seenKey = sessionStorage.getItem('admin_coach_leaves_seen_key');
+
+    return seenKey !== String(currentKey);
+  }
+
+  goToCoachLeavings(): void {
+    const latestLeaveNotification = this.notifications()
+      .filter(notification =>
+        notification.type === 'COACH_LEAVE_REQUEST' ||
+        notification.type === 'COACH_LEAVE'
+      )
+      .sort((a, b) => {
+        const dateA = a.date || '';
+        const dateB = b.date || '';
+
+        if (dateA > dateB) return -1;
+        if (dateA < dateB) return 1;
+
+        const timeA = a.time || '';
+        const timeB = b.time || '';
+
+        return timeB.localeCompare(timeA);
+      })[0];
+
+    if (latestLeaveNotification) {
+      const currentKey =
+        latestLeaveNotification.id ||
+        `${latestLeaveNotification.type}-${latestLeaveNotification.date}-${latestLeaveNotification.message}`;
+
+      sessionStorage.setItem('admin_coach_leaves_seen_key', String(currentKey));
+    }
+
+    this.router.navigate(['/admin/coach-leavings']);
   }
 }

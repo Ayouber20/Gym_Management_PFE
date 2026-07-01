@@ -377,28 +377,33 @@
 
 .red-dot {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 18px;
+  right: 18px;
 
   width: 14px;
   height: 14px;
 
+  background: #ff3b3b;
   border-radius: 50%;
-  background: #ff2d2d;
 
-  box-shadow: 0 0 12px rgba(255, 45, 45, 0.9);
-  z-index: 5;
+  box-shadow:
+    0 0 0 4px rgba(255, 59, 59, 0.25),
+    0 0 14px rgba(255, 59, 59, 1);
+
+  z-index: 50;
+  pointer-events: none;
 }
 
 .red-dot::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: -5px;
 
   border-radius: 50%;
-  border: 1px solid rgba(255, 45, 45, 0.65);
+  border: 1px solid rgba(255, 59, 59, 0.6);
 
-  animation: pulseDot 1.4s infinite;
+  animation: redPulse 1.5s infinite;
+  pointer-events: none;
 }
 
 
@@ -429,14 +434,19 @@
   }
 }
 
-@keyframes pulseDot {
+@keyframes redPulse {
   0% {
     transform: scale(0.8);
     opacity: 0.9;
   }
 
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+
   100% {
-    transform: scale(1.8);
+    transform: scale(1.6);
     opacity: 0;
   }
 }

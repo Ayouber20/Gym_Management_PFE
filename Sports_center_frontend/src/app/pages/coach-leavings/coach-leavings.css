@@ -1,13 +1,21 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .coach-leavings-page {
   min-height: 100vh;
-  padding: 50px;
+  width: 100%;
+  padding: 45px 70px;
   font-family: Arial, sans-serif;
   color: white;
-  text-align: center;
-  box-sizing: border-box;
 
   background:
-    linear-gradient(rgba(3, 10, 20, 0.84), rgba(3, 10, 20, 0.94)),
+    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
     url('/assets/images/coach-bg.jpg');
 
   background-size: cover;
@@ -15,81 +23,104 @@
   background-attachment: fixed;
 }
 
-.coach-leavings-page h1 {
-  font-size: 42px;
-  margin-bottom: 15px;
-  text-transform: uppercase;
+/* Header */
+
+.page-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 44px;
   color: #ff7a00;
-  letter-spacing: 2px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
 }
 
 .subtitle {
+  max-width: 850px;
+  margin: 14px auto 25px auto;
   color: #d8e2ef;
-  font-size: 18px;
-  margin-bottom: 35px;
-}
-
-.top-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.back-btn,
-.logout-btn,
-.submit-btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  text-transform: uppercase;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .back-btn {
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 210px;
+  height: 42px;
+  padding: 0 22px;
+
+  border-radius: 9px;
+  border: 1px solid #ff7a00;
+  background: transparent;
+  color: #ff7a00;
+
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .back-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: #ff7a00;
+  color: #06101f;
 }
 
-.logout-btn {
-  border: 2px solid #ff4d4d;
-  background: rgba(3, 10, 20, 0.6);
+/* Messages */
+
+.success-message,
+.error-message {
+  max-width: 980px;
+  margin: 0 auto 22px auto;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.success-message {
+  background: rgba(46, 204, 113, 0.16);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.7);
+}
+
+.error-message {
+  background: rgba(255, 77, 77, 0.16);
   color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.7);
 }
 
-.logout-btn:hover {
-  background: #ff4d4d;
-  color: white;
-}
+/* Cards */
 
 .form-card,
 .list-card {
-  max-width: 950px;
+  max-width: 980px;
   margin: 0 auto 35px auto;
   padding: 30px;
-  border-radius: 22px;
-  background: linear-gradient(145deg, rgba(6, 18, 33, 0.96), rgba(8, 26, 44, 0.96));
-  border: 1px solid rgba(255, 122, 0, 0.5);
+
+  background: rgba(6, 16, 31, 0.94);
+  border: 1px solid rgba(255, 122, 0, 0.65);
+  border-radius: 18px;
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
 }
 
 .form-card h2,
 .list-card h2 {
+  text-align: center;
   color: #ff7a00;
-  margin-top: 0;
-  margin-bottom: 25px;
+  font-size: 27px;
+  margin: 0 0 26px 0;
 }
+
+/* Form */
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
 .form-group {
@@ -101,19 +132,25 @@
   display: block;
   margin-bottom: 8px;
   color: #d8e2ef;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 13px;
+  padding: 13px 14px;
+
   border-radius: 10px;
-  border: 1px solid rgba(255, 122, 0, 0.35);
-  background: rgba(3, 10, 20, 0.72);
-  color: white;
-  box-sizing: border-box;
+  border: 1px solid rgba(255, 122, 0, 0.55);
   outline: none;
+
+  background: rgba(2, 10, 22, 0.95);
+  color: white;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 95px;
 }
 
 .form-group input:focus,
@@ -123,36 +160,36 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #ff7a00, #ff9d00);
+  display: block;
+  margin: 8px auto 0 auto;
+  min-width: 220px;
+  height: 43px;
+
+  border: none;
+  border-radius: 10px;
+  background: #ff7a00;
   color: white;
+
+  font-weight: 800;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.25s;
 }
 
 .submit-btn:hover {
-  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.4);
+  background: #ff9d00;
+  transform: translateY(-2px);
 }
 
-.success-message,
-.error-message {
-  max-width: 900px;
-  margin: 0 auto 20px auto;
-  padding: 15px;
-  border-radius: 12px;
-  font-weight: bold;
-}
+/* Table */
 
-.success-message {
-  background: rgba(66, 214, 95, 0.16);
-  border: 1px solid rgba(66, 214, 95, 0.45);
-  color: #42d65f;
-}
-
-.error-message {
-  background: rgba(255, 77, 77, 0.16);
-  border: 1px solid rgba(255, 77, 77, 0.45);
-  color: #ff6b6b;
+.empty-text {
+  text-align: center;
+  color: #d8e2ef;
 }
 
 .table-wrapper {
+  width: 100%;
   overflow-x: auto;
 }
 
@@ -166,6 +203,7 @@ td {
   padding: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   text-align: left;
+  vertical-align: middle;
 }
 
 th {
@@ -178,12 +216,19 @@ td {
   color: #eaf3ff;
 }
 
+tbody tr:hover {
+  background: rgba(255, 122, 0, 0.05);
+}
+
+/* Status */
+
 .status {
   display: inline-block;
-  padding: 7px 12px;
+  padding: 7px 13px;
   border-radius: 999px;
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .status.pending {
@@ -192,8 +237,8 @@ td {
 }
 
 .status.accepted {
-  background: rgba(66, 214, 95, 0.18);
-  color: #42d65f;
+  background: rgba(46, 204, 113, 0.18);
+  color: #2ecc71;
 }
 
 .status.rejected {
@@ -201,20 +246,18 @@ td {
   color: #ff4d4d;
 }
 
-@media (max-width: 800px) {
+/* Responsive */
+
+@media (max-width: 900px) {
   .coach-leavings-page {
-    padding: 30px;
+    padding: 35px 24px;
   }
 
-  .coach-leavings-page h1 {
-    font-size: 32px;
+  .page-header h1 {
+    font-size: 34px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .top-actions {
-    flex-direction: column;
   }
 }

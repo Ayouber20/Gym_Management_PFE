@@ -137,10 +137,15 @@
     </div>
 
     <div class="dashboard-card coach-leavings-card">
+
+      @if (hasCoachLeaveNotification()) {
+        <span class="red-dot"></span>
+      }
+
       <h2>🌴 Congés coachs</h2>
       <p>Consulter et traiter les demandes de congé envoyées par les coachs.</p>
 
-      <button routerLink="/admin/coach-leavings">
+      <button type="button" (click)="goToCoachLeavings()">
         Voir les congés
       </button>
     </div>

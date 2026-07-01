@@ -122,27 +122,27 @@ export class AdminCoachRequests {
     }
 
     if (status === 'PENDING') {
-      return 'En attente';
+      return 'PENDING';
     }
 
     if (status === 'ACCEPTED') {
-      return 'Acceptée';
+      return 'ACCEPTED';
     }
 
     if (status === 'REJECTED') {
-      return 'Refusée';
+      return 'REJECTED';
     }
 
     if (status === 'CANCELLED') {
-      return 'Annulée';
+      return 'CANCELLED';
     }
 
     if (status === 'COMPLETED') {
-      return 'Terminée';
+      return 'COMPLETED';
     }
 
     if (status === 'EXPIRED') {
-      return 'Expirée';
+      return 'EXPIRED';
     }
 
     return status;

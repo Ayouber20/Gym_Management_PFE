@@ -72,8 +72,18 @@ export class CoachLeavings {
     this.coachLeavingService.getLeavesByCoach(id)
       .subscribe({
         next: (data) => {
-          this.leaves.set(data);
-          this.loaded.set(true);
+          const sortedLeaves = data.sort((a, b) => {
+          const dateA = a.startDate || '';
+          const dateB = b.startDate || '';
+
+          if (dateA > dateB) return -1;
+          if (dateA < dateB) return 1;
+
+          return 0;
+        });
+
+        this.leaves.set(sortedLeaves);
+        this.loaded.set(true);
         },
         error: () => {
           this.errorMessage.set('Erreur lors du chargement des demandes de congé.');
