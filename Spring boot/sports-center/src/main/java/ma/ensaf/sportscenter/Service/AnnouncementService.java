@@ -71,4 +71,24 @@ public class AnnouncementService {
 
         return announcementRepository.save(announcement);
     }
+
+    public void deleteAnnouncement(Long id) {
+
+        if (!announcementRepository.existsById(id)) {
+            throw new RuntimeException("Annonce introuvable.");
+        }
+
+        announcementRepository.deleteById(id);
+    }
+
+    public Announcement activateAnnouncement(Long id) {
+
+        Announcement announcement = announcementRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Annonce introuvable."));
+
+        announcement.setActive(true);
+
+        return announcementRepository.save(announcement);
+    }
 }

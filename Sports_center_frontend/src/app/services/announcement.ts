@@ -29,4 +29,12 @@ export class AnnouncementService {
   disableAnnouncement(id: number) {
     return this.http.put(`${this.apiUrl}/${id}/disable`, {});
   }
+
+  activateAnnouncement(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/activate`, {});
+  }
+
+  deleteAnnouncement(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

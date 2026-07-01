@@ -166,6 +166,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/announcements/*/disable")
                         .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
 
+                        .requestMatchers(HttpMethod.PUT, "/api/announcements/*/activate")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/announcements/*")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
                         .requestMatchers(HttpMethod.GET, "/api/announcements/client")
                         .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 

@@ -36,8 +36,13 @@
         <option [ngValue]="null">Choisir un utilisateur COACH...</option>
 
         @for (user of users(); track user.id) {
-          <option [ngValue]="user.id">
+          <option
+            [ngValue]="user.id"
+            [disabled]="isAlreadyCoach(user.id)">
             {{ user.firstName }} {{ user.lastName }} - {{ user.email }}
+            @if (isAlreadyCoach(user.id)) {
+              — Déjà coach
+            }
           </option>
         }
       </select>

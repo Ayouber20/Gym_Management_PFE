@@ -1,14 +1,14 @@
 import { Component, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { AnnouncementService } from '../../services/announcement';
-import { ProfileMenu } from '../../components/profile-menu/profile-menu';
 
 @Component({
   selector: 'app-admin-announcements',
   standalone: true,
-  imports: [CommonModule, FormsModule, ProfileMenu],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './admin-announcements.html',
   styleUrls: ['./admin-announcements.css']
 })
@@ -32,11 +32,27 @@ export class AdminAnnouncements {
 
   loadAnnouncements(): void {
     this.loaded.set(false);
+    this.errorMessage.set('');
 
     this.announcementService.getAllAnnouncements()
       .subscribe({
         next: (data) => {
-          this.announcements.set(data);
+          const sortedAnnouncements = data.sort((a, b) => {
+            if (a.active && !b.active) {
+              return -1;
+            }
+
+            if (!a.active && b.active) {
+              return 1;
+            }
+
+            const dateA = a.createdAt || '';
+            const dateB = b.createdAt || '';
+
+            return dateB.localeCompare(dateA);
+          });
+
+          this.announcements.set(sortedAnnouncements);
           this.loaded.set(true);
         },
         error: () => {
@@ -56,8 +72,8 @@ export class AdminAnnouncements {
     }
 
     const announcement = {
-      title: this.title(),
-      message: this.message(),
+      title: this.title().trim(),
+      message: this.message().trim(),
       targetAudience: this.targetAudience()
     };
 
@@ -74,25 +90,55 @@ export class AdminAnnouncements {
           this.loadAnnouncements();
         },
         error: (err) => {
-          this.errorMessage.set(
-            err?.error?.message ||
-            err?.error ||
-            'Erreur lors de la publication de l’annonce.'
-          );
+          this.errorMessage.set(this.getBackendErrorMessage(err) || 'Erreur lors de la publication de l’annonce.');
           this.successMessage.set('');
         }
       });
   }
 
   disableAnnouncement(id: number): void {
+    if (!confirm('Voulez-vous désactiver cette annonce ?')) {
+      return;
+    }
+
+    this.successMessage.set('');
+    this.errorMessage.set('');
+
     this.announcementService.disableAnnouncement(id)
       .subscribe({
         next: () => {
           this.successMessage.set('Annonce désactivée avec succès.');
+          this.errorMessage.set('');
           this.loadAnnouncements();
         },
-        error: () => {
-          this.errorMessage.set('Erreur lors de la désactivation de l’annonce.');
+        error: (err) => {
+          this.errorMessage.set(this.getBackendErrorMessage(err) || 'Erreur lors de la désactivation de l’annonce.');
+          this.successMessage.set('');
+        }
+      });
+  }
+
+  deleteAnnouncement(id: number): void {
+    if (!confirm('Voulez-vous supprimer définitivement cette annonce ?')) {
+      return;
+    }
+
+    this.successMessage.set('');
+    this.errorMessage.set('');
+
+    this.announcementService.deleteAnnouncement(id)
+      .subscribe({
+        next: () => {
+          this.announcements.update(announcements =>
+            announcements.filter(announcement => announcement.id !== id)
+          );
+
+          this.successMessage.set('Annonce supprimée avec succès.');
+          this.errorMessage.set('');
+        },
+        error: (err) => {
+          this.errorMessage.set(this.getBackendErrorMessage(err) || 'Erreur lors de la suppression de l’annonce.');
+          this.successMessage.set('');
         }
       });
   }
@@ -111,5 +157,43 @@ export class AdminAnnouncements {
     }
 
     return target;
+  }
+
+  private getBackendErrorMessage(err: any): string {
+    if (typeof err?.error === 'string') {
+      return err.error;
+    }
+
+    if (err?.error?.message) {
+      return err.error.message;
+    }
+
+    if (err?.message) {
+      return err.message;
+    }
+
+    return '';
+  }
+
+  activateAnnouncement(id: number): void {
+    if (!confirm('Voulez-vous réactiver cette annonce ?')) {
+      return;
+    }
+
+    this.successMessage.set('');
+    this.errorMessage.set('');
+
+    this.announcementService.activateAnnouncement(id)
+      .subscribe({
+        next: () => {
+          this.successMessage.set('Annonce réactivée avec succès.');
+          this.errorMessage.set('');
+          this.loadAnnouncements();
+        },
+        error: (err) => {
+          this.errorMessage.set(this.getBackendErrorMessage(err) || 'Erreur lors de la réactivation de l’annonce.');
+          this.successMessage.set('');
+        }
+      });
   }
 }

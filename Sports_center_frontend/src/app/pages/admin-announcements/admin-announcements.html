@@ -1,11 +1,15 @@
 <div class="admin-announcements-page">
 
-  <app-profile-menu></app-profile-menu>
+  <div class="page-header">
+    <h1>GESTION DES ANNONCES</h1>
+    <p class="subtitle">
+      Publier des annonces visibles par les clients et/ou les coachs.
+    </p>
 
-  <h1>Gestion des annonces</h1>
-  <p class="subtitle">
-    Publier des annonces visibles par les clients et/ou les coachs.
-  </p>
+    <a routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </a>
+  </div>
 
   @if (successMessage()) {
     <div class="success-message">
@@ -19,90 +23,120 @@
     </div>
   }
 
-  <div class="form-card">
-    <h2>Nouvelle annonce</h2>
+  <div class="content-grid">
 
-    <label>Titre</label>
-    <input
-      type="text"
-      [ngModel]="title()"
-      (ngModelChange)="title.set($event)"
-      placeholder="Ex : Fermeture exceptionnelle">
+    <div class="form-card">
+      <h2>Nouvelle annonce</h2>
 
-    <label>Message</label>
-    <textarea
-      rows="5"
-      [ngModel]="message()"
-      (ngModelChange)="message.set($event)"
-      placeholder="Écrivez le contenu de l’annonce...">
-    </textarea>
+      <label>Titre :</label>
+      <input
+        type="text"
+        [ngModel]="title()"
+        (ngModelChange)="title.set($event)"
+        placeholder="Ex : Fermeture exceptionnelle">
 
-    <label>Destinataire</label>
-    <select
-      [ngModel]="targetAudience()"
-      (ngModelChange)="targetAudience.set($event)">
-      <option value="ALL">Clients et coachs</option>
-      <option value="CLIENT">Clients uniquement</option>
-      <option value="COACH">Coachs uniquement</option>
-    </select>
+      <label>Message :</label>
+      <textarea
+        rows="5"
+        [ngModel]="message()"
+        (ngModelChange)="message.set($event)"
+        placeholder="Écrivez le contenu de l’annonce...">
+      </textarea>
 
-    <button type="button" (click)="createAnnouncement()">
-      Publier l’annonce
-    </button>
-  </div>
+      <label>Destinataire :</label>
+      <select
+        [ngModel]="targetAudience()"
+        (ngModelChange)="targetAudience.set($event)">
+        <option value="ALL">Clients et coachs</option>
+        <option value="CLIENT">Clients uniquement</option>
+        <option value="COACH">Coachs uniquement</option>
+      </select>
 
-  <div class="list-card">
-    <h2>Annonces publiées</h2>
+      <button type="button" class="publish-btn" (click)="createAnnouncement()">
+        PUBLIER L’ANNONCE
+      </button>
+    </div>
 
-    @if (!loaded()) {
-      <p>Chargement des annonces...</p>
-    }
-
-    @if (loaded() && announcements().length === 0) {
-      <p>Aucune annonce pour le moment.</p>
-    }
-
-    @if (loaded() && announcements().length > 0) {
-      <div class="announcements-list">
-
-        @for (announcement of announcements(); track announcement.id) {
-          <div class="announcement-card" [class.disabled]="!announcement.active">
-
-            <div class="announcement-header">
-              <h3>{{ announcement.title }}</h3>
-
-              <span class="target-badge">
-                {{ getTargetLabel(announcement.targetAudience) }}
-              </span>
-            </div>
-
-            <p>{{ announcement.message }}</p>
-
-            <div class="announcement-footer">
-              <span>
-                Statut :
-                @if (announcement.active) {
-                  Active
-                } @else {
-                  Désactivée
-                }
-              </span>
-
-              @if (announcement.active) {
-                <button
-                  type="button"
-                  class="disable-btn"
-                  (click)="disableAnnouncement(announcement.id)">
-                  Désactiver
-                </button>
-              }
-            </div>
-
-          </div>
-        }
-
+    <div class="list-card">
+      <div class="list-header">
+        <h2>Annonces publiées</h2>
+        <span>{{ announcements().length }} annonce(s)</span>
       </div>
-    }
+
+      @if (!loaded()) {
+        <p class="empty-text">Chargement des annonces...</p>
+      }
+
+      @if (loaded() && announcements().length === 0) {
+        <p class="empty-text">Aucune annonce pour le moment.</p>
+      }
+
+      @if (loaded() && announcements().length > 0) {
+        <div class="announcements-list">
+
+          @for (announcement of announcements(); track announcement.id) {
+            <div class="announcement-card" [class.disabled]="!announcement.active">
+
+              <div class="announcement-main">
+                <h3>{{ announcement.title }}</h3>
+
+                <span class="target-badge">
+                  {{ getTargetLabel(announcement.targetAudience) }}
+                </span>
+
+                <p class="announcement-message">
+                  {{ announcement.message }}
+                </p>
+
+                @if (announcement.createdAt) {
+                  <span class="date-text">
+                    Publiée le {{ announcement.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                  </span>
+                }
+              </div>
+
+              <div class="announcement-side">
+                <span class="status-badge" [class.inactive]="!announcement.active">
+                  @if (announcement.active) {
+                    Active
+                  } @else {
+                    Désactivée
+                  }
+                </span>
+
+                <div class="actions">
+                  @if (announcement.active) {
+                    <button
+                      type="button"
+                      class="disable-btn"
+                      (click)="disableAnnouncement(announcement.id)">
+                      Désactiver
+                    </button>
+                  } @else {
+                    <button
+                      type="button"
+                      class="activate-btn"
+                      (click)="activateAnnouncement(announcement.id)">
+                      Réactiver
+                    </button>
+                  }
+
+                  <button
+                    type="button"
+                    class="delete-btn"
+                    (click)="deleteAnnouncement(announcement.id)">
+                    Supprimer
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          }
+
+        </div>
+      }
+    </div>
+
   </div>
 
 </div>

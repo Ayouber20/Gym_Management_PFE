@@ -97,6 +97,10 @@ export class AdminCoaches {
       });
   }
 
+  isAlreadyCoach(userId: number): boolean {
+    return this.coaches().some(coach => coach.user?.id === userId);
+  }
+
   filteredCoaches(): any[] {
     const search = this.searchTerm().toLowerCase().trim();
 
@@ -138,6 +142,11 @@ export class AdminCoaches {
       return;
     }
 
+    if (this.isAlreadyCoach(Number(this.selectedUserId()))) {
+      this.errorMessage.set('Cet utilisateur est déjà enregistré comme coach.');
+      return;
+    }
+
     const coach = {
       speciality: this.speciality(),
       availability: this.availability(),
@@ -158,6 +167,7 @@ export class AdminCoaches {
         error: (err) => {
           this.errorMessage.set(
             err?.error?.message ||
+            err?.error ||
             'Erreur lors de la création du coach.'
           );
 
