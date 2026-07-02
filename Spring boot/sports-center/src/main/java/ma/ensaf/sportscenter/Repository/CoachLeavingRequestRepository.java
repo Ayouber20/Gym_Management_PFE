@@ -11,4 +11,9 @@ public interface CoachLeavingRequestRepository
     List<CoachLeavingRequest> findByCoachId(Long coachId);
 
     List<CoachLeavingRequest> findByStatus(String status);
+
+    List<CoachLeavingRequest> findByCoachIdAndStatusIn(
+            Long coachId,
+            List<String> statuses
+    );
 }

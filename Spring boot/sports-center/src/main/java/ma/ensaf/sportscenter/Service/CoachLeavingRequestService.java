@@ -59,6 +59,25 @@ public class CoachLeavingRequestService {
                 .orElseThrow(() ->
                         new RuntimeException("Coach introuvable."));
 
+        List<CoachLeavingRequest> existingLeaves =
+                coachLeavingRequestRepository.findByCoachIdAndStatusIn(
+                        coach.getId(),
+                        List.of("PENDING", "ACCEPTED")
+                );
+
+        for (CoachLeavingRequest existingLeave : existingLeaves) {
+            boolean overlap =
+                    !leaveRequest.getEndDate().isBefore(existingLeave.getStartDate())
+                            &&
+                            !leaveRequest.getStartDate().isAfter(existingLeave.getEndDate());
+
+            if (overlap) {
+                throw new RuntimeException(
+                        "Vous avez déjà une demande de congé sur cette période."
+                );
+            }
+        }
+
         leaveRequest.setCoach(coach);
         leaveRequest.setStatus("PENDING");
 
