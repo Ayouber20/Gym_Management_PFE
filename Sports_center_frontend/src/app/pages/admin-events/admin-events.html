@@ -1,0 +1,259 @@
+<div class="admin-events-page">
+
+  <div class="page-header">
+    <h1>Événements</h1>
+
+    <p>
+      Publiez des événements du centre sportif et gérez les participations.
+    </p>
+
+    <button routerLink="/admin" class="back-btn">
+      Retour à l’espace admin
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="form-card">
+    <h2>Nouvel événement</h2>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Titre :</label>
+        <input
+          type="text"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+          placeholder="Ex : Tournoi interne">
+      </div>
+
+      <div class="form-group">
+        <label>Public cible :</label>
+        <select
+          [ngModel]="targetAudience()"
+          (ngModelChange)="targetAudience.set($event)">
+          <option value="ALL">Clients et coachs</option>
+          <option value="CLIENT">Clients uniquement</option>
+          <option value="COACH">Coachs uniquement</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Date :</label>
+        <input
+          type="date"
+          [min]="tomorrow"
+          [ngModel]="eventDate()"
+          (ngModelChange)="eventDate.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Heure :</label>
+        <input
+          type="time"
+          [ngModel]="eventTime()"
+          (ngModelChange)="eventTime.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Lieu :</label>
+        <input
+          type="text"
+          [ngModel]="location()"
+          (ngModelChange)="location.set($event)"
+          placeholder="Ex : Salle principale">
+      </div>
+
+      <div class="form-group">
+        <label>Nombre max participants :</label>
+        <input
+          type="number"
+          min="1"
+          [ngModel]="maxParticipants()"
+          (ngModelChange)="maxParticipants.set($event)"
+          placeholder="Ex : 50">
+      </div>
+
+      <div class="form-group full-width">
+        <label>Description :</label>
+        <textarea
+          rows="4"
+          [ngModel]="description()"
+          (ngModelChange)="description.set($event)"
+          placeholder="Description de l’événement...">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="publish-btn" (click)="createEvent()">
+        Publier l’événement
+      </button>
+
+      <button type="button" class="clear-btn" (click)="resetForm()">
+        Vider
+      </button>
+    </div>
+  </section>
+
+  <section class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Titre, lieu ou description...">
+    </div>
+
+    <div class="filter-group">
+      <label>Public :</label>
+      <select
+        [ngModel]="selectedAudienceFilter()"
+        (ngModelChange)="selectedAudienceFilter.set($event)">
+        <option value="ALL">Tous les publics</option>
+        <option value="CLIENT">Clients uniquement</option>
+        <option value="COACH">Coachs uniquement</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Statut :</label>
+      <select
+        [ngModel]="selectedStatusFilter()"
+        (ngModelChange)="selectedStatusFilter.set($event)">
+        <option value="ALL">Tous les statuts</option>
+        <option value="ACTIVE">Actif</option>
+        <option value="INACTIVE">Désactivé</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDateFilter()"
+        (ngModelChange)="selectedDateFilter.set($event)">
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </section>
+
+  <div class="results-count">
+    {{ filteredEvents().length }} événement(s) affiché(s)
+  </div>
+
+  @if (!loaded()) {
+    <div class="empty-card">
+      Chargement...
+    </div>
+  }
+
+  @if (loaded() && events().length === 0) {
+    <div class="empty-card">
+      Aucun événement publié pour le moment.
+    </div>
+  }
+
+  @if (loaded() && events().length > 0 && filteredEvents().length === 0) {
+    <div class="empty-card">
+      Aucun événement ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredEvents().length > 0) {
+    <div class="events-grid">
+
+      @for (event of filteredEvents(); track event.id) {
+        <div class="event-card" [class.disabled]="event.status === 'INACTIVE'">
+
+          <div class="event-header">
+            <h2>{{ event.title }}</h2>
+
+            <span class="status-badge" [class.inactive]="event.status === 'INACTIVE'">
+              {{ getStatusLabel(event.status) }}
+            </span>
+          </div>
+
+          <p>
+            <strong>Public :</strong>
+            {{ getAudienceLabel(event.targetAudience) }}
+          </p>
+
+          <p>
+            <strong>Date :</strong>
+            {{ event.eventDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ formatTime(event.eventTime) }}
+          </p>
+
+          <p>
+            <strong>Lieu :</strong>
+            {{ event.location }}
+          </p>
+
+          <p>
+            <strong>Participants :</strong>
+            {{ getParticipantsText(event) }}
+          </p>
+
+          @if (event.description) {
+            <p class="description">
+              {{ event.description }}
+            </p>
+          }
+
+          <div class="card-actions">
+            @if (event.status === 'ACTIVE') {
+                <button
+                type="button"
+                class="disable-btn"
+                (click)="disableEvent(event.id)">
+                Désactiver
+                </button>
+            } @else {
+                <button
+                type="button"
+                class="activate-btn"
+                (click)="activateEvent(event.id)">
+                Réactiver
+                </button>
+            }
+
+                <button
+                    type="button"
+                    class="delete-btn"
+                    (click)="deleteEvent(event.id)">
+                    Supprimer
+                </button>
+            </div>
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

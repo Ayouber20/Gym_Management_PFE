@@ -16,11 +16,13 @@ import { ClientTennis } from './pages/client-tennis/client-tennis';
 import { ClientReservations } from './pages/client-reservations/client-reservations';
 import { ClientCoachRequests } from './pages/client-coach-requests/client-coach-requests';
 import { ClientGroupClasses } from './pages/client-group-classes/client-group-classes';
+import { ClientEvents } from './pages/client-events/client-events';
 
 import { CoachRequests } from './pages/coach-requests/coach-requests';
 import { CoachSessions } from './pages/coach-sessions/coach-sessions';
 import { CoachGroupClasses } from './pages/coach-group-classes/coach-group-classes';
 import { CoachLeavings } from './pages/coach-leavings/coach-leavings';
+import { CoachEvents } from './pages/coach-events/coach-events';
 
 
 import { AdminUsers } from './pages/admin-users/admin-users';
@@ -32,6 +34,7 @@ import { AdminCoachRequests } from './pages/admin-coach-requests/admin-coach-req
 import { AdminStatistics } from './pages/admin-statistics/admin-statistics';
 import { AdminCoachLeavings } from './pages/admin-coach-leavings/admin-coach-leavings';
 import { AdminAnnouncements } from './pages/admin-announcements/admin-announcements';
+import { AdminEvents } from './pages/admin-events/admin-events';
 
 import { authGuard } from './guards/auth-guard';
 
@@ -74,6 +77,10 @@ export const routes: Routes = [
     component: ClientGroupClasses
   },
   {
+    path: 'client/events',
+    component: ClientEvents
+  },
+  {
     path: 'demande-coach',
     component: CoachRequest,
     canActivate: [authGuard],
@@ -109,6 +116,10 @@ export const routes: Routes = [
     component: CoachLeavings,
     canActivate: [authGuard],
     data: { roles: ['COACH'] }
+  },
+  {
+    path: 'coach/events',
+    component: CoachEvents
   },
 
   {
@@ -171,6 +182,11 @@ export const routes: Routes = [
   {
     path: 'admin/announcements',
     component: AdminAnnouncements
+  },
+
+  {
+    path: 'admin/events',
+    component: AdminEvents
   }
   
 ];

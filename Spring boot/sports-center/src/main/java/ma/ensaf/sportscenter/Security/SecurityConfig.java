@@ -197,6 +197,40 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/group-classes/*/participate/*")
                         .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
 
+                        // EVENTS
+                        .requestMatchers(HttpMethod.POST, "/api/events")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/events")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/events/client")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
+
+                        .requestMatchers(HttpMethod.GET, "/api/events/coach")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
+
+                        .requestMatchers(HttpMethod.POST, "/api/events/*/participate/*/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/events/*/participate/*/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH")
+
+                        .requestMatchers(HttpMethod.GET, "/api/events/*/participating/*/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH")
+
+                        .requestMatchers(HttpMethod.GET, "/api/events/*/participants/count")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/events/*/disable")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/events/*/activate")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/events/*")
+                        .hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+
                         // Everything else
                         .anyRequest().authenticated()
                 )

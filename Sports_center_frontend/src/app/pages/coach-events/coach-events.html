@@ -1,0 +1,150 @@
+<div class="coach-events-page">
+
+  <div class="page-header">
+    <h1>Événements</h1>
+
+    <p>
+      Consultez les événements du centre sportif et participez aux activités disponibles.
+    </p>
+
+    <button routerLink="/coach" class="back-btn">
+      Retour à l’espace coach
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Titre, lieu ou description...">
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDateFilter()"
+        (ngModelChange)="selectedDateFilter.set($event)">
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </section>
+
+  <div class="results-count">
+    {{ filteredEvents().length }} événement(s) affiché(s)
+  </div>
+
+  @if (!loaded()) {
+    <div class="empty-card">
+      Chargement...
+    </div>
+  }
+
+  @if (loaded() && events().length === 0) {
+    <div class="empty-card">
+      Aucun événement disponible pour le moment.
+    </div>
+  }
+
+  @if (loaded() && events().length > 0 && filteredEvents().length === 0) {
+    <div class="empty-card">
+      Aucun événement ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredEvents().length > 0) {
+    <div class="events-grid">
+
+      @for (event of filteredEvents(); track event.id) {
+        <div class="event-card">
+
+          <div class="event-header">
+            <h2>{{ event.title }}</h2>
+
+            <span
+              class="status-badge"
+              [class.full]="isFull(event)">
+              @if (isFull(event)) {
+                Complet
+              } @else {
+                Disponible
+              }
+            </span>
+          </div>
+
+          <p>
+            <strong>Date :</strong>
+            {{ event.eventDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ formatTime(event.eventTime) }}
+          </p>
+
+          <p>
+            <strong>Lieu :</strong>
+            {{ event.location }}
+          </p>
+
+          <p>
+            <strong>Participants :</strong>
+            {{ getParticipantsText(event) }}
+          </p>
+
+          @if (event.description) {
+            <p class="description">
+              {{ event.description }}
+            </p>
+          }
+
+          @if (isParticipating(event)) {
+            <button
+              type="button"
+              class="leave-btn"
+              (click)="cancelParticipation(event.id)">
+              Quitter
+            </button>
+          } @else {
+            <button
+              type="button"
+              class="participate-btn"
+              [disabled]="isFull(event)"
+              (click)="participate(event.id)">
+              @if (isFull(event)) {
+                Complet
+              } @else {
+                Participer
+              }
+            </button>
+          }
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>
