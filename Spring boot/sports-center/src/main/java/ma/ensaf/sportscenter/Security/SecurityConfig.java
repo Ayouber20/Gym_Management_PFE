@@ -178,6 +178,25 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/announcements/coach")
                         .hasAnyAuthority("ROLE_COACH", "COACH")
 
+                        // GROUP CLASSES
+                        .requestMatchers(HttpMethod.POST, "/api/group-classes")
+                        .hasAnyAuthority("ROLE_COACH", "COACH")
+
+                        .requestMatchers(HttpMethod.GET, "/api/group-classes/coach/**")
+                        .hasAnyAuthority("ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.GET, "/api/group-classes", "/api/group-classes/**")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT", "ROLE_COACH", "COACH", "ROLE_ADMIN", "ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/group-classes/*/participate/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
+
+                        .requestMatchers(HttpMethod.GET, "/api/group-classes/*/participating/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/group-classes/*/participate/*")
+                        .hasAnyAuthority("ROLE_CLIENT", "CLIENT")
+
                         // Everything else
                         .anyRequest().authenticated()
                 )

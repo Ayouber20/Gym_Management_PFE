@@ -15,11 +15,13 @@ import { Login } from './pages/login/login';
 import { ClientTennis } from './pages/client-tennis/client-tennis';
 import { ClientReservations } from './pages/client-reservations/client-reservations';
 import { ClientCoachRequests } from './pages/client-coach-requests/client-coach-requests';
+import { ClientGroupClasses } from './pages/client-group-classes/client-group-classes';
 
 import { CoachRequests } from './pages/coach-requests/coach-requests';
 import { CoachSessions } from './pages/coach-sessions/coach-sessions';
 import { CoachGroupClasses } from './pages/coach-group-classes/coach-group-classes';
 import { CoachLeavings } from './pages/coach-leavings/coach-leavings';
+
 
 import { AdminUsers } from './pages/admin-users/admin-users';
 import { AdminClients } from './pages/admin-clients/admin-clients';
@@ -66,6 +68,10 @@ export const routes: Routes = [
     component: ClientCoachRequests,
     canActivate: [authGuard],
     data: { roles: ['CLIENT'] }
+  },
+  {
+    path: 'client/group-classes',
+    component: ClientGroupClasses
   },
   {
     path: 'demande-coach',

@@ -138,6 +138,125 @@
   font-weight: bold;
 }
 
+.form-card {
+  max-width: 980px;
+  margin: 0 auto 35px auto;
+  padding: 30px;
+
+  background: rgba(6, 16, 31, 0.94);
+  border: 1px solid rgba(255, 122, 0, 0.65);
+  border-radius: 18px;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+}
+
+.form-card h2 {
+  text-align: center;
+  color: #ff7a00;
+  font-size: 28px;
+  margin: 0 0 26px 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 36px;
+  row-gap: 24px;
+  align-items: start;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 8px;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.form-group label {
+  color: #d8e2ef;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 14px;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255, 122, 0, 0.55);
+  outline: none;
+
+  background: rgba(2, 10, 22, 0.95);
+  color: white;
+  font-size: 14px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 95px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #ff7a00;
+  box-shadow: 0 0 12px rgba(255, 122, 0, 0.25);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.publish-btn,
+.clear-btn {
+  min-width: 170px;
+  height: 43px;
+
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.25s;
+}
+
+.publish-btn {
+  border: none;
+  background: #ff7a00;
+  color: white;
+}
+
+.publish-btn:hover {
+  background: #ff9d00;
+  transform: translateY(-2px);
+}
+
+.clear-btn {
+  border: 1px solid #ff7a00;
+  background: transparent;
+  color: #ff7a00;
+}
+
+.clear-btn:hover {
+  background: #ff7a00;
+  color: #06101f;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 800px) {
   .classes-grid {
     grid-template-columns: 1fr;
@@ -149,5 +268,18 @@
 
   .page-header h1 {
     font-size: 34px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .publish-btn,
+  .clear-btn {
+    width: 100%;
   }
 }

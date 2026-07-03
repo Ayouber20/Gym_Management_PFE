@@ -1,0 +1,168 @@
+<div class="client-group-classes-page">
+
+  <div class="page-header">
+    <h1>Cours collectifs</h1>
+
+    <p>
+      Consultez les cours collectifs proposés par les coachs et participez aux séances disponibles.
+    </p>
+
+    <button routerLink="/client" class="back-btn">
+      Retour à l’espace client
+    </button>
+  </div>
+
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="filters-card">
+
+    <div class="filter-group">
+      <label>Recherche :</label>
+      <input
+        type="text"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
+        placeholder="Titre, coach ou description...">
+    </div>
+
+    <div class="filter-group">
+      <label>Activité :</label>
+      <select
+        [ngModel]="selectedActivityFilter()"
+        (ngModelChange)="selectedActivityFilter.set($event)">
+        @for (activity of activityFilters; track activity) {
+          <option [value]="activity">
+            {{ activity === 'ALL' ? 'Toutes les activités' : activity }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDateFilter()"
+        (ngModelChange)="selectedDateFilter.set($event)">
+    </div>
+
+    <button
+      type="button"
+      class="clear-filters-btn"
+      (click)="resetFilters()">
+      Réinitialiser
+    </button>
+
+  </section>
+
+  <div class="results-count">
+    {{ filteredGroupClasses().length }} cours affiché(s)
+  </div>
+
+  @if (!loaded()) {
+    <div class="empty-card">
+      Chargement...
+    </div>
+  }
+
+  @if (loaded() && groupClasses().length === 0) {
+    <div class="empty-card">
+      Aucun cours collectif disponible pour le moment.
+    </div>
+  }
+
+  @if (loaded() && groupClasses().length > 0 && filteredGroupClasses().length === 0) {
+    <div class="empty-card">
+      Aucun cours collectif ne correspond aux filtres.
+    </div>
+  }
+
+  @if (filteredGroupClasses().length > 0) {
+    <div class="classes-grid">
+
+      @for (course of filteredGroupClasses(); track course.id) {
+        <div class="class-card">
+
+          <div class="class-header">
+            <h2>{{ course.title }}</h2>
+
+            <span
+              class="status-badge"
+              [class.full]="isFull(course)">
+              @if (isFull(course)) {
+                Complet
+              } @else {
+                Disponible
+              }
+            </span>
+          </div>
+
+          <p>
+            <strong>Activité :</strong>
+            {{ course.activity }}
+          </p>
+
+          <p>
+            <strong>Coach :</strong>
+            {{ getCoachName(course) }}
+          </p>
+
+          <p>
+            <strong>Date :</strong>
+            {{ course.classDate }}
+          </p>
+
+          <p>
+            <strong>Heure :</strong>
+            {{ formatTime(course.startTime) }} - {{ formatTime(course.endTime) }}
+          </p>
+
+          <p>
+            <strong>Participants :</strong>
+            {{ getParticipantsText(course) }}
+          </p>
+
+          @if (course.description) {
+            <p class="description">
+              {{ course.description }}
+            </p>
+          }
+
+          @if (isParticipating(course)) {
+            <button
+                type="button"
+                class="leave-btn"
+                (click)="cancelParticipation(course.id)">
+                Quitter
+            </button>
+            } @else {
+            <button
+                type="button"
+                class="participate-btn"
+                [disabled]="isFull(course)"
+                (click)="participate(course.id)">
+                @if (isFull(course)) {
+                Complet
+                } @else {
+                Participer
+                }
+            </button>
+            }
+
+        </div>
+      }
+
+    </div>
+  }
+
+</div>

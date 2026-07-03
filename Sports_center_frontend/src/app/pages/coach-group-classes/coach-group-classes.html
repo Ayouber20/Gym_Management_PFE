@@ -4,7 +4,7 @@
     <h1>Cours collectifs</h1>
 
     <p>
-      Consultez les cours collectifs programmés au sein du centre sportif.
+      Publiez vos cours collectifs et consultez les séances programmées.
     </p>
 
     <button routerLink="/coach" class="back-btn">
@@ -12,7 +12,116 @@
     </button>
   </div>
 
-  <div class="filters-card">
+  @if (successMessage()) {
+    <div class="success-message">
+      ✅ {{ successMessage() }}
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">
+      ❌ {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="form-card">
+    <h2>Nouveau cours collectif</h2>
+
+    <div class="form-grid">
+
+      <div class="form-group">
+        <label>Titre :</label>
+        <input
+          type="text"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+          placeholder="Ex : Tennis débutant">
+      </div>
+
+      <div class="form-group">
+        <label>Activité :</label>
+        <select
+          [ngModel]="activity()"
+          (ngModelChange)="activity.set($event)">
+          <option value="">Choisir une activité...</option>
+
+          @for (activity of activities; track activity) {
+            <option [value]="activity">
+              {{ activity }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Date :</label>
+        <input
+          type="date"
+          [min]="tomorrow"
+          [ngModel]="classDate()"
+          (ngModelChange)="classDate.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Heure début :</label>
+        <input
+          type="time"
+          [ngModel]="startTime()"
+          (ngModelChange)="startTime.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Heure fin :</label>
+        <input
+          type="time"
+          [ngModel]="endTime()"
+          (ngModelChange)="endTime.set($event)">
+      </div>
+
+      <div class="form-group">
+        <label>Nombre max participants :</label>
+        <input
+          type="number"
+          min="1"
+          [ngModel]="maxParticipants()"
+          (ngModelChange)="maxParticipants.set($event)"
+          placeholder="Ex : 12">
+      </div>
+
+      <div class="form-group full-width">
+        <label>Description :</label>
+        <textarea
+          rows="4"
+          [ngModel]="description()"
+          (ngModelChange)="description.set($event)"
+          placeholder="Description du cours collectif...">
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="form-group full-width">
+      <label>Description :</label>
+      <textarea
+        rows="4"
+        [ngModel]="description()"
+        (ngModelChange)="description.set($event)"
+        placeholder="Description du cours collectif...">
+      </textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="publish-btn" (click)="createGroupClass()">
+        Publier le cours
+      </button>
+
+      <button type="button" class="clear-btn" (click)="resetForm()">
+        Vider
+      </button>
+    </div>
+  </section>
+
+  <section class="filters-card">
 
     <div class="filter-group">
       <label>Recherche :</label>
@@ -20,7 +129,7 @@
         type="text"
         [ngModel]="searchTerm()"
         (ngModelChange)="searchTerm.set($event)"
-        placeholder="Rechercher par titre...">
+        placeholder="Titre ou description...">
     </div>
 
     <div class="filter-group">
@@ -37,29 +146,11 @@
     </div>
 
     <div class="filter-group">
-      <label>Jour :</label>
-      <select
-        [ngModel]="selectedDayFilter()"
-        (ngModelChange)="selectedDayFilter.set($event)">
-        @for (day of dayFilters; track day) {
-          <option [value]="day">
-            {{ day === 'ALL' ? 'Tous les jours' : day }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Niveau :</label>
-      <select
-        [ngModel]="selectedLevelFilter()"
-        (ngModelChange)="selectedLevelFilter.set($event)">
-        @for (level of levelFilters; track level) {
-          <option [value]="level">
-            {{ level === 'ALL' ? 'Tous les niveaux' : level }}
-          </option>
-        }
-      </select>
+      <label>Date :</label>
+      <input
+        type="date"
+        [ngModel]="selectedDateFilter()"
+        (ngModelChange)="selectedDateFilter.set($event)">
     </div>
 
     <button
@@ -69,13 +160,25 @@
       Réinitialiser
     </button>
 
-  </div>
+  </section>
 
   <div class="results-count">
     {{ filteredGroupClasses().length }} cours affiché(s)
   </div>
 
-  @if (filteredGroupClasses().length === 0) {
+  @if (!loaded()) {
+    <div class="empty-card">
+      Chargement...
+    </div>
+  }
+
+  @if (loaded() && groupClasses().length === 0) {
+    <div class="empty-card">
+      Aucun cours collectif publié pour le moment.
+    </div>
+  }
+
+  @if (loaded() && groupClasses().length > 0 && filteredGroupClasses().length === 0) {
     <div class="empty-card">
       Aucun cours collectif ne correspond aux filtres.
     </div>
@@ -84,7 +187,7 @@
   @if (filteredGroupClasses().length > 0) {
     <div class="classes-grid">
 
-      @for (course of filteredGroupClasses(); track course.title) {
+      @for (course of filteredGroupClasses(); track course.id) {
         <div class="class-card">
 
           <h2>{{ course.title }}</h2>
@@ -95,24 +198,30 @@
           </p>
 
           <p>
-            <strong>Jour :</strong>
-            {{ course.day }}
+            <strong>Date :</strong>
+            {{ course.classDate }}
           </p>
 
           <p>
             <strong>Heure :</strong>
-            {{ course.time }}
+            {{ formatTime(course.startTime) }} - {{ formatTime(course.endTime) }}
           </p>
 
           <p>
-            <strong>Niveau :</strong>
-            {{ course.level }}
+            <strong>Participants max :</strong>
+            {{ course.maxParticipants }}
           </p>
 
           <p>
-            <strong>Participants :</strong>
-            {{ course.participants }}
+            <strong>Statut :</strong>
+            {{ course.status }}
           </p>
+
+          @if (course.description) {
+            <p class="description">
+              {{ course.description }}
+            </p>
+          }
 
         </div>
       }
