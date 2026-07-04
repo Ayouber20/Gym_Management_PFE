@@ -163,6 +163,10 @@ export class CoachGroupClasses {
     const search = this.searchTerm().toLowerCase().trim();
 
     return this.groupClasses().filter(course => {
+      if (this.isPastGroupClass(course)) {
+        return false;
+      }
+
       const title = (course.title || '').toLowerCase();
       const description = (course.description || '').toLowerCase();
 
@@ -210,5 +214,19 @@ export class CoachGroupClasses {
     const date = new Date();
     date.setDate(date.getDate() + 1);
     return date.toISOString().split('T')[0];
+  }
+
+  isPastGroupClass(course: any): boolean {
+    if (!course.classDate) {
+      return false;
+    }
+
+    const now = new Date();
+
+    const courseDateTime = new Date(
+      `${course.classDate}T${course.endTime || course.startTime || '23:59'}`
+    );
+
+    return courseDateTime < now;
   }
 }

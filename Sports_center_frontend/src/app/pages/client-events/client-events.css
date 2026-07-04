@@ -189,6 +189,9 @@
   border: 1px solid rgba(0, 200, 255, 0.65);
   border-radius: 18px;
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .event-header {
@@ -240,7 +243,7 @@
 .leave-btn {
   width: 100%;
   height: 43px;
-  margin-top: 18px;
+  margin-top: auto;
 
   border-radius: 10px;
   font-weight: 900;
@@ -275,6 +278,10 @@
   background: #ff4d4d;
   color: white;
   transform: translateY(-2px);
+}
+
+.description {
+  margin-bottom: 24px;
 }
 
 /* Responsive */

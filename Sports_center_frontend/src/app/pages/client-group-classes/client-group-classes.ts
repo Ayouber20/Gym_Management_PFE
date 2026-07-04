@@ -135,6 +135,10 @@ export class ClientGroupClasses {
     const search = this.searchTerm().toLowerCase().trim();
 
     return this.groupClasses().filter(course => {
+      if (this.isPastGroupClass(course)) {
+        return false;
+      }
+
       const title = (course.title || '').toLowerCase();
       const description = (course.description || '').toLowerCase();
 
@@ -242,5 +246,19 @@ export class ClientGroupClasses {
                 this.successMessage.set('');
             }
         });
+    }
+
+    isPastGroupClass(course: any): boolean {
+      if (!course.classDate) {
+        return false;
+      }
+
+      const now = new Date();
+
+      const courseDateTime = new Date(
+        `${course.classDate}T${course.endTime || course.startTime || '23:59'}`
+      );
+
+      return courseDateTime < now;
     }
 }

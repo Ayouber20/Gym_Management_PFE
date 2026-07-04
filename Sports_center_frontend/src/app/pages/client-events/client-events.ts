@@ -171,10 +171,15 @@ export class ClientEvents {
       });
   }
 
+
   filteredEvents(): any[] {
     const search = this.searchTerm().toLowerCase().trim();
 
     return this.events().filter(event => {
+      if (this.isPastEvent(event)) {
+        return false;
+      }
+
       const title = (event.title || '').toLowerCase();
       const description = (event.description || '').toLowerCase();
       const location = (event.location || '').toLowerCase();
@@ -218,4 +223,20 @@ export class ClientEvents {
   isParticipating(event: any): boolean {
     return this.participatingStatus()[event.id] === true;
   }
+
+  isPastEvent(event: any): boolean {
+    if (!event.eventDate) {
+      return false;
+    }
+
+    const now = new Date();
+
+    const eventDateTime = new Date(
+      `${event.eventDate}T${event.eventTime || '23:59'}`
+    );
+
+    return eventDateTime < now;
+  }
+
+
 }

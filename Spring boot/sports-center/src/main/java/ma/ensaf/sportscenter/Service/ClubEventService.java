@@ -213,13 +213,18 @@ public class ClubEventService {
         ClubEvent event = clubEventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Événement introuvable."));
 
+        List<EventParticipation> participations =
+                eventParticipationRepository.findByEventId(event.getId());
+
         notifyEventParticipants(
                 event,
                 "EVENT_DELETED",
                 "L'événement a été supprimé par l'administration"
         );
 
-        clubEventRepository.deleteById(id);
+        eventParticipationRepository.deleteAll(participations);
+
+        clubEventRepository.delete(event);
     }
 
     private void createEventNotifications(ClubEvent event) {

@@ -192,6 +192,7 @@ export class AdminEvents {
       .subscribe({
         next: () => {
           this.successMessage.set('Événement supprimé avec succès.');
+          this.errorMessage.set('');
           this.loadEvents();
         },
         error: (error) => {
@@ -200,6 +201,7 @@ export class AdminEvents {
             error?.error ||
             'Erreur lors de la suppression de l’événement.'
           );
+          this.successMessage.set('');
         }
       });
   }
