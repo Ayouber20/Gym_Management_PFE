@@ -35,6 +35,7 @@ export class CoachEvents {
     private clubEventService: ClubEventService
   ) {
     afterNextRender(() => {
+      sessionStorage.setItem('coach_events_seen', 'true');
       this.loadCoach();
     });
   }

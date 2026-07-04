@@ -35,6 +35,7 @@ export class ClientEvents {
     private clubEventService: ClubEventService
   ) {
     afterNextRender(() => {
+      sessionStorage.setItem('client_events_seen', 'true');
       this.loadClient();
     });
   }

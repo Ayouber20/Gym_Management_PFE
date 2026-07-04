@@ -30,6 +30,8 @@
   margin-bottom: 45px;
 }
 
+/* LOGOUT */
+
 .logout-btn {
   margin-bottom: 25px;
   padding: 11px 22px;
@@ -53,11 +55,14 @@
   max-width: 950px;
   margin: 30px auto 40px auto;
   padding: 28px;
+
   background:
     linear-gradient(145deg, rgba(33, 23, 6, 0.96), rgba(35, 31, 17, 0.96));
+
   border: 1px solid rgba(163, 75, 24, 0.7);
   border-radius: 22px;
   color: white;
+
   box-shadow:
     0 0 22px rgba(255, 124, 37, 0.12),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
@@ -82,11 +87,14 @@
   height: 34px;
   padding: 0 10px;
   border-radius: 999px;
+
   background: #25bfff;
   color: #020b16;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-weight: 900;
 }
 
@@ -97,14 +105,26 @@
 
 .notification-item {
   display: flex;
+  align-items: center;
   gap: 16px;
-  align-items: flex-start;
+
+  position: relative;
+  cursor: pointer;
+
   padding: 16px 18px;
   border-radius: 16px;
   margin-bottom: 14px;
+
   background: rgba(37, 191, 255, 0.08);
   border-left: 5px solid #25bfff;
+
   text-align: left;
+  transition: 0.25s;
+}
+
+.notification-item:hover {
+  transform: translateY(-2px);
+  background: rgba(66, 214, 95, 0.14);
 }
 
 .notification-item.reservation {
@@ -123,11 +143,15 @@
 .notification-icon {
   width: 42px;
   height: 42px;
+  min-width: 42px;
+
   border-radius: 50%;
   background: rgba(37, 191, 255, 0.14);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 22px;
   flex-shrink: 0;
 }
@@ -135,6 +159,11 @@
 .notification-item.cancelled .notification-icon {
   background: rgba(255, 77, 77, 0.18);
   color: #ff4d4d;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .notification-content strong {
@@ -154,10 +183,88 @@
   font-weight: bold;
 }
 
+.delete-notification-btn {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: auto;
+  align-self: center;
+
+  border-radius: 50%;
+  border: 1px solid #ff4d4d;
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff4d4d;
+
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+
+  cursor: pointer;
+  transition: 0.25s;
+
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.delete-notification-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
 .notifications-card.empty p {
   color: #d7f3ff;
   margin: 0;
   font-weight: bold;
+}
+
+/* ANNOUNCEMENTS */
+
+.announcements-section {
+  max-width: 950px;
+  margin: 30px auto;
+  padding: 25px;
+
+  background: rgba(5, 18, 35, 0.88);
+  border: 1px solid rgba(66, 214, 95, 0.7);
+  border-radius: 20px;
+
+  color: white;
+  text-align: left;
+
+  box-shadow: 0 0 22px rgba(66, 214, 95, 0.12);
+}
+
+.announcements-section h2 {
+  color: #42d65f;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.announcement-item {
+  padding: 18px;
+  margin-bottom: 15px;
+
+  background: rgba(66, 214, 95, 0.08);
+  border-left: 5px solid #42d65f;
+  border-radius: 14px;
+}
+
+.announcement-item h3 {
+  margin: 0 0 10px 0;
+  color: #ffffff;
+}
+
+.announcement-item p {
+  margin: 0;
+  color: #e8fff0;
+  line-height: 1.6;
 }
 
 /* DASHBOARD CARDS */
@@ -205,11 +312,13 @@
   content: "";
   position: absolute;
   inset: 0;
+
   background:
     linear-gradient(
       rgba(3, 10, 20, 0.76),
       rgba(3, 10, 20, 0.94)
     );
+
   z-index: 0;
 }
 
@@ -217,8 +326,10 @@
   content: "";
   position: absolute;
   inset: 0;
+
   background: rgba(3, 10, 20, 0.22);
   backdrop-filter: grayscale(75%) saturate(45%);
+
   z-index: 0;
 }
 
@@ -243,6 +354,8 @@
   margin: 0 0 25px 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
+
+/* BUTTONS */
 
 button {
   padding: 12px 24px;
@@ -279,92 +392,7 @@ button:hover {
   background-image: url('/assets/images/coach-leavings-card.jpg');
 }
 
-.notification-item {
-  position: relative;
-}
-
-.delete-notification-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
-
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.delete-notification-btn:hover {
-  background: #ff4d4d;
-  color: white;
-}
-
-.announcements-section {
-  max-width: 950px;
-  margin: 30px auto;
-  padding: 25px;
-
-  background: rgba(5, 18, 35, 0.88);
-  border: 1px solid rgba(66, 214, 95, 0.7);
-  border-radius: 20px;
-
-  color: white;
-  text-align: left;
-
-  box-shadow: 0 0 22px rgba(66, 214, 95, 0.12);
-}
-
-.announcements-section h2 {
-  color: #42d65f;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.announcement-item {
-  padding: 18px;
-  margin-bottom: 15px;
-
-  background: rgba(66, 214, 95, 0.08);
-  border-left: 5px solid #42d65f;
-  border-radius: 14px;
-}
-
-.announcement-item h3 {
-  margin: 0 0 10px 0;
-  color: #ffffff;
-}
-
-.announcement-item p {
-  margin: 0;
-  color: #e8fff0;
-  line-height: 1.6;
-}
-
-.notification-item {
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.notification-item:hover {
-  transform: translateY(-2px);
-  background: rgba(66, 214, 95, 0.14);
-}
-
-.dashboard-card {
-  position: relative;
-}
+/* RED DOT */
 
 .red-dot {
   position: absolute;
@@ -397,35 +425,6 @@ button:hover {
   pointer-events: none;
 }
 
-
-
-/* RESPONSIVE */
-
-@media (max-width: 800px) {
-  .dashboard-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .coach-dashboard {
-    padding: 30px;
-  }
-
-  .coach-dashboard h1 {
-    font-size: 34px;
-  }
-
-  .notifications-header {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .notification-item {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-}
-
 @keyframes redPulse {
   0% {
     transform: scale(0.8);
@@ -440,5 +439,34 @@ button:hover {
   100% {
     transform: scale(1.6);
     opacity: 0;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+  .coach-dashboard {
+    padding: 30px;
+  }
+
+  .coach-dashboard h1 {
+    font-size: 34px;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .notifications-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .notification-item {
+    align-items: center;
+  }
+
+  .notification-content {
+    text-align: left;
   }
 }

@@ -3,6 +3,7 @@ package ma.ensaf.sportscenter.Repository;
 import ma.ensaf.sportscenter.Entity.EventParticipation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EventParticipationRepository extends JpaRepository<EventParticipation, Long> {
@@ -20,4 +21,6 @@ public interface EventParticipationRepository extends JpaRepository<EventPartici
     );
 
     long countByEventId(Long eventId);
+
+    List<EventParticipation> findByEventId(Long eventId);
 }

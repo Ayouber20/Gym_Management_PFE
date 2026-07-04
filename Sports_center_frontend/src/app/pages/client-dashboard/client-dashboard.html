@@ -162,6 +162,10 @@
     </div>
 
     <div class="dashboard-card events-card">
+      @if (hasEventNotification()) {
+        <span class="red-dot"></span>
+      }
+
       <h2>🎉 Événements</h2>
       <p>Consultez les événements du centre sportif et participez aux activités disponibles.</p>
 

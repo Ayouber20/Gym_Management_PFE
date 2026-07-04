@@ -147,6 +147,22 @@ export class ClientDashboard {
       return '⌛';
     }
 
+    if (type === 'NEW_EVENT') {
+      return '🎉';
+    }
+
+    if (type === 'EVENT_DISABLED') {
+      return '⚠️';
+    }
+
+    if (type === 'EVENT_REACTIVATED') {
+      return '🎉';
+    }
+
+    if (type === 'EVENT_DELETED') {
+      return '🗑️';
+    }
+
     return '🔔';
   }
 
@@ -181,6 +197,22 @@ export class ClientDashboard {
 
     if (type === 'COACH_REQUEST_EXPIRED') {
       return 'Demande coach expirée';
+    }
+
+    if (type === 'NEW_EVENT') {
+      return 'Nouvel événement';
+    }
+
+    if (type === 'EVENT_DISABLED') {
+      return 'Événement désactivé';
+    }
+
+    if (type === 'EVENT_REACTIVATED') {
+      return 'Événement réactivé';
+    }
+
+    if (type === 'EVENT_DELETED') {
+      return 'Événement supprimé';
     }
 
     return 'Notification';
@@ -241,6 +273,23 @@ export class ClientDashboard {
       this.router.navigate(['/client/coach-requests']);
       return;
     }
+
+    if (
+      notification.type === 'NEW_EVENT' ||
+      notification.type === 'EVENT_DISABLED' ||
+      notification.type === 'EVENT_REACTIVATED' ||
+      notification.type === 'EVENT_DELETED'
+    ) {
+      sessionStorage.setItem('client_events_seen', 'true');
+      this.router.navigate(['/client/events']);
+      return;
+    }
+
+    if (notification.type === 'NEW_EVENT') {
+      sessionStorage.setItem('client_events_seen', 'true');
+      this.router.navigate(['/client/events']);
+      return;
+    }
   }
 
   hasReservationNotification(): boolean {
@@ -252,8 +301,11 @@ export class ClientDashboard {
     }
 
     return this.notifications().some(notification =>
-      notification.type === 'RESERVATION_CANCELLED' ||
-      notification.type === 'RESERVATION'
+      notification.readStatus === false &&
+      (
+        notification.type === 'RESERVATION_CANCELLED' ||
+        notification.type === 'RESERVATION'
+      )
     );
   }
 
@@ -266,11 +318,33 @@ export class ClientDashboard {
     }
 
     return this.notifications().some(notification =>
-      notification.type === 'COACH_REQUEST_ACCEPTED' ||
-      notification.type === 'COACH_REQUEST_REJECTED' ||
-      notification.type === 'COACH_REQUEST_CANCELLED' ||
-      notification.type === 'COACH_REQUEST_EXPIRED' ||
-      notification.type === 'COACH_SESSION_CANCELLED'
+      notification.readStatus === false &&
+      (
+        notification.type === 'COACH_REQUEST_ACCEPTED' ||
+        notification.type === 'COACH_REQUEST_REJECTED' ||
+        notification.type === 'COACH_REQUEST_CANCELLED' ||
+        notification.type === 'COACH_REQUEST_EXPIRED' ||
+        notification.type === 'COACH_SESSION_CANCELLED'
+      )
+    );
+  }
+
+  hasEventNotification(): boolean {
+    const eventsSeen =
+      sessionStorage.getItem('client_events_seen') === 'true';
+
+    if (eventsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.readStatus === false &&
+      (
+        notification.type === 'NEW_EVENT' ||
+        notification.type === 'EVENT_DISABLED' ||
+        notification.type === 'EVENT_REACTIVATED' ||
+        notification.type === 'EVENT_DELETED'
+      )
     );
   }
 

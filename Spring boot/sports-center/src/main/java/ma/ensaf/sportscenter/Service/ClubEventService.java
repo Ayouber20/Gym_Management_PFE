@@ -1,12 +1,24 @@
 package ma.ensaf.sportscenter.Service;
 
+import ma.ensaf.sportscenter.Entity.Client;
+import ma.ensaf.sportscenter.Entity.Coach;
+import ma.ensaf.sportscenter.Entity.Notification;
 import ma.ensaf.sportscenter.Entity.ClubEvent;
 import ma.ensaf.sportscenter.Entity.EventParticipation;
+
+
+
 import ma.ensaf.sportscenter.Repository.ClubEventRepository;
 import ma.ensaf.sportscenter.Repository.EventParticipationRepository;
+import ma.ensaf.sportscenter.Repository.ClientRepository;
+import ma.ensaf.sportscenter.Repository.CoachRepository;
+import ma.ensaf.sportscenter.Repository.NotificationRepository;
+
 import org.springframework.stereotype.Service;
 
+
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -15,12 +27,22 @@ public class ClubEventService {
     private final ClubEventRepository clubEventRepository;
     private final EventParticipationRepository eventParticipationRepository;
 
+    private final ClientRepository clientRepository;
+    private final CoachRepository coachRepository;
+    private final NotificationRepository notificationRepository;
+
     public ClubEventService(
             ClubEventRepository clubEventRepository,
-            EventParticipationRepository eventParticipationRepository) {
+            EventParticipationRepository eventParticipationRepository,
+            ClientRepository clientRepository,
+            CoachRepository coachRepository,
+            NotificationRepository notificationRepository) {
 
         this.clubEventRepository = clubEventRepository;
         this.eventParticipationRepository = eventParticipationRepository;
+        this.clientRepository = clientRepository;
+        this.coachRepository = coachRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     public ClubEvent createEvent(ClubEvent event) {
@@ -51,7 +73,11 @@ public class ClubEventService {
 
         event.setStatus("ACTIVE");
 
-        return clubEventRepository.save(event);
+        ClubEvent savedEvent = clubEventRepository.save(event);
+
+        createEventNotifications(savedEvent);
+
+        return savedEvent;
     }
 
     public List<ClubEvent> getAllEventsForAdmin() {
@@ -155,7 +181,15 @@ public class ClubEventService {
 
         event.setStatus("INACTIVE");
 
-        return clubEventRepository.save(event);
+        ClubEvent savedEvent = clubEventRepository.save(event);
+
+        notifyEventParticipants(
+                savedEvent,
+                "EVENT_DISABLED",
+                "L'événement a été désactivé par l'administration"
+        );
+
+        return savedEvent;
     }
 
     public ClubEvent activateEvent(Long id) {
@@ -164,14 +198,104 @@ public class ClubEventService {
 
         event.setStatus("ACTIVE");
 
-        return clubEventRepository.save(event);
+        ClubEvent savedEvent = clubEventRepository.save(event);
+
+        notifyEventParticipants(
+                savedEvent,
+                "EVENT_REACTIVATED",
+                "L'événement est de nouveau disponible"
+        );
+
+        return savedEvent;
     }
 
     public void deleteEvent(Long id) {
-        if (!clubEventRepository.existsById(id)) {
-            throw new RuntimeException("Événement introuvable.");
-        }
+        ClubEvent event = clubEventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Événement introuvable."));
+
+        notifyEventParticipants(
+                event,
+                "EVENT_DELETED",
+                "L'événement a été supprimé par l'administration"
+        );
 
         clubEventRepository.deleteById(id);
+    }
+
+    private void createEventNotifications(ClubEvent event) {
+
+        String message =
+                "Nouvel événement disponible : " + event.getTitle()
+                        + " le " + event.getEventDate()
+                        + " à " + event.getEventTime()
+                        + " au " + event.getLocation();
+
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        if ("CLIENT".equals(event.getTargetAudience()) || "ALL".equals(event.getTargetAudience())) {
+
+            List<Client> clients = clientRepository.findAll();
+
+            for (Client client : clients) {
+                Notification notification = new Notification(
+                        "CLIENT",
+                        client.getId(),
+                        "NEW_EVENT",
+                        message,
+                        today,
+                        now
+                );
+
+                notificationRepository.save(notification);
+            }
+        }
+
+        if ("COACH".equals(event.getTargetAudience()) || "ALL".equals(event.getTargetAudience())) {
+
+            List<Coach> coaches = coachRepository.findAll();
+
+            for (Coach coach : coaches) {
+                Notification notification = new Notification(
+                        "COACH",
+                        coach.getId(),
+                        "NEW_EVENT",
+                        message,
+                        today,
+                        now
+                );
+
+                notificationRepository.save(notification);
+            }
+        }
+    }
+
+    private void notifyEventParticipants(ClubEvent event, String type, String actionMessage) {
+
+        List<EventParticipation> participations =
+                eventParticipationRepository.findByEventId(event.getId());
+
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+
+        for (EventParticipation participation : participations) {
+
+            String message =
+                    actionMessage + " : " + event.getTitle()
+                            + " le " + event.getEventDate()
+                            + " à " + event.getEventTime()
+                            + " au " + event.getLocation();
+
+            Notification notification = new Notification(
+                    participation.getParticipantRole(),
+                    participation.getParticipantId(),
+                    type,
+                    message,
+                    today,
+                    now
+            );
+
+            notificationRepository.save(notification);
+        }
     }
 }

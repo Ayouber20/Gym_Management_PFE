@@ -127,6 +127,22 @@ export class CoachDashboard {
       return '❌';
     }
 
+    if (type === 'NEW_EVENT') {
+      return '🎉';
+    }
+
+    if (type === 'EVENT_DISABLED') {
+      return '⚠️';
+    }
+
+    if (type === 'EVENT_REACTIVATED') {
+      return '🎉';
+    }
+
+    if (type === 'EVENT_DELETED') {
+      return '🗑️';
+    }
+
     return '🔔';
   }
 
@@ -141,6 +157,22 @@ export class CoachDashboard {
 
     if (type === 'COACH_SESSION_CANCELLED') {
       return 'Séance coach annulée';
+    }
+
+    if (type === 'NEW_EVENT') {
+      return 'Nouvel événement';
+    }
+
+    if (type === 'EVENT_DISABLED') {
+      return 'Événement désactivé';
+    }
+
+    if (type === 'EVENT_REACTIVATED') {
+      return 'Événement réactivé';
+    }
+
+    if (type === 'EVENT_DELETED') {
+      return 'Événement supprimé';
     }
 
     return 'Notification';
@@ -194,6 +226,25 @@ export class CoachDashboard {
       this.router.navigate(['/coach/sessions']);
       return;
     }
+
+    if (
+      notification.type === 'NEW_EVENT' ||
+      notification.type === 'EVENT_DISABLED' ||
+      notification.type === 'EVENT_REACTIVATED' ||
+      notification.type === 'EVENT_DELETED'
+    ) {
+      sessionStorage.setItem('coach_events_seen', 'true');
+      this.router.navigate(['/coach/events']);
+      return;
+    }
+
+    if (notification.type === 'NEW_EVENT') {
+      sessionStorage.setItem('coach_events_seen', 'true');
+      this.router.navigate(['/coach/events']);
+      return;
+    }
+
+    
   }
 
   hasSessionNotification(): boolean {
@@ -205,6 +256,7 @@ export class CoachDashboard {
     }
 
     return this.notifications().some(notification =>
+      notification.readStatus === false &&
       notification.type === 'COACH_SESSION_CANCELLED'
     );
   }
@@ -218,7 +270,27 @@ export class CoachDashboard {
     }
 
     return this.notifications().some(notification =>
+      notification.readStatus === false &&
       notification.type === 'COACH_REQUEST'
+    );
+  }
+
+  hasEventNotification(): boolean {
+    const eventsSeen =
+      sessionStorage.getItem('coach_events_seen') === 'true';
+
+    if (eventsSeen) {
+      return false;
+    }
+
+    return this.notifications().some(notification =>
+      notification.readStatus === false &&
+      (
+        notification.type === 'NEW_EVENT' ||
+        notification.type === 'EVENT_DISABLED' ||
+        notification.type === 'EVENT_REACTIVATED' ||
+        notification.type === 'EVENT_DELETED'
+      )
     );
   }
 
