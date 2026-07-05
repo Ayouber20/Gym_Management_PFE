@@ -1,0 +1,98 @@
+<div class="chatbot-container">
+
+  @if (isOpen()) {
+    <div class="chatbot-window">
+
+      <div class="chatbot-header">
+        <div class="bot-avatar">
+          🤖
+        </div>
+
+        <div class="bot-info">
+          <strong>Assistant sportif</strong>
+          <span>
+            <span class="online-dot"></span>
+            En ligne
+          </span>
+        </div>
+
+        <button
+          type="button"
+          class="close-btn"
+          (click)="toggleChat()">
+          ✕
+        </button>
+      </div>
+
+      <div class="chatbot-intro">
+        <h3>Besoin d’aide ?</h3>
+        <p>
+          Posez une question sur les réservations, coachs, cours, événements ou notifications.
+        </p>
+      </div>
+
+      <div class="quick-questions">
+        @for (question of quickQuestions; track question) {
+          <button
+            type="button"
+            (click)="sendQuickQuestion(question)">
+            {{ question }}
+          </button>
+        }
+      </div>
+
+      <div class="chatbot-messages">
+        @for (message of messages(); track message.text) {
+          <div
+            class="message-row"
+            [class.user-row]="message.sender === 'user'"
+            [class.bot-row]="message.sender === 'bot'">
+
+            @if (message.sender === 'bot') {
+              <div class="message-avatar">
+                🤖
+              </div>
+            }
+
+            <div
+              class="chat-message"
+              [class.user]="message.sender === 'user'"
+              [class.bot]="message.sender === 'bot'">
+              {{ message.text }}
+            </div>
+
+          </div>
+        }
+      </div>
+
+      <div class="chatbot-input">
+        <input
+          type="text"
+          [ngModel]="userMessage()"
+          (ngModelChange)="userMessage.set($event)"
+          (keyup.enter)="sendMessage()"
+          placeholder="Écrivez votre question...">
+
+        <button
+          type="button"
+          class="send-btn"
+          (click)="sendMessage()">
+          ➤
+        </button>
+      </div>
+
+    </div>
+  }
+
+  <button
+    type="button"
+    class="chatbot-toggle"
+    (click)="toggleChat()">
+    @if (isOpen()) {
+      ✕
+    } @else {
+      💬
+    }
+  </button>
+
+</div>

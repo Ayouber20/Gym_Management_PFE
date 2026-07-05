@@ -6,11 +6,12 @@ import { NotificationService } from '../../services/notification';
 import { CoachService } from '../../services/coach';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
 import { AnnouncementService } from '../../services/announcement';
+import { Chatbot } from '../../components/chatbot/chatbot';
 
 @Component({
   selector: 'app-coach-dashboard',
   standalone: true,
-  imports: [RouterLink, ProfileMenu],
+  imports: [RouterLink, ProfileMenu, Chatbot],
   templateUrl: './coach-dashboard.html',
   styleUrls: ['./coach-dashboard.css']
 })

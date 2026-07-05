@@ -4,11 +4,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { NotificationService } from '../../services/notification';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
+import { Chatbot } from '../../components/chatbot/chatbot';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [RouterLink, ProfileMenu],
+  imports: [RouterLink, ProfileMenu, Chatbot],
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.css']
 })

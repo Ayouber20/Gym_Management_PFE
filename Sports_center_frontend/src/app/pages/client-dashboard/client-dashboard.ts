@@ -6,11 +6,12 @@ import { NotificationService } from '../../services/notification';
 import { ClientService } from '../../services/client';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
 import { AnnouncementService } from '../../services/announcement';
+import { Chatbot } from '../../components/chatbot/chatbot';
 
 @Component({
   selector: 'app-client-dashboard',
   standalone: true,
-  imports: [RouterLink, ProfileMenu],
+  imports: [RouterLink, ProfileMenu, Chatbot],
   templateUrl: './client-dashboard.html',
   styleUrls: ['./client-dashboard.css']
 })
