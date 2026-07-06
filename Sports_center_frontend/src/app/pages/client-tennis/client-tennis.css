@@ -223,6 +223,34 @@ button:hover {
   color: #d7f3ff;
 }
 
+.court-line {
+  width: 190px;
+  height: 4px;
+  margin: 0 auto 26px auto;
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, transparent, #42d65f, #ff7a00, transparent);
+  animation: courtLineMove 1.8s infinite;
+  box-shadow: 0 0 14px rgba(66, 214, 95, 0.45);
+}
+
+@keyframes courtLineMove {
+  0% {
+    opacity: 0.35;
+    transform: scaleX(0.6);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: scaleX(0.6);
+  }
+}
+
 @media (max-width: 900px) {
   .courts-section,
   .reservation-card {

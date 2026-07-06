@@ -5,6 +5,7 @@
   color: white;
   text-align: center;
   box-sizing: border-box;
+  position: relative;
 
   background:
     linear-gradient(rgba(3, 10, 20, 0.96), rgba(5, 18, 31, 0.96)),
@@ -70,10 +71,15 @@
 }
 
 .notifications-header h2 {
-  color: #25bfff;
+  color: #42d65f;
   margin: 0;
   font-size: 24px;
   letter-spacing: 1px;
+  font-weight: 900;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .notification-badge {
@@ -81,11 +87,14 @@
   height: 34px;
   padding: 0 10px;
   border-radius: 999px;
-  background: #25bfff;
-  color: #020b16;
+
+  background: rgba(66, 214, 95, 0.18);
+  color: #dfffea;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-weight: 900;
 }
 
@@ -283,6 +292,8 @@
 .notification-item {
   position: relative;
   padding-right: 55px;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .delete-notification-btn {
@@ -320,35 +331,53 @@
   box-shadow: none !important;
 }
 
+/* ANNOUNCEMENTS - CLIENT THEME */
+
 .announcements-section {
   max-width: 950px;
   margin: 30px auto;
   padding: 25px;
 
-  background: rgba(5, 18, 35, 0.88);
-  border: 1px solid rgba(41, 182, 246, 0.7);
-  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(6, 33, 17, 0.94), rgba(8, 26, 44, 0.94));
+
+  border: 1px solid rgba(66, 214, 95, 0.7);
+  border-radius: 22px;
 
   color: white;
   text-align: left;
 
-  box-shadow: 0 0 22px rgba(41, 182, 246, 0.12);
+  box-shadow:
+    0 0 22px rgba(66, 214, 95, 0.14),
+    inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
 .announcements-section h2 {
-  color: #29b6f6;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
+  color: #42d65f;
+  margin: 0 0 22px 0;
+  text-align: left;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 900;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .announcement-item {
   padding: 18px;
   margin-bottom: 15px;
 
-  background: rgba(41, 182, 246, 0.08);
-  border-left: 5px solid #29b6f6;
+  background: rgba(66, 214, 95, 0.10);
+  border-left: 5px solid #42d65f;
   border-radius: 14px;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.announcement-item:last-child {
+  margin-bottom: 0;
 }
 
 .announcement-item h3 {
@@ -358,13 +387,8 @@
 
 .announcement-item p {
   margin: 0;
-  color: #dcefff;
+  color: #e8fff0;
   line-height: 1.6;
-}
-
-.notification-item {
-  cursor: pointer;
-  transition: 0.25s;
 }
 
 .notification-item:hover {

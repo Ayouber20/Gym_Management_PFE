@@ -362,6 +362,10 @@
   background-image: url('/assets/images/coach-leavings-card.jpg');
 }
 
+.events-card {
+  background-image: url('/assets/images/admin-events-card.jpg');
+}
+
 .announcements-card {
   background-image: url('/assets/images/admin-announcements-card.jpg');
 }

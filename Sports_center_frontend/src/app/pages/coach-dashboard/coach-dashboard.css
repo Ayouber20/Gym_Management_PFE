@@ -76,10 +76,15 @@
 }
 
 .notifications-header h2 {
-  color: #25bfff;
+  color: #ff7a00;
   margin: 0;
   font-size: 24px;
   letter-spacing: 1px;
+  font-weight: 900;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .notification-badge {
@@ -88,8 +93,8 @@
   padding: 0 10px;
   border-radius: 999px;
 
-  background: #25bfff;
-  color: #020b16;
+  background: rgba(66, 214, 95, 0.18);
+  color: #dfffea;
 
   display: flex;
   align-items: center;
@@ -97,6 +102,7 @@
 
   font-weight: 900;
 }
+
 
 .notification-badge.zero {
   background: rgba(255, 255, 255, 0.15);
@@ -225,35 +231,53 @@
 
 /* ANNOUNCEMENTS */
 
+/* ANNOUNCEMENTS - COACH THEME */
+
 .announcements-section {
   max-width: 950px;
   margin: 30px auto;
   padding: 25px;
 
-  background: rgba(5, 18, 35, 0.88);
-  border: 1px solid rgba(66, 214, 95, 0.7);
-  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(33, 23, 6, 0.94), rgba(35, 31, 17, 0.94));
+
+  border: 1px solid rgba(255, 122, 0, 0.7);
+  border-radius: 22px;
 
   color: white;
   text-align: left;
 
-  box-shadow: 0 0 22px rgba(66, 214, 95, 0.12);
+  box-shadow:
+    0 0 22px rgba(255, 122, 0, 0.14),
+    inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
 .announcements-section h2 {
-  color: #42d65f;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-align: center;
+  color: #ff7a00;
+  margin: 0 0 22px 0;
+  text-align: left;
+  font-size: 24px;
+  letter-spacing: 1px;
+  font-weight: 900;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .announcement-item {
   padding: 18px;
   margin-bottom: 15px;
 
-  background: rgba(66, 214, 95, 0.08);
-  border-left: 5px solid #42d65f;
+  background: rgba(255, 122, 0, 0.10);
+  border-left: 5px solid #ff7a00;
   border-radius: 14px;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.announcement-item:last-child {
+  margin-bottom: 0;
 }
 
 .announcement-item h3 {
@@ -263,7 +287,7 @@
 
 .announcement-item p {
   margin: 0;
-  color: #e8fff0;
+  color: #ffe7d1;
   line-height: 1.6;
 }
 

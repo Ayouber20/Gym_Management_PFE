@@ -158,6 +158,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
+  align-items: stretch;
 }
 
 .court-card {
@@ -167,6 +168,8 @@
   border: 1px solid rgba(37, 191, 255, 0.45);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition: 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 
 .court-card:hover {
@@ -204,13 +207,13 @@
 /* ACTIONS */
 
 .actions {
-  margin-top: 22px;
+  margin-top: auto;
+  padding-top: 22px;
 }
 
 /* AVAILABLE COURT MAINTENANCE FORM */
 
 .maintenance-box {
-  margin-top: 18px;
   padding: 16px;
   border-radius: 16px;
   background: rgba(37, 191, 255, 0.06);
@@ -285,7 +288,6 @@
 /* ACTIVE MAINTENANCE */
 
 .maintenance-active-box {
-  margin-top: 18px;
   padding: 18px;
   border-radius: 16px;
   background: rgba(255, 138, 0, 0.08);
@@ -324,6 +326,10 @@
 .available-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(49, 209, 88, 0.35);
+}
+
+.court-card {
+  min-height: 455px;
 }
 
 /* RESPONSIVE */
