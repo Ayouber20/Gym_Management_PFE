@@ -300,6 +300,7 @@
   background-size: cover;
   background-position: center;
   transition: 0.3s;
+  animation: cardFadeUp 0.6s ease both;
 }
 
 .dashboard-card:hover {
@@ -353,6 +354,30 @@
   line-height: 1.6;
   margin: 0 0 25px 0;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+}
+
+.dashboard-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.dashboard-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.dashboard-card:nth-child(3) {
+  animation-delay: 0.19s;
+}
+
+.dashboard-card:nth-child(4) {
+  animation-delay: 0.26s;
+}
+
+.dashboard-card:nth-child(5) {
+  animation-delay: 0.33s;
+}
+
+.dashboard-card:nth-child(6) {
+  animation-delay: 0.40s;
 }
 
 /* BUTTONS */
@@ -439,6 +464,18 @@ button:hover {
   100% {
     transform: scale(1.6);
     opacity: 0;
+  }
+}
+
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
