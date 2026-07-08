@@ -298,4 +298,10 @@ export class CoachDashboard {
   hasAnyNotification(): boolean {
     return this.notifications().length > 0;
   }
+
+   notificationBadgeCount(): number {
+    return this.notifications().filter(notification =>
+      notification.readStatus !== true
+    ).length;
+  }
 }

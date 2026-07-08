@@ -232,7 +232,7 @@
   background-position: center;
 
   transition: 0.3s;
-  cursor: pointer;
+  cursor: default;
   animation: cardFadeUp 0.6s ease both;
 }
 
@@ -363,7 +363,7 @@
 }
 
 .events-card {
-  background-image: url('/assets/images/admin-events-card.jpg');
+  background-image: url('/assets/images/events-card.jpg');
 }
 
 .announcements-card {
@@ -390,18 +390,15 @@
   position: absolute;
   top: 18px;
   right: 18px;
+  z-index: 5;
 
-  width: 14px;
-  height: 14px;
-
-  background: #ff3b3b;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
 
-  box-shadow:
-    0 0 0 4px rgba(255, 59, 59, 0.25),
-    0 0 14px rgba(255, 59, 59, 1);
+  background: #ff2d2d;
+  box-shadow: 0 0 12px rgba(255, 45, 45, 0.9);
 
-  z-index: 50;
   pointer-events: none;
 }
 
@@ -411,10 +408,9 @@
   inset: -5px;
 
   border-radius: 50%;
-  border: 1px solid rgba(255, 59, 59, 0.6);
+  border: 1px solid rgba(255, 45, 45, 0.75);
 
-  animation: redPulse 1.5s infinite;
-  pointer-events: none;
+  animation: redPulse 1.4s infinite;
 }
 
 /* RESPONSIVE */
@@ -472,13 +468,8 @@
     opacity: 0.9;
   }
 
-  70% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
-
   100% {
-    transform: scale(1.6);
+    transform: scale(1.8);
     opacity: 0;
   }
 }

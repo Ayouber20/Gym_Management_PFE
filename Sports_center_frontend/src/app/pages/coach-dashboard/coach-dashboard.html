@@ -1,103 +1,29 @@
 <div class="coach-dashboard">
-  
-  <app-profile-menu></app-profile-menu>
+
+  <app-profile-menu
+    [notificationCount]="notificationBadgeCount()"
+    [notifications]="notifications()"
+    (notificationClicked)="goToNotificationTarget($event)"
+    (notificationClosed)="markNotificationAsRead($event)">
+  </app-profile-menu>
 
   <h1>Espace Coach</h1>
-
-  <!--<button
-    type="button"
-    class="logout-btn"
-    (click)="logout()">
-    Déconnexion
-  </button>-->
 
   <p class="subtitle">
     Bienvenue dans votre espace coach. Gérez vos demandes, vos séances et vos cours collectifs.
   </p>
 
   @if (announcementsLoaded() && announcements().length > 0) {
-  <div class="announcements-section">
-    <h2>📢 Annonces</h2>
+    <div class="announcements-section">
+      <h2>📢 Annonces</h2>
 
-    @for (announcement of announcements(); track announcement.id) {
-      <div class="announcement-item">
-        <h3>{{ announcement.title }}</h3>
-        <p>{{ announcement.message }}</p>
-      </div>
-    }
-  </div>
-}
-
-  @if (errorMessage()) {
-    <section class="notifications-card empty">
-      <div class="notifications-header">
-        <h2>🔔 Notifications</h2>
-        <span class="notification-badge zero">!</span>
-      </div>
-
-      <p>{{ errorMessage() }}</p>
-    </section>
-  }
-
-  @if (!errorMessage() && notificationsLoaded() && notifications().length > 0) {
-  <section class="notifications-card">
-
-    <div class="notifications-header">
-      <h2>🔔 Mes notifications</h2>
-      <span class="notification-badge">
-        {{ notifications().length }}
-      </span>
+      @for (announcement of announcements(); track announcement.id) {
+        <div class="announcement-item">
+          <h3>{{ announcement.title }}</h3>
+          <p>{{ announcement.message }}</p>
+        </div>
+      }
     </div>
-
-    @for (notification of notifications(); track notification.message) {
-      <div
-          class="notification-item"
-          [class.reservation]="notification.type === 'RESERVATION'"
-          [class.coach-session]="notification.type === 'COACH_SESSION'"
-          [class.cancelled]="notification.type === 'RESERVATION_CANCELLED' || notification.type === 'COACH_SESSION_CANCELLED'"
-          (click)="goToNotificationTarget(notification)">
-
-        <div class="notification-icon">
-          {{ getNotificationIcon(notification.type) }}
-        </div>
-
-        <div class="notification-content">
-          <strong>{{ getNotificationTitle(notification.type) }}</strong>
-
-          <p>{{ notification.message }}</p>
-
-          <small>
-            {{ notification.date }}
-            @if (notification.time) {
-              à {{ formatTime(notification.time) }}
-            }
-          </small>
-        </div>
-
-        @if (notification.id) {
-          <button
-            type="button"
-            class="delete-notification-btn"
-            (click)="$event.stopPropagation(); markNotificationAsRead(notification.id)">
-            ✕
-          </button>
-        }
-
-      </div>
-    }
-
-  </section>
-}
-
-  @if (!errorMessage() && notificationsLoaded() && notifications().length === 0) {
-    <section class="notifications-card empty">
-      <div class="notifications-header">
-        <h2>🔔 Notifications</h2>
-        <span class="notification-badge zero">0</span>
-      </div>
-
-      <p>Aucune séance ou réservation prévue pour demain.</p>
-    </section>
   }
 
   <div class="dashboard-cards">
@@ -106,6 +32,7 @@
       @if (hasCoachRequestNotification()) {
         <span class="red-dot"></span>
       }
+
       <h2>📩 Demandes de coaching</h2>
 
       <p>
@@ -121,6 +48,7 @@
       @if (hasSessionNotification()) {
         <span class="red-dot"></span>
       }
+
       <h2>📅 Mes séances</h2>
 
       <p>
@@ -162,7 +90,10 @@
       }
 
       <h2>🎉 Événements</h2>
-      <p>Consultez les événements du centre sportif et participez aux activités disponibles.</p>
+
+      <p>
+        Consultez les événements du centre sportif et participez aux activités disponibles.
+      </p>
 
       <button routerLink="/coach/events">
         Voir les événements
@@ -172,5 +103,5 @@
   </div>
 
   <app-chatbot></app-chatbot>
-  
+
 </div>

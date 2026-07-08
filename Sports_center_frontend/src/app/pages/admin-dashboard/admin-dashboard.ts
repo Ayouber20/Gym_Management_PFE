@@ -283,4 +283,10 @@ export class AdminDashboard {
 
     this.router.navigate(['/admin/coach-leavings']);
   }
+
+   notificationBadgeCount(): number {
+    return this.notifications().filter(notification =>
+      notification.readStatus !== true
+    ).length;
+  }
 }

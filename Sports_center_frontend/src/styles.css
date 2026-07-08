@@ -1,1 +1,210 @@
-/* You can add global styles to this file, and also import other style files */
+/* GLOBAL LIGHT THEME */
+
+body.light-theme {
+  background: #f4f7fb;
+  color: #06101f;
+}
+
+/* MAIN PAGE BACKGROUNDS */
+
+body.light-theme .client-dashboard,
+body.light-theme .coach-dashboard,
+body.light-theme .admin-dashboard,
+body.light-theme .admin-events-page,
+body.light-theme .client-events-page,
+body.light-theme .coach-events-page,
+body.light-theme .client-group-classes-page,
+body.light-theme .coach-group-classes-page,
+body.light-theme .admin-courts-page,
+body.light-theme .coach-requests-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .coach-leavings-page,
+body.light-theme .client-reservations-page,
+body.light-theme .client-coach-requests-page,
+body.light-theme .admin-reservations-page,
+body.light-theme .admin-coach-requests-page,
+body.light-theme .admin-statistics-page {
+  background: #f4f7fb !important;
+  color: #06101f !important;
+}
+
+/* TITLES */
+
+body.light-theme h1,
+body.light-theme h2,
+body.light-theme h3 {
+  text-shadow: none !important;
+}
+
+body.light-theme .page-header p,
+body.light-theme .subtitle {
+  color: #213247 !important;
+}
+
+body.light-theme .results-count {
+  color: #06101f !important;
+}
+
+/* NORMAL CARDS - NOT DASHBOARD IMAGE CARDS */
+
+body.light-theme .notifications-card,
+body.light-theme .announcements-section,
+body.light-theme .event-card,
+body.light-theme .class-card,
+body.light-theme .form-card,
+body.light-theme .filters-card,
+body.light-theme .court-card,
+body.light-theme .empty-card,
+body.light-theme .request-card,
+body.light-theme .reservation-card,
+body.light-theme .session-card,
+body.light-theme .leave-card {
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: #06101f !important;
+  border-color: rgba(0, 120, 180, 0.35) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+}
+
+/* TEXT INSIDE NORMAL CARDS */
+
+body.light-theme .event-card p,
+body.light-theme .class-card p,
+body.light-theme .court-card p,
+body.light-theme .request-card p,
+body.light-theme .reservation-card p,
+body.light-theme .session-card p,
+body.light-theme .leave-card p,
+body.light-theme .notification-content p,
+body.light-theme .announcement-item p,
+body.light-theme .description {
+  color: #213247 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme strong,
+body.light-theme label {
+  color: #06101f !important;
+}
+
+/* INPUTS */
+
+body.light-theme input,
+body.light-theme select,
+body.light-theme textarea {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border-color: rgba(0, 120, 180, 0.35) !important;
+}
+
+/* FILTERS */
+
+body.light-theme .filters-card {
+  background: #ffffff !important;
+  border-color: rgba(0, 120, 180, 0.35) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.12) !important;
+}
+
+body.light-theme .filter-group label {
+  color: #06101f !important;
+}
+
+/* NOTIFICATION ITEMS */
+
+body.light-theme .notification-item,
+body.light-theme .top-notification-item,
+body.light-theme .announcement-item {
+  background: rgba(0, 160, 220, 0.08) !important;
+}
+
+/* CHATBOT */
+
+body.light-theme .chatbot-window {
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: #06101f !important;
+}
+
+body.light-theme .chat-message.bot {
+  background: rgba(0, 160, 220, 0.12) !important;
+  color: #06101f !important;
+}
+
+body.light-theme .chatbot-input {
+  background: #eef4fa !important;
+}
+
+/* LIGHT THEME - DASHBOARD IMAGE CARDS */
+/* Images stay visible, with light but not too bright overlay */
+
+body.light-theme .dashboard-card {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  border-color: rgba(0, 168, 232, 0.38) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.18) !important;
+
+  cursor: default !important;
+}
+
+/* Make overlays visual only, not clickable */
+
+body.light-theme .dashboard-card::before,
+body.light-theme .dashboard-card::after {
+  pointer-events: none !important;
+}
+
+/* Light gradient over the image */
+
+body.light-theme .dashboard-card::before {
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.34)
+    ) !important;
+
+  z-index: 0 !important;
+}
+
+/* Keep image sporty: more saturation, less brightness */
+
+body.light-theme .dashboard-card::after {
+  background: rgba(3, 10, 20, 0.18) !important;
+  backdrop-filter: saturate(125%) brightness(0.88) contrast(1.08) !important;
+  z-index: 0 !important;
+}
+
+/* Restore hover floating effect */
+
+body.light-theme .dashboard-card:hover {
+  transform: translateY(-6px) !important;
+  border-color: rgba(0, 168, 232, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(0, 168, 232, 0.20) !important;
+}
+
+/* Dashboard card text stays readable on images */
+
+body.light-theme .dashboard-card h2 {
+  color: #ffffff !important;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.85) !important;
+}
+
+body.light-theme .dashboard-card p {
+  color: #eef6ff !important;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.85) !important;
+}
+
+body.light-theme .dashboard-card button {
+  color: #ffffff !important;
+  text-shadow: none !important;
+  cursor: pointer !important;
+}
+
+/* Keep content above image overlay */
+
+body.light-theme .dashboard-card h2,
+body.light-theme .dashboard-card p,
+body.light-theme .dashboard-card button,
+body.light-theme .dashboard-card .red-dot {
+  position: relative !important;
+  z-index: 2 !important;
+}

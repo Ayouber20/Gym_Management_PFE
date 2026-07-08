@@ -164,9 +164,9 @@
   flex-wrap: wrap;
   padding: 22px;
   background: #061221;
-  border: 1px solid rgba(37, 191, 255, 0.7);
+  border: 1px solid rgba(255, 122, 0, 0.45);
   border-radius: 18px;
-  box-shadow: 0 0 18px rgba(37, 191, 255, 0.08);
+  /*box-shadow: 0 0 18px rgba(37, 191, 255, 0.08);*/
 }
 
 .filter-group {
@@ -177,7 +177,7 @@
 }
 
 .filter-group label {
-  color: #25bfff;
+  color: #ffffff;
   font-weight: bold;
   margin-bottom: 8px;
 }
@@ -186,7 +186,7 @@
 .filter-group select {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid rgba(37, 191, 255, 0.5);
+  border: 1px solid rgba(255, 122, 0, 0.45);
   background: #020b16;
   color: white;
   outline: none;
@@ -201,15 +201,15 @@
 .clear-filters-btn {
   padding: 12px 20px;
   border-radius: 10px;
-  border: 1px solid #ffcc00;
+  border: 1px solid #ffffff;
   background: transparent;
-  color: #ffcc00;
+  color: #ffffff;
   font-weight: bold;
   cursor: pointer;
 }
 
 .clear-filters-btn:hover {
-  background: #ffcc00;
+  background: #ffffff;
   color: #020b16;
 }
 
