@@ -171,31 +171,7 @@ export class ClientCoachRequests {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'PENDING') {
-      return 'En attente';
-    }
-
-    if (status === 'ACCEPTED') {
-      return 'Acceptée';
-    }
-
-    if (status === 'REJECTED') {
-      return 'Refusée';
-    }
-
-    if (status === 'COMPLETED') {
-      return 'Terminée';
-    }
-
-    if (status === 'CANCELLED') {
-      return 'Annulée';
-    }
-
-    if (status === 'EXPIRED') {
-      return 'Expirée';
-    }
-
-    return status;
+    return status || '';
   }
 
   hideRejectedRequest(id: number): void {

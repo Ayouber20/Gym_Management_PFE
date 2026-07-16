@@ -2,8 +2,7 @@
   min-height: 100vh;
   padding: 45px;
   font-family: Arial, sans-serif;
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.90), rgba(3, 10, 20, 0.95)),
+  background: linear-gradient(rgba(3, 10, 20, 0.90), rgba(3, 10, 20, 0.95)),
     radial-gradient(circle at top left, rgba(41, 182, 246, 0.25), transparent 35%),
     #07111f;
   color: white;
@@ -49,7 +48,6 @@
 .content {
   max-width: 1250px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: 30px;
@@ -253,4 +251,45 @@ th {
   .page-header h1 {
     font-size: 34px;
   }
+
+}
+
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #0077b6 !important;
+  border: 1px solid rgba(0, 119, 182, 0.40) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #0077b6 !important;
+  color: #ffffff !important;
+  border-color: #0077b6 !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn,
+:host-context(body:not(.light-theme)) .reset-btn,
+:host-context(body:not(.light-theme)) .clear-filters-btn,
+:host-context(body.dark-theme) .clear-btn,
+:host-context(body.dark-theme) .reset-btn,
+:host-context(body.dark-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #25bfff !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn:hover,
+:host-context(body:not(.light-theme)) .reset-btn:hover,
+:host-context(body:not(.light-theme)) .clear-filters-btn:hover,
+:host-context(body.dark-theme) .clear-btn:hover,
+:host-context(body.dark-theme) .reset-btn:hover,
+:host-context(body.dark-theme) .clear-filters-btn:hover {
+  background: #25bfff !important;
+  color: #06101f !important;
+  border-color: #25bfff !important;
 }

@@ -9,26 +9,34 @@ export class ThemeService {
   isDark = signal(true);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      const savedTheme = localStorage.getItem('theme');
+    this.loadTheme();
+  }
 
-      if (savedTheme === 'light') {
-        this.isDark.set(false);
-      } else {
-        this.isDark.set(true);
-      }
-
-      this.applyTheme();
+  loadTheme(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'light') {
+      this.isDark.set(false);
+    } else {
+      this.isDark.set(true);
+    }
+
+    this.applyTheme();
   }
 
   toggleTheme(): void {
     this.isDark.update(value => !value);
 
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('theme', this.isDark() ? 'dark' : 'light');
-      this.applyTheme();
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
     }
+
+    localStorage.setItem('theme', this.isDark() ? 'dark' : 'light');
+    this.applyTheme();
   }
 
   applyTheme(): void {

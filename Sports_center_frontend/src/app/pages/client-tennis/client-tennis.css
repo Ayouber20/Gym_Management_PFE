@@ -1,263 +1,689 @@
-.tennis-page {
-  min-height: 100vh;
-  padding: 40px;
-  font-family: Arial, sans-serif;
-  color: white;
+:host {
+  --client-main: #42d65f;
+  --client-main-strong: #22c55e;
+  --client-main-dark: #15803d;
 
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.92)),
-    radial-gradient(circle at top left, rgba(255, 122, 0, 0.35), transparent 35%),
-    #07111f;
+  --dark-page: #030a14;
+  --dark-surface: rgba(7, 17, 31, 0.94);
+  --dark-surface-soft: rgba(9, 24, 39, 0.9);
+
+  --dark-text: #f8fafc;
+  --dark-muted: #cbd5e1;
+
+  --dark-border: rgba(66, 214, 95, 0.42);
+  --dark-border-strong: rgba(66, 214, 95, 0.68);
+
+  --light-page: #f3f7f5;
+  --light-surface: #ffffff;
+  --light-text: #07111f;
+  --light-muted: #475569;
+  --light-border: rgba(22, 163, 74, 0.32);
+
+  display: block;
 }
 
+/* Page */
+
+.tennis-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 42px 32px 70px;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  color: var(--dark-text);
+
+  background:
+    radial-gradient(
+      circle at 10% 16%,
+      rgba(66, 214, 95, 0.14),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(34, 197, 94, 0.10),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #030a14 0%,
+      #061221 52%,
+      #07151b 100%
+    );
+}
+
+.tennis-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(66, 214, 95, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(66, 214, 95, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8),
+    transparent 85%
+  );
+}
+
+.tennis-page::after {
+  content: '';
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 110px;
+  right: -170px;
+  border: 1px solid rgba(66, 214, 95, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Header */
+
 .page-header {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto 42px;
   text-align: center;
-  margin-bottom: 40px;
 }
 
 .page-header h1 {
-  font-size: 44px;
-  color: #ff7a00;
+  margin: 0 0 12px;
+  color: var(--client-main);
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 10px;
 }
 
 .page-header p {
-  color: #d8e2ef;
-  font-size: 18px;
-  margin-bottom: 20px;
+  max-width: 760px;
+  margin: 0 auto 22px;
+  color: var(--dark-muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.court-line {
+  width: 90px;
+  height: 4px;
+  margin: 0 auto 22px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--client-main),
+    transparent
+  );
 }
 
 .back-btn {
-  background: transparent;
-  border: 2px solid #42d65f;
-  color: #42d65f;
   padding: 11px 22px;
+  border: 1px solid var(--dark-border-strong);
   border-radius: 10px;
+  background: transparent;
+  color: var(--client-main);
   font-weight: bold;
   cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .back-btn:hover {
-  background: #42d65f;
-  color: #07111f;
+  background: var(--client-main);
+  color: #04100a;
+  border-color: var(--client-main);
 }
+
+/* Messages */
+
+.success-message,
+.error-message {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto 24px;
+  padding: 15px 18px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+.success-message {
+  color: #62e97b;
+  background: rgba(66, 214, 95, 0.10);
+  border: 1px solid rgba(66, 214, 95, 0.42);
+}
+
+.error-message {
+  color: #ff6b6b;
+  background: rgba(255, 77, 77, 0.10);
+  border: 1px solid rgba(255, 77, 77, 0.44);
+}
+
+/* Layout */
 
 .content {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 35px;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.85fr);
+  align-items: start;
+  gap: 30px;
 }
+
+/* Courts */
 
 .courts-section {
-  width: 520px;
+  min-width: 0;
 }
 
-.courts-section h2,
-.reservation-card h2 {
-  color: #ffffff;
-  margin-bottom: 20px;
+.courts-section > h2,
+.reservation-card > h2 {
+  position: relative;
+  margin: 0 0 20px;
+  padding-left: 17px;
+  color: var(--dark-text);
+  font-size: 23px;
+  line-height: 1.3;
+}
+
+.courts-section > h2::before,
+.reservation-card > h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--client-main);
 }
 
 .courts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .court-card {
-  background: rgba(7, 17, 31, 0.85);
-  border: 1px solid rgba(255, 122, 0, 0.5);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+  position: relative;
+  min-height: 120px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid var(--dark-border);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(9, 24, 39, 0.98),
+      rgba(5, 15, 28, 0.96)
+    );
+  box-shadow: none;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.court-card::after {
+  content: '';
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  right: -38px;
+  bottom: -44px;
+  border: 1px solid rgba(66, 214, 95, 0.13);
+  border-radius: 50%;
+}
+
+.court-card:hover {
+  border-color: var(--dark-border-strong);
+  transform: none;
+  box-shadow: none;
 }
 
 .court-card h3 {
-  color: #ff7a00;
-  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  color: var(--dark-text);
+  font-size: 18px;
 }
 
 .court-card p {
-  color: #d8e2ef;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--dark-muted);
+  line-height: 1.55;
 }
 
+.available {
+  color: var(--client-main);
+  font-weight: 800;
+}
+
+.maintenance-title {
+  margin-top: 34px !important;
+}
+
+.maintenance-card {
+  opacity: 0.78;
+  border-color: rgba(245, 158, 11, 0.42);
+}
+
+.maintenance-card::after {
+  border-color: rgba(245, 158, 11, 0.14);
+}
+
+.maintenance-card h3 {
+  color: #fbbf24;
+}
+
+.maintenance {
+  color: #fbbf24;
+  font-weight: 800;
+}
+
+.maintenance-message {
+  margin-top: 10px !important;
+  color: #fcd34d !important;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.empty-card {
+  padding: 30px;
+  border: 1px dashed var(--dark-border);
+  border-radius: 18px;
+  background: rgba(7, 17, 31, 0.74);
+  color: var(--dark-muted);
+  text-align: center;
+  box-shadow: none;
+}
+
+/* Reservation */
+
 .reservation-card {
-  width: 380px;
-  background: rgba(7, 17, 31, 0.9);
-  border: 1px solid rgba(255, 122, 0, 0.5);
-  border-radius: 20px;
+  position: sticky;
+  top: 26px;
   padding: 28px;
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--dark-border-strong);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(9, 24, 39, 0.98),
+      rgba(5, 15, 28, 0.98)
+    );
+  box-shadow: none;
+}
+
+.reservation-card > h2 {
+  color: var(--client-main);
 }
 
 label {
   display: block;
-  margin-top: 16px;
-  margin-bottom: 6px;
-  color: #d8e2ef;
+  margin: 17px 0 7px;
+  color: var(--dark-muted);
   font-weight: bold;
 }
 
 select,
 input {
   width: 100%;
-  padding: 12px;
+  height: 45px;
+  padding: 0 13px;
+  border: 1px solid rgba(66, 214, 95, 0.34);
   border-radius: 10px;
-  border: none;
   outline: none;
-  background: #f8fafc;
-  color: #111827;
+  box-sizing: border-box;
+  background: #020b16;
+  color: #ffffff;
+  font-size: 15px;
+  box-shadow: none;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 24px;
+select:hover,
+input:hover {
+  border-color: rgba(66, 214, 95, 0.56);
 }
 
-button {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+select:focus,
+input:focus {
+  border-color: var(--client-main);
+  box-shadow: none;
 }
 
-button:hover {
-  transform: translateY(-2px);
+input[readonly] {
+  background: rgba(2, 11, 22, 0.68);
+  color: #cbd5e1;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
-.confirm-btn {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #ff7a00, #ff9d00);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.clear-btn {
-  flex: 1;
-  padding: 12px;
-  border: 2px solid #d8e2ef;
-  border-radius: 10px;
-  background: transparent;
-  color: #d8e2ef;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.confirm-btn:hover {
-  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.45);
-}
-
-.clear-btn:hover {
-  background: #d8e2ef;
-  color: #07111f;
-}
-
-.available {
-  color: #42d65f;
-  font-weight: bold;
-}
-
-.maintenance {
-  color: #ff7a00;
-  font-weight: bold;
-}
-
-.maintenance-card {
-  opacity: 0.65;
-  border-color: rgba(255, 122, 0, 0.7);
-}
-
-.maintenance-message {
-  margin-top: 10px;
-  color: #ffb366;
-  font-size: 14px;
-  font-style: italic;
-}
-
-.success-message,
-.error-message {
-  max-width: 700px;
-  margin: 0 auto 25px auto;
-  padding: 14px 18px;
-  border-radius: 12px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.success-message {
-  background: rgba(66, 214, 95, 0.15);
-  border: 1px solid rgba(66, 214, 95, 0.6);
-  color: #42d65f;
-}
-
-.error-message {
-  background: rgba(255, 77, 77, 0.15);
-  border: 1px solid rgba(255, 77, 77, 0.6);
-  color: #ff4d4d;
-}
-
-.maintenance-title {
-  margin-top: 35px;
-}
+/* Summary */
 
 .reservation-summary {
-  margin-top: 20px;
+  margin-top: 22px;
   padding: 18px;
+  border: 1px solid rgba(66, 214, 95, 0.34);
   border-radius: 14px;
-  background: rgba(37, 191, 255, 0.08);
-  border: 1px solid rgba(37, 191, 255, 0.4);
+  background: rgba(66, 214, 95, 0.06);
+  box-shadow: none;
 }
 
 .reservation-summary h3 {
-  margin-bottom: 12px;
-  color: #25bfff;
+  margin: 0 0 12px;
+  color: var(--client-main);
+  font-size: 17px;
 }
 
 .reservation-summary p {
   margin: 8px 0;
-  color: #d7f3ff;
+  color: var(--dark-muted);
+  line-height: 1.5;
 }
 
-.court-line {
-  width: 190px;
-  height: 4px;
-  margin: 0 auto 26px auto;
-  border-radius: 999px;
-
-  background: linear-gradient(90deg, transparent, #42d65f, #ff7a00, transparent);
-  animation: courtLineMove 1.8s infinite;
-  box-shadow: 0 0 14px rgba(66, 214, 95, 0.45);
+.reservation-summary strong {
+  color: var(--dark-text);
 }
 
-@keyframes courtLineMove {
-  0% {
-    opacity: 0.35;
-    transform: scaleX(0.6);
-  }
+/* Actions */
 
-  50% {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-
-  100% {
-    opacity: 0.35;
-    transform: scaleX(0.6);
-  }
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
 }
 
-@media (max-width: 900px) {
-  .courts-section,
+.confirm-btn,
+.clear-btn {
+  min-height: 44px;
+  padding: 11px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.confirm-btn {
+  border: 1px solid var(--client-main);
+  background: linear-gradient(
+    135deg,
+    var(--client-main),
+    var(--client-main-dark)
+  );
+  color: #ffffff;
+}
+
+.confirm-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #4ade80,
+    #15803d
+  );
+  transform: none;
+  box-shadow: none;
+}
+
+.clear-btn {
+  border: 1px solid var(--dark-border-strong);
+  background: transparent;
+  color: var(--client-main);
+}
+
+.clear-btn:hover {
+  background: var(--client-main);
+  color: #04100a;
+  border-color: var(--client-main);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Light mode */
+
+:host-context(body.light-theme) .tennis-page {
+  color: var(--light-text);
+  background:
+    radial-gradient(
+      circle at 10% 16%,
+      rgba(22, 163, 74, 0.09),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(22, 163, 74, 0.07),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #f8fbf9 0%,
+      #f1f6f3 55%,
+      #eaf2ed 100%
+    );
+}
+
+:host-context(body.light-theme) .tennis-page::before {
+  background-image:
+    linear-gradient(
+      rgba(22, 163, 74, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(22, 163, 74, 0.035) 1px,
+      transparent 1px
+    );
+}
+
+:host-context(body.light-theme) .page-header h1 {
+  color: #16a34a;
+}
+
+:host-context(body.light-theme) .page-header p {
+  color: var(--light-muted);
+}
+
+:host-context(body.light-theme) .back-btn {
+  color: #15803d;
+  border-color: rgba(22, 163, 74, 0.52);
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+:host-context(body.light-theme) .courts-section > h2 {
+  color: var(--light-text);
+}
+
+:host-context(body.light-theme) .court-card {
+  background: var(--light-surface);
+  border-color: var(--light-border);
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.08);
+}
+
+:host-context(body.light-theme) .court-card:hover {
+  border-color: rgba(22, 163, 74, 0.54);
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.08);
+}
+
+:host-context(body.light-theme) .court-card h3 {
+  color: var(--light-text);
+}
+
+:host-context(body.light-theme) .court-card p {
+  color: var(--light-muted);
+}
+
+:host-context(body.light-theme) .available {
+  color: #15803d;
+}
+
+:host-context(body.light-theme) .maintenance-card {
+  border-color: rgba(217, 119, 6, 0.36);
+}
+
+:host-context(body.light-theme) .maintenance-card h3,
+:host-context(body.light-theme) .maintenance {
+  color: #b45309;
+}
+
+:host-context(body.light-theme) .maintenance-message {
+  color: #92400e !important;
+}
+
+:host-context(body.light-theme) .empty-card {
+  background: #ffffff;
+  color: var(--light-muted);
+  border-color: rgba(22, 163, 74, 0.28);
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.08);
+}
+
+:host-context(body.light-theme) .reservation-card {
+  background: var(--light-surface);
+  border-color: var(--light-border);
+  box-shadow: 0 16px 34px rgba(15, 40, 70, 0.10);
+}
+
+:host-context(body.light-theme) .reservation-card > h2 {
+  color: #15803d;
+}
+
+:host-context(body.light-theme) label {
+  color: var(--light-text);
+}
+
+:host-context(body.light-theme) select,
+:host-context(body.light-theme) input {
+  background: #ffffff;
+  color: var(--light-text);
+  border-color: rgba(22, 163, 74, 0.32);
+}
+
+:host-context(body.light-theme) select:hover,
+:host-context(body.light-theme) input:hover {
+  border-color: rgba(22, 163, 74, 0.52);
+}
+
+:host-context(body.light-theme) select:focus,
+:host-context(body.light-theme) input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+:host-context(body.light-theme) input[readonly] {
+  background: #f1f5f3;
+  color: #64748b;
+}
+
+:host-context(body.light-theme) .reservation-summary {
+  background: rgba(22, 163, 74, 0.055);
+  border-color: rgba(22, 163, 74, 0.28);
+}
+
+:host-context(body.light-theme) .reservation-summary h3 {
+  color: #15803d;
+}
+
+:host-context(body.light-theme) .reservation-summary p {
+  color: var(--light-muted);
+}
+
+:host-context(body.light-theme) .reservation-summary strong {
+  color: var(--light-text);
+}
+
+:host-context(body.light-theme) .confirm-btn {
+  border-color: #16a34a;
+  background: linear-gradient(
+    135deg,
+    #16a34a,
+    #15803d
+  );
+}
+
+:host-context(body.light-theme) .clear-btn {
+  color: #15803d;
+  border-color: rgba(22, 163, 74, 0.42);
+}
+
+:host-context(body.light-theme) .clear-btn:hover {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+/* Responsive */
+
+@media (max-width: 950px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
   .reservation-card {
-    width: 100%;
+    position: static;
+    width: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .tennis-page {
+    padding: 30px 18px 55px;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .page-header h1 {
+    font-size: 33px;
+    letter-spacing: 1px;
+  }
+
+  .page-header p {
+    font-size: 15px;
   }
 
   .courts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-card {
+    padding: 22px;
+  }
+
+  .actions {
     grid-template-columns: 1fr;
   }
 }

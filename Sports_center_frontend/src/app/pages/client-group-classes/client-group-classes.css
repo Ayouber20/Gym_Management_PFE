@@ -13,17 +13,12 @@
   padding: 45px 70px;
   font-family: Arial, sans-serif;
   color: white;
-
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
-    url('/assets/images/client-bg.jpg');
-
+  background: linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
+    url("/assets/images/client-bg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
-
-/* Header */
 
 .page-header {
   text-align: center;
@@ -50,16 +45,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 210px;
   height: 42px;
   padding: 0 22px;
-
   border-radius: 9px;
   border: 1px solid #00c8ff;
   background: transparent;
   color: #00c8ff;
-
   font-weight: 800;
   cursor: pointer;
   transition: 0.25s;
@@ -69,8 +61,6 @@
   background: #00c8ff;
   color: #06101f;
 }
-
-/* Messages */
 
 .success-message,
 .error-message {
@@ -93,18 +83,14 @@
   border: 1px solid rgba(255, 77, 77, 0.7);
 }
 
-/* Filters */
-
 .filters-card {
   max-width: 1215px;
   margin: 0 auto 22px auto;
   padding: 24px;
-
   display: grid;
   grid-template-columns: 1.2fr 1fr 1fr auto;
   gap: 18px;
   align-items: end;
-
   background: rgba(6, 16, 31, 0.92);
   border: 1px solid rgba(0, 200, 255, 0.65);
   border-radius: 16px;
@@ -126,11 +112,9 @@
   width: 100%;
   height: 43px;
   padding: 0 14px;
-
   border-radius: 10px;
   border: 1px solid rgba(0, 200, 255, 0.55);
   outline: none;
-
   background: rgba(2, 10, 22, 0.95);
   color: white;
 }
@@ -138,12 +122,10 @@
 .clear-filters-btn {
   height: 43px;
   padding: 0 22px;
-
   border-radius: 10px;
   border: 1px solid #ffd700;
   background: transparent;
   color: #ffd700;
-
   font-weight: 800;
   cursor: pointer;
   transition: 0.25s;
@@ -161,14 +143,11 @@
   color: white;
 }
 
-/* Cards */
-
 .empty-card {
   max-width: 550px;
   margin: 0 auto;
   padding: 26px;
   text-align: center;
-
   background: rgba(6, 16, 31, 0.94);
   border: 1px solid rgba(0, 200, 255, 0.65);
   border-radius: 18px;
@@ -177,7 +156,6 @@
 .classes-grid {
   max-width: 1215px;
   margin: 0 auto 35px auto;
-
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 24px;
@@ -185,9 +163,8 @@
 
 .class-card {
   padding: 26px;
-
   background: rgba(6, 16, 31, 0.94);
-  border: 1px solid rgba(0, 200, 255, 0.65);
+  border: 1px solid rgba(66, 214, 95, 0.45) !important;
   border-radius: 18px;
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
 }
@@ -220,33 +197,14 @@
   color: #d8e2ef;
 }
 
-.status-badge {
-  display: inline-block;
-  padding: 7px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 800;
-  white-space: nowrap;
-
-  background: rgba(46, 204, 113, 0.18);
-  color: #2ecc71;
-}
-
-.status-badge.full {
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
-}
-
 .participate-btn {
   width: 100%;
   height: 43px;
   margin-top: 18px;
-
   border: none;
   border-radius: 10px;
   background: #00c8ff;
   color: #06101f;
-
   font-weight: 900;
   cursor: pointer;
   text-transform: uppercase;
@@ -267,12 +225,10 @@
   width: 100%;
   height: 43px;
   margin-top: 18px;
-
   border: 1px solid #ff4d4d;
   border-radius: 10px;
   background: rgba(255, 77, 77, 0.16);
   color: #ff4d4d;
-
   font-weight: 900;
   cursor: pointer;
   text-transform: uppercase;
@@ -305,12 +261,6 @@
   box-shadow: 0 0 14px rgba(255, 122, 0, 0.75);
 }
 
-.status-badge:not(.full) {
-  animation: availablePulse 1.8s infinite;
-}
-
-/* Responsive */
-
 @media (max-width: 1000px) {
   .client-group-classes-page {
     padding: 35px 24px;
@@ -327,28 +277,287 @@
   .page-header h1 {
     font-size: 34px;
   }
+
 }
 
 @keyframes ballBounce {
   from {
-    transform: translateY(0);
-  }
+      transform: translateY(0);
+    }
 
   to {
-    transform: translateY(-18px);
-  }
+      transform: translateY(-18px);
+    }
 }
 
 @keyframes availablePulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.35);
-  }
+      box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.35);
+    }
 
   70% {
-    box-shadow: 0 0 0 8px rgba(46, 204, 113, 0);
-  }
+      box-shadow: 0 0 0 8px rgba(46, 204, 113, 0);
+    }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
-  }
+      box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+    }
+}
+
+:host-context(body.light-theme) {
+  --client-main: #15803d;
+  --client-main-dark: #166534;
+  --client-border: rgba(21, 128, 61, 0.38);
+  --client-soft: rgba(21, 128, 61, 0.08);
+  --client-soft-hover: rgba(21, 128, 61, 0.12);
+  --client-bg: #f4f7fb;
+  --client-card-bg: #ffffff;
+  --client-text: #06101f;
+  --client-muted: #213247;
+  --client-line: rgba(6, 16, 31, 0.12);
+}
+
+:host-context(body.light-theme) .client-dashboard,
+:host-context(body.light-theme) .client-reservations-page,
+:host-context(body.light-theme) .reservations-page,
+:host-context(body.light-theme) .client-coach-requests-page,
+:host-context(body.light-theme) .coach-request-page,
+:host-context(body.light-theme) .client-group-classes-page,
+:host-context(body.light-theme) .client-events-page,
+:host-context(body.light-theme) .tennis-page {
+  background: var(--client-bg) !important;
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) .page-header h1,
+:host-context(body.light-theme) h1,
+:host-context(body.light-theme) h2 {
+  color: var(--client-main) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .page-header p,
+:host-context(body.light-theme) .subtitle,
+:host-context(body.light-theme) .description,
+:host-context(body.light-theme) .results-count,
+:host-context(body.light-theme) .empty-text {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border-color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .form-card,
+:host-context(body.light-theme) .reservation-card,
+:host-context(body.light-theme) .request-card,
+:host-context(body.light-theme) .event-card,
+:host-context(body.light-theme) .class-card,
+:host-context(body.light-theme) .court-card,
+:host-context(body.light-theme) .empty-card,
+:host-context(body.light-theme) .suggestion-box,
+:host-context(body.light-theme) .announcements-section,
+:host-context(body.light-theme) .notifications-card,
+:host-context(body.light-theme) .courts-section,
+:host-context(body.light-theme) .content {
+  background: var(--client-card-bg) !important;
+  color: var(--client-text) !important;
+  border-color: var(--client-border) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .filter-group label,
+:host-context(body.light-theme) label,
+:host-context(body.light-theme) strong {
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn,
+:host-context(body.light-theme) .abandon-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border: 1px solid var(--client-border) !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover,
+:host-context(body.light-theme) .abandon-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+  border-color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .create-btn,
+:host-context(body.light-theme) .submit-btn,
+:host-context(body.light-theme) .confirm-btn,
+:host-context(body.light-theme) .participate-btn,
+:host-context(body.light-theme) .new-request-btn,
+:host-context(body.light-theme) .available-courts-btn {
+  background: linear-gradient(135deg, var(--client-main), var(--client-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+:host-context(body.light-theme) .create-btn:hover,
+:host-context(body.light-theme) .submit-btn:hover,
+:host-context(body.light-theme) .confirm-btn:hover,
+:host-context(body.light-theme) .participate-btn:hover,
+:host-context(body.light-theme) .new-request-btn:hover,
+:host-context(body.light-theme) .available-courts-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #166534) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .leave-btn,
+:host-context(body.light-theme) .cancel-btn,
+:host-context(body.light-theme) .hide-request-btn,
+:host-context(body.light-theme) .hide-reservation-btn {
+  background: rgba(220, 38, 38, 0.10) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(220, 38, 38, 0.35) !important;
+}
+
+:host-context(body.light-theme) .leave-btn:hover,
+:host-context(body.light-theme) .cancel-btn:hover,
+:host-context(body.light-theme) .hide-request-btn:hover,
+:host-context(body.light-theme) .hide-reservation-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .request-card h2,
+:host-context(body.light-theme) .reservation-card h2,
+:host-context(body.light-theme) .event-card h2,
+:host-context(body.light-theme) .class-card h2,
+:host-context(body.light-theme) .court-card h2,
+:host-context(body.light-theme) .suggestion-box h4,
+:host-context(body.light-theme) .event-header h2,
+:host-context(body.light-theme) .class-header h2 {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .request-card p,
+:host-context(body.light-theme) .reservation-card p,
+:host-context(body.light-theme) .event-card p,
+:host-context(body.light-theme) .class-card p,
+:host-context(body.light-theme) .court-card p,
+:host-context(body.light-theme) .suggestion-box p,
+:host-context(body.light-theme) .maintenance-message {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) table {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) thead,
+:host-context(body.light-theme) th {
+  background: #166534 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) td {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+  border-bottom-color: var(--client-line) !important;
+}
+
+:host-context(body.light-theme) tbody tr:hover td {
+  background: rgba(21, 128, 61, 0.06) !important;
+}
+
+:host-context(body.light-theme) .status-badge.available,
+:host-context(body.light-theme) .available,
+:host-context(body.light-theme) 
+:host-context(body.light-theme) 
+:host-context(body.light-theme) .rejected,
+:host-context(body.light-theme) 
+:host-context(body.light-theme) .sport-loader {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .ball-loader {
+  background: var(--client-main) !important;
+  box-shadow: 0 0 14px rgba(21, 128, 61, 0.45) !important;
+}
+
+:host-context(body.light-theme) h1,
+:host-context(body.light-theme) h2,
+:host-context(body.light-theme) .page-header h1 {
+  color: #16a34a !important;
+}
+
+:host-context(body.light-theme) .form-card,
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .request-card,
+:host-context(body.light-theme) .reservation-card,
+:host-context(body.light-theme) .class-card,
+:host-context(body.light-theme) .event-card,
+:host-context(body.light-theme) .court-card,
+:host-context(body.light-theme) .empty-card,
+:host-context(body.light-theme) .request-summary {
+  border-color: rgba(22, 163, 74, 0.42) !important;
+}
+
+:host-context(body.light-theme) input,
+:host-context(body.light-theme) select,
+:host-context(body.light-theme) textarea {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+  border: 1px solid var(--client-border) !important;
+  border-color: rgba(22, 163, 74, 0.42) !important;
+}
+
+:host-context(body.light-theme) input:focus,
+:host-context(body.light-theme) select:focus,
+:host-context(body.light-theme) textarea:focus {
+  outline: none !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.14) !important;
+}
+
+:host-context(body.light-theme) .back-btn,
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #16a34a !important;
+  border: 1px solid rgba(22, 163, 74, 0.42) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover,
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+}
+
+:host-context(body.light-theme) .create-btn,
+:host-context(body.light-theme) .submit-btn,
+:host-context(body.light-theme) .confirm-btn,
+:host-context(body.light-theme) .participate-btn {
+  background: linear-gradient(135deg, #16a34a, #15803d) !important;
+  color: #ffffff !important;
+  border: none !important;
 }

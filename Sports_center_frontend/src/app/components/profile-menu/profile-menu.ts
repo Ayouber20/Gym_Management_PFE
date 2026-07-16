@@ -1,10 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, Output, PLATFORM_ID, signal } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, afterNextRender, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth';
 import { ThemeService } from '../../services/theme';
+import { NotificationService } from '../../services/notification';
+import { ClientService } from '../../services/client';
+import { CoachService } from '../../services/coach';
 
 @Component({
   selector: 'app-profile-menu',
@@ -15,11 +18,8 @@ import { ThemeService } from '../../services/theme';
 })
 export class ProfileMenu {
 
-  @Input() notificationCount = 0;
-  @Input() notifications: any[] = [];
-
-  @Output() notificationClicked = new EventEmitter<any>();
-  @Output() notificationClosed = new EventEmitter<number>();
+  notifications = signal<any[]>([]);
+  notificationCount = signal(0);
 
   menuOpen = signal(false);
   passwordModalOpen = signal(false);
@@ -41,25 +41,136 @@ export class ProfileMenu {
     private authService: AuthService,
     private router: Router,
     private themeService: ThemeService,
+    private notificationService: NotificationService,
+    private clientService: ClientService,
+    private coachService: CoachService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.user = this.authService.getUser();
 
-    if (this.isBrowser) {
-      const savedTheme = localStorage.getItem('theme');
+    afterNextRender(() => {
+      this.refreshUser();
+      this.loadNotifications();
+    });
 
-      if (savedTheme === 'light') {
-        this.darkMode.set(false);
-        document.body.classList.add('light-theme');
-      } else {
-        this.darkMode.set(true);
-        document.body.classList.remove('light-theme');
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.refreshUser();
+        this.loadNotifications();
       }
+    });
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  private refreshUser(): void {
+    this.user = this.authService.getUser();
+  }
+
+  private loadNotifications(): void {
+    if (!this.isBrowser) {
+      return;
     }
+
+    const user = this.authService.getUser();
+
+    if (!user) {
+      this.notifications.set([]);
+      this.notificationCount.set(0);
+      return;
+    }
+
+    const role = (user.role || '').toUpperCase();
+
+    if (role === 'ADMIN') {
+      this.notificationService.getAdminNotifications()
+        .subscribe({
+          next: (data) => this.setNotifications(data),
+          error: () => this.setNotifications([])
+        });
+
+      return;
+    }
+
+    if (role === 'CLIENT') {
+      this.clientService.getClientByUserId(user.id)
+        .subscribe({
+          next: (client) => {
+            this.notificationService.getClientNotifications(client.id)
+              .subscribe({
+                next: (data) => this.setNotifications(data),
+                error: () => this.setNotifications([])
+              });
+          },
+          error: () => this.setNotifications([])
+        });
+
+      return;
+    }
+
+    if (role === 'COACH') {
+      this.coachService.getCoachByUserId(user.id)
+        .subscribe({
+          next: (coach) => {
+            this.notificationService.getCoachNotifications(coach.id)
+              .subscribe({
+                next: (data) => this.setNotifications(data),
+                error: () => this.setNotifications([])
+              });
+          },
+          error: () => this.setNotifications([])
+        });
+
+      return;
+    }
+
+    this.setNotifications([]);
+  }
+
+  private setNotifications(data: any[]): void {
+    const sortedNotifications = this.sortNotifications(data || []);
+
+    this.notifications.set(sortedNotifications);
+    this.notificationCount.set(
+      sortedNotifications.filter(notification => notification.readStatus !== true).length
+    );
+  }
+
+  private sortNotifications(data: any[]): any[] {
+    return data.sort((a, b) => {
+      const aRead = a.readStatus === true;
+      const bRead = b.readStatus === true;
+
+      if (!aRead && bRead) {
+        return -1;
+      }
+
+      if (aRead && !bRead) {
+        return 1;
+      }
+
+      const dateA = a.date || a.notificationDate || '';
+      const dateB = b.date || b.notificationDate || '';
+
+      if (dateA > dateB) {
+        return -1;
+      }
+
+      if (dateA < dateB) {
+        return 1;
+      }
+
+      const timeA = a.time || a.notificationTime || '';
+      const timeB = b.time || b.notificationTime || '';
+
+      return timeB.localeCompare(timeA);
+    });
   }
 
   toggleMenu(): void {
+    this.refreshUser();
     this.menuOpen.set(!this.menuOpen());
     this.notificationsOpen.set(false);
     this.successMessage.set('');
@@ -67,11 +178,14 @@ export class ProfileMenu {
   }
 
   toggleNotifications(): void {
+    this.refreshUser();
+    this.loadNotifications();
     this.notificationsOpen.set(!this.notificationsOpen());
     this.menuOpen.set(false);
   }
 
   openPasswordModal(): void {
+    this.refreshUser();
     this.passwordModalOpen.set(true);
     this.menuOpen.set(false);
     this.notificationsOpen.set(false);
@@ -89,6 +203,8 @@ export class ProfileMenu {
   }
 
   changePassword(): void {
+    this.refreshUser();
+
     this.successMessage.set('');
     this.errorMessage.set('');
 
@@ -143,10 +259,16 @@ export class ProfileMenu {
 
   logout(): void {
     this.authService.logout();
+    this.notifications.set([]);
+    this.notificationCount.set(0);
+    this.menuOpen.set(false);
+    this.notificationsOpen.set(false);
     this.router.navigate(['/login']);
   }
 
   getFullName(): string {
+    this.refreshUser();
+
     if (!this.user) {
       return 'Utilisateur';
     }
@@ -155,14 +277,18 @@ export class ProfileMenu {
   }
 
   getEmail(): string {
+    this.refreshUser();
     return this.user?.email || '';
   }
 
   getRole(): string {
+    this.refreshUser();
     return this.user?.role || '';
   }
 
   getInitials(): string {
+    this.refreshUser();
+
     const firstName = this.user?.firstName || '';
     const lastName = this.user?.lastName || '';
 
@@ -223,8 +349,8 @@ export class ProfileMenu {
   }
 
   onNotificationClick(notification: any): void {
-    this.notificationClicked.emit(notification);
     this.notificationsOpen.set(false);
+    this.goToNotificationTarget(notification);
   }
 
   onCloseNotification(event: Event, notificationId: number): void {
@@ -234,7 +360,131 @@ export class ProfileMenu {
       return;
     }
 
-    this.notificationClosed.emit(notificationId);
+    this.notificationService.markAsRead(notificationId)
+      .subscribe({
+        next: () => {
+          this.notifications.update(notifications =>
+            notifications.filter(notification => notification.id !== notificationId)
+          );
+
+          this.notificationCount.set(
+            this.notifications().filter(notification => notification.readStatus !== true).length
+          );
+        }
+      });
+  }
+
+  private goToNotificationTarget(notification: any): void {
+    const user = this.authService.getUser();
+    const role = (user?.role || '').toUpperCase();
+
+    if (role === 'ADMIN') {
+      if (
+        notification.type === 'RESERVATION' ||
+        notification.type === 'RESERVATION_CANCELLED'
+      ) {
+        this.router.navigate(['/admin/reservations']);
+        return;
+      }
+
+      if (
+        notification.type === 'COACH_SESSION' ||
+        notification.type === 'COACH_SESSION_CANCELLED' ||
+        notification.type === 'COACH_REQUEST'
+      ) {
+        this.router.navigate(['/admin/coach-requests']);
+        return;
+      }
+
+      if (
+        notification.type === 'COACH_LEAVE_REQUEST' ||
+        notification.type === 'COACH_LEAVE'
+      ) {
+        this.router.navigate(['/admin/coach-leavings']);
+        return;
+      }
+
+      if (notification.type === 'COURT_MAINTENANCE') {
+        this.router.navigate(['/admin/courts']);
+        return;
+      }
+
+      if (notification.type === 'ANNOUNCEMENT') {
+        this.router.navigate(['/admin/announcements']);
+        return;
+      }
+
+      this.router.navigate(['/admin']);
+      return;
+    }
+
+    if (role === 'COACH') {
+      if (notification.type === 'COACH_REQUEST') {
+        sessionStorage.setItem('coach_requests_seen', 'true');
+        this.router.navigate(['/coach/requests']);
+        return;
+      }
+
+      if (
+        notification.type === 'COACH_SESSION' ||
+        notification.type === 'COACH_SESSION_CANCELLED'
+      ) {
+        sessionStorage.setItem('coach_sessions_seen', 'true');
+        this.router.navigate(['/coach/sessions']);
+        return;
+      }
+
+      if (
+        notification.type === 'NEW_EVENT' ||
+        notification.type === 'EVENT_DISABLED' ||
+        notification.type === 'EVENT_REACTIVATED' ||
+        notification.type === 'EVENT_DELETED'
+      ) {
+        sessionStorage.setItem('coach_events_seen', 'true');
+        this.router.navigate(['/coach/events']);
+        return;
+      }
+
+      this.router.navigate(['/coach']);
+      return;
+    }
+
+    if (role === 'CLIENT') {
+      if (
+        notification.type === 'RESERVATION_CANCELLED' ||
+        notification.type === 'RESERVATION'
+      ) {
+        sessionStorage.setItem('client_reservations_seen', 'true');
+        this.router.navigate(['/client/reservations']);
+        return;
+      }
+
+      if (
+        notification.type === 'COACH_SESSION_CANCELLED' ||
+        notification.type === 'COACH_SESSION' ||
+        notification.type === 'COACH_REQUEST_ACCEPTED' ||
+        notification.type === 'COACH_REQUEST_REJECTED' ||
+        notification.type === 'COACH_REQUEST_CANCELLED' ||
+        notification.type === 'COACH_REQUEST_EXPIRED'
+      ) {
+        sessionStorage.setItem('client_coach_requests_seen', 'true');
+        this.router.navigate(['/client/coach-requests']);
+        return;
+      }
+
+      if (
+        notification.type === 'NEW_EVENT' ||
+        notification.type === 'EVENT_DISABLED' ||
+        notification.type === 'EVENT_REACTIVATED' ||
+        notification.type === 'EVENT_DELETED'
+      ) {
+        sessionStorage.setItem('client_events_seen', 'true');
+        this.router.navigate(['/client/events']);
+        return;
+      }
+
+      this.router.navigate(['/client']);
+    }
   }
 
   toggleTheme(): void {

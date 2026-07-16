@@ -1,3 +1,8 @@
+:host {
+  --client-announcement-title: #ffffff;
+  --client-announcement-text: #dfffea;
+}
+
 .client-dashboard {
   min-height: 100vh;
   padding: 50px;
@@ -6,11 +11,8 @@
   text-align: center;
   box-sizing: border-box;
   position: relative;
-
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.96), rgba(5, 18, 31, 0.96)),
-    url('/assets/images/sports-bg.jpg');
-
+  background: linear-gradient(rgba(3, 10, 20, 0.96), rgba(5, 18, 31, 0.96)),
+    url("/assets/images/sports-bg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -47,19 +49,15 @@
   color: white;
 }
 
-/* NOTIFICATIONS */
-
 .notifications-card {
   max-width: 950px;
   margin: 30px auto 40px auto;
   padding: 28px;
-  background:
-    linear-gradient(145deg, rgba(6, 33, 17, 0.96), rgba(8, 26, 44, 0.96));
+  background: linear-gradient(145deg, rgba(6, 33, 17, 0.96), rgba(8, 26, 44, 0.96));
   border: 1px solid rgba(37, 114, 50, 0.7);
   border-radius: 22px;
   color: white;
-  box-shadow:
-    0 0 22px rgba(62, 255, 37, 0.12),
+  box-shadow: 0 0 22px rgba(62, 255, 37, 0.12),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
@@ -76,7 +74,6 @@
   font-size: 24px;
   letter-spacing: 1px;
   font-weight: 900;
-
   display: flex;
   align-items: center;
   gap: 10px;
@@ -87,32 +84,17 @@
   height: 34px;
   padding: 0 10px;
   border-radius: 999px;
-
   background: rgba(66, 214, 95, 0.18);
   color: #dfffea;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 900;
 }
 
 .notification-badge.zero {
   background: rgba(255, 255, 255, 0.15);
   color: #d7f3ff;
-}
-
-.notification-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 16px 18px;
-  border-radius: 16px;
-  margin-bottom: 14px;
-  background: rgba(37, 191, 255, 0.08);
-  border-left: 5px solid #25bfff;
-  text-align: left;
 }
 
 .notification-item.reservation {
@@ -123,11 +105,7 @@
   border-left-color: #42d65f;
 }
 
-.notification-item.cancelled {
-  border-left-color: #ff4d4d;
-  background: rgba(255, 77, 77, 0.12);
-}
-
+.notification-item
 .notification-icon {
   width: 42px;
   height: 42px;
@@ -168,40 +146,13 @@
   font-weight: bold;
 }
 
-/* DASHBOARD CARDS */
-
 .dashboard-cards {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-}
-
-.dashboard-card {
-  position: relative;
-  overflow: hidden;
-
-  min-height: 260px;
-  padding: 30px;
-  border-radius: 20px;
-  box-sizing: border-box;
-
-  border: 1px solid rgb(37, 114, 50);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-
-  background-size: cover;
-  background-position: center;
-  transition: 0.3s;
-  animation: cardFadeUp 0.6s ease both;
 }
 
 .dashboard-card:hover {
@@ -214,21 +165,19 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      rgba(3, 10, 20, 0.527),
-      rgba(3, 10, 20, 0.877)
+  background: linear-gradient(
+      rgba(3, 10, 20, 0.68),
+      rgba(3, 10, 20, 0.88)
     );
   z-index: 0;
-  backdrop-filter: grayscale(30%);
 }
 
 .dashboard-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(3, 10, 20, 0.25);
-  backdrop-filter: grayscale(30%) saturate(30%);
+  background: rgba(3, 10, 20, 0.18);
+  backdrop-filter: grayscale(45%) saturate(70%) brightness(0.82) contrast(0.95);
   z-index: 0;
 }
 
@@ -239,29 +188,12 @@
   z-index: 1;
 }
 
-.dashboard-card h2 {
-  font-size: 27px;
-  margin: 0 0 15px 0;
-  color: white;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
-}
-
-.dashboard-card p {
-  color: #eef6ff;
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 0 25px 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
-}
-
 .dashboard-card button {
   padding: 12px 24px;
   border: none;
   border-radius: 10px;
-
   background: linear-gradient(135deg, #42d65f, #1ea83d);
   color: white;
-
   font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
@@ -271,25 +203,16 @@
   box-shadow: 0 8px 18px rgba(66, 214, 95, 0.4);
 }
 
-/* IMAGES DES CARTES */
-
-.tennis-card {
-  background-image: url('/assets/images/tennis-card.jpg');
-}
-
-.coach-card {
-  background-image: url('/assets/images/coach-card.jpg');
-}
-
-.reservations-card {
-  background-image: url('/assets/images/reservations-card.jpg');
-}
-
-.requests-card {
-  background-image: url('/assets/images/requests-card.jpg');
-}
-
 .notification-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  background: rgba(37, 191, 255, 0.08);
+  border-left: 5px solid #25bfff;
+  text-align: left;
   position: relative;
   padding-right: 55px;
   cursor: pointer;
@@ -300,26 +223,20 @@
   position: absolute;
   top: 14px;
   right: 14px;
-
   width: 28px !important;
   height: 28px !important;
   min-width: 28px !important;
   min-height: 28px !important;
-
   padding: 0 !important;
   border: none !important;
   border-radius: 50% !important;
-
   background: rgba(255, 77, 77, 0.18) !important;
   color: #ff4d4d !important;
-
   font-size: 16px;
   font-weight: bold;
   line-height: 1;
-
   cursor: pointer;
   text-transform: none !important;
-
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -331,24 +248,16 @@
   box-shadow: none !important;
 }
 
-/* ANNOUNCEMENTS - CLIENT THEME */
-
 .announcements-section {
   max-width: 950px;
   margin: 30px auto;
   padding: 25px;
-
-  background:
-    linear-gradient(145deg, rgba(6, 33, 17, 0.94), rgba(8, 26, 44, 0.94));
-
+  background: linear-gradient(145deg, rgba(6, 33, 17, 0.94), rgba(8, 26, 44, 0.94));
   border: 1px solid rgba(66, 214, 95, 0.7);
   border-radius: 22px;
-
   color: white;
   text-align: left;
-
-  box-shadow:
-    0 0 22px rgba(66, 214, 95, 0.14),
+  box-shadow: 0 0 22px rgba(66, 214, 95, 0.14),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
@@ -359,7 +268,6 @@
   font-size: 24px;
   letter-spacing: 1px;
   font-weight: 900;
-
   display: flex;
   align-items: center;
   gap: 10px;
@@ -368,11 +276,9 @@
 .announcement-item {
   padding: 18px;
   margin-bottom: 15px;
-
   background: rgba(66, 214, 95, 0.10);
   border-left: 5px solid #42d65f;
   border-radius: 14px;
-
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
@@ -382,12 +288,12 @@
 
 .announcement-item h3 {
   margin: 0 0 10px 0;
-  color: #ffffff;
+  color: var(--client-announcement-title, #ffffff);
 }
 
 .announcement-item p {
   margin: 0;
-  color: #e8fff0;
+  color: var(--client-announcement-text, #dfffea);
   line-height: 1.6;
 }
 
@@ -397,6 +303,22 @@
 }
 
 .dashboard-card {
+  overflow: hidden;
+  min-height: 260px;
+  padding: 30px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 1px solid rgb(37, 114, 50);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  transition: 0.3s;
+  animation: cardFadeUp 0.6s ease both;
   position: relative;
 }
 
@@ -405,30 +327,22 @@
   top: 18px;
   right: 18px;
   z-index: 5;
-
   width: 13px;
   height: 13px;
   border-radius: 50%;
-
   background: #ff2d2d;
   box-shadow: 0 0 12px rgba(255, 45, 45, 0.9);
-
   pointer-events: none;
 }
 
 .red-dot::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -5px;
-
   border-radius: 50%;
   border: 1px solid rgba(255, 45, 45, 0.75);
-
   animation: redPulse 1.4s infinite;
 }
-
-
-/* RESPONSIVE */
 
 @media (max-width: 800px) {
   .dashboard-cards {
@@ -453,28 +367,520 @@
     align-items: center;
     text-align: center;
   }
+
 }
 
 @keyframes redPulse {
   0% {
-    transform: scale(0.8);
-    opacity: 0.9;
-  }
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
 
   100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
+      transform: scale(1.8);
+      opacity: 0;
+    }
 }
 
 @keyframes cardFadeUp {
   from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
+      opacity: 0;
+      transform: translateY(22px);
+    }
 
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+
+:host-context(body.light-theme) .client-dashboard .announcement-item h3,
+:host-context(body.light-theme) .client-dashboard .announcement-item h3 * {
+  color: #15803d !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .client-dashboard .announcement-item p,
+:host-context(body.light-theme) .client-dashboard .announcement-item p * {
+  color: #213247 !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .announcement-item:hover {
+  background: rgba(21, 128, 61, 0.12) !important;
+  border-color: rgba(21, 128, 61, 0.35) !important;
+  transform: translateY(-2px);
+}
+
+:host-context(body.light-theme) {
+  --client-announcement-title: #15803d;
+  --client-announcement-text: #213247;
+  --client-main: #15803d;
+  --client-main-dark: #166534;
+  --client-border: rgba(21, 128, 61, 0.38);
+  --client-soft: rgba(21, 128, 61, 0.08);
+  --client-soft-hover: rgba(21, 128, 61, 0.12);
+  --client-bg: #f4f7fb;
+  --client-card-bg: #ffffff;
+  --client-text: #06101f;
+  --client-muted: #213247;
+  --client-line: rgba(6, 16, 31, 0.12);
+}
+
+:host-context(body.light-theme) .client-dashboard,
+:host-context(body.light-theme) .client-reservations-page,
+:host-context(body.light-theme) .reservations-page,
+:host-context(body.light-theme) .client-coach-requests-page,
+:host-context(body.light-theme) .coach-request-page,
+:host-context(body.light-theme) .client-group-classes-page,
+:host-context(body.light-theme) .client-events-page,
+:host-context(body.light-theme) .tennis-page {
+  background: var(--client-bg) !important;
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) .page-header h1,
+:host-context(body.light-theme) h1,
+:host-context(body.light-theme) h2 {
+  color: var(--client-main) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .page-header p,
+:host-context(body.light-theme) .subtitle,
+:host-context(body.light-theme) .description,
+:host-context(body.light-theme) .results-count,
+:host-context(body.light-theme) .empty-text {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border-color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .form-card,
+:host-context(body.light-theme) .reservation-card,
+:host-context(body.light-theme) .request-card,
+:host-context(body.light-theme) .event-card,
+:host-context(body.light-theme) .class-card,
+:host-context(body.light-theme) .court-card,
+:host-context(body.light-theme) .empty-card,
+:host-context(body.light-theme) .suggestion-box,
+:host-context(body.light-theme) .announcements-section,
+:host-context(body.light-theme) .notifications-card,
+:host-context(body.light-theme) .courts-section,
+:host-context(body.light-theme) .content {
+  background: var(--client-card-bg) !important;
+  color: var(--client-text) !important;
+  border-color: var(--client-border) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .filter-group label,
+:host-context(body.light-theme) label,
+:host-context(body.light-theme) strong {
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) input,
+:host-context(body.light-theme) select,
+:host-context(body.light-theme) textarea {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+  border: 1px solid var(--client-border) !important;
+}
+
+:host-context(body.light-theme) input:focus,
+:host-context(body.light-theme) select:focus,
+:host-context(body.light-theme) textarea:focus {
+  outline: none !important;
+  border-color: var(--client-main) !important;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.14) !important;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn,
+:host-context(body.light-theme) .abandon-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border: 1px solid var(--client-border) !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover,
+:host-context(body.light-theme) .abandon-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+  border-color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .create-btn,
+:host-context(body.light-theme) .submit-btn,
+:host-context(body.light-theme) .confirm-btn,
+:host-context(body.light-theme) .participate-btn,
+:host-context(body.light-theme) .new-request-btn,
+:host-context(body.light-theme) .available-courts-btn {
+  background: linear-gradient(135deg, var(--client-main), var(--client-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+:host-context(body.light-theme) .create-btn:hover,
+:host-context(body.light-theme) .submit-btn:hover,
+:host-context(body.light-theme) .confirm-btn:hover,
+:host-context(body.light-theme) .participate-btn:hover,
+:host-context(body.light-theme) .new-request-btn:hover,
+:host-context(body.light-theme) .available-courts-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #166534) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .leave-btn,
+:host-context(body.light-theme) .cancel-btn,
+:host-context(body.light-theme) .hide-request-btn,
+:host-context(body.light-theme) .hide-reservation-btn {
+  background: rgba(220, 38, 38, 0.10) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(220, 38, 38, 0.35) !important;
+}
+
+:host-context(body.light-theme) .leave-btn:hover,
+:host-context(body.light-theme) .cancel-btn:hover,
+:host-context(body.light-theme) .hide-request-btn:hover,
+:host-context(body.light-theme) .hide-reservation-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .request-card h2,
+:host-context(body.light-theme) .reservation-card h2,
+:host-context(body.light-theme) .event-card h2,
+:host-context(body.light-theme) .class-card h2,
+:host-context(body.light-theme) .court-card h2,
+:host-context(body.light-theme) .suggestion-box h4,
+:host-context(body.light-theme) .event-header h2,
+:host-context(body.light-theme) .class-header h2 {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .request-card p,
+:host-context(body.light-theme) .reservation-card p,
+:host-context(body.light-theme) .event-card p,
+:host-context(body.light-theme) .class-card p,
+:host-context(body.light-theme) .court-card p,
+:host-context(body.light-theme) .suggestion-box p,
+:host-context(body.light-theme) .maintenance-message {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) table {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) thead,
+:host-context(body.light-theme) th {
+  background: #166534 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) td {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+  border-bottom-color: var(--client-line) !important;
+}
+
+:host-context(body.light-theme) tbody tr:hover td {
+  background: rgba(21, 128, 61, 0.06) !important;
+}
+
+:host-context(body.light-theme) .status-badge.available,
+:host-context(body.light-theme) .available,
+:host-context(body.light-theme) 
+:host-context(body.light-theme) 
+:host-context(body.light-theme) .rejected,
+:host-context(body.light-theme) 
+:host-context(body.light-theme) .sport-loader {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .ball-loader {
+  background: var(--client-main) !important;
+  box-shadow: 0 0 14px rgba(21, 128, 61, 0.45) !important;
+}
+
+:host-context(body.light-theme) .client-dashboard h1,
+:host-context(body.light-theme) .client-dashboard h2 {
+  color: #15803d !important;
+}
+
+:host-context(body.light-theme) .dashboard-card {
+  border-color: rgba(21, 128, 61, 0.38) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card:hover {
+  border-color: rgba(21, 128, 61, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(21, 128, 61, 0.20) !important;
+}
+
+:host-context(body.light-theme) .announcements-section {
+  background: #ffffff !important;
+  border: 1px solid rgba(21, 128, 61, 0.38) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .announcement-item {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 20px rgba(15, 40, 70, 0.08) !important;
+  background: rgba(21, 128, 61, 0.10) !important;
+  border: 1px solid rgba(21, 128, 61, 0.22) !important;
+  border-left: 5px solid #15803d !important;
+}
+
+:host-context(body.light-theme) .announcement-item h3 {
+  color: #15803d !important;
+}
+
+:host-context(body.light-theme) .announcement-item p {
+  color: #213247 !important;
+}
+
+:host-context(body.light-theme) .dashboard-card::before {
+  background: linear-gradient(
+      rgba(3, 10, 20, 0.42),
+      rgba(3, 10, 20, 0.62)
+    ) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card::after {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: grayscale(35%) saturate(75%) brightness(0.88) contrast(0.92) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card p {
+  color: #ffffff !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card h2 {
+  color: #22c55e !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.92) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card button {
+  background: linear-gradient(135deg, #16a34a, #15803d) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(22, 163, 74, 0.32) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card button:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .notification-content strong,
+:host-context(body.light-theme) .notification-title,
+:host-context(body.light-theme) .notification-title * {
+  color: #06101f !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .notification-content p {
+  color: #213247 !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .notification-content small {
+  color: #15803d !important;
+  text-shadow: none !important;
+}
+
+.client-dashboard .dashboard-card {
+  background: transparent !important;
+  background-image: none !important;
+  transform: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.client-dashboard .dashboard-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--card-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  transform: scale(1) !important;
+  transform-origin: center !important;
+  transition: transform 0.45s ease !important;
+  z-index: 0 !important;
+}
+
+.client-dashboard .dashboard-card:hover::before {
+  transform: scale(1.08) !important;
+}
+
+.client-dashboard .dashboard-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(rgba(3, 10, 20, 0.58), rgba(3, 10, 20, 0.80)) !important;
+  backdrop-filter: grayscale(35%) saturate(90%) brightness(0.88) contrast(1.02) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.client-dashboard .dashboard-card h2,
+.client-dashboard .dashboard-card p,
+.client-dashboard .dashboard-card button,
+.client-dashboard .dashboard-card .red-dot {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.client-dashboard .tennis-card {
+  --card-bg: url("/assets/images/tennis-card.jpg");
+}
+
+.client-dashboard .coach-card {
+  --card-bg: url("/assets/images/coach-card.jpg");
+}
+
+.client-dashboard .reservations-card {
+  --card-bg: url("/assets/images/reservations-card.jpg");
+}
+
+.client-dashboard .requests-card {
+  --card-bg: url("/assets/images/requests-card.jpg");
+}
+
+.client-dashboard .group-classes-card {
+  --card-bg: url("/assets/images/coach-lessons-card.jpg");
+}
+
+.client-dashboard .events-card {
+  --card-bg: url("/assets/images/events-card.jpg");
+}
+
+:host-context(body.light-theme) .client-dashboard .dashboard-card::before {
+  background-image: var(--card-bg) !important;
+}
+
+:host-context(body.light-theme) .client-dashboard .dashboard-card::after {
+  background: linear-gradient(rgba(3, 10, 20, 0.42), rgba(3, 10, 20, 0.62)) !important;
+}
+
+.dashboard-card,
+:host-context(body.light-theme) .dashboard-card {
+  background-image: none !important;
+  background: transparent !important;
+  transform: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.dashboard-card:hover,
+:host-context(body.light-theme) .dashboard-card:hover {
+  transform: none !important;
+  box-shadow: 0 18px 40px rgba(66, 214, 95, 0.18) !important;
+}
+
+.dashboard-card::before,
+:host-context(body.light-theme) .dashboard-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--card-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  transform: scale(1) !important;
+  transform-origin: center !important;
+  transition: transform 0.45s ease !important;
+  z-index: 0 !important;
+}
+
+.dashboard-card:hover::before,
+:host-context(body.light-theme) .dashboard-card:hover::before {
+  transform: scale(1.06) !important;
+}
+
+.dashboard-card::after,
+:host-context(body.light-theme) .dashboard-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(rgba(3, 10, 20, 0.48), rgba(3, 10, 20, 0.72)) !important;
+  backdrop-filter: grayscale(18%) saturate(95%) brightness(0.98) contrast(0.96) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.dashboard-card h2,
+.dashboard-card p,
+.dashboard-card button,
+.dashboard-card .red-dot {
+  position: relative !important;
+  z-index: 2 !important;
+  transform: none !important;
+}
+
+.dashboard-card h2 {
+  font-size: 27px;
+  margin: 0 0 15px 0;
+  color: #42d65f !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95) !important;
+}
+
+.dashboard-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  color: #ffffff !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95) !important;
+}
+
+.tennis-card {
+  background-image: url("/assets/images/tennis-card.jpg");
+  --card-bg: url("/assets/images/tennis-card.jpg");
+}
+
+.coach-card {
+  background-image: url("/assets/images/coach-card.jpg");
+  --card-bg: url("/assets/images/coach-card.jpg");
+}
+
+.reservations-card {
+  background-image: url("/assets/images/reservations-card.jpg");
+  --card-bg: url("/assets/images/reservations-card.jpg");
+}
+
+.requests-card {
+  background-image: url("/assets/images/requests-card.jpg");
+  --card-bg: url("/assets/images/requests-card.jpg");
+}
+
+.group-classes-card {
+  background-image: url("/assets/images/coach-lessons-card.jpg");
+  --card-bg: url("/assets/images/coach-lessons-card.jpg");
+}
+
+.events-card {
+  background-image: url("/assets/images/events-card.jpg");
+  --card-bg: url("/assets/images/events-card.jpg");
 }

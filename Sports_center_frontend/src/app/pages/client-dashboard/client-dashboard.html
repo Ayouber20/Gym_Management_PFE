@@ -1,12 +1,4 @@
 <div class="client-dashboard">
-
-  <app-profile-menu
-    [notificationCount]="notificationBadgeCount()"
-    [notifications]="notifications()"
-    (notificationClicked)="goToNotificationTarget($event)"
-    (notificationClosed)="markNotificationAsRead($event)">
-  </app-profile-menu>
-
   <h1>Espace Client</h1>
 
   <p class="subtitle">

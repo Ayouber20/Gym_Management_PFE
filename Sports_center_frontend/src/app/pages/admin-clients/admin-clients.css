@@ -1,31 +1,49 @@
 :host {
-  --page-bg: #f4f8fb;
+  --page-bg: #07111f;
+  --primary: #29b6f6;
+  --primary-dark: #0288d1;
+  --card-bg: rgba(7, 17, 31, 0.90);
+  --card-border: rgba(41, 182, 246, 0.45);
+  --card-shadow: rgba(0, 0, 0, 0.45);
+  --text-main: #ffffff;
+  --text-muted: #d8e2ef;
+  --input-bg: #f8fafc;
+  --input-border: rgba(41, 182, 246, 0.45);
+  --table-header-bg: rgba(41, 182, 246, 0.18);
+  --table-header-text: #ffffff;
+  --table-row-hover: rgba(41, 182, 246, 0.10);
+  --table-border: rgba(255, 255, 255, 0.12);
+  --button-bg: #29b6f6;
+  --button-bg-hover: #0288d1;
+  --button-text: #ffffff;
+  --danger: #ff4d4d;
+  --success: #42d65f;
+  --warning: #ffcc00;
+  --warning-text: #ffcc00;
+}
 
+:host-context(body.light-theme) {
+  --page-bg: #f4f8fb;
   --primary: #00a8e8;
   --primary-dark: #0077b6;
-
   --card-bg: #ffffff;
   --card-border: rgba(0, 168, 232, 0.38);
   --card-shadow: rgba(15, 40, 70, 0.16);
-
   --text-main: #06101f;
   --text-muted: #425466;
-
   --input-bg: #ffffff;
   --input-border: rgba(0, 168, 232, 0.35);
-
   --table-header-bg: #0b3d5c;
   --table-header-text: #ffffff;
   --table-row-hover: rgba(0, 168, 232, 0.08);
   --table-border: rgba(6, 16, 31, 0.12);
-
   --button-bg: #00a8e8;
   --button-bg-hover: #0077b6;
   --button-text: #ffffff;
-
   --danger: #ff4d4d;
   --success: #31d158;
   --warning: #ffd700;
+  --warning-text: #9a7b00;
 }
 
 .admin-clients-page {
@@ -36,8 +54,6 @@
   color: var(--text-main);
   box-sizing: border-box;
 }
-
-/* HEADER */
 
 .page-header {
   text-align: center;
@@ -76,19 +92,14 @@
   color: white;
 }
 
-/* LAYOUT */
-
 .content {
   max-width: 1200px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: 380px 1fr;
   gap: 30px;
   align-items: flex-start;
 }
-
-/* CARDS */
 
 .form-card,
 .clients-list {
@@ -100,20 +111,42 @@
   color: var(--text-main);
 }
 
-.form-card h2,
+.form-card h2 {
+  color: var(--text-main);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 900;
+}
+
 .clients-list h2 {
   color: var(--primary);
   margin-bottom: 20px;
 }
 
-/* FORM */
-
 label {
   display: block;
   margin-top: 15px;
   margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.form-card > .form-label {
+  color: var(--primary) !important;
+}
+
+:host-context(body.light-theme) .form-card > .form-label {
+  color: #0077b6 !important;
+}
+
+.filter-group label {
   color: var(--text-main);
   font-weight: bold;
+  margin-bottom: 8px;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: #06101f !important;
 }
 
 input,
@@ -125,7 +158,7 @@ select {
   outline: none;
   box-sizing: border-box;
   background: var(--input-bg);
-  color: var(--text-main);
+  color: #06101f;
 }
 
 input:focus,
@@ -133,8 +166,6 @@ select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.14);
 }
-
-/* ACTIONS */
 
 .actions {
   display: flex;
@@ -175,17 +206,13 @@ select:focus {
   color: white;
 }
 
-/* FILTERS */
-
 .filters-card {
   display: flex;
   align-items: flex-end;
   gap: 18px;
   flex-wrap: wrap;
-
   margin: 25px 0 18px 0;
   padding: 20px;
-
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   border-radius: 16px;
@@ -199,18 +226,12 @@ select:focus {
   min-width: 220px;
 }
 
-.filter-group label {
-  color: var(--text-main);
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
 .filter-group input {
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--input-border);
   background: var(--input-bg);
-  color: var(--text-main);
+  color: #06101f;
   outline: none;
 }
 
@@ -224,7 +245,7 @@ select:focus {
   border-radius: 10px;
   border: 1px solid var(--warning);
   background: transparent;
-  color: #9a7b00;
+  color: var(--warning-text);
   font-weight: bold;
   cursor: pointer;
   transition: 0.25s;
@@ -240,8 +261,6 @@ select:focus {
   font-weight: bold;
   margin-bottom: 18px;
 }
-
-/* TABLE */
 
 .table-container {
   overflow-x: auto;
@@ -267,6 +286,8 @@ td {
 th {
   color: var(--table-header-text);
   font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 td {
@@ -281,8 +302,6 @@ tbody tr:hover {
   background: var(--table-row-hover);
 }
 
-/* EMPTY */
-
 .empty-card {
   padding: 25px;
   text-align: center;
@@ -291,8 +310,6 @@ tbody tr:hover {
   color: var(--text-muted);
   border: 1px solid var(--card-border);
 }
-
-/* MESSAGES */
 
 .success-message,
 .error-message {
@@ -316,7 +333,80 @@ tbody tr:hover {
   color: var(--danger);
 }
 
-/* RESPONSIVE */
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #0077b6 !important;
+  border: 1px solid rgba(0, 119, 182, 0.40) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #0077b6 !important;
+  color: #ffffff !important;
+  border-color: #0077b6 !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn,
+:host-context(body:not(.light-theme)) .reset-btn,
+:host-context(body:not(.light-theme)) .clear-filters-btn,
+:host-context(body.dark-theme) .clear-btn,
+:host-context(body.dark-theme) .reset-btn,
+:host-context(body.dark-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #25bfff !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn:hover,
+:host-context(body:not(.light-theme)) .reset-btn:hover,
+:host-context(body:not(.light-theme)) .clear-filters-btn:hover,
+:host-context(body.dark-theme) .clear-btn:hover,
+:host-context(body.dark-theme) .reset-btn:hover,
+:host-context(body.dark-theme) .clear-filters-btn:hover {
+  background: #25bfff !important;
+  color: #06101f !important;
+  border-color: #25bfff !important;
+}
+
+select {
+  background: #f8fafc !important;
+  color: #06101f !important;
+}
+
+select option {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+select option:disabled {
+  color: #64748b !important;
+  background: #f1f5f9 !important;
+}
+
+select option[value=""] {
+  color: #64748b !important;
+}
+
+:host-context(body.light-theme) select {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+}
+
+:host-context(body.light-theme) select option {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) select option:disabled {
+  color: #64748b !important;
+  background: #f1f5f9 !important;
+}
 
 @media (max-width: 950px) {
   .content {
@@ -330,4 +420,60 @@ tbody tr:hover {
   .page-header h1 {
     font-size: 34px;
   }
+
+}
+
+.admin-clients-page .form-card > label.form-label,
+.admin-clients-page section.form-card label.form-label {
+  color: #25bfff !important;
+}
+
+:host-context(body.light-theme) .admin-clients-page .form-card > label.form-label,
+:host-context(body.light-theme) .admin-clients-page section.form-card label.form-label {
+  color: #0077b6 !important;
+}
+
+:host-context(body:not(.light-theme)) .admin-clients-page .form-card > label,
+:host-context(body:not(.light-theme)) .admin-clients-page .form-card > label.form-label,
+:host-context(body:not(.light-theme)) .admin-clients-page .filter-group label {
+  color: #d8e2ef !important;
+}
+
+:host-context(body:not(.light-theme)) .admin-clients-page input,
+:host-context(body:not(.light-theme)) .admin-clients-page select,
+:host-context(body:not(.light-theme)) .admin-clients-page .filter-group input,
+:host-context(body:not(.light-theme)) .admin-clients-page .filter-group select {
+  background: #020b16 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(37, 191, 255, 0.5) !important;
+}
+
+:host-context(body:not(.light-theme)) .admin-clients-page select option {
+  background: #020b16 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body:not(.light-theme)) .admin-clients-page select option:disabled {
+  background: #061221 !important;
+  color: #94a3b8 !important;
+}
+
+:host-context(body.light-theme) .admin-clients-page .form-card > label,
+:host-context(body.light-theme) .admin-clients-page .form-card > label.form-label,
+:host-context(body.light-theme) .admin-clients-page .filter-group label {
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .admin-clients-page input,
+:host-context(body.light-theme) .admin-clients-page select,
+:host-context(body.light-theme) .admin-clients-page .filter-group input,
+:host-context(body.light-theme) .admin-clients-page .filter-group select {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+}
+
+:host-context(body.light-theme) .admin-clients-page select option {
+  background: #ffffff !important;
+  color: #06101f !important;
 }

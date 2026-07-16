@@ -1,3 +1,12 @@
+:host {
+  --coach-orange: #b45309;
+  --coach-orange-dark: #ff7a00;
+  --coach-border-light: rgba(180, 83, 9, 0.58);
+  --coach-border-dark: rgba(255, 122, 0, 0.62);
+  --coach-shadow-light: 0 14px 30px rgba(15, 23, 42, 0.08);
+  --coach-shadow-dark: none;
+}
+
 .coach-sessions-page {
   min-height: 100vh;
   padding: 45px;
@@ -9,6 +18,8 @@
   color: white;
   box-sizing: border-box;
 }
+
+/* Header */
 
 .page-header {
   text-align: center;
@@ -34,11 +45,12 @@
 .back-btn {
   padding: 11px 22px;
   border-radius: 10px;
-  border: 2px solid #ff7a00;
+  border: 1.5px solid var(--coach-border-dark);
   background: transparent;
   color: #ff7a00;
   font-weight: bold;
   cursor: pointer;
+  box-shadow: none;
 }
 
 .back-btn:hover {
@@ -46,20 +58,80 @@
   color: #07111f;
 }
 
-.empty-card {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 30px;
-  text-align: center;
+/* Filters */
+
+.filters-card {
+  max-width: 1100px;
+  margin: 0 auto 22px auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 22px;
+  background: #061221;
+  border: 1.5px solid var(--coach-border-dark) !important;
   border-radius: 18px;
-  background: rgba(7, 17, 31, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: var(--coach-shadow-dark) !important;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 210px;
+}
+
+.filter-group label {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--coach-border-dark) !important;
+  background: #020b16;
+  color: white;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: var(--coach-orange-dark) !important;
+  box-shadow: none !important;
+}
+
+.clear-filters-btn {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1.5px solid var(--coach-border-dark) !important;
+  background: transparent;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.clear-filters-btn:hover {
+  background: #ff7a00;
+  color: #020b16;
+}
+
+/* Results */
+
+.results-count {
+  max-width: 1100px;
+  margin: 0 auto 20px auto;
+  color: #f8fafc;
+  font-weight: bold;
 }
 
 .sessions-grid {
   max-width: 1100px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
@@ -69,8 +141,9 @@
   padding: 28px;
   border-radius: 20px;
   background: rgba(7, 17, 31, 0.9);
-  border: 1px solid rgba(255, 122, 0, 0.45);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+  border: 1.5px solid var(--coach-border-dark) !important;
+  box-shadow: var(--coach-shadow-dark) !important;
+  position: relative;
 }
 
 .session-card h2 {
@@ -83,10 +156,23 @@
   line-height: 1.6;
 }
 
-.accepted {
-  color: #42d65f;
-  font-weight: bold;
+.coach-sessions-page .empty-card {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 34px;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(7, 17, 31, 0.9);
+  border: 1.5px solid var(--coach-border-dark) !important;
+  color: #f8fafc;
+  box-shadow: var(--coach-shadow-dark) !important;
 }
+
+.coach-sessions-page .empty-card p {
+  color: inherit;
+}
+
+/* Messages */
 
 .error-message {
   max-width: 700px;
@@ -98,95 +184,24 @@
   background: rgba(255, 77, 77, 0.15);
   border: 1px solid rgba(255, 77, 77, 0.6);
   color: #ff4d4d;
+  box-shadow: none;
 }
 
-.filters-card {
-  max-width: 1100px;
-  margin: 0 auto 22px auto;
-  display: flex;
-  align-items: flex-end;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding: 22px;
-  background: #061221;
-  border: 1px solid rgba(37, 191, 255, 0.7);
-  border-radius: 18px;
-  box-shadow: 0 0 18px rgba(37, 191, 255, 0.08);
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 210px;
-}
-
-.filter-group label {
-  color: #25bfff;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.filter-group input,
-.filter-group select {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(37, 191, 255, 0.5);
-  background: #020b16;
-  color: white;
-  outline: none;
-}
-
-.filter-group input:focus,
-.filter-group select:focus {
-  border-color: #25bfff;
-  box-shadow: 0 0 12px rgba(37, 191, 255, 0.2);
-}
-
-.clear-filters-btn {
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid #ffcc00;
-  background: transparent;
-  color: #ffcc00;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.clear-filters-btn:hover {
-  background: #ffcc00;
-  color: #020b16;
-}
-
-.results-count {
-  max-width: 1100px;
-  margin: 0 auto 20px auto;
-  color: #d7f3ff;
-  font-weight: bold;
-}
-
-.session-card {
-  position: relative;
-}
+/* Buttons */
 
 .hide-session-btn {
   position: absolute;
   top: 14px;
   right: 14px;
-
   width: 30px;
   height: 30px;
-
   border: none;
   border-radius: 50%;
-
   background: rgba(255, 77, 77, 0.18);
   color: #ff4d4d;
-
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,6 +211,103 @@
   background: #ff4d4d;
   color: white;
 }
+
+/* Light mode */
+
+:host-context(body.light-theme) .coach-sessions-page {
+  background: #f4f8fb;
+  color: #111827;
+}
+
+:host-context(body.light-theme) .page-header h1 {
+  color: #b45309;
+}
+
+:host-context(body.light-theme) .page-header p {
+  color: #1f2937;
+}
+
+:host-context(body.light-theme) .back-btn {
+  color: #b45309;
+  background: transparent;
+  border: 1.5px solid var(--coach-border-light);
+  box-shadow: none;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: #b45309;
+  color: #ffffff;
+}
+
+:host-context(body.light-theme) .filters-card {
+  background: #ffffff;
+  border: 1.5px solid var(--coach-border-light) !important;
+  box-shadow: var(--coach-shadow-light) !important;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: #111827;
+  font-weight: 800;
+}
+
+:host-context(body.light-theme) .filter-group input,
+:host-context(body.light-theme) .filter-group select {
+  background: #ffffff;
+  color: #111827;
+  border: 1.5px solid var(--coach-border-light) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .filter-group input::placeholder {
+  color: #8b8f98;
+}
+
+:host-context(body.light-theme) .filter-group input:focus,
+:host-context(body.light-theme) .filter-group select:focus {
+  border-color: var(--coach-orange) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent;
+  color: #b45309;
+  border: 1.5px solid var(--coach-border-light) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #b45309;
+  color: #ffffff;
+  border-color: #b45309;
+}
+
+:host-context(body.light-theme) .results-count {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .session-card {
+  background: #ffffff;
+  color: #111827;
+  border: 1.5px solid var(--coach-border-light) !important;
+  box-shadow: var(--coach-shadow-light) !important;
+}
+
+:host-context(body.light-theme) .session-card h2 {
+  color: #b45309;
+}
+
+:host-context(body.light-theme) .session-card p {
+  color: #1f2937;
+}
+
+:host-context(body.light-theme) .coach-sessions-page .empty-card {
+  background: #ffffff;
+  color: #111827;
+  border: 1.5px solid var(--coach-border-light) !important;
+  box-shadow: var(--coach-shadow-light) !important;
+}
+
+/* Responsive */
 
 @media (max-width: 800px) {
   .sessions-grid {

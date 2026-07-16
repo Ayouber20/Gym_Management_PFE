@@ -6,8 +6,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* HEADER */
-
 .page-header {
   text-align: center;
   margin-bottom: 32px;
@@ -42,8 +40,6 @@
   color: #020b16;
 }
 
-/* MESSAGES */
-
 .success-message,
 .error-message {
   max-width: 900px;
@@ -65,8 +61,6 @@
   border: 1px solid rgba(255, 77, 77, 0.6);
   color: #ff4d4d;
 }
-
-/* FILTERS */
 
 .filters-card {
   max-width: 1100px;
@@ -136,8 +130,6 @@
   text-align: center;
 }
 
-/* EMPTY */
-
 .empty-card {
   max-width: 800px;
   margin: 30px auto;
@@ -150,8 +142,6 @@
   font-weight: 700;
 }
 
-/* COURTS GRID */
-
 .courts-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -159,17 +149,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
   align-items: stretch;
-}
-
-.court-card {
-  padding: 26px;
-  border-radius: 20px;
-  background: #061221;
-  border: 1px solid rgba(37, 191, 255, 0.45);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transition: 0.25s;
-  display: flex;
-  flex-direction: column;
 }
 
 .court-card:hover {
@@ -194,24 +173,10 @@
   text-align: center;
 }
 
-.available {
-  color: #31d158;
-  font-weight: 800;
-}
-
-.maintenance {
-  color: #ff9f0a;
-  font-weight: 800;
-}
-
-/* ACTIONS */
-
 .actions {
   margin-top: auto;
   padding-top: 22px;
 }
-
-/* AVAILABLE COURT MAINTENANCE FORM */
 
 .maintenance-box {
   padding: 16px;
@@ -285,8 +250,6 @@
   box-shadow: 0 8px 22px rgba(255, 106, 0, 0.35);
 }
 
-/* ACTIVE MAINTENANCE */
-
 .maintenance-active-box {
   padding: 18px;
   border-radius: 16px;
@@ -329,10 +292,16 @@
 }
 
 .court-card {
+  padding: 26px;
+  border-radius: 20px;
+  background: #061221;
+  border: 1px solid rgba(37, 191, 255, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: 0.25s;
+  display: flex;
+  flex-direction: column;
   min-height: 455px;
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 1100px) {
   .courts-grid {
@@ -346,6 +315,7 @@
   .clear-filters-btn {
     grid-column: span 2;
   }
+
 }
 
 @media (max-width: 700px) {
@@ -368,4 +338,45 @@
   .courts-grid {
     grid-template-columns: 1fr;
   }
+
+}
+
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #0077b6 !important;
+  border: 1px solid rgba(0, 119, 182, 0.40) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #0077b6 !important;
+  color: #ffffff !important;
+  border-color: #0077b6 !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn,
+:host-context(body:not(.light-theme)) .reset-btn,
+:host-context(body:not(.light-theme)) .clear-filters-btn,
+:host-context(body.dark-theme) .clear-btn,
+:host-context(body.dark-theme) .reset-btn,
+:host-context(body.dark-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #25bfff !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn:hover,
+:host-context(body:not(.light-theme)) .reset-btn:hover,
+:host-context(body:not(.light-theme)) .clear-filters-btn:hover,
+:host-context(body.dark-theme) .clear-btn:hover,
+:host-context(body.dark-theme) .reset-btn:hover,
+:host-context(body.dark-theme) .clear-filters-btn:hover {
+  background: #25bfff !important;
+  color: #06101f !important;
+  border-color: #25bfff !important;
 }

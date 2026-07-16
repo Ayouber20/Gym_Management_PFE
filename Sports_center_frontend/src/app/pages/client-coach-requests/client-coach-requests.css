@@ -1,4 +1,4 @@
-.coach-requests-page {
+.client-coach-requests-page {
   min-height: 100vh;
   padding: 45px;
   font-family: Arial, sans-serif;
@@ -8,6 +8,8 @@
   color: white;
   box-sizing: border-box;
 }
+
+/* Header */
 
 .page-header {
   text-align: center;
@@ -44,20 +46,78 @@
   color: #07111f;
 }
 
-.empty-card {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 30px;
-  text-align: center;
+/* Filters */
+
+.filters-card {
+  max-width: 1000px;
+  margin: 0 auto 22px auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 22px;
+  background: #061221;
+  border: 1px solid rgba(66, 214, 95, 0.45);
   border-radius: 18px;
-  background: rgba(7, 17, 31, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 210px;
+}
+
+.filter-group label {
+  color: #d8e2ef;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(66, 214, 95, 0.45);
+  background: #020b16;
+  color: white;
+  outline: none;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: #42d65f;
+  box-shadow: none;
+}
+
+.clear-filters-btn {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid #42d65f;
+  background: transparent;
+  color: #42d65f;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.clear-filters-btn:hover {
+  background: #42d65f;
+  color: #020b16;
+}
+
+/* Results */
+
+.results-count {
+  max-width: 1000px;
+  margin: 0 auto 20px auto;
+  color: #d8e2ef;
+  font-weight: bold;
 }
 
 .requests-grid {
   max-width: 1100px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
@@ -68,7 +128,8 @@
   border-radius: 20px;
   background: rgba(7, 17, 31, 0.9);
   border: 1px solid rgba(66, 214, 95, 0.45);
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
+  box-shadow: none;
+  position: relative;
 }
 
 .request-card h2 {
@@ -81,20 +142,18 @@
   line-height: 1.6;
 }
 
-.pending {
-  color: #ffcc00;
-  font-weight: bold;
+.empty-card {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(7, 17, 31, 0.9);
+  border: 1px solid rgba(66, 214, 95, 0.45);
+  box-shadow: none;
 }
 
-.accepted {
-  color: #42d65f;
-  font-weight: bold;
-}
-
-.rejected {
-  color: #ff4d4d;
-  font-weight: bold;
-}
+/* Messages */
 
 .error-message {
   max-width: 700px;
@@ -108,121 +167,26 @@
   color: #ff4d4d;
 }
 
-.filters-card {
-  max-width: 1000px;
-  margin: 0 auto 22px auto;
-  display: flex;
-  align-items: flex-end;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding: 22px;
-  background: #061221;
-  border: 1px solid rgba(37, 191, 255, 0.7);
-  border-radius: 18px;
-  box-shadow: 0 0 18px rgba(37, 191, 255, 0.08);
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 210px;
-}
-
-.filter-group label {
-  color: #25bfff;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.filter-group input,
-.filter-group select {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(37, 191, 255, 0.5);
-  background: #020b16;
-  color: white;
-  outline: none;
-}
-
-.filter-group input:focus,
-.filter-group select:focus {
-  border-color: #25bfff;
-  box-shadow: 0 0 12px rgba(37, 191, 255, 0.2);
-}
-
-.clear-filters-btn {
-  padding: 12px 20px;
-  border-radius: 10px;
-  border: 1px solid #ffcc00;
-  background: transparent;
-  color: #ffcc00;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.clear-filters-btn:hover {
-  background: #ffcc00;
-  color: #020b16;
-}
-
-.results-count {
-  max-width: 1000px;
-  margin: 0 auto 20px auto;
-  color: #d7f3ff;
-  font-weight: bold;
-}
-
-.request-card {
-  position: relative;
-}
-
-.hide-request-btn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-
-  width: 30px;
-  height: 30px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
-
-  font-size: 17px;
-  font-weight: bold;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hide-request-btn:hover {
-  background: #ff4d4d;
-  color: white;
-}
+/* Suggestion */
 
 .suggestion-box {
   margin-top: 20px;
   padding: 18px;
   border-radius: 14px;
-  border: 1px solid rgba(41, 182, 246, 0.5);
-  background: rgba(41, 182, 246, 0.08);
+  border: 1px solid rgba(66, 214, 95, 0.45);
+  background: rgba(66, 214, 95, 0.08);
   text-align: left;
 }
 
 .suggestion-box h4 {
   margin: 0 0 10px 0;
-  color: #29b6f6;
+  color: #42d65f;
   font-size: 17px;
 }
 
 .suggestion-box p {
   margin: 0 0 16px 0;
-  color: #dcefff;
+  color: #d8e2ef;
   line-height: 1.5;
   font-size: 14px;
 }
@@ -242,17 +206,18 @@
 }
 
 .new-request-btn {
-  background: #29b6f6;
+  background: #42d65f;
   color: white;
 }
 
 .new-request-btn:hover {
-  background: #0288d1;
+  background: #1ea83d;
 }
 
 .abandon-btn {
-  background: rgba(255, 77, 77, 0.2);
+  background: rgba(255, 77, 77, 0.14);
   color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.55);
 }
 
 .abandon-btn:hover {
@@ -260,12 +225,182 @@
   color: white;
 }
 
+/* Hide button */
+
+.hide-request-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 77, 77, 0.14) !important;
+  color: #ff4d4d !important;
+  border: 1px solid rgba(255, 77, 77, 0.65) !important;
+  box-shadow: none !important;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.hide-request-btn:hover {
+  background: #ff4d4d !important;
+  color: #ffffff !important;
+  border-color: #ff4d4d !important;
+  transform: none !important;
+}
+
+/* Light mode */
+
+:host-context(body.light-theme) {
+  --client-main: #15803d;
+  --client-main-dark: #166534;
+  --client-border: rgba(21, 128, 61, 0.38);
+  --client-soft: rgba(21, 128, 61, 0.08);
+  --client-bg: #f4f7fb;
+  --client-card-bg: #ffffff;
+  --client-text: #06101f;
+  --client-muted: #213247;
+  --client-line: rgba(6, 16, 31, 0.12);
+}
+
+:host-context(body.light-theme) .client-coach-requests-page {
+  background: var(--client-bg) !important;
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) .page-header h1,
+:host-context(body.light-theme) h1,
+:host-context(body.light-theme) h2 {
+  color: var(--client-main) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .page-header p,
+:host-context(body.light-theme) .results-count {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border-color: var(--client-main) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .request-card,
+:host-context(body.light-theme) .empty-card,
+:host-context(body.light-theme) .suggestion-box {
+  background: var(--client-card-bg) !important;
+  color: var(--client-text) !important;
+  border-color: var(--client-border) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .filter-group label,
+:host-context(body.light-theme) label,
+:host-context(body.light-theme) strong {
+  color: var(--client-text) !important;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) input,
+:host-context(body.light-theme) select,
+:host-context(body.light-theme) textarea {
+  background: #ffffff !important;
+  color: var(--client-text) !important;
+  border: 1px solid var(--client-border) !important;
+}
+
+:host-context(body.light-theme) input:focus,
+:host-context(body.light-theme) select:focus,
+:host-context(body.light-theme) textarea:focus {
+  outline: none !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.14) !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn,
+:host-context(body.light-theme) .abandon-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border: 1px solid var(--client-border) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+  border-color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .abandon-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+}
+
+:host-context(body.light-theme) .new-request-btn {
+  background: linear-gradient(135deg, var(--client-main), var(--client-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+:host-context(body.light-theme) .new-request-btn:hover {
+  background: linear-gradient(135deg, #16a34a, #166534) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .request-card h2,
+:host-context(body.light-theme) .suggestion-box h4 {
+  color: var(--client-main) !important;
+}
+
+:host-context(body.light-theme) .request-card p,
+:host-context(body.light-theme) .suggestion-box p {
+  color: var(--client-muted) !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .hide-request-btn {
+  background: rgba(220, 38, 38, 0.10) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(220, 38, 38, 0.45) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .hide-request-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  transform: none !important;
+}
+
+/* Responsive */
+
 @media (max-width: 800px) {
   .requests-grid {
     grid-template-columns: 1fr;
   }
 
-  .coach-requests-page {
+  .client-coach-requests-page {
     padding: 30px;
   }
 

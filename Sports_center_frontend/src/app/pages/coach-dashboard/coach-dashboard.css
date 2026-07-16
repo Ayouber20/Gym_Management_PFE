@@ -1,3 +1,13 @@
+:host {
+  --coach-announcement-title: #ffffff;
+  --coach-announcement-text: #ffe7d1;
+}
+
+:host-context(body.light-theme) {
+  --coach-announcement-title: #b45309;
+  --coach-announcement-text: #213247;
+}
+
 .coach-dashboard {
   min-height: 100vh;
   padding: 50px;
@@ -6,11 +16,8 @@
   text-align: center;
   box-sizing: border-box;
   position: relative;
-
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.82), rgba(3, 10, 20, 0.94)),
-    url('/assets/images/sports-bg.jpg');
-
+  background: linear-gradient(rgba(3, 10, 20, 0.82), rgba(3, 10, 20, 0.94)),
+    url("/assets/images/sports-bg.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -30,8 +37,6 @@
   margin-bottom: 45px;
 }
 
-/* LOGOUT */
-
 .logout-btn {
   margin-bottom: 25px;
   padding: 11px 22px;
@@ -49,22 +54,15 @@
   color: white;
 }
 
-/* NOTIFICATIONS */
-
 .notifications-card {
   max-width: 950px;
   margin: 30px auto 40px auto;
   padding: 28px;
-
-  background:
-    linear-gradient(145deg, rgba(33, 23, 6, 0.96), rgba(35, 31, 17, 0.96));
-
+  background: linear-gradient(145deg, rgba(33, 23, 6, 0.96), rgba(35, 31, 17, 0.96));
   border: 1px solid rgba(163, 75, 24, 0.7);
   border-radius: 22px;
   color: white;
-
-  box-shadow:
-    0 0 22px rgba(255, 124, 37, 0.12),
+  box-shadow: 0 0 22px rgba(255, 124, 37, 0.12),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
@@ -81,7 +79,6 @@
   font-size: 24px;
   letter-spacing: 1px;
   font-weight: 900;
-
   display: flex;
   align-items: center;
   gap: 10px;
@@ -92,17 +89,13 @@
   height: 34px;
   padding: 0 10px;
   border-radius: 999px;
-
   background: rgba(66, 214, 95, 0.18);
   color: #dfffea;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 900;
 }
-
 
 .notification-badge.zero {
   background: rgba(255, 255, 255, 0.15);
@@ -113,17 +106,13 @@
   display: flex;
   align-items: center;
   gap: 16px;
-
   position: relative;
   cursor: pointer;
-
   padding: 16px 18px;
   border-radius: 16px;
   margin-bottom: 14px;
-
   background: rgba(37, 191, 255, 0.08);
   border-left: 5px solid #25bfff;
-
   text-align: left;
   transition: 0.25s;
 }
@@ -150,14 +139,11 @@
   width: 42px;
   height: 42px;
   min-width: 42px;
-
   border-radius: 50%;
   background: rgba(37, 191, 255, 0.14);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 22px;
   flex-shrink: 0;
 }
@@ -194,26 +180,20 @@
   height: 28px;
   min-width: 28px;
   min-height: 28px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-left: auto;
   align-self: center;
-
   border-radius: 50%;
   border: 1px solid #ff4d4d;
   background: rgba(255, 77, 77, 0.15);
   color: #ff4d4d;
-
   font-size: 16px;
   font-weight: 900;
   line-height: 1;
-
   cursor: pointer;
   transition: 0.25s;
-
   padding: 0;
   flex-shrink: 0;
 }
@@ -229,26 +209,16 @@
   font-weight: bold;
 }
 
-/* ANNOUNCEMENTS */
-
-/* ANNOUNCEMENTS - COACH THEME */
-
 .announcements-section {
   max-width: 950px;
   margin: 30px auto;
   padding: 25px;
-
-  background:
-    linear-gradient(145deg, rgba(33, 23, 6, 0.94), rgba(35, 31, 17, 0.94));
-
+  background: linear-gradient(145deg, rgba(33, 23, 6, 0.94), rgba(35, 31, 17, 0.94));
   border: 1px solid rgba(255, 122, 0, 0.7);
   border-radius: 22px;
-
   color: white;
   text-align: left;
-
-  box-shadow:
-    0 0 22px rgba(255, 122, 0, 0.14),
+  box-shadow: 0 0 22px rgba(255, 122, 0, 0.14),
     inset 0 0 28px rgba(255, 255, 255, 0.02);
 }
 
@@ -259,7 +229,6 @@
   font-size: 24px;
   letter-spacing: 1px;
   font-weight: 900;
-
   display: flex;
   align-items: center;
   gap: 10px;
@@ -268,11 +237,9 @@
 .announcement-item {
   padding: 18px;
   margin-bottom: 15px;
-
   background: rgba(255, 122, 0, 0.10);
   border-left: 5px solid #ff7a00;
   border-radius: 14px;
-
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
 }
 
@@ -282,22 +249,19 @@
 
 .announcement-item h3 {
   margin: 0 0 10px 0;
-  color: #ffffff;
+  color: var(--coach-announcement-title, #ffffff);
 }
 
 .announcement-item p {
   margin: 0;
-  color: #ffe7d1;
+  color: var(--coach-announcement-text, #ffe7d1);
   line-height: 1.6;
 }
-
-/* DASHBOARD CARDS */
 
 .dashboard-cards {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
@@ -306,21 +270,17 @@
 .dashboard-card {
   position: relative;
   overflow: hidden;
-
   min-height: 260px;
   padding: 30px;
   border-radius: 20px;
   box-sizing: border-box;
-
   border: 1px solid rgb(85, 46, 10);
   box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45);
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
-
   background-size: cover;
   background-position: center;
   transition: 0.3s;
@@ -337,13 +297,10 @@
   content: "";
   position: absolute;
   inset: 0;
-
-  background:
-    linear-gradient(
-      rgba(3, 10, 20, 0.76),
-      rgba(3, 10, 20, 0.94)
+  background: linear-gradient(
+      rgba(3, 10, 20, 0.68),
+      rgba(3, 10, 20, 0.88)
     );
-
   z-index: 0;
 }
 
@@ -351,10 +308,8 @@
   content: "";
   position: absolute;
   inset: 0;
-
-  background: rgba(3, 10, 20, 0.22);
-  backdrop-filter: grayscale(75%) saturate(45%);
-
+  background: rgba(3, 10, 20, 0.18);
+  backdrop-filter: grayscale(45%) saturate(70%) brightness(0.82) contrast(0.95);
   z-index: 0;
 }
 
@@ -363,21 +318,6 @@
 .dashboard-card button {
   position: relative;
   z-index: 2;
-}
-
-.dashboard-card h2 {
-  font-size: 24px;
-  margin: 0 0 15px 0;
-  color: white;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.75);
-}
-
-.dashboard-card p {
-  color: #eef6ff;
-  font-size: 15px;
-  line-height: 1.6;
-  margin: 0 0 25px 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
 .dashboard-card:nth-child(1) {
@@ -404,16 +344,12 @@
   animation-delay: 0.40s;
 }
 
-/* BUTTONS */
-
 button {
   padding: 12px 24px;
   border: none;
   border-radius: 10px;
-
   background: linear-gradient(135deg, #ff7a00, #ff9d00);
   color: white;
-
   font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
@@ -423,82 +359,67 @@ button:hover {
   box-shadow: 0 8px 18px rgba(255, 122, 0, 0.4);
 }
 
-/* COACH CARD IMAGES */
-
-.requests-card {
-  background-image: url('/assets/images/coach-requests-card.jpg');
-}
-
-.sessions-card {
-  background-image: url('/assets/images/coach-sessions-card.jpg');
-}
-
-.lessons-card {
-  background-image: url('/assets/images/coach-lessons-card.jpg');
-}
-
-.leavings-card {
-  background-image: url('/assets/images/coach-leavings-card.jpg');
-}
-
-.events-card {
-  background-image: url('/assets/images/events-card.jpg');
-}
-
-/* RED DOT */
-
 .red-dot {
   position: absolute;
   top: 18px;
   right: 18px;
   z-index: 5;
-
   width: 13px;
   height: 13px;
   border-radius: 50%;
-
   background: #ff2d2d;
   box-shadow: 0 0 12px rgba(255, 45, 45, 0.9);
-
   pointer-events: none;
 }
 
 .red-dot::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: -5px;
-
   border-radius: 50%;
   border: 1px solid rgba(255, 45, 45, 0.75);
-
   animation: redPulse 1.4s infinite;
+}
+
+:host-context(body.light-theme) .announcements-section h2 {
+  color: #b45309 !important;
+}
+
+:host-context(body.light-theme) .announcement-item h3,
+:host-context(body.light-theme) .announcement-item strong,
+:host-context(body.light-theme) .announcement-title {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .announcement-item p {
+  color: #213247 !important;
+  text-shadow: none !important;
 }
 
 @keyframes redPulse {
   0% {
-    transform: scale(0.8);
-    opacity: 0.9;
-  }
+      transform: scale(0.8);
+      opacity: 0.9;
+    }
 
   100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
+      transform: scale(1.8);
+      opacity: 0;
+    }
 }
 
 @keyframes cardFadeUp {
   from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
+      opacity: 0;
+      transform: translateY(22px);
+    }
 
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+      opacity: 1;
+      transform: translateY(0);
+    }
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 800px) {
   .coach-dashboard {
@@ -525,4 +446,229 @@ button:hover {
   .notification-content {
     text-align: left;
   }
+
 }
+
+:host-context(body.light-theme) .coach-dashboard .announcement-item h3,
+:host-context(body.light-theme) .coach-dashboard .announcement-item h3 *,
+:host-context(body.light-theme) .coach-dashboard .announcement-title,
+:host-context(body.light-theme) .coach-dashboard .announcement-title * {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .coach-dashboard .announcement-item p,
+:host-context(body.light-theme) .coach-dashboard .announcement-item p * {
+  color: #213247 !important;
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme) .announcement-item {
+  border-color: rgba(180, 83, 9, 0.35) !important;
+  background: rgba(180, 83, 9, 0.22) !important;
+  border: 1px solid rgba(180, 83, 9, 0.12) !important;
+  border-left: 5px solid #b45309 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 20px rgba(15, 40, 70, 0.08) !important;
+}
+
+:host-context(body.light-theme) .announcement-item:hover {
+  background: rgba(180, 83, 9, 0.12) !important;
+  border-color: rgba(180, 83, 9, 0.35) !important;
+  transform: translateY(-2px);
+}
+
+:host-context(body.light-theme) .dashboard-card::before {
+  background: linear-gradient(
+      rgba(3, 10, 20, 0.42),
+      rgba(3, 10, 20, 0.62)
+    ) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card::after {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: grayscale(40%) saturate(70%) brightness(0.84) contrast(0.90) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card h2 {
+  color: #ff8a00 !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card p {
+  color: #ffffff !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9) !important;
+}
+
+:host-context(body.light-theme) .dashboard-card button {
+  background: linear-gradient(135deg, #ff7a00, #b45309) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(180, 83, 9, 0.30) !important;
+}
+
+.coach-dashboard .dashboard-card {
+  background: transparent !important;
+  background-image: none !important;
+  transform: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.coach-dashboard .dashboard-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--card-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  transform: scale(1) !important;
+  transform-origin: center !important;
+  transition: transform 0.45s ease !important;
+  z-index: 0 !important;
+}
+
+.coach-dashboard .dashboard-card:hover::before {
+  transform: scale(1.08) !important;
+}
+
+.coach-dashboard .dashboard-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(rgba(3, 10, 20, 0.58), rgba(3, 10, 20, 0.80)) !important;
+  backdrop-filter: grayscale(35%) saturate(90%) brightness(0.88) contrast(1.02) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.coach-dashboard .dashboard-card h2,
+.coach-dashboard .dashboard-card p,
+.coach-dashboard .dashboard-card button,
+.coach-dashboard .dashboard-card .red-dot {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.coach-dashboard .requests-card {
+  --card-bg: url("/assets/images/coach-requests-card.jpg");
+}
+
+.coach-dashboard .sessions-card {
+  --card-bg: url("/assets/images/coach-sessions-card.jpg");
+}
+
+.coach-dashboard .lessons-card {
+  --card-bg: url("/assets/images/coach-lessons-card.jpg");
+}
+
+.coach-dashboard .leavings-card {
+  --card-bg: url("/assets/images/coach-leavings-card.jpg");
+}
+
+.coach-dashboard .events-card {
+  --card-bg: url("/assets/images/events-card.jpg");
+}
+
+:host-context(body.light-theme) .coach-dashboard .dashboard-card::before {
+  background-image: var(--card-bg) !important;
+}
+
+:host-context(body.light-theme) .coach-dashboard .dashboard-card::after {
+  background: linear-gradient(rgba(3, 10, 20, 0.42), rgba(3, 10, 20, 0.62)) !important;
+}
+
+.dashboard-card,
+:host-context(body.light-theme) .dashboard-card {
+  background-image: none !important;
+  background: transparent !important;
+  transform: none !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.dashboard-card:hover,
+:host-context(body.light-theme) .dashboard-card:hover {
+  transform: none !important;
+  box-shadow: 0 18px 40px rgba(255, 122, 0, 0.18) !important;
+}
+
+.dashboard-card::before,
+:host-context(body.light-theme) .dashboard-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-image: var(--card-bg) !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  transform: scale(1) !important;
+  transform-origin: center !important;
+  transition: transform 0.45s ease !important;
+  z-index: 0 !important;
+}
+
+.dashboard-card:hover::before,
+:host-context(body.light-theme) .dashboard-card:hover::before {
+  transform: scale(1.06) !important;
+}
+
+.dashboard-card::after,
+:host-context(body.light-theme) .dashboard-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(rgba(3, 10, 20, 0.48), rgba(3, 10, 20, 0.72)) !important;
+  backdrop-filter: grayscale(18%) saturate(95%) brightness(0.98) contrast(0.96) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.dashboard-card h2,
+.dashboard-card p,
+.dashboard-card button,
+.dashboard-card .red-dot {
+  position: relative !important;
+  z-index: 2 !important;
+  transform: none !important;
+}
+
+.dashboard-card h2 {
+  font-size: 24px;
+  margin: 0 0 15px 0;
+  color: #ff8a00 !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95) !important;
+}
+
+.dashboard-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  color: #ffffff !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95) !important;
+}
+
+.requests-card {
+  background-image: url("/assets/images/coach-requests-card.jpg");
+  --card-bg: url("/assets/images/coach-requests-card.jpg");
+}
+
+.sessions-card {
+  background-image: url("/assets/images/coach-sessions-card.jpg");
+  --card-bg: url("/assets/images/coach-sessions-card.jpg");
+}
+
+.lessons-card {
+  background-image: url("/assets/images/coach-lessons-card.jpg");
+  --card-bg: url("/assets/images/coach-lessons-card.jpg");
+}
+
+.leavings-card {
+  background-image: url("/assets/images/coach-leavings-card.jpg");
+  --card-bg: url("/assets/images/coach-leavings-card.jpg");
+}
+
+.events-card {
+  background-image: url("/assets/images/events-card.jpg");
+  --card-bg: url("/assets/images/events-card.jpg");
+}
+
+

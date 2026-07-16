@@ -94,7 +94,9 @@ export class CoachRequests {
     this.coachRequestService.getRequestsByCoach(this.currentCoachId)
       .subscribe({
         next: (data) => {
-          const coachRequests = data.sort((a, b) => {
+          const coachRequests = data
+            .filter(request => request.status === 'PENDING')
+            .sort((a, b) => {
             if (a.status === 'PENDING' && b.status !== 'PENDING') {
               return -1;
             }
@@ -232,31 +234,7 @@ export class CoachRequests {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'PENDING') {
-      return 'En attente';
-    }
-
-    if (status === 'ACCEPTED') {
-      return 'Acceptée';
-    }
-
-    if (status === 'REJECTED') {
-      return 'Refusée';
-    }
-
-    if (status === 'EXPIRED') {
-      return 'Expirée';
-    }
-
-    if (status === 'COMPLETED') {
-      return 'Terminée';
-    }
-
-    if (status === 'CANCELLED') {
-      return 'Annulée';
-    }
-
-    return status;
+    return status || '';
   }
 
   hideRequestForCoach(id: number): void {

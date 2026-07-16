@@ -9,3 +9,180 @@
   font-weight: bold;
   letter-spacing: 2px;
 }
+
+/* Animations */
+
+.card-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardEnter 0.45s forwards ease-out;
+}
+
+@keyframes cardEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-enter-soft {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: cardEnterSoft 0.4s forwards ease-out;
+}
+
+@keyframes cardEnterSoft {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-pop {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: cardPop 0.45s forwards ease-out;
+}
+
+@keyframes cardPop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Buttons */
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  opacity: 0;
+}
+
+.btn-ripple:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+}
+
+/* Loading */
+
+.loading-spinner {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Notifications */
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* Stagger */
+
+.stagger-item {
+  opacity: 0;
+  animation: staggerPop 0.55s forwards ease-out;
+}
+
+@keyframes staggerPop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover */
+
+.request-card,
+.session-card,
+.event-card,
+.class-card,
+.reservation-card,
+.court-card,
+.dashboard-card,
+.announcement-card {
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.request-card:hover,
+.session-card:hover,
+.event-card:hover,
+.class-card:hover,
+.reservation-card:hover,
+.court-card:hover,
+.dashboard-card:hover,
+.announcement-card:hover {
+  transform: none;
+}
+
+/* Light mode */
+
+body.light-theme {
+  background: #f4f7fb;
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+
+  .chatbot-window,
+  .request-card,
+  .session-card,
+  .event-card,
+  .class-card,
+  .reservation-card,
+  .court-card,
+  .dashboard-card,
+  .announcement-card,
+  .card-enter,
+  .card-enter-soft,
+  .card-pop,
+  .chat-message {
+    animation: none;
+    transform: none;
+  }
+}

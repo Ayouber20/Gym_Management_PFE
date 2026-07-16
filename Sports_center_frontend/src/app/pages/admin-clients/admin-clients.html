@@ -29,14 +29,14 @@
     <section class="form-card">
       <h2>Nouveau client</h2>
 
-      <label>Utilisateur :</label>
+      <label class="form-label">Utilisateur :</label>
       <select
-          [ngModel]="selectedUserId()"
-          (ngModelChange)="selectedUserId.set($event)">
+        [ngModel]="selectedUserId()"
+        (ngModelChange)="selectedUserId.set($event)">
 
-          <option [ngValue]="null">Choisir un utilisateur CLIENT...</option>
+        <option [ngValue]="null">Choisir un utilisateur CLIENT...</option>
 
-          @for (user of users(); track user.id) {
+        @for (user of users(); track user.id) {
           <option
             [ngValue]="user.id"
             [disabled]="isAlreadyClient(user.id)">
@@ -48,7 +48,7 @@
         }
       </select>
 
-      <label>Numéro d’adhésion :</label>
+      <label class="form-label">Numéro d’adhésion :</label>
       <input
         type="text"
         [ngModel]="membershipNumber()"

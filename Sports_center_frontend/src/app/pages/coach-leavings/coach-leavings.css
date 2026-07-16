@@ -7,24 +7,6 @@
   box-sizing: border-box;
 }
 
-.coach-leavings-page {
-  min-height: 100vh;
-  width: 100%;
-  padding: 45px 70px;
-  font-family: Arial, sans-serif;
-  color: white;
-
-  background:
-    linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
-    url('/assets/images/coach-bg.jpg');
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* Header */
-
 .page-header {
   text-align: center;
   margin-bottom: 42px;
@@ -50,16 +32,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-width: 210px;
   height: 42px;
   padding: 0 22px;
-
   border-radius: 9px;
   border: 1px solid #ff7a00;
   background: transparent;
   color: #ff7a00;
-
   font-weight: 800;
   cursor: pointer;
   transition: 0.25s;
@@ -69,8 +48,6 @@
   background: #ff7a00;
   color: #06101f;
 }
-
-/* Messages */
 
 .success-message,
 .error-message {
@@ -93,14 +70,11 @@
   border: 1px solid rgba(255, 77, 77, 0.7);
 }
 
-/* Cards */
-
 .form-card,
 .list-card {
   max-width: 980px;
   margin: 0 auto 35px auto;
   padding: 30px;
-
   background: rgba(6, 16, 31, 0.94);
   border: 1px solid rgba(255, 122, 0, 0.65);
   border-radius: 18px;
@@ -114,8 +88,6 @@
   font-size: 27px;
   margin: 0 0 26px 0;
 }
-
-/* Form */
 
 .form-grid {
   display: grid;
@@ -139,11 +111,9 @@
 .form-group textarea {
   width: 100%;
   padding: 13px 14px;
-
   border-radius: 10px;
   border: 1px solid rgba(255, 122, 0, 0.55);
   outline: none;
-
   background: rgba(2, 10, 22, 0.95);
   color: white;
 }
@@ -164,12 +134,10 @@
   margin: 8px auto 0 auto;
   min-width: 220px;
   height: 43px;
-
   border: none;
   border-radius: 10px;
   background: #ff7a00;
   color: white;
-
   font-weight: 800;
   cursor: pointer;
   text-transform: uppercase;
@@ -180,8 +148,6 @@
   background: #ff9d00;
   transform: translateY(-2px);
 }
-
-/* Table */
 
 .empty-text {
   text-align: center;
@@ -220,34 +186,6 @@ tbody tr:hover {
   background: rgba(255, 122, 0, 0.05);
 }
 
-/* Status */
-
-.status {
-  display: inline-block;
-  padding: 7px 13px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.status.pending {
-  background: rgba(255, 193, 7, 0.18);
-  color: #ffc107;
-}
-
-.status.accepted {
-  background: rgba(46, 204, 113, 0.18);
-  color: #2ecc71;
-}
-
-.status.rejected {
-  background: rgba(255, 77, 77, 0.18);
-  color: #ff4d4d;
-}
-
-/* Responsive */
-
 @media (max-width: 900px) {
   .coach-leavings-page {
     padding: 35px 24px;
@@ -260,4 +198,182 @@ tbody tr:hover {
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+}
+
+.coach-leavings-page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 45px 70px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: linear-gradient(rgba(3, 10, 20, 0.88), rgba(3, 10, 20, 0.96)),
+    url("/assets/images/coach-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  --coach-main: #ff7a00;
+  --coach-main-dark: #d65f00;
+  --coach-border: rgba(255, 122, 0, 0.65);
+  --coach-soft: rgba(255, 122, 0, 0.12);
+}
+
+.coach-leavings-page .form-card,
+.coach-leavings-page .list-card {
+  border-color: var(--coach-border) !important;
+}
+
+.coach-leavings-page input,
+.coach-leavings-page select,
+.coach-leavings-page textarea {
+  border-color: var(--coach-border) !important;
+}
+
+.coach-leavings-page input:focus,
+.coach-leavings-page select:focus,
+.coach-leavings-page textarea:focus {
+  border-color: var(--coach-main) !important;
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.16) !important;
+}
+
+.coach-leavings-page .submit-btn {
+  background: linear-gradient(135deg, var(--coach-main), var(--coach-main-dark)) !important;
+  color: #ffffff !important;
+}
+
+.coach-leavings-page .submit-btn:hover {
+  background: linear-gradient(135deg, #ff8a00, #c25100) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page {
+  --coach-main: #b45309;
+  --coach-main-dark: #92400e;
+  --coach-border: rgba(180, 83, 9, 0.38);
+  --coach-soft: rgba(180, 83, 9, 0.10);
+  background: #f4f7fb !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page h1,
+:host-context(body.light-theme) .coach-leavings-page h2 {
+  color: var(--coach-main) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .subtitle,
+:host-context(body.light-theme) .coach-leavings-page .empty-text {
+  color: #213247 !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .back-btn {
+  color: var(--coach-main) !important;
+  border-color: var(--coach-main) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .back-btn:hover {
+  background: var(--coach-main) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .form-card,
+:host-context(body.light-theme) .coach-leavings-page .list-card {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border-color: var(--coach-border) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .form-group label {
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page input,
+:host-context(body.light-theme) .coach-leavings-page select,
+:host-context(body.light-theme) .coach-leavings-page textarea {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid var(--coach-border) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page input:focus,
+:host-context(body.light-theme) .coach-leavings-page select:focus,
+:host-context(body.light-theme) .coach-leavings-page textarea:focus {
+  border-color: var(--coach-main) !important;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.14) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .submit-btn {
+  background: linear-gradient(135deg, var(--coach-main), var(--coach-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page .submit-btn:hover {
+  background: linear-gradient(135deg, #c75b0b, #92400e) !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page table,
+:host-context(body.light-theme) .coach-leavings-page tbody,
+:host-context(body.light-theme) .coach-leavings-page tr,
+:host-context(body.light-theme) .coach-leavings-page td {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page th {
+  color: var(--coach-main) !important;
+}
+
+:host-context(body.light-theme) .coach-leavings-page td {
+  border-bottom-color: rgba(6, 16, 31, 0.12) !important;
+}
+
+:host-context(body.light-theme) .list-card h2,
+:host-context(body.light-theme) .form-card h2,
+:host-context(body.light-theme) th,
+:host-context(body.light-theme) .empty-text {
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .page-header h1,
+:host-context(body.light-theme) .back-btn {
+  color: #b45309 !important;
+  border-color: #b45309 !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: #b45309 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .form-card h2,
+:host-context(body.light-theme) .list-card h2 {
+  color: #b45309 !important;
+}
+
+:host-context(body.light-theme) th {
+  background: #7c2d12 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) .form-group label {
+  color: #06101f !important;
+}
+
+.coach-leavings-page .list-card table thead th,
+.coach-leavings-page .table-wrapper table thead th,
+.coach-leavings-page table thead tr th,
+:host-context(body.light-theme) .coach-leavings-page .list-card table thead th,
+:host-context(body.light-theme) .coach-leavings-page .table-wrapper table thead th,
+:host-context(body.light-theme) .coach-leavings-page table thead tr th {
+  background: #7c2d12 !important;
+  color: #ffffff !important;
+}
+
+.coach-leavings-page .list-card table thead th *,
+.coach-leavings-page .table-wrapper table thead th *,
+:host-context(body.light-theme) .coach-leavings-page .list-card table thead th *,
+:host-context(body.light-theme) .coach-leavings-page .table-wrapper table thead th * {
+  color: #ffffff !important;
 }

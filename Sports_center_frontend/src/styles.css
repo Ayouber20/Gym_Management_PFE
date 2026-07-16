@@ -1,34 +1,65 @@
-/* GLOBAL LIGHT THEME */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #07111f;
+  overflow-x: hidden;
+}
 
 body.light-theme {
   background: #f4f7fb;
-  color: #06101f;
 }
 
-/* MAIN PAGE BACKGROUNDS */
+app-root {
+  display: block;
+  min-height: 100vh;
+  background: inherit;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body.light-theme .client-dashboard,
 body.light-theme .coach-dashboard,
 body.light-theme .admin-dashboard,
+
+body.light-theme .admin-users-page,
+body.light-theme .admin-clients-page,
+body.light-theme .admin-coaches-page,
+body.light-theme .admin-announcements-page,
+body.light-theme .announcements-admin-page,
 body.light-theme .admin-events-page,
-body.light-theme .client-events-page,
-body.light-theme .coach-events-page,
-body.light-theme .client-group-classes-page,
-body.light-theme .coach-group-classes-page,
 body.light-theme .admin-courts-page,
-body.light-theme .coach-requests-page,
-body.light-theme .coach-sessions-page,
-body.light-theme .coach-leavings-page,
-body.light-theme .client-reservations-page,
-body.light-theme .client-coach-requests-page,
 body.light-theme .admin-reservations-page,
 body.light-theme .admin-coach-requests-page,
-body.light-theme .admin-statistics-page {
-  background: #f4f7fb !important;
-  color: #06101f !important;
-}
+body.light-theme .admin-coach-leavings-page,
+body.light-theme .admin-coach-leaves-page,
+body.light-theme .admin-leavings-page,
+body.light-theme .admin-statistics-page,
+body.light-theme .statistics-page,
 
-/* TITLES */
+body.light-theme .client-events-page,
+body.light-theme .client-group-classes-page,
+body.light-theme .client-coach-requests-page,
+body.light-theme .client-reservations-page,
+body.light-theme .reservations-page,
+body.light-theme .tennis-page,
+
+body.light-theme .coach-events-page,
+body.light-theme .group-classes-page,
+body.light-theme .coach-group-classes-page,
+body.light-theme .coach-requests-page,
+body.light-theme .coach-request-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .coach-leavings-page {
+  background: var(--light-bg) !important;
+  color: var(--light-text-main) !important;
+}
 
 body.light-theme h1,
 body.light-theme h2,
@@ -36,16 +67,22 @@ body.light-theme h3 {
   text-shadow: none !important;
 }
 
+body.light-theme .admin-dashboard h1,
+body.light-theme .client-dashboard h1,
+body.light-theme .coach-dashboard h1,
+body.light-theme .page-header h1 {
+  color: var(--light-primary) !important;
+}
+
 body.light-theme .page-header p,
-body.light-theme .subtitle {
-  color: #213247 !important;
+body.light-theme .subtitle,
+body.light-theme .description {
+  color: var(--light-text-muted) !important;
 }
 
 body.light-theme .results-count {
-  color: #06101f !important;
+  color: var(--light-text-main) !important;
 }
-
-/* NORMAL CARDS - NOT DASHBOARD IMAGE CARDS */
 
 body.light-theme .notifications-card,
 body.light-theme .announcements-section,
@@ -58,14 +95,26 @@ body.light-theme .empty-card,
 body.light-theme .request-card,
 body.light-theme .reservation-card,
 body.light-theme .session-card,
-body.light-theme .leave-card {
-  background: rgba(255, 255, 255, 0.94) !important;
-  color: #06101f !important;
-  border-color: rgba(0, 120, 180, 0.35) !important;
-  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.14) !important;
+body.light-theme .leave-card,
+body.light-theme .leaving-card,
+body.light-theme .stats-card,
+body.light-theme .stat-card,
+body.light-theme .statistics-card,
+body.light-theme .metric-card,
+body.light-theme .users-list,
+body.light-theme .clients-list,
+body.light-theme .coaches-list,
+body.light-theme .reservations-list,
+body.light-theme .requests-list,
+body.light-theme .leavings-list,
+body.light-theme .leaves-list,
+body.light-theme .table-card,
+body.light-theme .list-card {
+  background: var(--light-card-bg) !important;
+  color: var(--light-text-main) !important;
+  border-color: var(--light-primary-border) !important;
+  box-shadow: 0 12px 28px var(--light-card-shadow) !important;
 }
-
-/* TEXT INSIDE NORMAL CARDS */
 
 body.light-theme .event-card p,
 body.light-theme .class-card p,
@@ -74,98 +123,365 @@ body.light-theme .request-card p,
 body.light-theme .reservation-card p,
 body.light-theme .session-card p,
 body.light-theme .leave-card p,
+body.light-theme .leaving-card p,
 body.light-theme .notification-content p,
 body.light-theme .announcement-item p,
-body.light-theme .description {
-  color: #213247 !important;
+body.light-theme .announcement-card p,
+body.light-theme .announcement-box p {
+  color: var(--light-text-muted) !important;
   text-shadow: none !important;
 }
 
 body.light-theme strong,
 body.light-theme label {
-  color: #06101f !important;
+  color: var(--light-text-main) !important;
 }
-
-/* INPUTS */
 
 body.light-theme input,
 body.light-theme select,
 body.light-theme textarea {
   background: #ffffff !important;
-  color: #06101f !important;
-  border-color: rgba(0, 120, 180, 0.35) !important;
+  color: var(--light-text-main) !important;
+  border: 1px solid var(--light-primary-border) !important;
 }
 
-/* FILTERS */
-
-body.light-theme .filters-card {
-  background: #ffffff !important;
-  border-color: rgba(0, 120, 180, 0.35) !important;
-  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.12) !important;
+body.light-theme input:focus,
+body.light-theme select:focus,
+body.light-theme textarea:focus {
+  outline: none !important;
+  border-color: var(--light-primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.14) !important;
 }
 
 body.light-theme .filter-group label {
-  color: #06101f !important;
+  color: var(--light-text-main) !important;
 }
 
-/* NOTIFICATION ITEMS */
+body.light-theme .back-btn {
+  border-color: var(--light-primary) !important;
+  color: var(--light-primary) !important;
+  background: transparent !important;
+}
+
+body.light-theme .back-btn:hover {
+  background: var(--light-primary) !important;
+  color: white !important;
+}
+
+body.light-theme .create-btn,
+body.light-theme .submit-btn,
+body.light-theme .publish-btn,
+body.light-theme .add-btn,
+body.light-theme .save-btn,
+body.light-theme button[type="submit"] {
+  background: linear-gradient(
+    135deg,
+    var(--light-primary),
+    var(--light-primary-dark)
+  ) !important;
+  color: white !important;
+  border: none !important;
+}
+
+body.light-theme .create-btn:hover,
+body.light-theme .submit-btn:hover,
+body.light-theme .publish-btn:hover,
+body.light-theme .add-btn:hover,
+body.light-theme .save-btn:hover,
+body.light-theme button[type="submit"]:hover {
+  background: linear-gradient(
+    135deg,
+    #0088cc,
+    #005f8f
+  ) !important;
+  color: white !important;
+  border: none !important;
+  transform: translateY(-2px);
+}
+
+body.light-theme .clear-btn,
+body.light-theme .reset-btn,
+body.light-theme .clear-filters-btn {
+  color: var(--light-text-main) !important;
+  border-color: var(--light-primary-border) !important;
+  background: transparent !important;
+}
+
+body.light-theme .clear-btn:hover,
+body.light-theme .reset-btn:hover,
+body.light-theme .clear-filters-btn:hover {
+  background: var(--light-primary) !important;
+  color: white !important;
+  border-color: var(--light-primary) !important;
+}
+
+body.light-theme .disable-btn,
+body.light-theme .deactivate-btn,
+body.light-theme .warning-btn,
+body.light-theme .status-disable-btn {
+  background: rgba(255, 122, 0, 0.12) !important;
+  color: var(--light-orange) !important;
+  border: 1px solid var(--light-orange) !important;
+}
+
+body.light-theme .disable-btn:hover,
+body.light-theme .deactivate-btn:hover,
+body.light-theme .warning-btn:hover,
+body.light-theme .status-disable-btn:hover {
+  background: var(--light-orange) !important;
+  color: white !important;
+  border-color: var(--light-orange) !important;
+}
+
+body.light-theme .announcement-actions button:first-child:not(.delete-btn):not(.reactivate-btn),
+body.light-theme .event-actions button:first-child:not(.delete-btn):not(.reactivate-btn) {
+  color: var(--light-orange) !important;
+  border-color: var(--light-orange) !important;
+}
+
+body.light-theme .announcement-actions button:first-child:not(.delete-btn):not(.reactivate-btn):hover,
+body.light-theme .event-actions button:first-child:not(.delete-btn):not(.reactivate-btn):hover {
+  background: var(--light-orange) !important;
+  color: white !important;
+}
+
+body.light-theme table {
+  background: #ffffff !important;
+  color: var(--light-text-main) !important;
+}
+
+body.light-theme thead,
+body.light-theme th {
+  background: var(--light-table-header) !important;
+  color: white !important;
+}
+
+body.light-theme td {
+  background: #ffffff !important;
+  color: var(--light-text-main) !important;
+  border-bottom-color: var(--light-table-border) !important;
+}
+
+body.light-theme tbody tr:hover td {
+  background: rgba(0, 119, 182, 0.06) !important;
+}
+
+body.light-theme .admin-coach-leavings-page .table-section,
+body.light-theme .admin-coach-leavings-page .table-wrapper,
+body.light-theme .admin-coach-leavings-page .table-card,
+body.light-theme .admin-coach-leavings-page .list-card,
+body.light-theme .admin-coach-leavings-page .leave-list,
+body.light-theme .admin-coach-leavings-page .leaves-list,
+body.light-theme .admin-coach-leavings-page .leavings-list,
+body.light-theme .admin-coach-leavings-page .requests-list,
+body.light-theme .admin-coach-leavings-page .leave-requests-list,
+body.light-theme .admin-coach-leavings-page .coach-leavings-list,
+body.light-theme .admin-coach-leavings-page .coach-leaves-list,
+body.light-theme .admin-coach-leavings-page .leavings-container,
+body.light-theme .admin-coach-leavings-page .leaves-container,
+body.light-theme .admin-coach-leavings-page .requests-container {
+  background: #ffffff !important;
+  color: var(--light-text-main) !important;
+  border: 1px solid var(--light-primary-border) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+body.light-theme .admin-coach-leavings-page .table-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .admin-coach-leavings-page .table-section h2,
+body.light-theme .admin-coach-leavings-page .table-wrapper h2,
+body.light-theme .admin-coach-leavings-page .table-card h2,
+body.light-theme .admin-coach-leavings-page .list-card h2,
+body.light-theme .admin-coach-leavings-page .leave-list h2,
+body.light-theme .admin-coach-leavings-page .leaves-list h2,
+body.light-theme .admin-coach-leavings-page .leavings-list h2,
+body.light-theme .admin-coach-leavings-page .requests-list h2,
+body.light-theme .admin-coach-leavings-page .leave-requests-list h2,
+body.light-theme .admin-coach-leavings-page .coach-leavings-list h2,
+body.light-theme .admin-coach-leavings-page .coach-leaves-list h2 {
+  color: var(--light-primary) !important;
+}
+
+body.light-theme .admin-coach-leavings-page .finished,
+body.light-theme .admin-coach-leavings-page .done,
+body.light-theme .admin-coach-leavings-page .completed-action,
+body.light-theme .admin-coach-leavings-page .action-finished {
+  color: var(--light-primary) !important;
+  font-weight: 800 !important;
+}
+
+body.light-theme .admin-announcements-page .announcements-card,
+body.light-theme .admin-announcements-page .list-card,
+body.light-theme .announcements-admin-page .announcements-card,
+body.light-theme .announcements-admin-page .list-card {
+  background: #ffffff !important;
+  border: 1px solid var(--light-primary-border) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+body.light-theme .admin-announcements-page .announcements-list,
+body.light-theme .admin-announcements-page .published-announcements,
+body.light-theme .admin-announcements-page .published-list,
+body.light-theme .admin-announcements-page .announcements-wrapper,
+body.light-theme .admin-announcements-page .announcements-container,
+body.light-theme .announcements-admin-page .announcements-list,
+body.light-theme .announcements-admin-page .published-announcements,
+body.light-theme .announcements-admin-page .published-list,
+body.light-theme .announcements-admin-page .announcements-wrapper,
+body.light-theme .announcements-admin-page .announcements-container {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+body.light-theme .admin-announcements-page .announcement-card,
+body.light-theme .admin-announcements-page .announcement-item,
+body.light-theme .admin-announcements-page .announcement-box,
+body.light-theme .announcements-admin-page .announcement-card,
+body.light-theme .announcements-admin-page .announcement-item,
+body.light-theme .announcements-admin-page .announcement-box {
+  background: #ffffff !important;
+  color: var(--light-text-main) !important;
+  border: 1px solid var(--light-primary-border) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .admin-announcements-page .announcement-card h3,
+body.light-theme .admin-announcements-page .announcement-item h3,
+body.light-theme .admin-announcements-page .announcement-box h3,
+body.light-theme .announcements-admin-page .announcement-card h3,
+body.light-theme .announcements-admin-page .announcement-item h3,
+body.light-theme .announcements-admin-page .announcement-box h3 {
+  color: var(--light-primary) !important;
+}
+
+body.light-theme .admin-announcements-page .announcement-card p,
+body.light-theme .admin-announcements-page .announcement-item p,
+body.light-theme .admin-announcements-page .announcement-box p,
+body.light-theme .announcements-admin-page .announcement-card p,
+body.light-theme .announcements-admin-page .announcement-item p,
+body.light-theme .announcements-admin-page .announcement-box p,
+body.light-theme .admin-announcements-page .announcement-card small,
+body.light-theme .admin-announcements-page .announcement-item small,
+body.light-theme .admin-announcements-page .announcement-box small,
+body.light-theme .announcements-admin-page .announcement-card small,
+body.light-theme .announcements-admin-page .announcement-item small,
+body.light-theme .announcements-admin-page .announcement-box small {
+  color: var(--light-text-muted) !important;
+}
+
+body.light-theme .audience-badge,
+body.light-theme .announcement-target,
+body.light-theme .target-badge {
+  background: rgba(0, 119, 182, 0.10) !important;
+  color: var(--light-primary) !important;
+  border: 1px solid var(--light-primary) !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card,
+body.light-theme .admin-statistics-page .stats-card,
+body.light-theme .admin-statistics-page .statistics-card,
+body.light-theme .admin-statistics-page .metric-card,
+body.light-theme .statistics-page .stat-card,
+body.light-theme .statistics-page .stats-card,
+body.light-theme .statistics-page .statistics-card,
+body.light-theme .statistics-page .metric-card {
+  background: #ffffff !important;
+  color: var(--light-text-main) !important;
+  border: 1px solid var(--light-primary-border) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card h2,
+body.light-theme .admin-statistics-page .stat-card h3,
+body.light-theme .admin-statistics-page .stat-card strong,
+body.light-theme .admin-statistics-page .stats-card h2,
+body.light-theme .admin-statistics-page .stats-card h3,
+body.light-theme .admin-statistics-page .stats-card strong,
+body.light-theme .admin-statistics-page .statistics-card h2,
+body.light-theme .admin-statistics-page .statistics-card h3,
+body.light-theme .admin-statistics-page .statistics-card strong,
+body.light-theme .admin-statistics-page .metric-card h2,
+body.light-theme .admin-statistics-page .metric-card h3,
+body.light-theme .admin-statistics-page .metric-card strong {
+  color: var(--light-primary) !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card p,
+body.light-theme .admin-statistics-page .stat-card span,
+body.light-theme .admin-statistics-page .stat-card small,
+body.light-theme .admin-statistics-page .stats-card p,
+body.light-theme .admin-statistics-page .stats-card span,
+body.light-theme .admin-statistics-page .stats-card small,
+body.light-theme .admin-statistics-page .statistics-card p,
+body.light-theme .admin-statistics-page .statistics-card span,
+body.light-theme .admin-statistics-page .statistics-card small,
+body.light-theme .admin-statistics-page .metric-card p,
+body.light-theme .admin-statistics-page .metric-card span,
+body.light-theme .admin-statistics-page .metric-card small {
+  color: var(--light-text-muted) !important;
+}
+
+body.light-theme .admin-statistics-page .stat-number,
+body.light-theme .admin-statistics-page .number,
+body.light-theme .admin-statistics-page .count,
+body.light-theme .statistics-page .stat-number,
+body.light-theme .statistics-page .number,
+body.light-theme .statistics-page .count {
+  color: var(--light-primary) !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card::before,
+body.light-theme .admin-statistics-page .stat-card::after,
+body.light-theme .statistics-page .stat-card::before,
+body.light-theme .statistics-page .stat-card::after {
+  background: rgba(0, 119, 182, 0.10) !important;
+}
 
 body.light-theme .notification-item,
-body.light-theme .top-notification-item,
-body.light-theme .announcement-item {
-  background: rgba(0, 160, 220, 0.08) !important;
+body.light-theme .top-notification-item {
+  background: rgba(0, 119, 182, 0.08) !important;
 }
-
-/* CHATBOT */
 
 body.light-theme .chatbot-window {
   background: rgba(255, 255, 255, 0.98) !important;
-  color: #06101f !important;
+  color: var(--light-text-main) !important;
 }
 
 body.light-theme .chat-message.bot {
-  background: rgba(0, 160, 220, 0.12) !important;
-  color: #06101f !important;
+  background: rgba(0, 119, 182, 0.12) !important;
+  color: var(--light-text-main) !important;
 }
 
 body.light-theme .chatbot-input {
   background: #eef4fa !important;
 }
 
-/* LIGHT THEME - DASHBOARD IMAGE CARDS */
-/* Images stay visible, with light but not too bright overlay */
-
 body.light-theme .dashboard-card {
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-
-  border-color: rgba(0, 168, 232, 0.38) !important;
+  border-color: var(--light-primary-border) !important;
   box-shadow: 0 16px 35px rgba(15, 40, 70, 0.18) !important;
-
   cursor: default !important;
 }
-
-/* Make overlays visual only, not clickable */
 
 body.light-theme .dashboard-card::before,
 body.light-theme .dashboard-card::after {
   pointer-events: none !important;
 }
 
-/* Light gradient over the image */
-
 body.light-theme .dashboard-card::before {
-  background:
-    linear-gradient(
+  background: linear-gradient(
       rgba(255, 255, 255, 0.16),
       rgba(255, 255, 255, 0.34)
     ) !important;
-
   z-index: 0 !important;
 }
-
-/* Keep image sporty: more saturation, less brightness */
 
 body.light-theme .dashboard-card::after {
   background: rgba(3, 10, 20, 0.18) !important;
@@ -173,15 +489,11 @@ body.light-theme .dashboard-card::after {
   z-index: 0 !important;
 }
 
-/* Restore hover floating effect */
-
 body.light-theme .dashboard-card:hover {
   transform: translateY(-6px) !important;
-  border-color: rgba(0, 168, 232, 0.75) !important;
-  box-shadow: 0 18px 40px rgba(0, 168, 232, 0.20) !important;
+  border-color: rgba(0, 119, 182, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(0, 119, 182, 0.20) !important;
 }
-
-/* Dashboard card text stays readable on images */
 
 body.light-theme .dashboard-card h2 {
   color: #ffffff !important;
@@ -199,12 +511,2925 @@ body.light-theme .dashboard-card button {
   cursor: pointer !important;
 }
 
-/* Keep content above image overlay */
-
 body.light-theme .dashboard-card h2,
 body.light-theme .dashboard-card p,
 body.light-theme .dashboard-card button,
 body.light-theme .dashboard-card .red-dot {
   position: relative !important;
   z-index: 2 !important;
+}
+
+body.light-theme .admin-coach-leavings-page .list-card {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+body.light-theme .admin-coach-leavings-page .list-card h2 {
+  color: #0077b6 !important;
+  text-align: center !important;
+}
+
+body.light-theme .admin-coach-leavings-page .table-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow-x: auto !important;
+}
+
+body.light-theme .admin-coach-leavings-page table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+body.light-theme .admin-coach-leavings-page thead,
+body.light-theme .admin-coach-leavings-page thead tr,
+body.light-theme .admin-coach-leavings-page th {
+  background: #0b4f71 !important;
+  color: #ffffff !important;
+}
+
+body.light-theme .admin-coach-leavings-page tbody,
+body.light-theme .admin-coach-leavings-page tbody tr,
+body.light-theme .admin-coach-leavings-page td {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+body.light-theme .admin-coach-leavings-page td {
+  border-bottom: 1px solid rgba(6, 16, 31, 0.12) !important;
+}
+
+body.light-theme .admin-coach-leavings-page tbody tr:hover td {
+  background: rgba(0, 119, 182, 0.06) !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.accepted {
+  background: rgba(21, 128, 61, 0.15) !important;
+  color: #15803d !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.rejected {
+  background: rgba(220, 38, 38, 0.14) !important;
+  color: #dc2626 !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.pending {
+  background: rgba(255, 122, 0, 0.14) !important;
+  color: #d65f00 !important;
+}
+
+body.light-theme .admin-coach-leavings-page .no-action {
+  color: #0077b6 !important;
+  font-weight: 800 !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page {
+  background: #f4f7fb !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .page-header h1 {
+  color: #0077b6 !important;
+}
+
+:host-context(body.light-theme) .page-header p,
+:host-context(body.light-theme) .subtitle {
+  color: #213247 !important;
+}
+
+:host-context(body.light-theme) .back-btn {
+  border-color: #0077b6 !important;
+  color: #0077b6 !important;
+  background: transparent !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover {
+  background: #0077b6 !important;
+  color: white !important;
+}
+
+:host-context(body.light-theme) .filters-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.12) !important;
+}
+
+:host-context(body.light-theme) .filter-group label {
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) input,
+:host-context(body.light-theme) select,
+:host-context(body.light-theme) textarea {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+}
+
+:host-context(body.light-theme) input:focus,
+:host-context(body.light-theme) select:focus,
+:host-context(body.light-theme) textarea:focus {
+  outline: none !important;
+  border-color: #0077b6 !important;
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.14) !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+}
+
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #0077b6 !important;
+  color: white !important;
+  border-color: #0077b6 !important;
+}
+
+:host-context(body.light-theme) .results-count {
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) .list-card {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+:host-context(body.light-theme) .list-card h2 {
+  color: #0077b6 !important;
+}
+
+:host-context(body.light-theme) .table-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) thead,
+:host-context(body.light-theme) thead tr,
+:host-context(body.light-theme) th {
+  background: #0b4f71 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.light-theme) tbody,
+:host-context(body.light-theme) tbody tr,
+:host-context(body.light-theme) td {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+:host-context(body.light-theme) td {
+  border-bottom: 1px solid rgba(6, 16, 31, 0.12) !important;
+}
+
+:host-context(body.light-theme) tbody tr:hover td {
+  background: rgba(0, 119, 182, 0.06) !important;
+}
+
+:host-context(body.light-theme) .status.accepted {
+  background: rgba(21, 128, 61, 0.15) !important;
+  color: #15803d !important;
+}
+
+:host-context(body.light-theme) .status.rejected {
+  background: rgba(220, 38, 38, 0.14) !important;
+  color: #dc2626 !important;
+}
+
+:host-context(body.light-theme) .status.pending {
+  background: rgba(255, 122, 0, 0.14) !important;
+  color: #d65f00 !important;
+}
+
+:host-context(body.light-theme) .accept-btn {
+  background: rgba(21, 128, 61, 0.14) !important;
+  color: #15803d !important;
+  border: 1px solid #15803d !important;
+}
+
+:host-context(body.light-theme) .accept-btn:hover {
+  background: #15803d !important;
+  color: white !important;
+}
+
+:host-context(body.light-theme) .reject-btn {
+  background: rgba(220, 38, 38, 0.14) !important;
+  color: #dc2626 !important;
+  border: 1px solid #dc2626 !important;
+}
+
+:host-context(body.light-theme) .reject-btn:hover {
+  background: #dc2626 !important;
+  color: white !important;
+}
+
+:host-context(body.light-theme) .no-action {
+  color: #0077b6 !important;
+  font-weight: 800 !important;
+}
+
+:host-context(body.light-theme) .empty-text {
+  color: #213247 !important;
+}
+
+body.light-theme .admin-dashboard h1,
+body.light-theme .admin-users-page h1,
+body.light-theme .admin-clients-page h1,
+body.light-theme .admin-coaches-page h1,
+body.light-theme .admin-announcements-page h1,
+body.light-theme .announcements-admin-page h1,
+body.light-theme .admin-events-page h1,
+body.light-theme .admin-courts-page h1,
+body.light-theme .admin-reservations-page h1,
+body.light-theme .admin-coach-requests-page h1,
+body.light-theme .admin-coach-leavings-page h1,
+body.light-theme .admin-statistics-page h1 {
+  color: var(--admin-light-primary) !important;
+}
+
+body.light-theme .admin-users-page h2,
+body.light-theme .admin-clients-page h2,
+body.light-theme .admin-coaches-page h2,
+body.light-theme .admin-announcements-page h2,
+body.light-theme .announcements-admin-page h2,
+body.light-theme .admin-events-page h2,
+body.light-theme .admin-courts-page h2,
+body.light-theme .admin-reservations-page h2,
+body.light-theme .admin-coach-requests-page h2,
+body.light-theme .admin-coach-leavings-page h2,
+body.light-theme .admin-statistics-page h2 {
+  color: var(--admin-light-primary) !important;
+}
+
+body.light-theme .admin-users-page .form-card,
+body.light-theme .admin-users-page .users-list,
+body.light-theme .admin-clients-page .form-card,
+body.light-theme .admin-clients-page .clients-list,
+body.light-theme .admin-coaches-page .form-card,
+body.light-theme .admin-coaches-page .coaches-list,
+body.light-theme .admin-announcements-page .form-card,
+body.light-theme .admin-announcements-page .list-card,
+body.light-theme .admin-announcements-page .announcement-card,
+body.light-theme .admin-events-page .form-card,
+body.light-theme .admin-events-page .event-card,
+body.light-theme .admin-courts-page .court-card,
+body.light-theme .admin-reservations-page .reservation-card,
+body.light-theme .admin-coach-requests-page .list-card,
+body.light-theme .admin-coach-requests-page .filters-card,
+body.light-theme .admin-coach-leavings-page .list-card,
+body.light-theme .admin-coach-leavings-page .filters-card,
+body.light-theme .admin-statistics-page .stat-card,
+body.light-theme .admin-statistics-page .stats-card,
+body.light-theme .admin-statistics-page .statistics-card {
+  border-color: var(--admin-light-primary-border) !important;
+}
+
+body.light-theme .admin-users-page input,
+body.light-theme .admin-users-page select,
+body.light-theme .admin-users-page textarea,
+body.light-theme .admin-clients-page input,
+body.light-theme .admin-clients-page select,
+body.light-theme .admin-clients-page textarea,
+body.light-theme .admin-coaches-page input,
+body.light-theme .admin-coaches-page select,
+body.light-theme .admin-coaches-page textarea,
+body.light-theme .admin-announcements-page input,
+body.light-theme .admin-announcements-page select,
+body.light-theme .admin-announcements-page textarea,
+body.light-theme .admin-events-page input,
+body.light-theme .admin-events-page select,
+body.light-theme .admin-events-page textarea,
+body.light-theme .admin-courts-page input,
+body.light-theme .admin-courts-page select,
+body.light-theme .admin-courts-page textarea,
+body.light-theme .admin-reservations-page input,
+body.light-theme .admin-reservations-page select,
+body.light-theme .admin-reservations-page textarea,
+body.light-theme .admin-coach-requests-page input,
+body.light-theme .admin-coach-requests-page select,
+body.light-theme .admin-coach-requests-page textarea,
+body.light-theme .admin-coach-leavings-page input,
+body.light-theme .admin-coach-leavings-page select,
+body.light-theme .admin-coach-leavings-page textarea {
+  border-color: var(--admin-light-primary-border) !important;
+}
+
+body.light-theme .admin-users-page input:focus,
+body.light-theme .admin-users-page select:focus,
+body.light-theme .admin-users-page textarea:focus,
+body.light-theme .admin-clients-page input:focus,
+body.light-theme .admin-clients-page select:focus,
+body.light-theme .admin-clients-page textarea:focus,
+body.light-theme .admin-coaches-page input:focus,
+body.light-theme .admin-coaches-page select:focus,
+body.light-theme .admin-coaches-page textarea:focus,
+body.light-theme .admin-announcements-page input:focus,
+body.light-theme .admin-announcements-page select:focus,
+body.light-theme .admin-announcements-page textarea:focus,
+body.light-theme .admin-events-page input:focus,
+body.light-theme .admin-events-page select:focus,
+body.light-theme .admin-events-page textarea:focus,
+body.light-theme .admin-courts-page input:focus,
+body.light-theme .admin-courts-page select:focus,
+body.light-theme .admin-courts-page textarea:focus,
+body.light-theme .admin-reservations-page input:focus,
+body.light-theme .admin-reservations-page select:focus,
+body.light-theme .admin-reservations-page textarea:focus,
+body.light-theme .admin-coach-requests-page input:focus,
+body.light-theme .admin-coach-requests-page select:focus,
+body.light-theme .admin-coach-requests-page textarea:focus,
+body.light-theme .admin-coach-leavings-page input:focus,
+body.light-theme .admin-coach-leavings-page select:focus,
+body.light-theme .admin-coach-leavings-page textarea:focus {
+  border-color: var(--admin-light-primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.14) !important;
+}
+
+body.light-theme .admin-users-page .back-btn,
+body.light-theme .admin-clients-page .back-btn,
+body.light-theme .admin-coaches-page .back-btn,
+body.light-theme .admin-announcements-page .back-btn,
+body.light-theme .admin-events-page .back-btn,
+body.light-theme .admin-courts-page .back-btn,
+body.light-theme .admin-reservations-page .back-btn,
+body.light-theme .admin-coach-requests-page .back-btn,
+body.light-theme .admin-coach-leavings-page .back-btn,
+body.light-theme .admin-statistics-page .back-btn {
+  color: var(--admin-light-primary) !important;
+  border-color: var(--admin-light-primary) !important;
+  background: transparent !important;
+}
+
+body.light-theme .admin-users-page .back-btn:hover,
+body.light-theme .admin-clients-page .back-btn:hover,
+body.light-theme .admin-coaches-page .back-btn:hover,
+body.light-theme .admin-announcements-page .back-btn:hover,
+body.light-theme .admin-events-page .back-btn:hover,
+body.light-theme .admin-courts-page .back-btn:hover,
+body.light-theme .admin-reservations-page .back-btn:hover,
+body.light-theme .admin-coach-requests-page .back-btn:hover,
+body.light-theme .admin-coach-leavings-page .back-btn:hover,
+body.light-theme .admin-statistics-page .back-btn:hover {
+  background: var(--admin-light-primary) !important;
+  color: white !important;
+}
+
+body.light-theme .admin-users-page .create-btn,
+body.light-theme .admin-users-page .submit-btn,
+body.light-theme .admin-clients-page .create-btn,
+body.light-theme .admin-clients-page .submit-btn,
+body.light-theme .admin-coaches-page .create-btn,
+body.light-theme .admin-coaches-page .submit-btn,
+body.light-theme .admin-announcements-page .create-btn,
+body.light-theme .admin-announcements-page .submit-btn,
+body.light-theme .admin-announcements-page .publish-btn,
+body.light-theme .admin-events-page .create-btn,
+body.light-theme .admin-events-page .submit-btn,
+body.light-theme .admin-events-page .publish-btn,
+body.light-theme .admin-courts-page .create-btn,
+body.light-theme .admin-courts-page .submit-btn {
+  background: linear-gradient(135deg, var(--admin-light-primary), var(--admin-light-primary-dark)) !important;
+  color: white !important;
+}
+
+body.light-theme .admin-users-page th,
+body.light-theme .admin-clients-page th,
+body.light-theme .admin-coaches-page th,
+body.light-theme .admin-reservations-page th,
+body.light-theme .admin-coach-requests-page th,
+body.light-theme .admin-coach-leavings-page th {
+  background: var(--admin-light-table-header) !important;
+  color: white !important;
+}
+
+body.light-theme .client-dashboard h1,
+body.light-theme .client-reservations-page h1,
+body.light-theme .client-coach-requests-page h1,
+body.light-theme .client-group-classes-page h1,
+body.light-theme .client-events-page h1,
+body.light-theme .reservations-page h1,
+body.light-theme .tennis-page h1 {
+  color: var(--client-light-primary) !important;
+}
+
+body.light-theme .client-dashboard h2,
+body.light-theme .client-reservations-page h2,
+body.light-theme .client-coach-requests-page h2,
+body.light-theme .client-group-classes-page h2,
+body.light-theme .client-events-page h2,
+body.light-theme .reservations-page h2,
+body.light-theme .tennis-page h2 {
+  color: var(--client-light-primary) !important;
+}
+
+body.light-theme .client-dashboard .announcements-section,
+body.light-theme .client-dashboard .notifications-card,
+body.light-theme .client-reservations-page .form-card,
+body.light-theme .client-reservations-page .filters-card,
+body.light-theme .client-reservations-page .reservation-card,
+body.light-theme .client-coach-requests-page .form-card,
+body.light-theme .client-coach-requests-page .filters-card,
+body.light-theme .client-coach-requests-page .request-card,
+body.light-theme .client-group-classes-page .form-card,
+body.light-theme .client-group-classes-page .filters-card,
+body.light-theme .client-group-classes-page .class-card,
+body.light-theme .client-events-page .form-card,
+body.light-theme .client-events-page .filters-card,
+body.light-theme .client-events-page .event-card,
+body.light-theme .reservations-page .form-card,
+body.light-theme .reservations-page .reservation-card,
+body.light-theme .tennis-page .form-card,
+body.light-theme .tennis-page .court-card {
+  border-color: var(--client-light-primary-border) !important;
+}
+
+body.light-theme .client-reservations-page input,
+body.light-theme .client-reservations-page select,
+body.light-theme .client-reservations-page textarea,
+body.light-theme .client-coach-requests-page input,
+body.light-theme .client-coach-requests-page select,
+body.light-theme .client-coach-requests-page textarea,
+body.light-theme .client-group-classes-page input,
+body.light-theme .client-group-classes-page select,
+body.light-theme .client-group-classes-page textarea,
+body.light-theme .client-events-page input,
+body.light-theme .client-events-page select,
+body.light-theme .client-events-page textarea,
+body.light-theme .reservations-page input,
+body.light-theme .reservations-page select,
+body.light-theme .reservations-page textarea,
+body.light-theme .tennis-page input,
+body.light-theme .tennis-page select,
+body.light-theme .tennis-page textarea {
+  border-color: var(--client-light-primary-border) !important;
+}
+
+body.light-theme .client-reservations-page input:focus,
+body.light-theme .client-reservations-page select:focus,
+body.light-theme .client-reservations-page textarea:focus,
+body.light-theme .client-coach-requests-page input:focus,
+body.light-theme .client-coach-requests-page select:focus,
+body.light-theme .client-coach-requests-page textarea:focus,
+body.light-theme .client-group-classes-page input:focus,
+body.light-theme .client-group-classes-page select:focus,
+body.light-theme .client-group-classes-page textarea:focus,
+body.light-theme .client-events-page input:focus,
+body.light-theme .client-events-page select:focus,
+body.light-theme .client-events-page textarea:focus,
+body.light-theme .reservations-page input:focus,
+body.light-theme .reservations-page select:focus,
+body.light-theme .reservations-page textarea:focus,
+body.light-theme .tennis-page input:focus,
+body.light-theme .tennis-page select:focus,
+body.light-theme .tennis-page textarea:focus {
+  border-color: var(--client-light-primary) !important;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.14) !important;
+}
+
+body.light-theme .client-dashboard .back-btn,
+body.light-theme .client-reservations-page .back-btn,
+body.light-theme .client-coach-requests-page .back-btn,
+body.light-theme .client-group-classes-page .back-btn,
+body.light-theme .client-events-page .back-btn,
+body.light-theme .reservations-page .back-btn,
+body.light-theme .tennis-page .back-btn {
+  color: var(--client-light-primary) !important;
+  border-color: var(--client-light-primary) !important;
+  background: transparent !important;
+}
+
+body.light-theme .client-dashboard .back-btn:hover,
+body.light-theme .client-reservations-page .back-btn:hover,
+body.light-theme .client-coach-requests-page .back-btn:hover,
+body.light-theme .client-group-classes-page .back-btn:hover,
+body.light-theme .client-events-page .back-btn:hover,
+body.light-theme .reservations-page .back-btn:hover,
+body.light-theme .tennis-page .back-btn:hover {
+  background: var(--client-light-primary) !important;
+  color: white !important;
+}
+
+body.light-theme .client-reservations-page .create-btn,
+body.light-theme .client-reservations-page .submit-btn,
+body.light-theme .client-reservations-page .reserve-btn,
+body.light-theme .client-coach-requests-page .create-btn,
+body.light-theme .client-coach-requests-page .submit-btn,
+body.light-theme .client-group-classes-page .create-btn,
+body.light-theme .client-group-classes-page .submit-btn,
+body.light-theme .client-group-classes-page .participate-btn,
+body.light-theme .client-events-page .create-btn,
+body.light-theme .client-events-page .submit-btn,
+body.light-theme .client-events-page .participate-btn,
+body.light-theme .reservations-page .create-btn,
+body.light-theme .reservations-page .submit-btn,
+body.light-theme .tennis-page .create-btn,
+body.light-theme .tennis-page .submit-btn {
+  background: linear-gradient(135deg, var(--client-light-primary), var(--client-light-primary-dark)) !important;
+  color: white !important;
+}
+
+body.light-theme .client-reservations-page th,
+body.light-theme .client-coach-requests-page th,
+body.light-theme .client-group-classes-page th,
+body.light-theme .client-events-page th,
+body.light-theme .reservations-page th,
+body.light-theme .tennis-page th {
+  background: var(--client-light-table-header) !important;
+  color: white !important;
+}
+
+body.light-theme .coach-dashboard h1,
+body.light-theme .coach-requests-page h1,
+body.light-theme .coach-request-page h1,
+body.light-theme .coach-sessions-page h1,
+body.light-theme .coach-leavings-page h1,
+body.light-theme .coach-group-classes-page h1,
+body.light-theme .coach-events-page h1,
+body.light-theme .group-classes-page h1 {
+  color: var(--coach-light-primary) !important;
+}
+
+body.light-theme .coach-dashboard h2,
+body.light-theme .coach-requests-page h2,
+body.light-theme .coach-request-page h2,
+body.light-theme .coach-sessions-page h2,
+body.light-theme .coach-leavings-page h2,
+body.light-theme .coach-group-classes-page h2,
+body.light-theme .coach-events-page h2,
+body.light-theme .group-classes-page h2 {
+  color: var(--coach-light-primary) !important;
+}
+
+body.light-theme .coach-dashboard .announcements-section,
+body.light-theme .coach-dashboard .notifications-card,
+body.light-theme .coach-requests-page .filters-card,
+body.light-theme .coach-requests-page .request-card,
+body.light-theme .coach-sessions-page .filters-card,
+body.light-theme .coach-sessions-page .session-card,
+body.light-theme .coach-leavings-page .filters-card,
+body.light-theme .coach-leavings-page .leave-card,
+body.light-theme .coach-group-classes-page .form-card,
+body.light-theme .coach-group-classes-page .filters-card,
+body.light-theme .coach-group-classes-page .class-card,
+body.light-theme .coach-events-page .filters-card,
+body.light-theme .coach-events-page .event-card,
+body.light-theme .group-classes-page .form-card,
+body.light-theme .group-classes-page .filters-card,
+body.light-theme .group-classes-page .class-card {
+  border-color: var(--coach-light-primary-border) !important;
+}
+
+body.light-theme .coach-requests-page input,
+body.light-theme .coach-requests-page select,
+body.light-theme .coach-requests-page textarea,
+body.light-theme .coach-request-page input,
+body.light-theme .coach-request-page select,
+body.light-theme .coach-request-page textarea,
+body.light-theme .coach-sessions-page input,
+body.light-theme .coach-sessions-page select,
+body.light-theme .coach-sessions-page textarea,
+body.light-theme .coach-leavings-page input,
+body.light-theme .coach-leavings-page select,
+body.light-theme .coach-leavings-page textarea,
+body.light-theme .coach-group-classes-page input,
+body.light-theme .coach-group-classes-page select,
+body.light-theme .coach-group-classes-page textarea,
+body.light-theme .coach-events-page input,
+body.light-theme .coach-events-page select,
+body.light-theme .coach-events-page textarea,
+body.light-theme .group-classes-page input,
+body.light-theme .group-classes-page select,
+body.light-theme .group-classes-page textarea {
+  border-color: var(--coach-light-primary-border) !important;
+}
+
+body.light-theme .coach-requests-page input:focus,
+body.light-theme .coach-requests-page select:focus,
+body.light-theme .coach-requests-page textarea:focus,
+body.light-theme .coach-request-page input:focus,
+body.light-theme .coach-request-page select:focus,
+body.light-theme .coach-request-page textarea:focus,
+body.light-theme .coach-sessions-page input:focus,
+body.light-theme .coach-sessions-page select:focus,
+body.light-theme .coach-sessions-page textarea:focus,
+body.light-theme .coach-leavings-page input:focus,
+body.light-theme .coach-leavings-page select:focus,
+body.light-theme .coach-leavings-page textarea:focus,
+body.light-theme .coach-group-classes-page input:focus,
+body.light-theme .coach-group-classes-page select:focus,
+body.light-theme .coach-group-classes-page textarea:focus,
+body.light-theme .coach-events-page input:focus,
+body.light-theme .coach-events-page select:focus,
+body.light-theme .coach-events-page textarea:focus,
+body.light-theme .group-classes-page input:focus,
+body.light-theme .group-classes-page select:focus,
+body.light-theme .group-classes-page textarea:focus {
+  border-color: var(--coach-light-primary) !important;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.14) !important;
+}
+
+body.light-theme .coach-dashboard .back-btn,
+body.light-theme .coach-requests-page .back-btn,
+body.light-theme .coach-request-page .back-btn,
+body.light-theme .coach-sessions-page .back-btn,
+body.light-theme .coach-leavings-page .back-btn,
+body.light-theme .coach-group-classes-page .back-btn,
+body.light-theme .coach-events-page .back-btn,
+body.light-theme .group-classes-page .back-btn {
+  color: var(--coach-light-primary) !important;
+  border-color: var(--coach-light-primary) !important;
+  background: transparent !important;
+}
+
+body.light-theme .coach-dashboard .back-btn:hover,
+body.light-theme .coach-requests-page .back-btn:hover,
+body.light-theme .coach-request-page .back-btn:hover,
+body.light-theme .coach-sessions-page .back-btn:hover,
+body.light-theme .coach-leavings-page .back-btn:hover,
+body.light-theme .coach-group-classes-page .back-btn:hover,
+body.light-theme .coach-events-page .back-btn:hover,
+body.light-theme .group-classes-page .back-btn:hover {
+  background: var(--coach-light-primary) !important;
+  color: white !important;
+}
+
+body.light-theme .coach-requests-page .create-btn,
+body.light-theme .coach-requests-page .submit-btn,
+body.light-theme .coach-request-page .create-btn,
+body.light-theme .coach-request-page .submit-btn,
+body.light-theme .coach-sessions-page .create-btn,
+body.light-theme .coach-sessions-page .submit-btn,
+body.light-theme .coach-leavings-page .create-btn,
+body.light-theme .coach-leavings-page .submit-btn,
+body.light-theme .coach-group-classes-page .create-btn,
+body.light-theme .coach-group-classes-page .submit-btn,
+body.light-theme .coach-events-page .create-btn,
+body.light-theme .coach-events-page .submit-btn,
+body.light-theme .group-classes-page .create-btn,
+body.light-theme .group-classes-page .submit-btn {
+  background: linear-gradient(135deg, var(--coach-light-primary), var(--coach-light-primary-dark)) !important;
+  color: white !important;
+}
+
+body.light-theme .coach-requests-page th,
+body.light-theme .coach-sessions-page th,
+body.light-theme .coach-leavings-page th,
+body.light-theme .coach-group-classes-page th,
+body.light-theme .coach-events-page th,
+body.light-theme .group-classes-page th {
+  background: var(--coach-light-table-header) !important;
+  color: white !important;
+}
+
+body.light-theme .client-dashboard .dashboard-card {
+  border-color: var(--client-light-primary-border) !important;
+}
+
+body.light-theme .client-dashboard .dashboard-card:hover {
+  border-color: rgba(21, 128, 61, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(21, 128, 61, 0.20) !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card {
+  border-color: var(--coach-light-primary-border) !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card:hover {
+  border-color: rgba(180, 83, 9, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(180, 83, 9, 0.20) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card {
+  border-color: var(--admin-light-primary-border) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card:hover {
+  border-color: rgba(0, 119, 182, 0.75) !important;
+  box-shadow: 0 18px 40px rgba(0, 119, 182, 0.20) !important;
+}
+
+body.dark-theme .coach-dashboard .clear-filters-btn,
+body.dark-theme .coach-requests-page .clear-filters-btn,
+body.dark-theme .coach-sessions-page .clear-filters-btn,
+body.dark-theme .coach-leavings-page .clear-filters-btn,
+body.dark-theme .coach-group-classes-page .clear-filters-btn,
+body.dark-theme .coach-events-page .clear-filters-btn,
+body.dark-theme .group-classes-page .clear-filters-btn,
+
+body:not(.light-theme) .coach-dashboard .clear-filters-btn,
+body:not(.light-theme) .coach-requests-page .clear-filters-btn,
+body:not(.light-theme) .coach-sessions-page .clear-filters-btn,
+body:not(.light-theme) .coach-leavings-page .clear-filters-btn,
+body:not(.light-theme) .coach-group-classes-page .clear-filters-btn,
+body:not(.light-theme) .coach-events-page .clear-filters-btn,
+body:not(.light-theme) .group-classes-page .clear-filters-btn {
+  background: transparent !important;
+  color: #ff7a00 !important;
+  border: 1px solid rgba(255, 122, 0, 0.75) !important;
+  box-shadow: none !important;
+}
+
+body.dark-theme .coach-dashboard .clear-filters-btn:hover,
+body.dark-theme .coach-requests-page .clear-filters-btn:hover,
+body.dark-theme .coach-sessions-page .clear-filters-btn:hover,
+body.dark-theme .coach-leavings-page .clear-filters-btn:hover,
+body.dark-theme .coach-group-classes-page .clear-filters-btn:hover,
+body.dark-theme .coach-events-page .clear-filters-btn:hover,
+body.dark-theme .group-classes-page .clear-filters-btn:hover,
+
+body:not(.light-theme) .coach-dashboard .clear-filters-btn:hover,
+body:not(.light-theme) .coach-requests-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-sessions-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-leavings-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-events-page .clear-filters-btn:hover,
+body:not(.light-theme) .group-classes-page .clear-filters-btn:hover {
+  background: #ff7a00 !important;
+  color: #ffffff !important;
+  border-color: #ff7a00 !important;
+}
+
+body.light-theme .coach-dashboard .clear-filters-btn,
+body.light-theme .coach-requests-page .clear-filters-btn,
+body.light-theme .coach-sessions-page .clear-filters-btn,
+body.light-theme .coach-leavings-page .clear-filters-btn,
+body.light-theme .coach-group-classes-page .clear-filters-btn,
+body.light-theme .coach-events-page .clear-filters-btn,
+body.light-theme .group-classes-page .clear-filters-btn {
+  background: transparent !important;
+  color: #b45309 !important;
+  border: 1px solid rgba(180, 83, 9, 0.45) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .clear-filters-btn:hover,
+body.light-theme .coach-requests-page .clear-filters-btn:hover,
+body.light-theme .coach-sessions-page .clear-filters-btn:hover,
+body.light-theme .coach-leavings-page .clear-filters-btn:hover,
+body.light-theme .coach-group-classes-page .clear-filters-btn:hover,
+body.light-theme .coach-events-page .clear-filters-btn:hover,
+body.light-theme .group-classes-page .clear-filters-btn:hover {
+  background: #b45309 !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+}
+
+body:not(.light-theme) .coach-dashboard,
+body:not(.light-theme) .coach-requests-page,
+body:not(.light-theme) .coach-sessions-page,
+body:not(.light-theme) .coach-leavings-page,
+body:not(.light-theme) .coach-group-classes-page,
+body:not(.light-theme) .coach-events-page,
+body:not(.light-theme) .group-classes-page {
+  --coach-main: #ff7a00;
+  --coach-main-dark: #d65f00;
+  --coach-border: rgba(255, 122, 0, 0.65);
+  --coach-soft: rgba(255, 122, 0, 0.12);
+}
+
+body:not(.light-theme) .coach-requests-page .filters-card,
+body:not(.light-theme) .coach-sessions-page .filters-card,
+body:not(.light-theme) .coach-leavings-page .filters-card,
+body:not(.light-theme) .coach-group-classes-page .filters-card,
+body:not(.light-theme) .coach-events-page .filters-card,
+body:not(.light-theme) .group-classes-page .filters-card,
+
+body:not(.light-theme) .coach-requests-page .form-card,
+body:not(.light-theme) .coach-sessions-page .form-card,
+body:not(.light-theme) .coach-leavings-page .form-card,
+body:not(.light-theme) .coach-group-classes-page .form-card,
+body:not(.light-theme) .coach-events-page .form-card,
+body:not(.light-theme) .group-classes-page .form-card,
+
+body:not(.light-theme) .coach-requests-page .request-card,
+body:not(.light-theme) .coach-sessions-page .session-card,
+body:not(.light-theme) .coach-leavings-page .leave-card,
+body:not(.light-theme) .coach-group-classes-page .class-card,
+body:not(.light-theme) .coach-events-page .event-card,
+body:not(.light-theme) .group-classes-page .class-card {
+  border-color: var(--coach-border) !important;
+}
+
+body:not(.light-theme) .coach-requests-page input,
+body:not(.light-theme) .coach-requests-page select,
+body:not(.light-theme) .coach-requests-page textarea,
+body:not(.light-theme) .coach-sessions-page input,
+body:not(.light-theme) .coach-sessions-page select,
+body:not(.light-theme) .coach-sessions-page textarea,
+body:not(.light-theme) .coach-leavings-page input,
+body:not(.light-theme) .coach-leavings-page select,
+body:not(.light-theme) .coach-leavings-page textarea,
+body:not(.light-theme) .coach-group-classes-page input,
+body:not(.light-theme) .coach-group-classes-page select,
+body:not(.light-theme) .coach-group-classes-page textarea,
+body:not(.light-theme) .coach-events-page input,
+body:not(.light-theme) .coach-events-page select,
+body:not(.light-theme) .coach-events-page textarea,
+body:not(.light-theme) .group-classes-page input,
+body:not(.light-theme) .group-classes-page select,
+body:not(.light-theme) .group-classes-page textarea {
+  border-color: var(--coach-border) !important;
+}
+
+body:not(.light-theme) .coach-requests-page .create-btn,
+body:not(.light-theme) .coach-requests-page .submit-btn,
+body:not(.light-theme) .coach-sessions-page .create-btn,
+body:not(.light-theme) .coach-sessions-page .submit-btn,
+body:not(.light-theme) .coach-leavings-page .create-btn,
+body:not(.light-theme) .coach-leavings-page .submit-btn,
+body:not(.light-theme) .coach-group-classes-page .create-btn,
+body:not(.light-theme) .coach-group-classes-page .submit-btn,
+body:not(.light-theme) .coach-events-page .create-btn,
+body:not(.light-theme) .coach-events-page .submit-btn,
+body:not(.light-theme) .group-classes-page .create-btn,
+body:not(.light-theme) .group-classes-page .submit-btn {
+  background: linear-gradient(135deg, var(--coach-main), var(--coach-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+body:not(.light-theme) .coach-requests-page .create-btn:hover,
+body:not(.light-theme) .coach-requests-page .submit-btn:hover,
+body:not(.light-theme) .coach-sessions-page .create-btn:hover,
+body:not(.light-theme) .coach-sessions-page .submit-btn:hover,
+body:not(.light-theme) .coach-leavings-page .create-btn:hover,
+body:not(.light-theme) .coach-leavings-page .submit-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .create-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .submit-btn:hover,
+body:not(.light-theme) .coach-events-page .create-btn:hover,
+body:not(.light-theme) .coach-events-page .submit-btn:hover,
+body:not(.light-theme) .group-classes-page .create-btn:hover,
+body:not(.light-theme) .group-classes-page .submit-btn:hover {
+  background: linear-gradient(135deg, #ff8a00, #c25100) !important;
+  color: #ffffff !important;
+}
+
+body:not(.light-theme) .coach-requests-page .clear-btn,
+body:not(.light-theme) .coach-requests-page .reset-btn,
+body:not(.light-theme) .coach-requests-page .clear-filters-btn,
+body:not(.light-theme) .coach-sessions-page .clear-btn,
+body:not(.light-theme) .coach-sessions-page .reset-btn,
+body:not(.light-theme) .coach-sessions-page .clear-filters-btn,
+body:not(.light-theme) .coach-leavings-page .clear-btn,
+body:not(.light-theme) .coach-leavings-page .reset-btn,
+body:not(.light-theme) .coach-leavings-page .clear-filters-btn,
+body:not(.light-theme) .coach-group-classes-page .clear-btn,
+body:not(.light-theme) .coach-group-classes-page .reset-btn,
+body:not(.light-theme) .coach-group-classes-page .clear-filters-btn,
+body:not(.light-theme) .coach-events-page .clear-btn,
+body:not(.light-theme) .coach-events-page .reset-btn,
+body:not(.light-theme) .coach-events-page .clear-filters-btn,
+body:not(.light-theme) .group-classes-page .clear-btn,
+body:not(.light-theme) .group-classes-page .reset-btn,
+body:not(.light-theme) .group-classes-page .clear-filters-btn {
+  background: transparent !important;
+  color: var(--coach-main) !important;
+  border: 1px solid var(--coach-border) !important;
+}
+
+body:not(.light-theme) .coach-requests-page .clear-btn:hover,
+body:not(.light-theme) .coach-requests-page .reset-btn:hover,
+body:not(.light-theme) .coach-requests-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-sessions-page .clear-btn:hover,
+body:not(.light-theme) .coach-sessions-page .reset-btn:hover,
+body:not(.light-theme) .coach-sessions-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-leavings-page .clear-btn:hover,
+body:not(.light-theme) .coach-leavings-page .reset-btn:hover,
+body:not(.light-theme) .coach-leavings-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .clear-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .reset-btn:hover,
+body:not(.light-theme) .coach-group-classes-page .clear-filters-btn:hover,
+body:not(.light-theme) .coach-events-page .clear-btn:hover,
+body:not(.light-theme) .coach-events-page .reset-btn:hover,
+body:not(.light-theme) .coach-events-page .clear-filters-btn:hover,
+body:not(.light-theme) .group-classes-page .clear-btn:hover,
+body:not(.light-theme) .group-classes-page .reset-btn:hover,
+body:not(.light-theme) .group-classes-page .clear-filters-btn:hover {
+  background: var(--coach-main) !important;
+  color: #ffffff !important;
+  border-color: var(--coach-main) !important;
+}
+
+body.light-theme .coach-dashboard,
+body.light-theme .coach-requests-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .coach-leavings-page,
+body.light-theme .coach-group-classes-page,
+body.light-theme .coach-events-page,
+body.light-theme .group-classes-page {
+  --coach-main: #b45309;
+  --coach-main-dark: #92400e;
+  --coach-border: rgba(180, 83, 9, 0.38);
+  --coach-soft: rgba(180, 83, 9, 0.10);
+}
+
+body.light-theme .coach-dashboard h1,
+body.light-theme .coach-requests-page h1,
+body.light-theme .coach-sessions-page h1,
+body.light-theme .coach-leavings-page h1,
+body.light-theme .coach-group-classes-page h1,
+body.light-theme .coach-events-page h1,
+body.light-theme .group-classes-page h1 {
+  color: var(--coach-main) !important;
+}
+
+body.light-theme .coach-requests-page .filters-card,
+body.light-theme .coach-sessions-page .filters-card,
+body.light-theme .coach-leavings-page .filters-card,
+body.light-theme .coach-group-classes-page .filters-card,
+body.light-theme .coach-events-page .filters-card,
+body.light-theme .group-classes-page .filters-card,
+
+body.light-theme .coach-requests-page .form-card,
+body.light-theme .coach-sessions-page .form-card,
+body.light-theme .coach-leavings-page .form-card,
+body.light-theme .coach-group-classes-page .form-card,
+body.light-theme .coach-events-page .form-card,
+body.light-theme .group-classes-page .form-card,
+
+body.light-theme .coach-requests-page .request-card,
+body.light-theme .coach-sessions-page .session-card,
+body.light-theme .coach-leavings-page .leave-card,
+body.light-theme .coach-group-classes-page .class-card,
+body.light-theme .coach-events-page .event-card,
+body.light-theme .group-classes-page .class-card {
+  border-color: var(--coach-border) !important;
+}
+
+body.light-theme .coach-requests-page input,
+body.light-theme .coach-requests-page select,
+body.light-theme .coach-requests-page textarea,
+body.light-theme .coach-sessions-page input,
+body.light-theme .coach-sessions-page select,
+body.light-theme .coach-sessions-page textarea,
+body.light-theme .coach-leavings-page input,
+body.light-theme .coach-leavings-page select,
+body.light-theme .coach-leavings-page textarea,
+body.light-theme .coach-group-classes-page input,
+body.light-theme .coach-group-classes-page select,
+body.light-theme .coach-group-classes-page textarea,
+body.light-theme .coach-events-page input,
+body.light-theme .coach-events-page select,
+body.light-theme .coach-events-page textarea,
+body.light-theme .group-classes-page input,
+body.light-theme .group-classes-page select,
+body.light-theme .group-classes-page textarea {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid var(--coach-border) !important;
+}
+
+body.light-theme .coach-requests-page input:focus,
+body.light-theme .coach-requests-page select:focus,
+body.light-theme .coach-requests-page textarea:focus,
+body.light-theme .coach-sessions-page input:focus,
+body.light-theme .coach-sessions-page select:focus,
+body.light-theme .coach-sessions-page textarea:focus,
+body.light-theme .coach-leavings-page input:focus,
+body.light-theme .coach-leavings-page select:focus,
+body.light-theme .coach-leavings-page textarea:focus,
+body.light-theme .coach-group-classes-page input:focus,
+body.light-theme .coach-group-classes-page select:focus,
+body.light-theme .coach-group-classes-page textarea:focus,
+body.light-theme .coach-events-page input:focus,
+body.light-theme .coach-events-page select:focus,
+body.light-theme .coach-events-page textarea:focus,
+body.light-theme .group-classes-page input:focus,
+body.light-theme .group-classes-page select:focus,
+body.light-theme .group-classes-page textarea:focus {
+  border-color: var(--coach-main) !important;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.14) !important;
+}
+
+body.light-theme .coach-requests-page .create-btn,
+body.light-theme .coach-requests-page .submit-btn,
+body.light-theme .coach-sessions-page .create-btn,
+body.light-theme .coach-sessions-page .submit-btn,
+body.light-theme .coach-leavings-page .create-btn,
+body.light-theme .coach-leavings-page .submit-btn,
+body.light-theme .coach-group-classes-page .create-btn,
+body.light-theme .coach-group-classes-page .submit-btn,
+body.light-theme .coach-events-page .create-btn,
+body.light-theme .coach-events-page .submit-btn,
+body.light-theme .group-classes-page .create-btn,
+body.light-theme .group-classes-page .submit-btn {
+  background: linear-gradient(135deg, var(--coach-main), var(--coach-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+body.light-theme .coach-requests-page .create-btn:hover,
+body.light-theme .coach-requests-page .submit-btn:hover,
+body.light-theme .coach-sessions-page .create-btn:hover,
+body.light-theme .coach-sessions-page .submit-btn:hover,
+body.light-theme .coach-leavings-page .create-btn:hover,
+body.light-theme .coach-leavings-page .submit-btn:hover,
+body.light-theme .coach-group-classes-page .create-btn:hover,
+body.light-theme .coach-group-classes-page .submit-btn:hover,
+body.light-theme .coach-events-page .create-btn:hover,
+body.light-theme .coach-events-page .submit-btn:hover,
+body.light-theme .group-classes-page .create-btn:hover,
+body.light-theme .group-classes-page .submit-btn:hover {
+  background: linear-gradient(135deg, #c75b0b, #92400e) !important;
+  color: #ffffff !important;
+}
+
+body.light-theme .coach-requests-page .clear-btn,
+body.light-theme .coach-requests-page .reset-btn,
+body.light-theme .coach-requests-page .clear-filters-btn,
+body.light-theme .coach-sessions-page .clear-btn,
+body.light-theme .coach-sessions-page .reset-btn,
+body.light-theme .coach-sessions-page .clear-filters-btn,
+body.light-theme .coach-leavings-page .clear-btn,
+body.light-theme .coach-leavings-page .reset-btn,
+body.light-theme .coach-leavings-page .clear-filters-btn,
+body.light-theme .coach-group-classes-page .clear-btn,
+body.light-theme .coach-group-classes-page .reset-btn,
+body.light-theme .coach-group-classes-page .clear-filters-btn,
+body.light-theme .coach-events-page .clear-btn,
+body.light-theme .coach-events-page .reset-btn,
+body.light-theme .coach-events-page .clear-filters-btn,
+body.light-theme .group-classes-page .clear-btn,
+body.light-theme .group-classes-page .reset-btn,
+body.light-theme .group-classes-page .clear-filters-btn {
+  background: transparent !important;
+  color: var(--coach-main) !important;
+  border: 1px solid var(--coach-border) !important;
+}
+
+body.light-theme .coach-requests-page .clear-btn:hover,
+body.light-theme .coach-requests-page .reset-btn:hover,
+body.light-theme .coach-requests-page .clear-filters-btn:hover,
+body.light-theme .coach-sessions-page .clear-btn:hover,
+body.light-theme .coach-sessions-page .reset-btn:hover,
+body.light-theme .coach-sessions-page .clear-filters-btn:hover,
+body.light-theme .coach-leavings-page .clear-btn:hover,
+body.light-theme .coach-leavings-page .reset-btn:hover,
+body.light-theme .coach-leavings-page .clear-filters-btn:hover,
+body.light-theme .coach-group-classes-page .clear-btn:hover,
+body.light-theme .coach-group-classes-page .reset-btn:hover,
+body.light-theme .coach-group-classes-page .clear-filters-btn:hover,
+body.light-theme .coach-events-page .clear-btn:hover,
+body.light-theme .coach-events-page .reset-btn:hover,
+body.light-theme .coach-events-page .clear-filters-btn:hover,
+body.light-theme .group-classes-page .clear-btn:hover,
+body.light-theme .group-classes-page .reset-btn:hover,
+body.light-theme .group-classes-page .clear-filters-btn:hover {
+  background: var(--coach-main) !important;
+  color: #ffffff !important;
+  border-color: var(--coach-main) !important;
+}
+
+body.light-theme .coach-dashboard .announcements-section {
+  background: #ffffff !important;
+  border: 1px solid rgba(180, 83, 9, 0.38) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+body.light-theme .coach-dashboard .announcements-section h2 {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .announcement-item {
+  background: rgba(180, 83, 9, 0.08) !important;
+  border-left: 5px solid #b45309 !important;
+  box-shadow: 0 8px 18px rgba(15, 40, 70, 0.10) !important;
+}
+
+body.light-theme .coach-dashboard .announcement-item h3 {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .announcement-item p {
+  color: #213247 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .client-dashboard h1,
+body.light-theme .client-dashboard h2,
+body.light-theme .client-reservations-page h1,
+body.light-theme .reservations-page h1,
+body.light-theme .client-coach-requests-page h1,
+body.light-theme .coach-request-page h1,
+body.light-theme .client-group-classes-page h1,
+body.light-theme .client-events-page h1,
+body.light-theme .tennis-page h1 {
+  color: var(--client-main) !important;
+}
+
+body.light-theme .client-dashboard .back-btn,
+body.light-theme .client-reservations-page .back-btn,
+body.light-theme .reservations-page .back-btn,
+body.light-theme .client-coach-requests-page .back-btn,
+body.light-theme .coach-request-page .back-btn,
+body.light-theme .client-group-classes-page .back-btn,
+body.light-theme .client-events-page .back-btn,
+body.light-theme .tennis-page .back-btn {
+  color: var(--client-main) !important;
+  border-color: var(--client-main) !important;
+}
+
+body.light-theme .client-dashboard .back-btn:hover,
+body.light-theme .client-reservations-page .back-btn:hover,
+body.light-theme .reservations-page .back-btn:hover,
+body.light-theme .client-coach-requests-page .back-btn:hover,
+body.light-theme .coach-request-page .back-btn:hover,
+body.light-theme .client-group-classes-page .back-btn:hover,
+body.light-theme .client-events-page .back-btn:hover,
+body.light-theme .tennis-page .back-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+}
+
+body.light-theme .client-dashboard .filters-card,
+body.light-theme .client-reservations-page .filters-card,
+body.light-theme .reservations-page .filters-card,
+body.light-theme .client-coach-requests-page .filters-card,
+body.light-theme .coach-request-page .filters-card,
+body.light-theme .client-group-classes-page .filters-card,
+body.light-theme .client-events-page .filters-card,
+body.light-theme .tennis-page .filters-card,
+body.light-theme .client-dashboard .form-card,
+body.light-theme .client-reservations-page .reservation-card,
+body.light-theme .reservations-page .reservation-card,
+body.light-theme .client-coach-requests-page .request-card,
+body.light-theme .coach-request-page .form-card,
+body.light-theme .client-group-classes-page .class-card,
+body.light-theme .client-events-page .event-card,
+body.light-theme .tennis-page .court-card {
+  border-color: var(--client-border) !important;
+}
+
+body.light-theme {
+  --light-bg: #f4f7fb;
+  --light-primary: #0077b6;
+  --light-primary-dark: #005f8f;
+  --light-primary-soft: rgba(0, 119, 182, 0.08);
+  --light-primary-border: rgba(0, 119, 182, 0.38);
+  --light-card-bg: #ffffff;
+  --light-card-shadow: rgba(15, 40, 70, 0.14);
+  --light-text-main: #06101f;
+  --light-text-muted: #213247;
+  --light-table-header: #0b4f71;
+  --light-table-border: rgba(6, 16, 31, 0.12);
+  --light-success: #15803d;
+  --light-danger: #dc2626;
+  --light-orange: #ff7a00;
+  --light-orange-dark: #d65f00;
+  background: var(--light-bg);
+  color: var(--light-text-main);
+  --admin-light-primary: #0077b6;
+  --admin-light-primary-dark: #005f8f;
+  --admin-light-primary-soft: rgba(0, 119, 182, 0.08);
+  --admin-light-primary-border: rgba(0, 119, 182, 0.38);
+  --admin-light-table-header: #0b4f71;
+  --client-light-primary: #15803d;
+  --client-light-primary-dark: #166534;
+  --client-light-primary-soft: rgba(21, 128, 61, 0.08);
+  --client-light-primary-border: rgba(21, 128, 61, 0.38);
+  --client-light-table-header: #166534;
+  --coach-light-primary: #b45309;
+  --coach-light-primary-dark: #92400e;
+  --coach-light-primary-soft: rgba(180, 83, 9, 0.08);
+  --coach-light-primary-border: rgba(180, 83, 9, 0.38);
+  --coach-light-table-header: #7c2d12;
+  --client-main: #16a34a;
+  --client-main-dark: #15803d;
+  --client-border: rgba(22, 163, 74, 0.42);
+  --client-soft: rgba(22, 163, 74, 0.10);
+  --admin-main: #0077b6;
+  --admin-main-dark: #005f8f;
+  --admin-border: rgba(0, 119, 182, 0.40);
+  --admin-soft: rgba(0, 119, 182, 0.10);
+  --coach-main: #b45309;
+  --coach-main-dark: #92400e;
+  --coach-border: rgba(180, 83, 9, 0.42);
+  --coach-soft: rgba(180, 83, 9, 0.10);
+}
+
+body.light-theme .client-dashboard,
+body.light-theme .client-reservations-page,
+body.light-theme .reservations-page,
+body.light-theme .client-coach-requests-page,
+body.light-theme .coach-request-page,
+body.light-theme .client-group-classes-page,
+body.light-theme .client-events-page,
+body.light-theme .tennis-page {
+  --client-main: #16a34a;
+  --client-main-dark: #15803d;
+  --client-border: rgba(22, 163, 74, 0.42);
+  --client-soft: rgba(22, 163, 74, 0.10);
+}
+
+body.light-theme .client-dashboard h1,
+body.light-theme .client-dashboard h2,
+body.light-theme .client-reservations-page h1,
+body.light-theme .client-reservations-page h2,
+body.light-theme .reservations-page h1,
+body.light-theme .reservations-page h2,
+body.light-theme .client-coach-requests-page h1,
+body.light-theme .client-coach-requests-page h2,
+body.light-theme .coach-request-page h1,
+body.light-theme .coach-request-page h2,
+body.light-theme .client-group-classes-page h1,
+body.light-theme .client-group-classes-page h2,
+body.light-theme .client-events-page h1,
+body.light-theme .client-events-page h2,
+body.light-theme .tennis-page h1,
+body.light-theme .tennis-page h2 {
+  color: var(--client-main) !important;
+}
+
+body.light-theme .client-dashboard .filters-card,
+body.light-theme .client-dashboard .form-card,
+body.light-theme .client-dashboard .announcements-section,
+body.light-theme .client-dashboard .notifications-card,
+body.light-theme .client-reservations-page .filters-card,
+body.light-theme .client-reservations-page .form-card,
+body.light-theme .client-reservations-page .reservation-card,
+body.light-theme .reservations-page .filters-card,
+body.light-theme .reservations-page .form-card,
+body.light-theme .reservations-page .reservation-card,
+body.light-theme .client-coach-requests-page .filters-card,
+body.light-theme .client-coach-requests-page .request-card,
+body.light-theme .coach-request-page .form-card,
+body.light-theme .coach-request-page .request-summary,
+body.light-theme .client-group-classes-page .filters-card,
+body.light-theme .client-group-classes-page .form-card,
+body.light-theme .client-group-classes-page .class-card,
+body.light-theme .client-events-page .filters-card,
+body.light-theme .client-events-page .form-card,
+body.light-theme .client-events-page .event-card,
+body.light-theme .tennis-page .form-card,
+body.light-theme .tennis-page .court-card,
+body.light-theme .tennis-page .empty-card {
+  border-color: var(--client-border) !important;
+}
+
+body.light-theme .client-dashboard input,
+body.light-theme .client-dashboard select,
+body.light-theme .client-dashboard textarea,
+body.light-theme .client-reservations-page input,
+body.light-theme .client-reservations-page select,
+body.light-theme .client-reservations-page textarea,
+body.light-theme .reservations-page input,
+body.light-theme .reservations-page select,
+body.light-theme .reservations-page textarea,
+body.light-theme .client-coach-requests-page input,
+body.light-theme .client-coach-requests-page select,
+body.light-theme .client-coach-requests-page textarea,
+body.light-theme .coach-request-page input,
+body.light-theme .coach-request-page select,
+body.light-theme .coach-request-page textarea,
+body.light-theme .client-group-classes-page input,
+body.light-theme .client-group-classes-page select,
+body.light-theme .client-group-classes-page textarea,
+body.light-theme .client-events-page input,
+body.light-theme .client-events-page select,
+body.light-theme .client-events-page textarea,
+body.light-theme .tennis-page input,
+body.light-theme .tennis-page select,
+body.light-theme .tennis-page textarea {
+  border-color: var(--client-border) !important;
+}
+
+body.light-theme .client-dashboard input:focus,
+body.light-theme .client-dashboard select:focus,
+body.light-theme .client-dashboard textarea:focus,
+body.light-theme .client-reservations-page input:focus,
+body.light-theme .client-reservations-page select:focus,
+body.light-theme .client-reservations-page textarea:focus,
+body.light-theme .reservations-page input:focus,
+body.light-theme .reservations-page select:focus,
+body.light-theme .reservations-page textarea:focus,
+body.light-theme .client-coach-requests-page input:focus,
+body.light-theme .client-coach-requests-page select:focus,
+body.light-theme .client-coach-requests-page textarea:focus,
+body.light-theme .coach-request-page input:focus,
+body.light-theme .coach-request-page select:focus,
+body.light-theme .coach-request-page textarea:focus,
+body.light-theme .client-group-classes-page input:focus,
+body.light-theme .client-group-classes-page select:focus,
+body.light-theme .client-group-classes-page textarea:focus,
+body.light-theme .client-events-page input:focus,
+body.light-theme .client-events-page select:focus,
+body.light-theme .client-events-page textarea:focus,
+body.light-theme .tennis-page input:focus,
+body.light-theme .tennis-page select:focus,
+body.light-theme .tennis-page textarea:focus {
+  border-color: var(--client-main) !important;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.14) !important;
+}
+
+body.light-theme .client-dashboard .back-btn,
+body.light-theme .client-reservations-page .back-btn,
+body.light-theme .reservations-page .back-btn,
+body.light-theme .client-coach-requests-page .back-btn,
+body.light-theme .coach-request-page .back-btn,
+body.light-theme .client-group-classes-page .back-btn,
+body.light-theme .client-events-page .back-btn,
+body.light-theme .tennis-page .back-btn,
+body.light-theme .client-dashboard .clear-btn,
+body.light-theme .client-dashboard .reset-btn,
+body.light-theme .client-dashboard .clear-filters-btn,
+body.light-theme .client-reservations-page .clear-btn,
+body.light-theme .client-reservations-page .reset-btn,
+body.light-theme .client-reservations-page .clear-filters-btn,
+body.light-theme .reservations-page .clear-btn,
+body.light-theme .reservations-page .reset-btn,
+body.light-theme .reservations-page .clear-filters-btn,
+body.light-theme .client-coach-requests-page .clear-btn,
+body.light-theme .client-coach-requests-page .reset-btn,
+body.light-theme .client-coach-requests-page .clear-filters-btn,
+body.light-theme .coach-request-page .clear-btn,
+body.light-theme .coach-request-page .reset-btn,
+body.light-theme .coach-request-page .clear-filters-btn,
+body.light-theme .client-group-classes-page .clear-btn,
+body.light-theme .client-group-classes-page .reset-btn,
+body.light-theme .client-group-classes-page .clear-filters-btn,
+body.light-theme .client-events-page .clear-btn,
+body.light-theme .client-events-page .reset-btn,
+body.light-theme .client-events-page .clear-filters-btn,
+body.light-theme .tennis-page .clear-btn,
+body.light-theme .tennis-page .reset-btn,
+body.light-theme .tennis-page .clear-filters-btn {
+  background: transparent !important;
+  color: var(--client-main) !important;
+  border: 1px solid var(--client-border) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .client-dashboard .back-btn:hover,
+body.light-theme .client-reservations-page .back-btn:hover,
+body.light-theme .reservations-page .back-btn:hover,
+body.light-theme .client-coach-requests-page .back-btn:hover,
+body.light-theme .coach-request-page .back-btn:hover,
+body.light-theme .client-group-classes-page .back-btn:hover,
+body.light-theme .client-events-page .back-btn:hover,
+body.light-theme .tennis-page .back-btn:hover,
+body.light-theme .client-dashboard .clear-btn:hover,
+body.light-theme .client-dashboard .reset-btn:hover,
+body.light-theme .client-dashboard .clear-filters-btn:hover,
+body.light-theme .client-reservations-page .clear-btn:hover,
+body.light-theme .client-reservations-page .reset-btn:hover,
+body.light-theme .client-reservations-page .clear-filters-btn:hover,
+body.light-theme .reservations-page .clear-btn:hover,
+body.light-theme .reservations-page .reset-btn:hover,
+body.light-theme .reservations-page .clear-filters-btn:hover,
+body.light-theme .client-coach-requests-page .clear-btn:hover,
+body.light-theme .client-coach-requests-page .reset-btn:hover,
+body.light-theme .client-coach-requests-page .clear-filters-btn:hover,
+body.light-theme .coach-request-page .clear-btn:hover,
+body.light-theme .coach-request-page .reset-btn:hover,
+body.light-theme .coach-request-page .clear-filters-btn:hover,
+body.light-theme .client-group-classes-page .clear-btn:hover,
+body.light-theme .client-group-classes-page .reset-btn:hover,
+body.light-theme .client-group-classes-page .clear-filters-btn:hover,
+body.light-theme .client-events-page .clear-btn:hover,
+body.light-theme .client-events-page .reset-btn:hover,
+body.light-theme .client-events-page .clear-filters-btn:hover,
+body.light-theme .tennis-page .clear-btn:hover,
+body.light-theme .tennis-page .reset-btn:hover,
+body.light-theme .tennis-page .clear-filters-btn:hover {
+  background: var(--client-main) !important;
+  color: #ffffff !important;
+  border-color: var(--client-main) !important;
+}
+
+body.light-theme .client-dashboard .create-btn,
+body.light-theme .client-dashboard .submit-btn,
+body.light-theme .client-dashboard .publish-btn,
+body.light-theme .client-dashboard .confirm-btn,
+body.light-theme .client-reservations-page .create-btn,
+body.light-theme .client-reservations-page .submit-btn,
+body.light-theme .client-reservations-page .confirm-btn,
+body.light-theme .reservations-page .create-btn,
+body.light-theme .reservations-page .submit-btn,
+body.light-theme .reservations-page .confirm-btn,
+body.light-theme .client-coach-requests-page .create-btn,
+body.light-theme .client-coach-requests-page .submit-btn,
+body.light-theme .coach-request-page .create-btn,
+body.light-theme .coach-request-page .submit-btn,
+body.light-theme .client-group-classes-page .create-btn,
+body.light-theme .client-group-classes-page .submit-btn,
+body.light-theme .client-group-classes-page .participate-btn,
+body.light-theme .client-events-page .create-btn,
+body.light-theme .client-events-page .submit-btn,
+body.light-theme .client-events-page .participate-btn,
+body.light-theme .tennis-page .create-btn,
+body.light-theme .tennis-page .submit-btn,
+body.light-theme .tennis-page .confirm-btn {
+  background: linear-gradient(135deg, var(--client-main), var(--client-main-dark)) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+body.light-theme .client-events-page .ball-loader,
+body.light-theme .client-group-classes-page .ball-loader,
+body.light-theme .client-reservations-page .ball-loader,
+body.light-theme .reservations-page .ball-loader,
+body.light-theme .tennis-page .ball-loader {
+  background: var(--client-main) !important;
+  box-shadow: 0 0 14px rgba(22, 163, 74, 0.75) !important;
+}
+
+body.light-theme .tennis-page .court-line,
+body.light-theme .reservations-page .court-line,
+body.light-theme .client-dashboard .court-line {
+  background: linear-gradient(90deg, transparent, var(--client-main), var(--client-main-dark), transparent) !important;
+}
+
+body:not(.light-theme) .coach-sessions-page .filter-group label,
+body.dark-theme .coach-sessions-page .filter-group label {
+  color: #ffffff !important;
+}
+
+body:not(.light-theme) .admin-users-page .clear-btn,
+body:not(.light-theme) .admin-users-page .reset-btn,
+body:not(.light-theme) .admin-users-page .clear-filters-btn,
+body:not(.light-theme) .admin-clients-page .clear-btn,
+body:not(.light-theme) .admin-clients-page .reset-btn,
+body:not(.light-theme) .admin-clients-page .clear-filters-btn,
+body:not(.light-theme) .admin-coaches-page .clear-btn,
+body:not(.light-theme) .admin-coaches-page .reset-btn,
+body:not(.light-theme) .admin-coaches-page .clear-filters-btn,
+body:not(.light-theme) .admin-courts-page .clear-btn,
+body:not(.light-theme) .admin-courts-page .reset-btn,
+body:not(.light-theme) .admin-courts-page .clear-filters-btn,
+body:not(.light-theme) .admin-reservations-page .clear-btn,
+body:not(.light-theme) .admin-reservations-page .reset-btn,
+body:not(.light-theme) .admin-reservations-page .clear-filters-btn,
+body:not(.light-theme) .admin-coach-requests-page .clear-btn,
+body:not(.light-theme) .admin-coach-requests-page .reset-btn,
+body:not(.light-theme) .admin-coach-requests-page .clear-filters-btn,
+body:not(.light-theme) .admin-coach-leavings-page .clear-btn,
+body:not(.light-theme) .admin-coach-leavings-page .reset-btn,
+body:not(.light-theme) .admin-coach-leavings-page .clear-filters-btn,
+body:not(.light-theme) .admin-events-page .clear-btn,
+body:not(.light-theme) .admin-events-page .reset-btn,
+body:not(.light-theme) .admin-events-page .clear-filters-btn,
+body:not(.light-theme) .admin-announcements-page .clear-btn,
+body:not(.light-theme) .admin-announcements-page .reset-btn,
+body:not(.light-theme) .admin-announcements-page .clear-filters-btn,
+body:not(.light-theme) .admin-statistics-page .clear-btn,
+body:not(.light-theme) .admin-statistics-page .reset-btn,
+body:not(.light-theme) .admin-statistics-page .clear-filters-btn {
+  background: transparent !important;
+  color: #25bfff !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: none !important;
+}
+
+body:not(.light-theme) .admin-users-page .clear-btn:hover,
+body:not(.light-theme) .admin-users-page .reset-btn:hover,
+body:not(.light-theme) .admin-users-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-clients-page .clear-btn:hover,
+body:not(.light-theme) .admin-clients-page .reset-btn:hover,
+body:not(.light-theme) .admin-clients-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-coaches-page .clear-btn:hover,
+body:not(.light-theme) .admin-coaches-page .reset-btn:hover,
+body:not(.light-theme) .admin-coaches-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-courts-page .clear-btn:hover,
+body:not(.light-theme) .admin-courts-page .reset-btn:hover,
+body:not(.light-theme) .admin-courts-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-reservations-page .clear-btn:hover,
+body:not(.light-theme) .admin-reservations-page .reset-btn:hover,
+body:not(.light-theme) .admin-reservations-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-coach-requests-page .clear-btn:hover,
+body:not(.light-theme) .admin-coach-requests-page .reset-btn:hover,
+body:not(.light-theme) .admin-coach-requests-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-coach-leavings-page .clear-btn:hover,
+body:not(.light-theme) .admin-coach-leavings-page .reset-btn:hover,
+body:not(.light-theme) .admin-coach-leavings-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-events-page .clear-btn:hover,
+body:not(.light-theme) .admin-events-page .reset-btn:hover,
+body:not(.light-theme) .admin-events-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-announcements-page .clear-btn:hover,
+body:not(.light-theme) .admin-announcements-page .reset-btn:hover,
+body:not(.light-theme) .admin-announcements-page .clear-filters-btn:hover,
+body:not(.light-theme) .admin-statistics-page .clear-btn:hover,
+body:not(.light-theme) .admin-statistics-page .reset-btn:hover,
+body:not(.light-theme) .admin-statistics-page .clear-filters-btn:hover {
+  background: #25bfff !important;
+  color: #06101f !important;
+  border-color: #25bfff !important;
+}
+
+body.light-theme .admin-users-page .clear-btn,
+body.light-theme .admin-users-page .reset-btn,
+body.light-theme .admin-users-page .clear-filters-btn,
+body.light-theme .admin-clients-page .clear-btn,
+body.light-theme .admin-clients-page .reset-btn,
+body.light-theme .admin-clients-page .clear-filters-btn,
+body.light-theme .admin-coaches-page .clear-btn,
+body.light-theme .admin-coaches-page .reset-btn,
+body.light-theme .admin-coaches-page .clear-filters-btn,
+body.light-theme .admin-courts-page .clear-btn,
+body.light-theme .admin-courts-page .reset-btn,
+body.light-theme .admin-courts-page .clear-filters-btn,
+body.light-theme .admin-reservations-page .clear-btn,
+body.light-theme .admin-reservations-page .reset-btn,
+body.light-theme .admin-reservations-page .clear-filters-btn,
+body.light-theme .admin-coach-requests-page .clear-btn,
+body.light-theme .admin-coach-requests-page .reset-btn,
+body.light-theme .admin-coach-requests-page .clear-filters-btn,
+body.light-theme .admin-coach-leavings-page .clear-btn,
+body.light-theme .admin-coach-leavings-page .reset-btn,
+body.light-theme .admin-coach-leavings-page .clear-filters-btn,
+body.light-theme .admin-events-page .clear-btn,
+body.light-theme .admin-events-page .reset-btn,
+body.light-theme .admin-events-page .clear-filters-btn,
+body.light-theme .admin-announcements-page .clear-btn,
+body.light-theme .admin-announcements-page .reset-btn,
+body.light-theme .admin-announcements-page .clear-filters-btn,
+body.light-theme .admin-statistics-page .clear-btn,
+body.light-theme .admin-statistics-page .reset-btn,
+body.light-theme .admin-statistics-page .clear-filters-btn {
+  background: transparent !important;
+  color: var(--admin-main) !important;
+  border: 1px solid var(--admin-border) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .admin-users-page .clear-btn:hover,
+body.light-theme .admin-users-page .reset-btn:hover,
+body.light-theme .admin-users-page .clear-filters-btn:hover,
+body.light-theme .admin-clients-page .clear-btn:hover,
+body.light-theme .admin-clients-page .reset-btn:hover,
+body.light-theme .admin-clients-page .clear-filters-btn:hover,
+body.light-theme .admin-coaches-page .clear-btn:hover,
+body.light-theme .admin-coaches-page .reset-btn:hover,
+body.light-theme .admin-coaches-page .clear-filters-btn:hover,
+body.light-theme .admin-courts-page .clear-btn:hover,
+body.light-theme .admin-courts-page .reset-btn:hover,
+body.light-theme .admin-courts-page .clear-filters-btn:hover,
+body.light-theme .admin-reservations-page .clear-btn:hover,
+body.light-theme .admin-reservations-page .reset-btn:hover,
+body.light-theme .admin-reservations-page .clear-filters-btn:hover,
+body.light-theme .admin-coach-requests-page .clear-btn:hover,
+body.light-theme .admin-coach-requests-page .reset-btn:hover,
+body.light-theme .admin-coach-requests-page .clear-filters-btn:hover,
+body.light-theme .admin-coach-leavings-page .clear-btn:hover,
+body.light-theme .admin-coach-leavings-page .reset-btn:hover,
+body.light-theme .admin-coach-leavings-page .clear-filters-btn:hover,
+body.light-theme .admin-events-page .clear-btn:hover,
+body.light-theme .admin-events-page .reset-btn:hover,
+body.light-theme .admin-events-page .clear-filters-btn:hover,
+body.light-theme .admin-announcements-page .clear-btn:hover,
+body.light-theme .admin-announcements-page .reset-btn:hover,
+body.light-theme .admin-announcements-page .clear-filters-btn:hover,
+body.light-theme .admin-statistics-page .clear-btn:hover,
+body.light-theme .admin-statistics-page .reset-btn:hover,
+body.light-theme .admin-statistics-page .clear-filters-btn:hover {
+  background: var(--admin-main) !important;
+  color: #ffffff !important;
+  border-color: var(--admin-main) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card::before,
+body.light-theme .coach-dashboard .dashboard-card::before {
+  background: linear-gradient(
+      rgba(3, 10, 20, 0.42),
+      rgba(3, 10, 20, 0.62)
+    ) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card::after,
+body.light-theme .coach-dashboard .dashboard-card::after {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: grayscale(40%) saturate(70%) brightness(0.84) contrast(0.90) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card button {
+  background: linear-gradient(135deg, var(--admin-main), var(--admin-main-dark)) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(0, 119, 182, 0.30) !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card button {
+  background: linear-gradient(135deg, #ff7a00, #b45309) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(180, 83, 9, 0.30) !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card p,
+body.light-theme .coach-dashboard .dashboard-card p {
+  color: #ffffff !important;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9) !important;
+}
+
+.admin-dashboard,
+.client-dashboard,
+.coach-dashboard,
+.admin-users-page,
+.admin-clients-page,
+.admin-coaches-page,
+.admin-courts-page,
+.admin-reservations-page,
+.admin-coach-requests-page,
+.admin-coach-leavings-page,
+.admin-announcements-page,
+.admin-events-page,
+.admin-statistics-page,
+.client-reservations-page,
+.client-coach-requests-page,
+.client-group-classes-page,
+.client-events-page,
+.client-tennis-page,
+.coach-requests-page,
+.coach-sessions-page,
+.coach-leavings-page,
+.coach-group-classes-page,
+.coach-events-page,
+.group-classes-page {
+  animation: pageSoftEnter 0.55s ease both;
+}
+
+@keyframes pageSoftEnter {
+  from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+  to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+
+.dashboard-card,
+.form-card,
+.filters-card,
+.notifications-card,
+.announcements-section,
+.event-card,
+.class-card,
+.request-card,
+.reservation-card,
+.session-card,
+.leave-card,
+.court-card,
+.stat-card,
+.stats-card,
+.metric-card,
+.empty-card {
+  animation: cardSoftEnter 0.55s ease both;
+}
+
+.dashboard-card:nth-child(1),
+.event-card:nth-child(1),
+.class-card:nth-child(1),
+.request-card:nth-child(1),
+.reservation-card:nth-child(1),
+.session-card:nth-child(1),
+.leave-card:nth-child(1),
+.court-card:nth-child(1),
+.stat-card:nth-child(1),
+.metric-card:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.dashboard-card:nth-child(2),
+.event-card:nth-child(2),
+.class-card:nth-child(2),
+.request-card:nth-child(2),
+.reservation-card:nth-child(2),
+.session-card:nth-child(2),
+.leave-card:nth-child(2),
+.court-card:nth-child(2),
+.stat-card:nth-child(2),
+.metric-card:nth-child(2) {
+  animation-delay: 0.09s;
+}
+
+.dashboard-card:nth-child(3),
+.event-card:nth-child(3),
+.class-card:nth-child(3),
+.request-card:nth-child(3),
+.reservation-card:nth-child(3),
+.session-card:nth-child(3),
+.leave-card:nth-child(3),
+.court-card:nth-child(3),
+.stat-card:nth-child(3),
+.metric-card:nth-child(3) {
+  animation-delay: 0.14s;
+}
+
+.dashboard-card:nth-child(4),
+.event-card:nth-child(4),
+.class-card:nth-child(4),
+.request-card:nth-child(4),
+.reservation-card:nth-child(4),
+.session-card:nth-child(4),
+.leave-card:nth-child(4),
+.court-card:nth-child(4),
+.stat-card:nth-child(4),
+.metric-card:nth-child(4) {
+  animation-delay: 0.19s;
+}
+
+@keyframes cardSoftEnter {
+  from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.985);
+    }
+
+  to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+}
+
+.admin-dashboard .dashboard-card:hover {
+  box-shadow: 0 22px 48px rgba(0, 119, 182, 0.24),
+    0 0 0 1px rgba(0, 119, 182, 0.30) inset !important;
+}
+
+.client-dashboard .dashboard-card:hover {
+  box-shadow: 0 22px 48px rgba(22, 163, 74, 0.24),
+    0 0 0 1px rgba(22, 163, 74, 0.30) inset !important;
+}
+
+.coach-dashboard .dashboard-card:hover {
+  box-shadow: 0 22px 48px rgba(180, 83, 9, 0.24),
+    0 0 0 1px rgba(180, 83, 9, 0.30) inset !important;
+}
+
+.dashboard-card button,
+.create-btn,
+.submit-btn,
+.publish-btn,
+.save-btn,
+.participate-btn,
+.accept-btn,
+.confirm-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card button::before,
+.create-btn::before,
+.submit-btn::before,
+.publish-btn::before,
+.save-btn::before,
+.participate-btn::before,
+.accept-btn::before,
+.confirm-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -110%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-18deg);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.dashboard-card button:hover::before,
+.create-btn:hover::before,
+.submit-btn:hover::before,
+.publish-btn:hover::before,
+.save-btn:hover::before,
+.participate-btn:hover::before,
+.accept-btn:hover::before,
+.confirm-btn:hover::before {
+  left: 130%;
+}
+
+.dashboard-card h2 {
+  transition: transform 0.28s ease, color 0.28s ease, text-shadow 0.28s ease;
+}
+
+.dashboard-card:hover h2 {
+  transform: translateY(-2px);
+}
+
+.red-dot,
+.top-badge {
+  animation: badgeSoftPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badgeSoftPulse {
+  0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 rgba(255, 77, 77, 0.0);
+    }
+
+  50% {
+      transform: scale(1.08);
+      box-shadow: 0 0 14px rgba(255, 77, 77, 0.55);
+    }
+}
+
+.top-icon-button,
+.profile-button,
+.top-icon-btn,
+.chatbot-toggle {
+  transition: transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease !important;
+}
+
+.top-icon-button:hover,
+.profile-button:hover,
+.top-icon-btn:hover,
+.chatbot-toggle:hover {
+  transform: translateY(-3px) scale(1.03) !important;
+}
+
+.chatbot-toggle {
+  animation: chatbotSoftPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes chatbotSoftPulse {
+  0%, 100% {
+      box-shadow: 0 10px 28px rgba(0, 200, 255, 0.18);
+    }
+
+  50% {
+      box-shadow: 0 12px 34px rgba(0, 200, 255, 0.35);
+    }
+}
+
+.app-loading {
+  position: relative;
+  gap: 14px;
+}
+
+.app-loading::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #25bfff;
+  box-shadow: 0 0 18px rgba(37, 191, 255, 0.75);
+  animation: appLoadingBall 0.75s ease-in-out infinite alternate;
+}
+
+@keyframes appLoadingBall {
+  from {
+      transform: translateY(0);
+    }
+
+  to {
+      transform: translateY(-16px);
+    }
+}
+
+body.light-theme .client-dashboard .dashboard-card h2 {
+  color: #22c55e !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card h2 {
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9) !important;
+  color: #25bfff !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card h2 {
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9) !important;
+  color: #f97316 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
+
+.coach-dashboard,
+.coach-requests-page,
+.coach-request-page,
+.coach-sessions-page,
+.coach-leavings-page,
+.coach-events-page,
+.group-classes-page,
+.coach-group-classes-page {
+  --space-primary: #ff7a00;
+  --space-primary-dark: #d65f00;
+  --space-primary-soft: rgba(255, 122, 0, 0.10);
+  --space-primary-border: rgba(255, 122, 0, 0.65);
+  --space-card-bg: #061221;
+  --space-page-bg: #020b16;
+}
+
+.client-dashboard,
+.client-coach-requests-page,
+.client-events-page,
+.client-group-classes-page,
+.reservations-page,
+.client-reservations-page,
+.tennis-page {
+  --space-primary: #42d65f;
+  --space-primary-dark: #1ea83d;
+  --space-primary-soft: rgba(66, 214, 95, 0.10);
+  --space-primary-border: rgba(66, 214, 95, 0.65);
+  --space-card-bg: #061221;
+  --space-page-bg: #020b16;
+}
+
+body.light-theme .admin-dashboard,
+body.light-theme .admin-users-page,
+body.light-theme .admin-clients-page,
+body.light-theme .admin-coaches-page,
+body.light-theme .admin-courts-page,
+body.light-theme .admin-reservations-page,
+body.light-theme .admin-coach-requests-page,
+body.light-theme .admin-coach-leavings-page,
+body.light-theme .admin-events-page,
+body.light-theme .admin-announcements-page,
+body.light-theme .admin-statistics-page {
+  --space-primary: #0077b6;
+  --space-primary-dark: #005f8f;
+  --space-primary-soft: rgba(0, 119, 182, 0.08);
+  --space-primary-border: rgba(0, 119, 182, 0.38);
+  --space-card-bg: #ffffff;
+  --space-page-bg: #f4f7fb;
+}
+
+body.light-theme .coach-dashboard,
+body.light-theme .coach-requests-page,
+body.light-theme .coach-request-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .coach-leavings-page,
+body.light-theme .coach-events-page,
+body.light-theme .group-classes-page,
+body.light-theme .coach-group-classes-page {
+  --space-primary: #d65f00;
+  --space-primary-dark: #b45309;
+  --space-primary-soft: rgba(255, 122, 0, 0.08);
+  --space-primary-border: rgba(214, 95, 0, 0.38);
+  --space-card-bg: #ffffff;
+  --space-page-bg: #f4f7fb;
+}
+
+body.light-theme .client-dashboard,
+body.light-theme .client-coach-requests-page,
+body.light-theme .client-events-page,
+body.light-theme .client-group-classes-page,
+body.light-theme .reservations-page,
+body.light-theme .client-reservations-page,
+body.light-theme .tennis-page {
+  --space-primary: #15803d;
+  --space-primary-dark: #166534;
+  --space-primary-soft: rgba(21, 128, 61, 0.08);
+  --space-primary-border: rgba(21, 128, 61, 0.38);
+  --space-card-bg: #ffffff;
+  --space-page-bg: #f4f7fb;
+}
+
+.list-card,
+.table-card,
+.form-card,
+.filters-card,
+.empty-card,
+.session-card,
+.reservation-card,
+.request-card,
+.court-card,
+.event-card,
+.group-class-card,
+.leave-card,
+.announcement-card,
+.admin-statistics-page .stat-card {
+  background: var(--space-card-bg, #061221) !important;
+  border: 1px solid var(--space-primary-border, rgba(37, 191, 255, 0.65)) !important;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.38) !important;
+}
+
+body.light-theme .list-card,
+body.light-theme .table-card,
+body.light-theme .form-card,
+body.light-theme .filters-card,
+body.light-theme .empty-card,
+body.light-theme .session-card,
+body.light-theme .reservation-card,
+body.light-theme .request-card,
+body.light-theme .court-card,
+body.light-theme .event-card,
+body.light-theme .group-class-card,
+body.light-theme .leave-card,
+body.light-theme .announcement-card,
+body.light-theme .admin-statistics-page .stat-card {
+  background: #ffffff !important;
+  box-shadow: 0 12px 28px rgba(15, 40, 70, 0.12) !important;
+}
+
+.list-card h2,
+.table-card h2,
+.form-card h2,
+.section-title h2 {
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  font-weight: 900 !important;
+}
+
+body.light-theme .list-card h2,
+body.light-theme .table-card h2,
+body.light-theme .form-card h2,
+body.light-theme .section-title h2 {
+  color: var(--space-primary, #0077b6) !important;
+}
+
+.form-card input,
+.form-card select,
+.form-card textarea,
+.filters-card input,
+.filters-card select,
+.filters-card textarea,
+.admin-announcements-page input,
+.admin-announcements-page select,
+.admin-announcements-page textarea {
+  border: 1px solid var(--space-primary-border, rgba(37, 191, 255, 0.55)) !important;
+  background: rgba(2, 10, 22, 0.95) !important;
+  color: #ffffff !important;
+  border-radius: 10px !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus,
+.filters-card input:focus,
+.filters-card select:focus,
+.filters-card textarea:focus,
+.admin-announcements-page input:focus,
+.admin-announcements-page select:focus,
+.admin-announcements-page textarea:focus {
+  border-color: var(--space-primary, #25bfff) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--space-primary, #25bfff) 25%, transparent) !important;
+}
+
+.form-card input::placeholder,
+.form-card textarea::placeholder,
+.filters-card input::placeholder,
+.admin-announcements-page input::placeholder,
+.admin-announcements-page textarea::placeholder {
+  color: rgba(216, 226, 239, 0.55) !important;
+}
+
+body.light-theme .form-card input,
+body.light-theme .form-card select,
+body.light-theme .form-card textarea,
+body.light-theme .filters-card input,
+body.light-theme .filters-card select,
+body.light-theme .filters-card textarea,
+body.light-theme .admin-announcements-page input,
+body.light-theme .admin-announcements-page select,
+body.light-theme .admin-announcements-page textarea {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border-color: var(--space-primary-border, rgba(0, 119, 182, 0.38)) !important;
+}
+
+body.light-theme .form-card input::placeholder,
+body.light-theme .form-card textarea::placeholder,
+body.light-theme .filters-card input::placeholder,
+body.light-theme .admin-announcements-page input::placeholder,
+body.light-theme .admin-announcements-page textarea::placeholder {
+  color: rgba(6, 16, 31, 0.45) !important;
+}
+
+thead,
+table thead,
+table th {
+  background: rgba(37, 191, 255, 0.18) !important;
+  color: #ffffff !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.7px !important;
+}
+
+body.light-theme thead,
+body.light-theme table thead,
+body.light-theme table th {
+  background: #0b4f71 !important;
+  color: #ffffff !important;
+}
+
+.status,
+.status-badge,
+.badge,
+.state-badge,
+.pending,
+.accepted,
+.confirmed,
+.completed,
+.cancelled,
+.canceled,
+.rejected,
+.expired,
+.active,
+.available,
+.maintenance,
+.inactive,
+.full {
+  display: inline !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+}
+
+.status.pending,
+.status-badge.pending,
+.badge.pending,
+.state-badge.pending,
+.pending {
+  color: #facc15 !important;
+}
+
+.status.maintenance,
+.status-badge.maintenance,
+.badge.maintenance,
+.state-badge.maintenance,
+.maintenance {
+  color: #f59e0b !important;
+}
+
+.status.accepted,
+.status.confirmed,
+.status.completed,
+.status.active,
+.status.available,
+.status-badge.accepted,
+.status-badge.confirmed,
+.status-badge.completed,
+.status-badge.active,
+.status-badge.available,
+.badge.accepted,
+.badge.confirmed,
+.badge.completed,
+.badge.active,
+.badge.available,
+.state-badge.accepted,
+.state-badge.confirmed,
+.state-badge.completed,
+.state-badge.active,
+.state-badge.available,
+.accepted,
+.confirmed,
+.completed,
+.active,
+.available {
+  color: #42d65f !important;
+}
+
+.status.cancelled,
+.status.canceled,
+.status-badge.cancelled,
+.status-badge.canceled,
+.badge.cancelled,
+.badge.canceled,
+.state-badge.cancelled,
+.state-badge.canceled,
+.cancelled,
+.canceled {
+  color: #fb923c !important;
+}
+
+.status.rejected,
+.status.inactive,
+.status.full,
+.status-badge.rejected,
+.status-badge.inactive,
+.status-badge.full,
+.badge.rejected,
+.badge.inactive,
+.badge.full,
+.state-badge.rejected,
+.state-badge.inactive,
+.state-badge.full,
+.rejected,
+.inactive,
+.full {
+  color: #ff4d4d !important;
+}
+
+.status.expired,
+.status-badge.expired,
+.badge.expired,
+.state-badge.expired,
+.expired {
+  color: #b0bec5 !important;
+}
+
+body.light-theme .pending {
+  color: #b45309 !important;
+}
+
+body.light-theme .maintenance {
+  color: #d97706 !important;
+}
+
+body.light-theme .accepted,
+body.light-theme .confirmed,
+body.light-theme .completed,
+body.light-theme .active,
+body.light-theme .available {
+  color: #15803d !important;
+}
+
+body.light-theme .cancelled,
+body.light-theme .canceled {
+  color: #ea580c !important;
+}
+
+body.light-theme .rejected,
+body.light-theme .inactive,
+body.light-theme .full {
+  color: #dc2626 !important;
+}
+
+body.light-theme .expired {
+  color: #64748b !important;
+}
+
+.client-dashboard h1,
+.client-dashboard h2,
+.client-dashboard h3,
+.client-coach-requests-page h1,
+.client-coach-requests-page h2,
+.client-events-page h1,
+.client-events-page h2,
+.client-group-classes-page h1,
+.client-group-classes-page h2,
+.reservations-page h1,
+.reservations-page h2,
+.tennis-page h1,
+.tennis-page h2,
+.tennis-page h3 {
+  color: var(--space-primary, #42d65f) !important;
+}
+
+.client-dashboard .dashboard-card h2,
+.client-dashboard .dashboard-card p {
+  color: #ffffff !important;
+}
+
+.tennis-page .court-card,
+.tennis-page .reservation-card,
+.reservations-page .reservation-card,
+.client-coach-requests-page .request-card,
+.client-events-page .event-card,
+.client-group-classes-page .group-class-card {
+  border-color: var(--space-primary-border, rgba(66, 214, 95, 0.65)) !important;
+}
+
+.tennis-page .confirm-btn,
+.client-dashboard .dashboard-card button,
+.client-coach-requests-page button:not(.back-btn),
+.reservations-page button:not(.back-btn),
+.client-events-page button:not(.back-btn),
+.client-group-classes-page button:not(.back-btn) {
+  background: linear-gradient(135deg, #42d65f, #1ea83d) !important;
+  color: #ffffff !important;
+}
+
+.dashboard-card {
+  transition: transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background-size 0.55s ease,
+    filter 0.3s ease !important;
+  background-size: 106% !important;
+  transform: none !important;
+}
+
+.dashboard-card:hover {
+  background-size: 113% !important;
+  transform: none !important;
+}
+
+.dashboard-card:hover h2,
+.dashboard-card:hover p,
+.dashboard-card:hover button {
+  transform: none !important;
+}
+
+body.light-theme .announcement-card:hover,
+body.light-theme .announcement-item:hover,
+body.light-theme .announcements-card:hover,
+body.light-theme .client-dashboard .announcement-item:hover,
+body.light-theme .coach-dashboard .announcement-item:hover {
+  transform: none !important;
+  background: inherit !important;
+  box-shadow: inherit !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card::before {
+  background-image: var(--card-bg) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
+body:has(.admin-dashboard),
+body:has(.admin-users-page),
+body:has(.admin-clients-page),
+body:has(.admin-coaches-page),
+body:has(.admin-courts-page),
+body:has(.admin-reservations-page),
+body:has(.admin-coach-requests-page),
+body:has(.admin-coach-leavings-page),
+body:has(.admin-events-page),
+body:has(.admin-announcements-page),
+body:has(.admin-statistics-page) {
+  --profile-theme: #25bfff;
+  --profile-theme-dark: #0077b6;
+}
+
+body:has(.client-dashboard),
+body:has(.client-coach-requests-page),
+body:has(.client-events-page),
+body:has(.client-group-classes-page),
+body:has(.reservations-page),
+body:has(.tennis-page) {
+  --profile-theme: #42d65f;
+  --profile-theme-dark: #15803d;
+}
+
+body:has(.coach-dashboard),
+body:has(.coach-requests-page),
+body:has(.coach-request-page),
+body:has(.coach-sessions-page),
+body:has(.coach-leavings-page),
+body:has(.coach-events-page),
+body:has(.group-classes-page) {
+  --profile-theme: #ff7a00;
+  --profile-theme-dark: #d65f00;
+}
+
+.top-icon-button:hover,
+.profile-button:hover,
+.top-icon-btn:hover {
+  background: color-mix(in srgb, var(--profile-theme, #25bfff) 18%, transparent) !important;
+  transform: none !important;
+}
+
+.profile-avatar,
+.profile-info-avatar {
+  background: linear-gradient(135deg, var(--profile-theme, #25bfff), color-mix(in srgb, var(--profile-theme, #25bfff) 60%, #ffffff)) !important;
+}
+
+.profile-dropdown,
+.top-notifications-panel,
+.password-modal {
+  border-color: color-mix(in srgb, var(--profile-theme, #25bfff) 55%, transparent) !important;
+}
+
+.notifications-header h3,
+.password-modal h2,
+.profile-info span,
+.top-notification-content small {
+  color: var(--profile-theme, #25bfff) !important;
+}
+
+.notifications-header span,
+.profile-info span,
+.top-notification-icon {
+  background: color-mix(in srgb, var(--profile-theme, #25bfff) 14%, transparent) !important;
+}
+
+body.light-theme .top-icon-button,
+body.light-theme .profile-button,
+body.light-theme .top-icon-btn,
+body.light-theme .profile-dropdown,
+body.light-theme .top-notifications-panel,
+body.light-theme .password-modal {
+  border-color: color-mix(in srgb, var(--profile-theme-dark, #0077b6) 42%, transparent) !important;
+}
+
+body.light-theme .notifications-header h3,
+body.light-theme .password-modal h2,
+body.light-theme .profile-info span,
+body.light-theme .top-notification-content small {
+  color: var(--profile-theme-dark, #0077b6) !important;
+}
+
+.status,
+.status-badge,
+.badge,
+.state-badge,
+[class*="status-"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+.pending,
+.status.pending,
+.status-badge.pending,
+.badge.pending,
+.state-badge.pending {
+  color: #facc15 !important;
+}
+
+.cancelled,
+.canceled,
+.status.cancelled,
+.status.canceled,
+.status-badge.cancelled,
+.status-badge.canceled,
+.badge.cancelled,
+.badge.canceled,
+.state-badge.cancelled,
+.state-badge.canceled {
+  color: #fb923c !important;
+}
+
+.rejected,
+.status.rejected,
+.status-badge.rejected,
+.badge.rejected,
+.state-badge.rejected {
+  color: #ff4d4d !important;
+}
+
+.accepted,
+.confirmed,
+.completed,
+.active,
+.available,
+.status.accepted,
+.status.confirmed,
+.status.completed,
+.status.active,
+.status.available,
+.status-badge.accepted,
+.status-badge.confirmed,
+.status-badge.completed,
+.status-badge.active,
+.status-badge.available {
+  color: #42d65f !important;
+}
+
+.expired,
+.inactive,
+.status.expired,
+.status.inactive,
+.status-badge.expired,
+.status-badge.inactive {
+  color: #b0bec5 !important;
+}
+
+.close-btn,
+.delete-btn,
+.delete-notification-btn,
+.remove-btn,
+.cancel-icon,
+button[aria-label="close"],
+button[aria-label="delete"] {
+  color: #ff4d4d !important;
+  border-color: rgba(255, 77, 77, 0.65) !important;
+  background: rgba(255, 77, 77, 0.14) !important;
+}
+
+.close-btn:hover,
+.delete-btn:hover,
+.delete-notification-btn:hover,
+.remove-btn:hover,
+.cancel-icon:hover {
+  background: #ff4d4d !important;
+  color: #ffffff !important;
+}
+
+.reset-btn,
+.clear-btn,
+.clear-filters-btn,
+button.reset,
+button[type="reset"] {
+  border-color: var(--space-primary, var(--profile-theme, #25bfff)) !important;
+  color: var(--space-primary, var(--profile-theme, #25bfff)) !important;
+  background: transparent !important;
+}
+
+.reset-btn:hover,
+.clear-btn:hover,
+.clear-filters-btn:hover,
+button.reset:hover,
+button[type="reset"]:hover {
+  background: var(--space-primary, var(--profile-theme, #25bfff)) !important;
+  color: #06101f !important;
+  transform: none !important;
+}
+
+.filters-card label,
+.filter-group label {
+  color: #ffffff !important;
+}
+
+body.light-theme .filters-card label,
+body.light-theme .filter-group label {
+  color: #06101f !important;
+}
+
+.client-dashboard,
+.tennis-page,
+.reservations-page,
+.client-coach-requests-page,
+.client-events-page,
+.client-group-classes-page {
+  --space-primary: #42d65f;
+  --space-primary-dark: #15803d;
+}
+
+.admin-dashboard,
+.admin-users-page,
+.admin-clients-page,
+.admin-coaches-page,
+.admin-courts-page,
+.admin-reservations-page,
+.admin-coach-requests-page,
+.admin-coach-leavings-page,
+.admin-events-page,
+.admin-announcements-page,
+.admin-statistics-page {
+  --space-primary-soft: rgba(37, 191, 255, 0.10);
+  --space-primary-border: rgba(37, 191, 255, 0.65);
+  --space-card-bg: #061221;
+  --space-page-bg: #020b16;
+  --space-primary: #25bfff;
+  --space-primary-dark: #0077b6;
+}
+
+.coach-dashboard,
+.coach-requests-page,
+.coach-request-page,
+.coach-sessions-page,
+.coach-leavings-page,
+.coach-events-page,
+.group-classes-page {
+  --space-primary: #ff7a00;
+  --space-primary-dark: #b45309;
+}
+
+.back-btn,
+a.back-btn {
+  border-color: var(--space-primary) !important;
+  color: var(--space-primary) !important;
+  background: transparent !important;
+}
+
+.back-btn:hover,
+a.back-btn:hover {
+  background: var(--space-primary) !important;
+  color: #06101f !important;
+  transform: none !important;
+}
+
+.dashboard-card,
+.dashboard-card:hover,
+.dashboard-card:hover h2,
+.dashboard-card:hover p,
+.dashboard-card:hover button {
+  transform: none !important;
+}
+
+.dashboard-card:hover::before {
+  transform: scale(1.06) !important;
+}
+
+.list-card h2,
+.table-card h2,
+.list-title,
+.table-title {
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+body:not(.light-theme) .list-card h2,
+body:not(.light-theme) .table-card h2,
+body:not(.light-theme) .list-title,
+body:not(.light-theme) .table-title {
+  color: #ffffff !important;
+}
+
+.announcement-card:hover,
+.announcement-item:hover {
+  transform: none !important;
+}
+
+.top-icon-button,
+.profile-button,
+.top-icon-btn {
+  border-color: color-mix(in srgb, var(--profile-theme, var(--space-primary, #25bfff)) 70%, transparent) !important;
+}
+
+body.light-theme .coach-request-page .request-summary,
+body.light-theme .tennis-page .reservation-summary {
+  background: rgba(22, 163, 74, 0.06) !important;
+  border: 1px solid rgba(22, 163, 74, 0.38) !important;
+  color: #06101f !important;
+}
+
+body.light-theme .coach-request-page .request-summary h3,
+body.light-theme .tennis-page .reservation-summary h3 {
+  color: #16a34a !important;
+}
+
+body.light-theme .coach-request-page .request-summary p,
+body.light-theme .coach-request-page .request-summary strong,
+body.light-theme .tennis-page .reservation-summary p,
+body.light-theme .tennis-page .reservation-summary strong {
+  color: #06101f !important;
+}
+
+body.light-theme .coach-request-page .request-summary span,
+body.light-theme .tennis-page .reservation-summary span {
+  color: #213247 !important;
+}
+
+.filter-group label,
+.form-group label {
+  color: #ffffff !important;
+}
+
+body.light-theme .filter-group label,
+body.light-theme .form-group label {
+  color: #06101f !important;
+}
+
+.client-coach-requests-page .hide-request-btn,
+.reservations-page .hide-reservation-btn,
+.client-events-page .leave-btn,
+.reservations-page .cancel-btn,
+.tennis-page .cancel-btn {
+  background: rgba(255, 77, 77, 0.14) !important;
+  color: #ff4d4d !important;
+  border: 1px solid rgba(255, 77, 77, 0.65) !important;
+  box-shadow: none !important;
+}
+
+.client-coach-requests-page .hide-request-btn:hover,
+.reservations-page .hide-reservation-btn:hover,
+.client-events-page .leave-btn:hover,
+.reservations-page .cancel-btn:hover,
+.tennis-page .cancel-btn:hover {
+  background: #ff4d4d !important;
+  color: #ffffff !important;
+  border-color: #ff4d4d !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .client-coach-requests-page .hide-request-btn,
+body.light-theme .reservations-page .hide-reservation-btn,
+body.light-theme .client-events-page .leave-btn,
+body.light-theme .reservations-page .cancel-btn,
+body.light-theme .tennis-page .cancel-btn {
+  background: rgba(220, 38, 38, 0.10) !important;
+  color: #dc2626 !important;
+  border: 1px solid rgba(220, 38, 38, 0.45) !important;
+}
+
+body.light-theme .client-coach-requests-page .hide-request-btn:hover,
+body.light-theme .reservations-page .hide-reservation-btn:hover,
+body.light-theme .client-events-page .leave-btn:hover,
+body.light-theme .reservations-page .cancel-btn:hover,
+body.light-theme .tennis-page .cancel-btn:hover {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status,
+body.light-theme .admin-coach-leavings-page .status.accepted,
+body.light-theme .admin-coach-leavings-page .status.rejected,
+body.light-theme .admin-coach-leavings-page .status.pending,
+body.light-theme .admin-coach-leavings-page .badge,
+body.light-theme .admin-coach-leavings-page .status-badge,
+.admin-coach-leavings-page .status,
+.admin-coach-leavings-page .status.accepted,
+.admin-coach-leavings-page .status.rejected,
+.admin-coach-leavings-page .status.pending,
+.admin-coach-leavings-page .badge,
+.admin-coach-leavings-page .status-badge {
+  display: inline !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-family: inherit !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.accepted,
+.admin-coach-leavings-page .status.accepted {
+  color: #15803d !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.pending,
+.admin-coach-leavings-page .status.pending {
+  color: #b45309 !important;
+}
+
+body.light-theme .admin-coach-leavings-page .status.rejected,
+.admin-coach-leavings-page .status.rejected {
+  color: #dc2626 !important;
+}
+
+.admin-statistics-page .stat-card,
+.admin-statistics-page .stat-card.pending,
+.admin-statistics-page .stat-card.accepted,
+.admin-statistics-page .stat-card.rejected,
+.admin-statistics-page .stat-card.warning,
+body.light-theme .admin-statistics-page .stat-card,
+body.light-theme .admin-statistics-page .stat-card.pending,
+body.light-theme .admin-statistics-page .stat-card.accepted,
+body.light-theme .admin-statistics-page .stat-card.rejected,
+body.light-theme .admin-statistics-page .stat-card.warning {
+  display: block !important;
+  min-height: 155px !important;
+  padding: 28px 24px !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: 0 16px 35px rgba(15, 40, 70, 0.14) !important;
+}
+
+.admin-statistics-page .stat-card::before,
+body.light-theme .admin-statistics-page .stat-card::before {
+  display: none !important;
+  background: transparent !important;
+}
+
+.admin-statistics-page .stat-card::after,
+body.light-theme .admin-statistics-page .stat-card::after {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card {
+  background: #ffffff !important;
+  color: #06101f !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card h2 {
+  color: #0077b6 !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card p {
+  color: #06101f !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card.pending h2 {
+  color: #b45309 !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card.accepted h2 {
+  color: #15803d !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card.rejected h2 {
+  color: #ea580c !important;
+}
+
+body.light-theme .admin-statistics-page .stat-card.warning h2 {
+  color: #d97706 !important;
+}
+
+body.light-theme .coach-leavings-page .form-card h2,
+body.light-theme .coach-leavings-page .list-card h2 {
+  color: #b45309 !important;
+}
+
+body.light-theme .coach-leavings-page table th {
+  background: #7c2d12 !important;
+  color: #ffffff !important;
+}
+
+.no-action {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+body .admin-clients-page .form-card > label.form-label,
+body .admin-clients-page .form-card > .form-label,
+body .admin-clients-page section.form-card label.form-label {
+  color: #25bfff !important;
+}
+
+body.light-theme .admin-clients-page .form-card > label.form-label,
+body.light-theme .admin-clients-page .form-card > .form-label,
+body.light-theme .admin-clients-page section.form-card label.form-label {
+  color: #0077b6 !important;
+}
+
+body .coach-leavings-page .list-card table thead th,
+body .coach-leavings-page .table-wrapper table thead th,
+body .coach-leavings-page table thead tr th,
+body.light-theme .coach-leavings-page .list-card table thead th,
+body.light-theme .coach-leavings-page .table-wrapper table thead th,
+body.light-theme .coach-leavings-page table thead tr th {
+  background: #7c2d12 !important;
+  color: #ffffff !important;
+}
+
+body .coach-leavings-page .list-card table thead th *,
+body .coach-leavings-page .table-wrapper table thead th *,
+body.light-theme .coach-leavings-page .list-card table thead th *,
+body.light-theme .coach-leavings-page .table-wrapper table thead th * {
+  color: #ffffff !important;
+}
+
+body:not(.light-theme) .admin-clients-page .form-card > label,
+body:not(.light-theme) .admin-clients-page .form-card > label.form-label,
+body:not(.light-theme) .admin-clients-page .filter-group label {
+  color: #d8e2ef !important;
+}
+
+body:not(.light-theme) .admin-clients-page input,
+body:not(.light-theme) .admin-clients-page select,
+body:not(.light-theme) .admin-clients-page .filter-group input,
+body:not(.light-theme) .admin-clients-page .filter-group select {
+  background: #020b16 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(37, 191, 255, 0.5) !important;
+}
+
+body:not(.light-theme) .admin-clients-page select option {
+  background: #020b16 !important;
+  color: #ffffff !important;
+}
+
+body:not(.light-theme) .admin-clients-page select option:disabled {
+  background: #061221 !important;
+  color: #94a3b8 !important;
+}
+
+body.light-theme .admin-clients-page .form-card > label,
+body.light-theme .admin-clients-page .form-card > label.form-label,
+body.light-theme .admin-clients-page .filter-group label {
+  color: #06101f !important;
+}
+
+body.light-theme .admin-clients-page input,
+body.light-theme .admin-clients-page select,
+body.light-theme .admin-clients-page .filter-group input,
+body.light-theme .admin-clients-page .filter-group select {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.38) !important;
+}
+
+body.light-theme .admin-clients-page select option {
+  background: #ffffff !important;
+  color: #06101f !important;
 }

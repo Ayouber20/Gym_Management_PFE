@@ -5,16 +5,13 @@
 .admin-announcements-page {
   min-height: 100vh;
   padding: 40px 70px;
-  background:
-    linear-gradient(rgba(3, 8, 20, 0.9), rgba(3, 8, 20, 0.94)),
-    url('/assets/images/admin-bg.jpg');
+  background: linear-gradient(rgba(3, 8, 20, 0.9), rgba(3, 8, 20, 0.94)),
+    url("/assets/images/admin-bg.jpg");
   background-size: cover;
   background-position: center;
   color: white;
   font-family: Arial, sans-serif;
 }
-
-/* Header */
 
 .page-header {
   text-align: center;
@@ -52,8 +49,6 @@ h1 {
   color: #06101f;
 }
 
-/* Messages */
-
 .success-message,
 .error-message {
   max-width: 1100px;
@@ -75,8 +70,6 @@ h1 {
   border: 1px solid rgba(255, 77, 77, 0.7);
 }
 
-/* Main layout */
-
 .content-grid {
   max-width: 1100px;
   margin: 0 auto;
@@ -84,17 +77,6 @@ h1 {
   grid-template-columns: 350px 1fr;
   gap: 28px;
   align-items: start;
-}
-
-/* Cards */
-
-.form-card,
-.list-card {
-  background: rgba(6, 16, 31, 0.92);
-  border: 1px solid rgba(0, 200, 255, 0.65);
-  border-radius: 18px;
-  padding: 26px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
 
 .form-card h2,
@@ -105,33 +87,12 @@ h1 {
   font-size: 24px;
 }
 
-/* Form */
-
 label {
   display: block;
   margin-top: 16px;
   margin-bottom: 8px;
   font-weight: 700;
   color: white;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 13px 14px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  background: #f2f4f8;
-  color: #06101f;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: rgba(6, 16, 31, 0.55);
 }
 
 textarea {
@@ -157,8 +118,6 @@ textarea {
   background: #1598cc;
 }
 
-/* List */
-
 .list-header {
   display: flex;
   justify-content: space-between;
@@ -181,8 +140,6 @@ textarea {
   gap: 18px;
 }
 
-/* Announcement card */
-
 .announcement-card {
   background: rgba(2, 10, 22, 0.96);
   border: 1px solid rgba(0, 200, 255, 0.35);
@@ -193,10 +150,6 @@ textarea {
   gap: 24px;
   align-items: stretch;
   transition: 0.25s;
-}
-
-.announcement-main {
-  min-width: 0;
 }
 
 .announcement-side {
@@ -217,7 +170,6 @@ textarea {
   min-width: 0;
 }
 
-/* Only the text content becomes faded when disabled */
 .announcement-card.disabled .announcement-main {
   opacity: 0.5;
 }
@@ -239,24 +191,6 @@ textarea {
   font-weight: 700;
 }
 
-.status-badge {
-  flex-shrink: 0;
-  background: rgba(46, 204, 113, 0.15);
-  border: 1px solid rgba(46, 204, 113, 0.65);
-  color: #2ecc71;
-  padding: 7px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.status-badge.inactive {
-  background: rgba(180, 180, 180, 0.15);
-  border-color: rgba(180, 180, 180, 0.55);
-  color: #bbbbbb;
-}
-
 .announcement-message {
   margin: 18px 0;
   line-height: 1.6;
@@ -267,8 +201,6 @@ textarea {
   color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
 }
-
-/* Actions */
 
 .actions {
   display: flex;
@@ -309,7 +241,6 @@ textarea {
   color: white;
 }
 
-/* Keep delete button clear even when announcement is disabled */
 .announcement-card.disabled .delete-btn {
   opacity: 1;
   background: rgba(255, 77, 77, 0.18);
@@ -339,8 +270,6 @@ textarea {
   color: white;
 }
 
-/* Responsive */
-
 @media (max-width: 1000px) {
   .admin-announcements-page {
     padding: 30px 24px;
@@ -369,4 +298,107 @@ textarea {
   .delete-btn {
     width: auto;
   }
+
+}
+
+:host-context(body.light-theme) .clear-btn,
+:host-context(body.light-theme) .reset-btn,
+:host-context(body.light-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #0077b6 !important;
+  border: 1px solid rgba(0, 119, 182, 0.40) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .clear-btn:hover,
+:host-context(body.light-theme) .reset-btn:hover,
+:host-context(body.light-theme) .clear-filters-btn:hover {
+  background: #0077b6 !important;
+  color: #ffffff !important;
+  border-color: #0077b6 !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn,
+:host-context(body:not(.light-theme)) .reset-btn,
+:host-context(body:not(.light-theme)) .clear-filters-btn,
+:host-context(body.dark-theme) .clear-btn,
+:host-context(body.dark-theme) .reset-btn,
+:host-context(body.dark-theme) .clear-filters-btn {
+  background: transparent !important;
+  color: #25bfff !important;
+  border: 1px solid rgba(37, 191, 255, 0.65) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body:not(.light-theme)) .clear-btn:hover,
+:host-context(body:not(.light-theme)) .reset-btn:hover,
+:host-context(body:not(.light-theme)) .clear-filters-btn:hover,
+:host-context(body.dark-theme) .clear-btn:hover,
+:host-context(body.dark-theme) .reset-btn:hover,
+:host-context(body.dark-theme) .clear-filters-btn:hover {
+  background: #25bfff !important;
+  color: #06101f !important;
+  border-color: #25bfff !important;
+}
+
+.form-card,
+.list-card {
+  border-radius: 18px;
+  padding: 26px;
+  background: rgba(6, 16, 31, 0.94) !important;
+  border: 1px solid rgba(0, 200, 255, 0.65) !important;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.45) !important;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  background: rgba(2, 10, 22, 0.95) !important;
+  color: white !important;
+  border: 1px solid rgba(0, 200, 255, 0.55) !important;
+  outline: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #00c8ff !important;
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.25) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.announcement-card:hover,
+:host-context(body.light-theme) .announcement-card:hover {
+  transform: none !important;
+  border-color: rgba(0, 200, 255, 0.85) !important;
+  box-shadow: 0 12px 28px rgba(0, 200, 255, 0.14) !important;
+}
+
+.status-inactive,
+.inactive-label,
+.inactive,
+.disabled-label {
+  color: #ff4d4d !important;
+}
+
+:host-context(body.light-theme) input,
+:host-context(body.light-theme) textarea,
+:host-context(body.light-theme) select {
+  background: #ffffff !important;
+  color: #06101f !important;
+  border: 1px solid rgba(0, 119, 182, 0.35) !important;
+}
+
+:host-context(body.light-theme) input::placeholder,
+:host-context(body.light-theme) textarea::placeholder {
+  color: rgba(6, 16, 31, 0.45) !important;
 }

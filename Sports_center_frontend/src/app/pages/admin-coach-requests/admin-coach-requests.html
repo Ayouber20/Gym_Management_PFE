@@ -89,60 +89,66 @@
   }
 
   @if (filteredRequests().length > 0) {
-    <div class="table-container">
+    <section class="list-card">
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Coach</th>
-            <th>Activité</th>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Statut</th>
-          </tr>
-        </thead>
+      <h2>Liste des demandes</h2>
 
-        <tbody>
-          @for (request of filteredRequests(); track request.id) {
+      <div class="table-container">
+
+        <table>
+          <thead>
             <tr>
-              <td>{{ request.id }}</td>
-
-              <td>
-                {{ request.client.user.firstName }}
-                {{ request.client.user.lastName }}
-              </td>
-
-              <td>
-                {{ request.coach.user.firstName }}
-                {{ request.coach.user.lastName }}
-              </td>
-
-              <td>{{ request.activity }}</td>
-
-              <td>{{ request.requestDate }}</td>
-
-              <td>{{ request.requestTime.slice(0, 5) }}</td>
-
-              <td>
-                <span
-                  class="status-badge"
-                  [class.pending]="request.status === 'PENDING'"
-                  [class.accepted]="request.status === 'ACCEPTED'"
-                  [class.rejected]="request.status === 'REJECTED'"
-                  [class.cancelled]="request.status === 'CANCELLED'"
-                  [class.completed]="request.status === 'COMPLETED'"
-                  [class.expired]="request.status === 'EXPIRED'">
-                  {{ getStatusLabel(request.status) }}
-                </span>
-              </td>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Coach</th>
+              <th>Activité</th>
+              <th>Date</th>
+              <th>Heure</th>
+              <th>Statut</th>
             </tr>
-          }
-        </tbody>
-      </table>
+          </thead>
 
-    </div>
+          <tbody>
+            @for (request of filteredRequests(); track request.id) {
+              <tr>
+                <td>{{ request.id }}</td>
+
+                <td>
+                  {{ request.client.user.firstName }}
+                  {{ request.client.user.lastName }}
+                </td>
+
+                <td>
+                  {{ request.coach.user.firstName }}
+                  {{ request.coach.user.lastName }}
+                </td>
+
+                <td>{{ request.activity }}</td>
+
+                <td>{{ request.requestDate }}</td>
+
+                <td>{{ request.requestTime.slice(0, 5) }}</td>
+
+                <td>
+                  <span
+                    class="status-badge"
+                    [class.pending]="request.status === 'PENDING'"
+                    [class.accepted]="request.status === 'ACCEPTED'"
+                    [class.rejected]="request.status === 'REJECTED'"
+                    [class.cancelled]="request.status === 'CANCELLED'"
+                    [class.completed]="request.status === 'COMPLETED'"
+                    [class.expired]="request.status === 'EXPIRED'">
+                    {{ getStatusLabel(request.status) }}
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+      </div>
+
+    </section>
   }
 
 </div>

@@ -143,18 +143,6 @@ export class CoachLeavings {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'PENDING') {
-      return 'En attente';
-    }
-
-    if (status === 'ACCEPTED') {
-      return 'Accepté';
-    }
-
-    if (status === 'REJECTED') {
-      return 'Refusé';
-    }
-
-    return status;
+    return status || '';
   }
 }

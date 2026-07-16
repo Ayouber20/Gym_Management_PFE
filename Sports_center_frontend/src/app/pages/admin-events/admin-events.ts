@@ -277,15 +277,7 @@ export class AdminEvents {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'ACTIVE') {
-      return 'Actif';
-    }
-
-    if (status === 'INACTIVE') {
-      return 'Désactivé';
-    }
-
-    return status;
+    return status || '';
   }
 
   getParticipantsText(event: any): string {

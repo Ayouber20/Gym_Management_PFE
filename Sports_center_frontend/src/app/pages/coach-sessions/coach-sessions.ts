@@ -142,19 +142,7 @@ export class CoachSessions {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'ACCEPTED') {
-      return 'Acceptée';
-    }
-
-    if (status === 'COMPLETED') {
-      return 'Terminée';
-    }
-
-    if (status === 'CANCELLED') {
-      return 'Annulée';
-    }
-
-    return status;
+    return status || '';
   }
 
   hideSessionForCoach(id: number): void {
