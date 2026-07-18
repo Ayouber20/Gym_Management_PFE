@@ -762,3 +762,35 @@ body.light-theme .top-notification-content small {
   color: #0077b6 !important;
   text-shadow: none !important;
 }
+
+/* Role colors */
+.client-actions .top-icon-button,
+.client-actions .top-icon-btn,
+.client-actions .profile-button {
+  border-color: rgba(66, 214, 95, 0.62) !important;
+  background: rgba(3, 10, 20, 0.72) !important;
+  color: #42d65f !important;
+  box-shadow: none !important;
+}
+.client-actions .profile-avatar {
+  background: linear-gradient(135deg, #42d65f, #15803d) !important;
+  color: #031008 !important;
+}
+.client-actions .top-icon-button:hover,
+.client-actions .top-icon-btn:hover,
+.client-actions .profile-button:hover {
+  border-color: #42d65f !important;
+  background: rgba(66, 214, 95, 0.13) !important;
+  transform: none !important;
+}
+:host-context(body.light-theme) .client-actions .top-icon-button,
+:host-context(body.light-theme) .client-actions .top-icon-btn,
+:host-context(body.light-theme) .client-actions .profile-button {
+  border-color: rgba(22, 163, 74, 0.55) !important;
+  background: #ffffff !important;
+  color: #15803d !important;
+}
+:host-context(body.light-theme) .client-actions .profile-avatar {
+  background: linear-gradient(135deg, #22c55e, #15803d) !important;
+  color: #ffffff !important;
+}

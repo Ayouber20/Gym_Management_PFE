@@ -1,136 +1,27 @@
 <div class="coach-request-page">
+  <div class="coach-art" aria-hidden="true"><span class="figure-head"></span><span class="figure-body"></span><span class="pulse-ring"></span></div>
+  <div class="page-shell">
+    <header class="page-header"><span class="eyebrow">Accompagnement personnalisé</span><h1>Demande de Coach</h1><p>Construisez votre séance en choisissant l’activité, le créneau et le coach qui vous correspondent.</p><button routerLink="/client" class="back-btn">← Retour à l’espace client</button></header>
+    @if (successMessage()) { <div class="message success-message"><span>✓</span><p>{{ successMessage() }}</p></div> }
+    @if (errorMessage()) { <div class="message error-message"><span>!</span><p>{{ errorMessage() }}</p></div> }
 
-  <div class="page-header">
-    <h1>Demande de Coach</h1>
+    <main class="request-layout">
+      <section class="coach-preview">
+        <div class="preview-visual"><div class="avatar-ring"><span>💪</span></div><span class="preview-number">COACH</span></div>
+        <div class="preview-content"><span class="section-label">Votre séance</span><h2>Un accompagnement sur mesure</h2><p>Le coach recevra votre demande et pourra l’accepter selon sa disponibilité.</p><ul><li><span>1</span> Choisissez votre activité</li><li><span>2</span> Fixez la date et l’heure</li><li><span>3</span> Sélectionnez votre coach</li></ul></div>
+      </section>
 
-    <p>
-      Choisissez une activité, une date, une heure et un coach pour envoyer votre demande.
-    </p>
-
-    <button routerLink="/client" class="back-btn">
-      Retour à l’espace client
-    </button>
+      <section class="form-card">
+        <div class="form-header"><span class="form-icon">◎</span><div><small>Nouvelle demande</small><h2>Planifier une séance</h2></div></div>
+        <div class="progress"><span class="active">1</span><i></i><span [class.active]="requestDate()">2</span><i></i><span [class.active]="coachId()">3</span></div>
+        <div class="form-group"><label>Activité</label><div class="input-wrap"><span>⚡</span><select [ngModel]="selectedActivity()" (ngModelChange)="onActivityChange($event)"><option value="">Choisir une activité...</option>@for (activity of activities; track activity) { <option [value]="activity">{{ activity }}</option> }</select></div></div>
+        <div class="two-columns"><div class="form-group"><label>Date</label><div class="input-wrap"><span>▣</span><input type="date" [ngModel]="requestDate()" (ngModelChange)="requestDate.set($event)" [min]="tomorrow"></div></div><div class="form-group"><label>Heure</label><div class="input-wrap"><span>◷</span><select [ngModel]="requestTime()" (ngModelChange)="requestTime.set($event)"><option value="">Choisir...</option>@for (slot of timeSlots; track slot) { <option [value]="slot">{{ slot }}</option> }</select></div></div></div>
+        <div class="form-group"><label>Coach</label><div class="input-wrap"><span>♟</span><select name="coachId" [ngModel]="coachId()" (ngModelChange)="coachId.set($event)"><option [ngValue]="null">Choisir un coach...</option>@for (coach of filteredCoaches(); track coach.id) { <option [ngValue]="coach.id">{{ coach.user.firstName }} {{ coach.user.lastName }} - {{ coach.speciality }} - {{ coach.availability }}</option> }</select></div></div>
+        @if (coachesLoaded() && coaches().length === 0) { <p class="empty-message">Aucun coach disponible pour le moment.</p> }
+        @if (coachesLoaded() && selectedActivity() && filteredCoaches().length === 0) { <p class="empty-message">Aucun coach disponible pour cette activité.</p> }
+        @if (selectedActivity() && requestDate() && requestTime() && coachId()) { <div class="request-summary"><div class="summary-title"><div><small>Vérification</small><h3>Résumé</h3></div><span>✓</span></div><div class="summary-grid"><p><small>Activité</small><strong>{{ selectedActivity() }}</strong></p><p><small>Date</small><strong>{{ requestDate() }}</strong></p><p><small>Heure</small><strong>{{ requestTime() }}</strong></p><p><small>Coach</small><strong>{{ getSelectedCoach()?.user?.firstName }} {{ getSelectedCoach()?.user?.lastName }}</strong></p></div></div> }
+        <div class="actions"><button type="button" class="send-btn" (click)="sendRequest()">Envoyer la demande <span>→</span></button><button type="button" class="clear-btn" (click)="resetForm()">Vider</button></div>
+      </section>
+    </main>
   </div>
-
-  @if (successMessage()) {
-    <div class="success-message">
-      ✅ {{ successMessage() }}
-    </div>
-  }
-
-  @if (errorMessage()) {
-    <div class="error-message">
-      ❌ {{ errorMessage() }}
-    </div>
-  }
-
-  <div class="form-card">
-
-    <label>Activité :</label>
-
-    <select
-      [ngModel]="selectedActivity()"
-      (ngModelChange)="onActivityChange($event)">
-      <option value="">Choisir une activité...</option>
-
-      @for (activity of activities; track activity) {
-        <option [value]="activity">
-          {{ activity }}
-        </option>
-      }
-    </select>
-
-    <label>Date :</label>
-
-    <input
-      type="date"
-      [ngModel]="requestDate()"
-      (ngModelChange)="requestDate.set($event)"
-      [min]="tomorrow">
-
-    <label>Heure :</label>
-
-    <select
-      [ngModel]="requestTime()"
-      (ngModelChange)="requestTime.set($event)">
-      <option value="">Choisir une heure...</option>
-
-      @for (slot of timeSlots; track slot) {
-        <option [value]="slot">
-          {{ slot }}
-        </option>
-      }
-    </select>
-
-    <label>Coach :</label>
-
-    <select
-      name="coachId"
-      [ngModel]="coachId()"
-      (ngModelChange)="coachId.set($event)">
-      <option [ngValue]="null">Choisir un coach...</option>
-
-      @for (coach of filteredCoaches(); track coach.id) {
-        <option [ngValue]="coach.id">
-          {{ coach.user.firstName }} {{ coach.user.lastName }} - {{ coach.speciality }} - {{ coach.availability }}
-        </option>
-      }
-    </select>
-
-    @if (coachesLoaded() && coaches().length === 0) {
-      <p class="empty-message">
-        Aucun coach disponible pour le moment.
-      </p>
-    }
-
-    @if (coachesLoaded() && selectedActivity() && filteredCoaches().length === 0) {
-      <p class="empty-message">
-        Aucun coach disponible pour cette activité.
-      </p>
-    }
-
-    @if (selectedActivity() && requestDate() && requestTime() && coachId()) {
-      <div class="request-summary">
-        <h3>Résumé</h3>
-
-        <p>
-          <strong>Activité :</strong>
-          {{ selectedActivity() }}
-        </p>
-
-        <p>
-          <strong>Date :</strong>
-          {{ requestDate() }}
-        </p>
-
-        <p>
-          <strong>Heure :</strong>
-          {{ requestTime() }}
-        </p>
-
-        <p>
-          <strong>Coach :</strong>
-          {{ getSelectedCoach()?.user?.firstName }} {{ getSelectedCoach()?.user?.lastName }}
-        </p>
-      </div>
-    }
-
-    <div class="actions">
-      <button
-        type="button"
-        class="send-btn"
-        (click)="sendRequest()">
-        Envoyer la demande
-      </button>
-
-      <button
-        type="button"
-        class="clear-btn"
-        (click)="resetForm()">
-        Vider
-      </button>
-    </div>
-
-  </div>
-
 </div>

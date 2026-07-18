@@ -7,9 +7,7 @@
       Publiez des événements du centre sportif et gérez les participations.
     </p>
 
-    <button routerLink="/admin" class="back-btn">
-      Retour à l’espace admin
-    </button>
+    <button routerLink="/admin" class="admin-back-btn">← Retour à l’espace admin</button>
   </div>
 
   @if (successMessage()) {
@@ -184,13 +182,13 @@
     <div class="events-grid">
 
       @for (event of filteredEvents(); track event.id) {
-        <div class="event-card" [class.disabled]="event.status === 'INACTIVE'">
+        <div class="event-card" [class.disabled]="event.status === 'INACTIVE'" [class.completed-event]="isPastEvent(event)">
 
           <div class="event-header">
             <h2>{{ event.title }}</h2>
 
-            <span class="status-badge" [class.inactive]="event.status === 'INACTIVE'">
-              {{ getStatusLabel(event.status) }}
+            <span class="status-badge" [class.inactive]="event.status === 'INACTIVE'" [class.completed]="isPastEvent(event)">
+              {{ getDisplayStatus(event) }}
             </span>
           </div>
 
@@ -226,14 +224,14 @@
           }
 
           <div class="card-actions">
-            @if (event.status === 'ACTIVE') {
+            @if (!isPastEvent(event) && event.status === 'ACTIVE') {
                 <button
                 type="button"
                 class="disable-btn"
                 (click)="disableEvent(event.id)">
                 Désactiver
                 </button>
-            } @else {
+            } @else if (!isPastEvent(event)) {
                 <button
                 type="button"
                 class="activate-btn"

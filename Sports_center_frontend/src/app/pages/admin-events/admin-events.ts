@@ -276,6 +276,26 @@ export class AdminEvents {
     return audience;
   }
 
+  isPastEvent(event: any): boolean {
+    if (!event?.eventDate) {
+      return false;
+    }
+
+    const eventDateTime = new Date(
+      `${event.eventDate}T${event.eventTime || '23:59'}`
+    );
+
+    return eventDateTime < new Date();
+  }
+
+  getDisplayStatus(event: any): string {
+    if (this.isPastEvent(event)) {
+      return 'COMPLETED';
+    }
+
+    return event.status || '';
+  }
+
   getStatusLabel(status: string): string {
     return status || '';
   }

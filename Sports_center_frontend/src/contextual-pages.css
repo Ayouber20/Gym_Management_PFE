@@ -1,0 +1,637 @@
+/* Contextual pages */
+
+:root {
+  --ctx-client: #42d65f;
+  --ctx-client-dark: #15803d;
+  --ctx-coach: #ff7a00;
+  --ctx-coach-dark: #b45309;
+  --ctx-admin: #25bfff;
+  --ctx-admin-dark: #0369a1;
+}
+
+/* Shared structure */
+
+.client-dashboard,
+.coach-dashboard,
+.admin-dashboard,
+.reservations-page,
+.client-coach-requests-page,
+.client-group-classes-page,
+.client-events-page,
+.coach-request-page,
+.coach-requests-page,
+.coach-sessions-page,
+.group-classes-page,
+.coach-leavings-page,
+.coach-events-page,
+.admin-users-page,
+.admin-clients-page,
+.admin-coaches-page,
+.admin-courts-page,
+.admin-reservations-page,
+.admin-coach-requests-page,
+.admin-coach-leavings-page,
+.admin-announcements-page,
+.admin-events-page,
+.admin-statistics-page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.client-dashboard::before,
+.coach-dashboard::before,
+.admin-dashboard::before,
+.reservations-page::before,
+.client-coach-requests-page::before,
+.client-group-classes-page::before,
+.client-events-page::before,
+.coach-request-page::before,
+.coach-requests-page::before,
+.coach-sessions-page::before,
+.group-classes-page::before,
+.coach-leavings-page::before,
+.coach-events-page::before,
+.admin-users-page::before,
+.admin-clients-page::before,
+.admin-coaches-page::before,
+.admin-courts-page::before,
+.admin-reservations-page::before,
+.admin-coach-requests-page::before,
+.admin-coach-leavings-page::before,
+.admin-announcements-page::before,
+.admin-events-page::before,
+.admin-statistics-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-size: 44px 44px;
+}
+
+.client-dashboard::after,
+.coach-dashboard::after,
+.admin-dashboard::after,
+.reservations-page::after,
+.client-coach-requests-page::after,
+.client-group-classes-page::after,
+.client-events-page::after,
+.coach-request-page::after,
+.coach-requests-page::after,
+.coach-sessions-page::after,
+.group-classes-page::after,
+.coach-leavings-page::after,
+.coach-events-page::after,
+.admin-users-page::after,
+.admin-clients-page::after,
+.admin-coaches-page::after,
+.admin-courts-page::after,
+.admin-reservations-page::after,
+.admin-coach-requests-page::after,
+.admin-coach-leavings-page::after,
+.admin-announcements-page::after,
+.admin-events-page::after,
+.admin-statistics-page::after {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  right: -210px;
+  top: 170px;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Client atmosphere */
+
+.client-dashboard,
+.reservations-page,
+.client-coach-requests-page,
+.client-group-classes-page,
+.client-events-page,
+.coach-request-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(66, 214, 95, 0.17), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(34, 197, 94, 0.09), transparent 30%),
+    linear-gradient(145deg, #020811 0%, #06111f 50%, #071a19 100%) !important;
+}
+
+.client-dashboard::before,
+.reservations-page::before,
+.client-coach-requests-page::before,
+.client-group-classes-page::before,
+.client-events-page::before,
+.coach-request-page::before {
+  background-image:
+    linear-gradient(rgba(66, 214, 95, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(66, 214, 95, 0.026) 1px, transparent 1px);
+}
+
+.client-dashboard::after,
+.reservations-page::after,
+.client-coach-requests-page::after,
+.client-group-classes-page::after,
+.client-events-page::after,
+.coach-request-page::after {
+  border: 1px solid rgba(66, 214, 95, 0.10);
+  box-shadow: inset 0 0 0 50px rgba(66, 214, 95, 0.018), inset 0 0 0 100px rgba(66, 214, 95, 0.012);
+}
+
+/* Coach atmosphere */
+
+.coach-dashboard,
+.coach-requests-page,
+.coach-sessions-page,
+.group-classes-page,
+.coach-leavings-page,
+.coach-events-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255, 122, 0, 0.18), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(245, 158, 11, 0.09), transparent 30%),
+    linear-gradient(145deg, #05080d 0%, #11111b 50%, #1a1008 100%) !important;
+}
+
+.coach-dashboard::before,
+.coach-requests-page::before,
+.coach-sessions-page::before,
+.group-classes-page::before,
+.coach-leavings-page::before,
+.coach-events-page::before {
+  background-image:
+    linear-gradient(rgba(255, 122, 0, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 122, 0, 0.026) 1px, transparent 1px);
+}
+
+.coach-dashboard::after,
+.coach-requests-page::after,
+.coach-sessions-page::after,
+.group-classes-page::after,
+.coach-leavings-page::after,
+.coach-events-page::after {
+  border: 1px solid rgba(255, 122, 0, 0.11);
+  box-shadow: inset 0 0 0 50px rgba(255, 122, 0, 0.018), inset 0 0 0 100px rgba(255, 122, 0, 0.012);
+}
+
+/* Admin atmosphere */
+
+.admin-dashboard,
+.admin-users-page,
+.admin-clients-page,
+.admin-coaches-page,
+.admin-courts-page,
+.admin-reservations-page,
+.admin-coach-requests-page,
+.admin-coach-leavings-page,
+.admin-announcements-page,
+.admin-events-page,
+.admin-statistics-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(37, 191, 255, 0.18), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(2, 132, 199, 0.10), transparent 30%),
+    linear-gradient(145deg, #020811 0%, #06121f 52%, #071725 100%) !important;
+}
+
+.admin-dashboard::before,
+.admin-users-page::before,
+.admin-clients-page::before,
+.admin-coaches-page::before,
+.admin-courts-page::before,
+.admin-reservations-page::before,
+.admin-coach-requests-page::before,
+.admin-coach-leavings-page::before,
+.admin-announcements-page::before,
+.admin-events-page::before,
+.admin-statistics-page::before {
+  background-image:
+    linear-gradient(rgba(37, 191, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 191, 255, 0.026) 1px, transparent 1px);
+}
+
+.admin-dashboard::after,
+.admin-users-page::after,
+.admin-clients-page::after,
+.admin-coaches-page::after,
+.admin-courts-page::after,
+.admin-reservations-page::after,
+.admin-coach-requests-page::after,
+.admin-coach-leavings-page::after,
+.admin-announcements-page::after,
+.admin-events-page::after,
+.admin-statistics-page::after {
+  border: 1px solid rgba(37, 191, 255, 0.11);
+  box-shadow: inset 0 0 0 50px rgba(37, 191, 255, 0.018), inset 0 0 0 100px rgba(37, 191, 255, 0.012);
+}
+
+/* Context badges */
+
+.reservations-page .page-header::before,
+.client-coach-requests-page .page-header::before,
+.client-group-classes-page .page-header::before,
+.client-events-page .page-header::before,
+.coach-request-page .page-header::before,
+.coach-requests-page .page-header::before,
+.coach-sessions-page .page-header::before,
+.group-classes-page .page-header::before,
+.coach-leavings-page .page-header::before,
+.coach-events-page .page-header::before,
+.admin-users-page .page-header::before,
+.admin-clients-page .page-header::before,
+.admin-coaches-page .page-header::before,
+.admin-courts-page .page-header::before,
+.admin-reservations-page .page-header::before,
+.admin-coach-requests-page .page-header::before,
+.admin-coach-leavings-page .page-header::before,
+.admin-announcements-page .page-header::before,
+.admin-events-page .page-header::before,
+.admin-statistics-page .page-header::before {
+  display: inline-grid;
+  place-items: center;
+  min-width: 50px;
+  height: 50px;
+  margin-bottom: 12px;
+  padding: 0 14px;
+  border-radius: 16px;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.reservations-page .page-header::before { content: '📅'; color: var(--ctx-client); background: rgba(66,214,95,.08); border: 1px solid rgba(66,214,95,.25); }
+.client-coach-requests-page .page-header::before { content: '🧑‍🏫'; color: var(--ctx-client); background: rgba(66,214,95,.08); border: 1px solid rgba(66,214,95,.25); }
+.client-group-classes-page .page-header::before { content: '🏃'; color: var(--ctx-client); background: rgba(66,214,95,.08); border: 1px solid rgba(66,214,95,.25); }
+.client-events-page .page-header::before { content: '🎟️'; color: var(--ctx-client); background: rgba(66,214,95,.08); border: 1px solid rgba(66,214,95,.25); }
+.coach-request-page .page-header::before { content: '🎯'; color: var(--ctx-client); background: rgba(66,214,95,.08); border: 1px solid rgba(66,214,95,.25); }
+.coach-requests-page .page-header::before { content: '📨'; color: var(--ctx-coach); background: rgba(255,122,0,.08); border: 1px solid rgba(255,122,0,.25); }
+.coach-sessions-page .page-header::before { content: '⏱️'; color: var(--ctx-coach); background: rgba(255,122,0,.08); border: 1px solid rgba(255,122,0,.25); }
+.group-classes-page .page-header::before { content: '🏋️'; color: var(--ctx-coach); background: rgba(255,122,0,.08); border: 1px solid rgba(255,122,0,.25); }
+.coach-leavings-page .page-header::before { content: '🗓️'; color: var(--ctx-coach); background: rgba(255,122,0,.08); border: 1px solid rgba(255,122,0,.25); }
+.coach-events-page .page-header::before { content: '🎫'; color: var(--ctx-coach); background: rgba(255,122,0,.08); border: 1px solid rgba(255,122,0,.25); }
+.admin-users-page .page-header::before { content: '👥'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-clients-page .page-header::before { content: '🪪'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-coaches-page .page-header::before { content: '🧑‍💼'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-courts-page .page-header::before { content: '🎾'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-reservations-page .page-header::before { content: '📋'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-coach-requests-page .page-header::before { content: '🔁'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-coach-leavings-page .page-header::before { content: '🌴'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-announcements-page .page-header::before { content: '📣'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-events-page .page-header::before { content: '🎪'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+.admin-statistics-page .page-header::before { content: '📊'; color: var(--ctx-admin); background: rgba(37,191,255,.08); border: 1px solid rgba(37,191,255,.25); }
+
+/* Contextual cards */
+
+.request-card,
+.reservation-card,
+.event-card,
+.class-card,
+.session-card,
+.leaving-card,
+.user-card,
+.client-card,
+.coach-card,
+.court-card,
+.stat-card,
+.statistics-card,
+.form-card,
+.filters-card,
+.empty-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.request-card > *,
+.reservation-card > *,
+.event-card > *,
+.class-card > *,
+.session-card > *,
+.leaving-card > *,
+.user-card > *,
+.client-card > *,
+.coach-card > *,
+.court-card > *,
+.stat-card > *,
+.statistics-card > *,
+.form-card > *,
+.filters-card > *,
+.empty-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.request-card::before,
+.reservation-card::before,
+.event-card::before,
+.class-card::before,
+.session-card::before,
+.leaving-card::before,
+.user-card::before,
+.client-card::before,
+.coach-card::before,
+.court-card::before,
+.stat-card::before,
+.statistics-card::before,
+.form-card::before,
+.filters-card::before,
+.empty-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .7;
+}
+
+/* Reservation timeline */
+.reservations-page .reservation-card::before,
+.admin-reservations-page .reservation-card::before {
+  background:
+    linear-gradient(90deg, currentColor 0 7px, transparent 7px) 20px 26px / calc(100% - 40px) 1px no-repeat,
+    radial-gradient(circle, currentColor 0 4px, transparent 5px) 20px 22px / calc((100% - 40px)/4) 10px repeat-x;
+  color: rgba(66,214,95,.18);
+}
+.admin-reservations-page .reservation-card::before { color: rgba(37,191,255,.18); }
+
+/* Coach request route */
+.client-coach-requests-page .request-card::before,
+.coach-requests-page .request-card::before,
+.admin-coach-requests-page .request-card::before {
+  width: 130px;
+  height: 130px;
+  inset: auto -30px -35px auto;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: rgba(66,214,95,.13);
+  box-shadow: inset 0 0 0 24px rgba(66,214,95,.025), inset 0 0 0 48px rgba(66,214,95,.018);
+}
+.coach-requests-page .request-card::before { color: rgba(255,122,0,.14); }
+.admin-coach-requests-page .request-card::before { color: rgba(37,191,255,.14); }
+
+/* Group class energy stripes */
+.client-group-classes-page .class-card::before,
+.group-classes-page .class-card::before {
+  background: repeating-linear-gradient(135deg, transparent 0 20px, rgba(66,214,95,.035) 20px 22px);
+}
+.group-classes-page .class-card::before { background: repeating-linear-gradient(135deg, transparent 0 20px, rgba(255,122,0,.04) 20px 22px); }
+
+/* Event ticket perforation */
+.client-events-page .event-card::before,
+.coach-events-page .event-card::before,
+.admin-events-page .event-card::before {
+  background:
+    radial-gradient(circle at 0 50%, transparent 0 10px, rgba(66,214,95,.035) 11px 12px, transparent 13px),
+    radial-gradient(circle at 100% 50%, transparent 0 10px, rgba(66,214,95,.035) 11px 12px, transparent 13px),
+    linear-gradient(90deg, transparent 0 73%, rgba(255,255,255,.06) 73% 74%, transparent 74%);
+}
+.coach-events-page .event-card::before { filter: sepia(1) saturate(2); }
+.admin-events-page .event-card::before { filter: hue-rotate(120deg); }
+
+/* Sessions agenda */
+.coach-sessions-page .session-card::before {
+  background:
+    linear-gradient(90deg, rgba(255,122,0,.16) 0 4px, transparent 4px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(255,122,0,.04) 31px 32px);
+}
+
+/* Leave calendar */
+.coach-leavings-page .leaving-card::before,
+.admin-coach-leavings-page .leaving-card::before {
+  background:
+    linear-gradient(rgba(255,122,0,.09), rgba(255,122,0,.09)) 0 0 / 100% 33px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 48px, rgba(255,255,255,.035) 48px 49px),
+    repeating-linear-gradient(0deg, transparent 0 38px, rgba(255,255,255,.035) 38px 39px);
+}
+.admin-coach-leavings-page .leaving-card::before { filter: hue-rotate(150deg); }
+
+/* Court management */
+.admin-courts-page .court-card::before {
+  inset: 14px;
+  border: 1px solid rgba(37,191,255,.11);
+  background:
+    linear-gradient(90deg, transparent 49.6%, rgba(37,191,255,.12) 49.6% 50.4%, transparent 50.4%),
+    linear-gradient(0deg, transparent 49.6%, rgba(37,191,255,.12) 49.6% 50.4%, transparent 50.4%);
+}
+
+/* Users identity card */
+.admin-users-page .user-card::before,
+.admin-clients-page .client-card::before,
+.admin-coaches-page .coach-card::before {
+  width: 140px;
+  height: 140px;
+  inset: auto -35px -45px auto;
+  border-radius: 50%;
+  border: 20px solid rgba(37,191,255,.028);
+  box-shadow: 0 0 0 1px rgba(37,191,255,.10), inset 0 0 0 1px rgba(37,191,255,.08);
+}
+
+/* Announcements megaphone rays */
+.admin-announcements-page .announcement-card::before,
+.admin-announcements-page .form-card::before {
+  background: repeating-conic-gradient(from 220deg at 100% 100%, rgba(37,191,255,.045) 0 7deg, transparent 7deg 16deg);
+}
+
+/* Statistics data grid */
+.admin-statistics-page .stat-card::before,
+.admin-statistics-page .statistics-card::before {
+  background:
+    linear-gradient(to top, rgba(37,191,255,.08), transparent 55%),
+    repeating-linear-gradient(0deg, transparent 0 29px, rgba(37,191,255,.035) 29px 30px);
+}
+
+/* Dashboard context */
+
+.client-dashboard .dashboard-card,
+.coach-dashboard .dashboard-card,
+.admin-dashboard .dashboard-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+  border-radius: 22px !important;
+  transform: none !important;
+}
+
+.client-dashboard .dashboard-card::after,
+.coach-dashboard .dashboard-card::after,
+.admin-dashboard .dashboard-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(2,8,17,.92), rgba(2,8,17,.15) 72%),
+    repeating-linear-gradient(135deg, transparent 0 30px, rgba(255,255,255,.025) 30px 31px);
+}
+
+.client-dashboard .dashboard-card > *,
+.coach-dashboard .dashboard-card > *,
+.admin-dashboard .dashboard-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.client-dashboard .dashboard-card:hover,
+.coach-dashboard .dashboard-card:hover,
+.admin-dashboard .dashboard-card:hover {
+  transform: none !important;
+}
+
+.client-dashboard .dashboard-card:hover::before,
+.coach-dashboard .dashboard-card:hover::before,
+.admin-dashboard .dashboard-card:hover::before {
+  transform: scale(1.06);
+}
+
+.client-dashboard .dashboard-card::before,
+.coach-dashboard .dashboard-card::before,
+.admin-dashboard .dashboard-card::before {
+  transition: transform .45s ease !important;
+}
+
+/* Light mode */
+
+body.light-theme .client-dashboard,
+body.light-theme .reservations-page,
+body.light-theme .client-coach-requests-page,
+body.light-theme .client-group-classes-page,
+body.light-theme .client-events-page,
+body.light-theme .coach-request-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(22,163,74,.10), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(22,163,74,.06), transparent 30%),
+    linear-gradient(145deg, #f8fbf9 0%, #eff6f1 52%, #e9f2ec 100%) !important;
+}
+
+body.light-theme .coach-dashboard,
+body.light-theme .coach-requests-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .group-classes-page,
+body.light-theme .coach-leavings-page,
+body.light-theme .coach-events-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(180,83,9,.10), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(245,158,11,.06), transparent 30%),
+    linear-gradient(145deg, #fffaf5 0%, #f8f2eb 52%, #f4ece3 100%) !important;
+}
+
+body.light-theme .admin-dashboard,
+body.light-theme .admin-users-page,
+body.light-theme .admin-clients-page,
+body.light-theme .admin-coaches-page,
+body.light-theme .admin-courts-page,
+body.light-theme .admin-reservations-page,
+body.light-theme .admin-coach-requests-page,
+body.light-theme .admin-coach-leavings-page,
+body.light-theme .admin-announcements-page,
+body.light-theme .admin-events-page,
+body.light-theme .admin-statistics-page {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(2,132,199,.10), transparent 27%),
+    radial-gradient(circle at 92% 88%, rgba(37,191,255,.06), transparent 30%),
+    linear-gradient(145deg, #f7fbfe 0%, #edf5fa 52%, #e7f1f7 100%) !important;
+}
+
+body.light-theme .client-dashboard::before,
+body.light-theme .reservations-page::before,
+body.light-theme .client-coach-requests-page::before,
+body.light-theme .client-group-classes-page::before,
+body.light-theme .client-events-page::before,
+body.light-theme .coach-request-page::before {
+  background-image:
+    linear-gradient(rgba(22,163,74,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22,163,74,.035) 1px, transparent 1px);
+}
+
+body.light-theme .coach-dashboard::before,
+body.light-theme .coach-requests-page::before,
+body.light-theme .coach-sessions-page::before,
+body.light-theme .group-classes-page::before,
+body.light-theme .coach-leavings-page::before,
+body.light-theme .coach-events-page::before {
+  background-image:
+    linear-gradient(rgba(180,83,9,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180,83,9,.035) 1px, transparent 1px);
+}
+
+body.light-theme .admin-dashboard::before,
+body.light-theme .admin-users-page::before,
+body.light-theme .admin-clients-page::before,
+body.light-theme .admin-coaches-page::before,
+body.light-theme .admin-courts-page::before,
+body.light-theme .admin-reservations-page::before,
+body.light-theme .admin-coach-requests-page::before,
+body.light-theme .admin-coach-leavings-page::before,
+body.light-theme .admin-announcements-page::before,
+body.light-theme .admin-events-page::before,
+body.light-theme .admin-statistics-page::before {
+  background-image:
+    linear-gradient(rgba(2,132,199,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2,132,199,.035) 1px, transparent 1px);
+}
+
+body.light-theme .request-card,
+body.light-theme .reservation-card,
+body.light-theme .event-card,
+body.light-theme .class-card,
+body.light-theme .session-card,
+body.light-theme .leaving-card,
+body.light-theme .user-card,
+body.light-theme .client-card,
+body.light-theme .coach-card,
+body.light-theme .court-card,
+body.light-theme .stat-card,
+body.light-theme .statistics-card,
+body.light-theme .form-card,
+body.light-theme .filters-card,
+body.light-theme .empty-card {
+  box-shadow: 0 14px 30px rgba(15,40,70,.09) !important;
+}
+
+/* No floating */
+
+.request-card:hover,
+.reservation-card:hover,
+.event-card:hover,
+.class-card:hover,
+.session-card:hover,
+.leaving-card:hover,
+.user-card:hover,
+.client-card:hover,
+.coach-card:hover,
+.court-card:hover,
+.stat-card:hover,
+.statistics-card:hover,
+.form-card:hover,
+.filters-card:hover,
+.empty-card:hover {
+  transform: none !important;
+}
+
+@media (max-width: 700px) {
+  .client-dashboard::after,
+  .coach-dashboard::after,
+  .admin-dashboard::after,
+  .reservations-page::after,
+  .client-coach-requests-page::after,
+  .client-group-classes-page::after,
+  .client-events-page::after,
+  .coach-request-page::after,
+  .coach-requests-page::after,
+  .coach-sessions-page::after,
+  .group-classes-page::after,
+  .coach-leavings-page::after,
+  .coach-events-page::after,
+  .admin-users-page::after,
+  .admin-clients-page::after,
+  .admin-coaches-page::after,
+  .admin-courts-page::after,
+  .admin-reservations-page::after,
+  .admin-coach-requests-page::after,
+  .admin-coach-leavings-page::after,
+  .admin-announcements-page::after,
+  .admin-events-page::after,
+  .admin-statistics-page::after {
+    width: 260px;
+    height: 260px;
+    right: -150px;
+  }
+}

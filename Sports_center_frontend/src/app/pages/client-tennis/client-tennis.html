@@ -1,174 +1,438 @@
 <div class="tennis-page">
 
-  <div class="page-header">
-    <h1>Réservation Tennis</h1>
-    <div class="court-line"></div>
-    <p>
-      Choisissez un terrain, une date et un créneau horaire pour réserver votre séance.
-    </p>
+  <div class="page-background" aria-hidden="true">
+    <div class="background-court">
+      <span class="court-line court-line-top"></span>
+      <span class="court-line court-line-middle"></span>
+      <span class="court-line court-line-bottom"></span>
+      <span class="court-line court-line-left"></span>
+      <span class="court-line court-line-right"></span>
+      <span class="court-net"></span>
+    </div>
 
-    <button routerLink="/client" class="back-btn">
-      Retour à l'espace client
-    </button>
+    <span class="tennis-ball tennis-ball-one"></span>
+    <span class="tennis-ball tennis-ball-two"></span>
   </div>
 
-  @if (successMessage()) {
-    <div class="success-message">
-      ✅ {{ successMessage() }}
-    </div>
-  }
+  <div class="page-content">
 
-  @if (errorMessage()) {
-    <div class="error-message">
-      ❌ {{ errorMessage() }}
-    </div>
-  }
-
-  <div class="content">
-
-    <section class="courts-section">
-      <h2>Terrains disponibles</h2>
-
-      @if (courtsLoaded() && courts().length === 0) {
-        <div class="empty-card">
-          Aucun terrain trouvé.
-        </div>
-      }
-
-      @if (availableCourts().length > 0) {
-        <div class="courts-grid">
-
-          @for (court of availableCourts(); track court.id) {
-            <div class="court-card">
-
-              <h3>Terrain {{ court.courtNumber }}</h3>
-
-              <p>
-                Statut :
-                <span class="available">
-                  {{ court.status }}
-                </span>
-              </p>
-
-            </div>
-          }
-
-        </div>
-      }
-
-      @if (maintenanceCourts().length > 0) {
-        <h2 class="maintenance-title">Terrains en maintenance</h2>
-
-        <div class="courts-grid">
-
-          @for (court of maintenanceCourts(); track court.id) {
-            <div class="court-card maintenance-card">
-
-              <h3>Terrain {{ court.courtNumber }}</h3>
-
-              <p>
-                Statut :
-                <span class="maintenance">
-                  {{ court.status }}
-                </span>
-              </p>
-
-              <p class="maintenance-message">
-                Ce terrain est actuellement en maintenance.
-              </p>
-
-            </div>
-          }
-
-        </div>
-      }
-    </section>
-
-    <section class="reservation-card">
-      <h2>Nouvelle réservation</h2>
-
-      <label>Terrain :</label>
-
-      <select
-        [ngModel]="selectedCourtId()"
-        (ngModelChange)="selectedCourtId.set($event)">
-
-        <option [ngValue]="null">Choisir un terrain...</option>
-
-        @for (court of courts(); track court.id) {
-          <option
-            [ngValue]="court.id"
-            [disabled]="court.status === 'MAINTENANCE'">
-            Terrain {{ court.courtNumber }} - {{ court.status }}
-          </option>
-        }
-      </select>
-
-      <label>Date :</label>
-      <input
-        type="date"
-        [ngModel]="reservationDate()"
-        (ngModelChange)="reservationDate.set($event)"
-        [min]="tomorrow">
-
-      <label>Heure début :</label>
-      <select
-        [ngModel]="startTime()"
-        (ngModelChange)="startTime.set($event); updateEndTime()">
-
-        <option value="">Choisir...</option>
-
-        @for (slot of selectableTimeSlots(); track slot) {
-          <option [value]="slot">
-            {{ slot }}
-          </option>
-        }
-
-      </select>
-
-      <label>Heure fin :</label>
-      <input
-        type="text"
-        [value]="endTime()"
-        readonly>
-
-      @if (selectedCourtId() && reservationDate() && startTime() && endTime()) {
-        <div class="reservation-summary">
-          <h3>Résumé</h3>
-
-          <p>
-            <strong>Terrain :</strong>
-            Terrain {{ getSelectedCourt()?.courtNumber }}
-          </p>
-
-          <p>
-            <strong>Date :</strong>
-            {{ reservationDate() }}
-          </p>
-
-          <p>
-            <strong>Créneau :</strong>
-            {{ startTime() }} - {{ endTime() }}
-          </p>
-        </div>
-      }
-
-      <div class="actions">
-        <button
-          type="button"
-          class="confirm-btn"
-          (click)="createReservation()">
-          Confirmer
-        </button>
-
-        <button
-          type="button"
-          class="clear-btn"
-          (click)="resetReservationForm()">
-          Vider
-        </button>
+    <header class="page-header">
+      <div class="header-badge">
+        Centre sportif
       </div>
-    </section>
+
+      <h1>Réservation Tennis</h1>
+
+      <div class="court-line-title">
+        <span></span>
+        <i></i>
+        <span></span>
+      </div>
+
+      <p>
+        Réservez votre terrain de tennis en quelques étapes et profitez
+        pleinement de votre prochaine séance.
+      </p>
+
+      <button routerLink="/client" class="back-btn">
+        <span class="back-arrow">←</span>
+        Retour à l’espace client
+      </button>
+    </header>
+
+    @if (successMessage()) {
+      <div class="message success-message">
+        <span class="message-icon">✓</span>
+
+        <div>
+          <strong>Réservation confirmée</strong>
+          <p>{{ successMessage() }}</p>
+        </div>
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="message error-message">
+        <span class="message-icon">!</span>
+
+        <div>
+          <strong>Une erreur est survenue</strong>
+          <p>{{ errorMessage() }}</p>
+        </div>
+      </div>
+    }
+
+    <main class="content">
+
+      <section class="courts-section">
+
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Choisissez votre espace</span>
+            <h2>Terrains disponibles</h2>
+          </div>
+
+          <div class="available-counter">
+            <strong>{{ availableCourts().length }}</strong>
+            <span>disponible(s)</span>
+          </div>
+        </div>
+
+        @if (courtsLoaded() && courts().length === 0) {
+          <div class="empty-card">
+            <div class="empty-icon">🎾</div>
+            <h3>Aucun terrain trouvé</h3>
+            <p>Les terrains disponibles apparaîtront ici.</p>
+          </div>
+        }
+
+        @if (availableCourts().length > 0) {
+          <div class="courts-grid">
+
+            @for (court of availableCourts(); track court.id) {
+              <article class="court-card available-card">
+
+                <div class="court-visual">
+                  <div class="mini-court">
+                    <span class="mini-line mini-line-horizontal"></span>
+                    <span class="mini-line mini-line-vertical"></span>
+                    <span class="mini-net"></span>
+                  </div>
+
+                  <span class="court-number">
+                    {{ court.courtNumber }}
+                  </span>
+
+                  <span class="court-ball"></span>
+                </div>
+
+                <div class="court-details">
+                  <div class="court-heading">
+                    <div>
+                      <span class="court-label">Terrain</span>
+                      <h3>Terrain {{ court.courtNumber }}</h3>
+                    </div>
+
+                    <span class="status-badge available">
+                      <i></i>
+                      {{ court.status }}
+                    </span>
+                  </div>
+
+                  <p>
+                    Terrain prêt à accueillir votre prochaine réservation.
+                  </p>
+
+                  <button
+                    type="button"
+                    class="select-court-btn"
+                    (click)="selectedCourtId.set(court.id)">
+                    Choisir ce terrain
+                    <span>→</span>
+                  </button>
+                </div>
+
+              </article>
+            }
+
+          </div>
+        }
+
+        @if (maintenanceCourts().length > 0) {
+          <div class="section-heading maintenance-heading">
+            <div>
+              <span class="section-label">Indisponibilité temporaire</span>
+              <h2>Terrains en maintenance</h2>
+            </div>
+
+            <div class="maintenance-counter">
+              <strong>{{ maintenanceCourts().length }}</strong>
+              <span>indisponible(s)</span>
+            </div>
+          </div>
+
+          <div class="courts-grid">
+
+            @for (court of maintenanceCourts(); track court.id) {
+              <article class="court-card maintenance-card">
+
+                <div class="court-visual">
+                  <div class="mini-court">
+                    <span class="mini-line mini-line-horizontal"></span>
+                    <span class="mini-line mini-line-vertical"></span>
+                    <span class="mini-net"></span>
+                  </div>
+
+                  <span class="court-number">
+                    {{ court.courtNumber }}
+                  </span>
+
+                  <span class="maintenance-symbol">!</span>
+                </div>
+
+                <div class="court-details">
+                  <div class="court-heading">
+                    <div>
+                      <span class="court-label">Terrain</span>
+                      <h3>Terrain {{ court.courtNumber }}</h3>
+                    </div>
+
+                    <span class="status-badge maintenance">
+                      <i></i>
+                      {{ court.status }}
+                    </span>
+                  </div>
+
+                  <p class="maintenance-message">
+                    Ce terrain est temporairement indisponible.
+                  </p>
+                </div>
+
+              </article>
+            }
+
+          </div>
+        }
+
+      </section>
+
+      <aside class="reservation-column">
+
+        <section class="reservation-card">
+
+          <div class="reservation-card-header">
+            <div class="reservation-icon">
+              🎾
+            </div>
+
+            <div>
+              <span class="section-label">Votre prochaine séance</span>
+              <h2>Nouvelle réservation</h2>
+            </div>
+          </div>
+
+          <div class="reservation-progress">
+            <div
+              class="progress-item"
+              [class.completed]="selectedCourtId()">
+              <span>1</span>
+              <p>Terrain</p>
+            </div>
+
+            <div
+              class="progress-line"
+              [class.completed]="selectedCourtId()">
+            </div>
+
+            <div
+              class="progress-item"
+              [class.completed]="reservationDate()">
+              <span>2</span>
+              <p>Date</p>
+            </div>
+
+            <div
+              class="progress-line"
+              [class.completed]="reservationDate()">
+            </div>
+
+            <div
+              class="progress-item"
+              [class.completed]="startTime()">
+              <span>3</span>
+              <p>Horaire</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="court">
+              Terrain
+            </label>
+
+            <div class="input-wrapper">
+              <span class="input-icon">⌖</span>
+
+              <select
+                id="court"
+                [ngModel]="selectedCourtId()"
+                (ngModelChange)="selectedCourtId.set($event)">
+
+                <option [ngValue]="null">
+                  Choisir un terrain...
+                </option>
+
+                @for (court of courts(); track court.id) {
+                  <option
+                    [ngValue]="court.id"
+                    [disabled]="court.status === 'MAINTENANCE'">
+                    Terrain {{ court.courtNumber }} — {{ court.status }}
+                  </option>
+                }
+
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reservation-date">
+              Date
+            </label>
+
+            <div class="input-wrapper">
+              <span class="input-icon">▣</span>
+
+              <input
+                id="reservation-date"
+                type="date"
+                [ngModel]="reservationDate()"
+                (ngModelChange)="reservationDate.set($event)"
+                [min]="tomorrow">
+            </div>
+          </div>
+
+          <div class="time-fields">
+
+            <div class="form-group">
+              <label for="start-time">
+                Heure début
+              </label>
+
+              <div class="input-wrapper">
+                <span class="input-icon">◷</span>
+
+                <select
+                  id="start-time"
+                  [ngModel]="startTime()"
+                  (ngModelChange)="startTime.set($event); updateEndTime()">
+
+                  <option value="">
+                    Choisir...
+                  </option>
+
+                  @for (slot of selectableTimeSlots(); track slot) {
+                    <option [value]="slot">
+                      {{ slot }}
+                    </option>
+                  }
+
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="end-time">
+                Heure fin
+              </label>
+
+              <div class="input-wrapper readonly-wrapper">
+                <span class="input-icon">◷</span>
+
+                <input
+                  id="end-time"
+                  type="text"
+                  [value]="endTime()"
+                  placeholder="Automatique"
+                  readonly>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="duration-information">
+            <span class="duration-icon">i</span>
+
+            <p>
+              Chaque réservation dure automatiquement
+              <strong>2 heures</strong>.
+            </p>
+          </div>
+
+          @if (selectedCourtId() && reservationDate() && startTime() && endTime()) {
+            <div class="reservation-summary">
+
+              <div class="summary-header">
+                <div>
+                  <span class="section-label">Vérification</span>
+                  <h3>Résumé de votre réservation</h3>
+                </div>
+
+                <span class="summary-check">✓</span>
+              </div>
+
+              <div class="summary-grid">
+
+                <div class="summary-item">
+                  <span class="summary-icon">⌖</span>
+
+                  <div>
+                    <small>Terrain</small>
+                    <strong>
+                      Terrain {{ getSelectedCourt()?.courtNumber }}
+                    </strong>
+                  </div>
+                </div>
+
+                <div class="summary-item">
+                  <span class="summary-icon">▣</span>
+
+                  <div>
+                    <small>Date</small>
+                    <strong>{{ reservationDate() }}</strong>
+                  </div>
+                </div>
+
+                <div class="summary-item summary-item-full">
+                  <span class="summary-icon">◷</span>
+
+                  <div>
+                    <small>Créneau</small>
+                    <strong>
+                      {{ startTime() }} — {{ endTime() }}
+                    </strong>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          }
+
+          <div class="actions">
+
+            <button
+              type="button"
+              class="confirm-btn"
+              (click)="createReservation()">
+              <span>Confirmer la réservation</span>
+              <i>→</i>
+            </button>
+
+            <button
+              type="button"
+              class="clear-btn"
+              (click)="resetReservationForm()">
+              Vider le formulaire
+            </button>
+
+          </div>
+
+        </section>
+
+        <div class="reservation-help">
+          <div class="help-icon">?</div>
+
+          <div>
+            <strong>Besoin d’aide ?</strong>
+            <p>
+              Sélectionnez un terrain disponible, puis choisissez votre date
+              et votre heure de début.
+            </p>
+          </div>
+        </div>
+
+      </aside>
+
+    </main>
 
   </div>
 

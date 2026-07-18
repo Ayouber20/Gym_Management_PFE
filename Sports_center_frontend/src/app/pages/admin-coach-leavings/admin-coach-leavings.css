@@ -420,3 +420,836 @@ tbody tr:hover td {
 :host-context(body.light-theme) .status.rejected {
   color: #dc2626 !important;
 }
+/* ADMIN INTERNAL MODERN THEME */
+
+:host {
+  --admin-accent: #29b6f6;
+  --admin-accent-strong: #0369a1;
+  --admin-accent-soft: rgba(41, 182, 246, 0.12);
+  --admin-border: rgba(41, 182, 246, 0.46);
+  --admin-card-dark: rgba(5, 18, 34, 0.94);
+  --admin-card-light: rgba(255, 255, 255, 0.92);
+  display: block;
+}
+
+.admin-coach-leavings-page {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  padding: 48px clamp(20px, 5vw, 72px) 72px;
+  color: #f8fafc;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(41, 182, 246, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 16%, rgba(59, 130, 246, 0.15), transparent 34%),
+    radial-gradient(circle at 74% 88%, rgba(14, 165, 233, 0.08), transparent 30%),
+    linear-gradient(145deg, #020914 0%, #061426 50%, #020b18 100%) !important;
+  overflow-x: hidden;
+}
+
+.admin-coach-leavings-page::before,
+.admin-coach-leavings-page::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.admin-coach-leavings-page::before {
+  width: 340px;
+  height: 340px;
+  top: 8%;
+  right: -150px;
+  border: 1px solid rgba(41, 182, 246, 0.12);
+  background: radial-gradient(circle, rgba(41, 182, 246, 0.06), transparent 68%);
+}
+
+.admin-coach-leavings-page::after {
+  width: 260px;
+  height: 260px;
+  left: -130px;
+  bottom: 6%;
+  border: 1px solid rgba(59, 130, 246, 0.10);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05), transparent 68%);
+}
+
+.admin-coach-leavings-page *,
+.admin-coach-leavings-page *::before,
+.admin-coach-leavings-page *::after {
+  box-sizing: border-box;
+  text-shadow: none !important;
+}
+
+.admin-coach-leavings-page .page-header {
+  width: min(1120px, 100%);
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.admin-coach-leavings-page .page-header::before {
+  content: 'ESPACE ADMIN';
+  display: block;
+  margin-bottom: 8px;
+  color: var(--admin-accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.admin-coach-leavings-page .page-header h1 {
+  margin: 0 0 12px;
+  color: var(--admin-accent) !important;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.08;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.admin-coach-leavings-page .page-header p,
+.admin-coach-leavings-page .page-header .subtitle {
+  max-width: 760px;
+  margin: 0 auto 20px;
+  color: #cbd5e1 !important;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.admin-coach-leavings-page .back-btn {
+  min-height: 44px;
+  padding: 11px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(41, 182, 246, 0.68) !important;
+  border-radius: 12px;
+  background: rgba(41, 182, 246, 0.07) !important;
+  color: #67d1ff !important;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.admin-coach-leavings-page .back-btn:hover {
+  background: var(--admin-accent) !important;
+  border-color: var(--admin-accent) !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+.admin-coach-leavings-page :is(.form-card, .filters-card, .list-card, .table-container, .table-wrapper,
+.clients-list, .users-list, .coaches-list, .courts-list, .events-list,
+.reservation-card, .announcement-card, .empty-card, .stats-grid, .section-title) {
+  border-color: var(--admin-border) !important;
+  box-shadow: none !important;
+}
+
+.admin-coach-leavings-page :is(.form-card, .filters-card, .list-card, .clients-list, .users-list,
+.coaches-list, .courts-list, .events-list, .empty-card) {
+  background: linear-gradient(145deg, rgba(7, 24, 44, 0.96), rgba(4, 15, 29, 0.96)) !important;
+  border: 1px solid var(--admin-border) !important;
+  border-radius: 20px !important;
+}
+
+.admin-coach-leavings-page :is(.form-card, .filters-card, .list-card, .clients-list, .users-list,
+.coaches-list, .courts-list, .events-list) {
+  padding: clamp(20px, 3vw, 30px) !important;
+}
+
+.admin-coach-leavings-page :is(.form-card, .list-card, .clients-list, .users-list, .coaches-list,
+.courts-list, .events-list) h2 {
+  color: #f8fafc !important;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.admin-coach-leavings-page :is(label, .form-label, .filter-group label) {
+  color: #dbeafe !important;
+  font-weight: 800;
+}
+
+.admin-coach-leavings-page :is(input, select, textarea) {
+  min-height: 44px;
+  border: 1px solid rgba(41, 182, 246, 0.48) !important;
+  border-radius: 11px !important;
+  background: rgba(2, 11, 24, 0.80) !important;
+  color: #f8fafc !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.admin-coach-leavings-page textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.admin-coach-leavings-page :is(input, select, textarea):focus {
+  border-color: var(--admin-accent) !important;
+  box-shadow: 0 0 0 3px rgba(41, 182, 246, 0.11) !important;
+}
+
+.admin-coach-leavings-page :is(input, textarea)::placeholder {
+  color: #7f91aa !important;
+  opacity: 1;
+}
+
+.admin-coach-leavings-page :is(.create-btn, .publish-btn, .save-btn, .add-btn, .primary-btn,
+.clear-btn, .clear-filters-btn, .activate-btn, .disable-btn, .delete-btn,
+.accept-btn, .reject-btn, .edit-btn, .cancel-btn, .actions button, .form-actions button) {
+  min-height: 42px;
+  border-radius: 11px !important;
+  box-shadow: none !important;
+  transform: none !important;
+  font-weight: 900;
+}
+
+.admin-coach-leavings-page :is(.create-btn, .publish-btn, .save-btn, .add-btn, .primary-btn,
+.activate-btn, .accept-btn) {
+  background: var(--admin-accent-strong) !important;
+  border: 1px solid var(--admin-accent-strong) !important;
+  color: #ffffff !important;
+}
+
+.admin-coach-leavings-page :is(.clear-btn, .clear-filters-btn, .edit-btn) {
+  background: rgba(41, 182, 246, 0.08) !important;
+  border: 1px solid rgba(41, 182, 246, 0.50) !important;
+  color: #67d1ff !important;
+}
+
+.admin-coach-leavings-page :is(.create-btn, .publish-btn, .save-btn, .add-btn, .primary-btn,
+.clear-btn, .clear-filters-btn, .activate-btn, .accept-btn, .edit-btn):hover {
+  background: var(--admin-accent) !important;
+  border-color: var(--admin-accent) !important;
+  color: #ffffff !important;
+  transform: none !important;
+}
+
+.admin-coach-leavings-page :is(.delete-btn, .reject-btn, .disable-btn, .cancel-btn) {
+  background: rgba(239, 68, 68, 0.09) !important;
+  border: 1px solid rgba(239, 68, 68, 0.55) !important;
+  color: #f87171 !important;
+}
+
+.admin-coach-leavings-page :is(.delete-btn, .reject-btn, .disable-btn, .cancel-btn):hover {
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.admin-coach-leavings-page .results-count {
+  width: min(1120px, 100%);
+  margin: 24px auto 16px;
+  color: #dbeafe !important;
+  font-weight: 900;
+}
+
+.admin-coach-leavings-page :is(table, .table-container, .table-wrapper) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.admin-coach-leavings-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-coach-leavings-page thead {
+  background: linear-gradient(90deg, #075985, #0369a1) !important;
+}
+
+.admin-coach-leavings-page th {
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-coach-leavings-page td {
+  color: #dbeafe !important;
+  border-color: rgba(148, 163, 184, 0.20) !important;
+}
+
+.admin-coach-leavings-page tbody tr {
+  background: rgba(5, 18, 34, 0.58) !important;
+  transition: background-color .2s ease;
+}
+
+.admin-coach-leavings-page tbody tr:hover {
+  background: rgba(41, 182, 246, 0.07) !important;
+  transform: none !important;
+}
+
+.admin-coach-leavings-page :is(.success-message, .error-message) {
+  width: min(1120px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+.admin-coach-leavings-page :is(.status, .status-badge, .target-badge, .role-badge) {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.admin-coach-leavings-page :is(.empty-card, .empty-text) {
+  color: #94a3b8 !important;
+  text-align: center;
+}
+
+/* Light mode */
+
+:host-context(body.light-theme) .admin-coach-leavings-page {
+  color: #0f172a;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.18), transparent 31%),
+    radial-gradient(circle at 88% 16%, rgba(59, 130, 246, 0.15), transparent 34%),
+    radial-gradient(circle at 72% 88%, rgba(125, 211, 252, 0.18), transparent 32%),
+    linear-gradient(145deg, #eaf7ff 0%, #f8fbff 46%, #eaf2ff 100%) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .page-header h1,
+:host-context(body.light-theme) .admin-coach-leavings-page .page-header::before {
+  color: var(--admin-accent-strong) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .page-header p,
+:host-context(body.light-theme) .admin-coach-leavings-page .page-header .subtitle {
+  color: #334155 !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .back-btn {
+  background: rgba(3, 105, 161, 0.05) !important;
+  border-color: rgba(3, 105, 161, 0.55) !important;
+  color: var(--admin-accent-strong) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(.form-card, .filters-card, .list-card,
+.clients-list, .users-list, .coaches-list, .courts-list, .events-list, .empty-card,
+.reservation-card, .announcement-card) {
+  background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(244,250,255,0.94)) !important;
+  border-color: rgba(3, 105, 161, 0.38) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(.form-card, .list-card, .clients-list,
+.users-list, .coaches-list, .courts-list, .events-list) h2 {
+  color: #0f3e61 !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(label, .form-label, .filter-group label) {
+  color: #0f172a !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(input, select, textarea) {
+  background: rgba(255,255,255,0.94) !important;
+  border-color: rgba(3, 105, 161, 0.42) !important;
+  color: #0f172a !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(input, textarea)::placeholder {
+  color: #64748b !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .results-count,
+:host-context(body.light-theme) .admin-coach-leavings-page td {
+  color: #1e293b !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page tbody tr {
+  background: rgba(255,255,255,0.66) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page tbody tr:hover {
+  background: rgba(14, 165, 233, 0.08) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page :is(.empty-card, .empty-text) {
+  color: #64748b !important;
+}
+
+@media (max-width: 760px) {
+  .admin-coach-leavings-page {
+    padding: 34px 16px 56px;
+  }
+
+  .admin-coach-leavings-page .page-header h1 {
+    font-size: 34px;
+  }
+}
+
+/* Admin visual harmony */
+:host {
+  --admin-accent: #29b6f6;
+  --admin-accent-dark: #0369a1;
+  --admin-border: rgba(41, 182, 246, 0.38);
+  position: relative;
+  isolation: isolate;
+  display: block;
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(2, 8, 17, 0.91), rgba(4, 14, 28, 0.96)),
+    radial-gradient(circle at 12% 18%, rgba(41, 182, 246, 0.18), transparent 28%),
+    radial-gradient(circle at 88% 15%, rgba(37, 99, 235, 0.16), transparent 32%),
+    url('/assets/images/sports-bg.jpg') center / cover no-repeat;
+}
+
+.admin-users-page,
+.admin-clients-page,
+.admin-coaches-page,
+.admin-courts-page,
+.admin-reservations-page,
+.admin-coach-requests-page,
+.admin-coach-leavings-page,
+.admin-events-page,
+.admin-announcements-page,
+.admin-statistics-page {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;
+  background: transparent !important;
+  color: #f8fafc;
+}
+
+.page-header,
+.header,
+.page-title {
+  text-align: center;
+}
+
+.page-header h1,
+.header h1,
+.page-title h1,
+h1.page-title {
+  color: var(--admin-accent) !important;
+  text-shadow: none !important;
+}
+
+.page-header p,
+.header p,
+.page-subtitle,
+.subtitle {
+  color: #cbd5e1 !important;
+  text-shadow: none !important;
+}
+
+.form-card,
+.list-card,
+.users-list,
+.clients-list,
+.coaches-list,
+.courts-list,
+.reservations-list,
+.announcements-list,
+.events-list,
+.statistics-card,
+.stats-card,
+.filters-card,
+.filter-card,
+.table-card,
+.content-card,
+.empty-card,
+.request-card,
+.leaving-card,
+.event-card,
+.announcement-card,
+.court-card,
+.reservation-card,
+.user-card,
+.client-card,
+.coach-card,
+section,
+.panel {
+  box-shadow: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+.form-card,
+.list-card,
+.users-list,
+.clients-list,
+.coaches-list,
+.courts-list,
+.reservations-list,
+.announcements-list,
+.events-list,
+.filters-card,
+.filter-card,
+.table-card,
+.content-card,
+.empty-card,
+.request-card,
+.leaving-card,
+.event-card,
+.announcement-card,
+.court-card,
+.reservation-card,
+.user-card,
+.client-card,
+.coach-card {
+  border-color: var(--admin-border) !important;
+  background: linear-gradient(145deg, rgba(12, 24, 40, 0.97), rgba(5, 13, 25, 0.98)) !important;
+}
+
+button,
+.back-btn,
+.clear-btn,
+.clear-filters-btn,
+.reset-btn,
+.create-btn,
+.submit-btn,
+.save-btn,
+.add-btn,
+.edit-btn,
+.publish-btn {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+button:hover,
+.back-btn:hover,
+.clear-btn:hover,
+.clear-filters-btn:hover,
+.reset-btn:hover,
+.create-btn:hover,
+.submit-btn:hover,
+.save-btn:hover,
+.add-btn:hover,
+.edit-btn:hover,
+.publish-btn:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+input,
+select,
+textarea {
+  box-shadow: none !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--admin-accent) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+h1, h2, h3, h4, p, span, label, th, td {
+  text-shadow: none !important;
+}
+
+:host-context(body.light-theme)::before {
+  background:
+    linear-gradient(rgba(243, 248, 253, 0.88), rgba(235, 244, 252, 0.94)),
+    radial-gradient(circle at 10% 14%, rgba(14, 165, 233, 0.18), transparent 30%),
+    radial-gradient(circle at 90% 20%, rgba(59, 130, 246, 0.15), transparent 34%),
+    url('/assets/images/sports-bg.jpg') center / cover no-repeat;
+}
+
+:host-context(body.light-theme) .admin-users-page,
+:host-context(body.light-theme) .admin-clients-page,
+:host-context(body.light-theme) .admin-coaches-page,
+:host-context(body.light-theme) .admin-courts-page,
+:host-context(body.light-theme) .admin-reservations-page,
+:host-context(body.light-theme) .admin-coach-requests-page,
+:host-context(body.light-theme) .admin-coach-leavings-page,
+:host-context(body.light-theme) .admin-events-page,
+:host-context(body.light-theme) .admin-announcements-page,
+:host-context(body.light-theme) .admin-statistics-page {
+  background: transparent !important;
+  color: #111827;
+}
+
+:host-context(body.light-theme) .page-header h1,
+:host-context(body.light-theme) .header h1,
+:host-context(body.light-theme) .page-title h1,
+:host-context(body.light-theme) h1.page-title {
+  color: var(--admin-accent-dark) !important;
+}
+
+:host-context(body.light-theme) .page-header p,
+:host-context(body.light-theme) .header p,
+:host-context(body.light-theme) .page-subtitle,
+:host-context(body.light-theme) .subtitle {
+  color: #475569 !important;
+}
+
+:host-context(body.light-theme) .form-card,
+:host-context(body.light-theme) .list-card,
+:host-context(body.light-theme) .users-list,
+:host-context(body.light-theme) .clients-list,
+:host-context(body.light-theme) .coaches-list,
+:host-context(body.light-theme) .courts-list,
+:host-context(body.light-theme) .reservations-list,
+:host-context(body.light-theme) .announcements-list,
+:host-context(body.light-theme) .events-list,
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .filter-card,
+:host-context(body.light-theme) .table-card,
+:host-context(body.light-theme) .content-card,
+:host-context(body.light-theme) .empty-card,
+:host-context(body.light-theme) .request-card,
+:host-context(body.light-theme) .leaving-card,
+:host-context(body.light-theme) .event-card,
+:host-context(body.light-theme) .announcement-card,
+:host-context(body.light-theme) .court-card,
+:host-context(body.light-theme) .reservation-card,
+:host-context(body.light-theme) .user-card,
+:host-context(body.light-theme) .client-card,
+:host-context(body.light-theme) .coach-card {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1.5px solid rgba(3, 105, 161, 0.38) !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .filters-card,
+:host-context(body.light-theme) .filter-card {
+  background: rgba(255, 255, 255, 0.88) !important;
+}
+
+
+/* Admin internal page background */
+.admin-coach-leavings-page {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 15%, rgba(41, 182, 246, 0.16), transparent 24%),
+    radial-gradient(circle at 88% 18%, rgba(37, 99, 235, 0.14), transparent 27%),
+    radial-gradient(circle at 18% 88%, rgba(14, 165, 233, 0.10), transparent 24%),
+    linear-gradient(145deg, #020914 0%, #061426 52%, #020b18 100%) !important;
+  background-attachment: fixed !important;
+}
+
+.admin-coach-leavings-page::before {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  top: 74px;
+  right: -105px;
+  width: 430px;
+  height: 430px;
+  pointer-events: none;
+  border: 1px solid rgba(56, 189, 248, 0.14);
+  background:
+    radial-gradient(circle at 24% 28%, rgba(56, 189, 248, 0.13) 0 8%, transparent 8.5%),
+    linear-gradient(90deg, transparent 49.7%, rgba(56, 189, 248, 0.13) 50%, transparent 50.3%),
+    linear-gradient(transparent 49.7%, rgba(37, 99, 235, 0.12) 50%, transparent 50.3%);
+  transform: rotate(-10deg);
+  opacity: 0.9;
+}
+
+.admin-coach-leavings-page::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  left: -84px;
+  bottom: -74px;
+  width: 230px;
+  height: 230px;
+  pointer-events: none;
+  border: 1px solid rgba(56, 189, 248, 0.13);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(115deg, transparent 0 24px, rgba(56, 189, 248, 0.055) 25px 26px),
+    radial-gradient(circle, rgba(37, 99, 235, 0.10), transparent 68%);
+}
+
+.admin-coach-leavings-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Return button */
+.admin-coach-leavings-page .back-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  min-height: 44px;
+  padding: 10px 20px !important;
+  border: 1px solid var(--primary) !important;
+  border-radius: 11px !important;
+  background: transparent !important;
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.admin-coach-leavings-page .back-btn::before {
+  content: "←";
+  font-size: 17px;
+  line-height: 1;
+}
+
+.admin-coach-leavings-page .back-btn:hover {
+  border-color: var(--primary) !important;
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Light mode background */
+:host-context(body.light-theme) .admin-coach-leavings-page {
+  background:
+    radial-gradient(circle at 8% 15%, rgba(14, 165, 233, 0.11), transparent 25%),
+    radial-gradient(circle at 88% 18%, rgba(37, 99, 235, 0.09), transparent 28%),
+    radial-gradient(circle at 18% 88%, rgba(56, 189, 248, 0.08), transparent 25%),
+    linear-gradient(145deg, #eef7ff 0%, #f8fbff 48%, #edf4ff 100%) !important;
+  background-attachment: fixed !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page::before {
+  border-color: rgba(2, 132, 199, 0.13);
+  background:
+    radial-gradient(circle at 24% 28%, rgba(14, 165, 233, 0.10) 0 8%, transparent 8.5%),
+    linear-gradient(90deg, transparent 49.7%, rgba(2, 132, 199, 0.12) 50%, transparent 50.3%),
+    linear-gradient(transparent 49.7%, rgba(37, 99, 235, 0.10) 50%, transparent 50.3%);
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page::after {
+  border-color: rgba(2, 132, 199, 0.12);
+  background:
+    repeating-linear-gradient(115deg, transparent 0 24px, rgba(14, 165, 233, 0.045) 25px 26px),
+    radial-gradient(circle, rgba(37, 99, 235, 0.07), transparent 68%);
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .back-btn {
+  border-color: var(--primary) !important;
+  background: rgba(255, 255, 255, 0.48) !important;
+  color: var(--primary) !important;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page .back-btn:hover {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+
+/* Back button - unified with Client and Coach */
+.back-btn {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: auto !important;
+  min-width: 230px !important;
+  min-height: 46px !important;
+  margin: 24px auto 0 !important;
+  padding: 11px 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-sizing: border-box !important;
+  border: 1.5px solid var(--primary, #29b6f6) !important;
+  border-radius: 11px !important;
+  background: transparent !important;
+  color: var(--primary, #29b6f6) !important;
+  font: inherit !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease !important;
+}
+
+.back-btn::before,
+.back-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+.back-btn .back-btn__arrow,
+.back-btn .back-btn__text {
+  display: inline-block !important;
+  color: inherit !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+.back-btn .back-btn__arrow {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  transform: none !important;
+}
+
+.back-btn:hover,
+.back-btn:active {
+  border-color: var(--primary, #29b6f6) !important;
+  background: var(--primary, #29b6f6) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.back-btn:focus {
+  outline: none !important;
+}
+
+.back-btn:focus-visible {
+  outline: 2px solid var(--primary, #29b6f6) !important;
+  outline-offset: 3px !important;
+  box-shadow: none !important;
+}
+
+:host-context(body.light-theme) .back-btn {
+  border-color: var(--primary-dark, #0369a1) !important;
+  background: transparent !important;
+  color: var(--primary-dark, #0369a1) !important;
+}
+
+:host-context(body.light-theme) .back-btn:hover,
+:host-context(body.light-theme) .back-btn:active {
+  border-color: var(--primary-dark, #0369a1) !important;
+  background: var(--primary-dark, #0369a1) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 560px) {
+  .back-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+
+/* Visible light background */
+:host-context(body.light-theme) .admin-coach-leavings-page {
+  background:
+    radial-gradient(circle at 7% 14%, rgba(14, 165, 233, 0.22), transparent 28%),
+    radial-gradient(circle at 92% 18%, rgba(37, 99, 235, 0.18), transparent 31%),
+    radial-gradient(circle at 20% 90%, rgba(6, 182, 212, 0.13), transparent 27%),
+    linear-gradient(135deg, #eaf7ff 0%, #f8fbff 48%, #eaf1ff 100%);
+  background-attachment: fixed;
+}
+
+:host-context(body.light-theme) .admin-coach-leavings-page::before {
+  position: fixed;
+  width: 430px;
+  height: 520px;
+  right: -155px;
+  top: 85px;
+  border-color: rgba(2, 132, 199, 0.18);
+  background: rgba(14, 165, 233, 0.028);
+}

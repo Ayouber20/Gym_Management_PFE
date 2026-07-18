@@ -3433,3 +3433,880 @@ body.light-theme .admin-clients-page select option {
   background: #ffffff !important;
   color: #06101f !important;
 }
+
+
+/* Coach dashboard final override */
+body.light-theme .coach-dashboard .dashboard-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(180, 83, 9, 0.52) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card:hover {
+  border-color: #b45309 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  backdrop-filter: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 0 auto 0 !important;
+  height: 150px !important;
+  opacity: 1 !important;
+  z-index: 0 !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+body.light-theme .coach-dashboard .requests-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.36), rgba(3, 10, 20, 0.02)), url('/assets/images/coach-requests-card.jpg') !important;
+}
+
+body.light-theme .coach-dashboard .sessions-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.36), rgba(3, 10, 20, 0.02)), url('/assets/images/coach-sessions-card.jpg') !important;
+}
+
+body.light-theme .coach-dashboard .lessons-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.36), rgba(3, 10, 20, 0.02)), url('/assets/images/coach-lessons-card.jpg') !important;
+}
+
+body.light-theme .coach-dashboard .leavings-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.36), rgba(3, 10, 20, 0.02)), url('/assets/images/coach-leavings-card.jpg') !important;
+}
+
+body.light-theme .coach-dashboard .events-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.36), rgba(3, 10, 20, 0.02)), url('/assets/images/events-card.jpg') !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card h2 {
+  color: #92400e !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card p {
+  color: #334155 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .card-label {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card button,
+body.light-theme .coach-dashboard .dashboard-card button span {
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-dashboard .dashboard-card button:hover,
+body.light-theme .coach-dashboard .dashboard-card button:hover span {
+  color: #ffffff !important;
+}
+
+/* Admin dashboard final override */
+body .admin-dashboard .dashboard-card {
+  position: relative !important;
+  min-height: 330px !important;
+  overflow: hidden !important;
+  padding: 150px 0 0 !important;
+  background: rgba(7, 17, 31, 0.97) !important;
+  background-image: none !important;
+  border: 1px solid rgba(41, 182, 246, 0.42) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  animation: none !important;
+  text-align: left !important;
+  align-items: stretch !important;
+}
+
+body .admin-dashboard .dashboard-card::after,
+body.light-theme .admin-dashboard .dashboard-card::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  backdrop-filter: none !important;
+}
+
+body .admin-dashboard .dashboard-card::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 0 auto 0 !important;
+  height: 150px !important;
+  opacity: 1 !important;
+  z-index: 0 !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+body .admin-dashboard .users-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-users-card.jpg') !important;
+}
+body .admin-dashboard .clients-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-clients-card.jpg') !important;
+}
+body .admin-dashboard .coaches-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-coaches-card.jpg') !important;
+}
+body .admin-dashboard .courts-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-courts-card.jpg') !important;
+}
+body .admin-dashboard .reservations-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-reservations-card.jpg') !important;
+}
+body .admin-dashboard .requests-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-requests-card.jpg') !important;
+}
+body .admin-dashboard .coach-leavings-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/coach-leavings-card.jpg') !important;
+}
+body .admin-dashboard .events-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/events-card.jpg') !important;
+}
+body .admin-dashboard .announcements-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-announcements-card.jpg') !important;
+}
+body .admin-dashboard .statistics-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.72), rgba(3, 10, 20, 0.08)), url('/assets/images/admin-statistics-card.jpg') !important;
+}
+
+body .admin-dashboard .dashboard-card h2 {
+  color: #ffffff !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+body .admin-dashboard .dashboard-card p {
+  color: #cbd5e1 !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+body .admin-dashboard .card-label {
+  color: #67d1ff !important;
+  text-shadow: none !important;
+}
+
+body .admin-dashboard .dashboard-card button,
+body .admin-dashboard .dashboard-card button span {
+  text-shadow: none !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card {
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(3, 105, 161, 0.52) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card:hover {
+  border-color: #0369a1 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .admin-dashboard .users-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-users-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .clients-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-clients-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .coaches-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-coaches-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .courts-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-courts-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .reservations-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-reservations-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .requests-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-requests-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .coach-leavings-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/coach-leavings-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .events-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/events-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .announcements-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-announcements-card.jpg') !important;
+}
+body.light-theme .admin-dashboard .statistics-card::before {
+  background-image: linear-gradient(to top, rgba(3, 10, 20, 0.34), rgba(3, 10, 20, 0.01)), url('/assets/images/admin-statistics-card.jpg') !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card h2 {
+  color: #075985 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card p {
+  color: #334155 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .admin-dashboard .card-label {
+  color: #111827 !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .admin-dashboard .dashboard-card button:hover,
+body.light-theme .admin-dashboard .dashboard-card button:hover span {
+  color: #ffffff !important;
+}
+
+/* Coach internal pages - light mode role isolation */
+body.light-theme .coach-requests-page,
+body.light-theme .coach-sessions-page,
+body.light-theme .coach-leavings-page,
+body.light-theme .coach-events-page,
+body.light-theme .group-classes-page {
+  --coach-role: #b45309;
+  --coach-role-dark: #92400e;
+  --coach-role-soft: rgba(180, 83, 9, 0.08);
+  --coach-role-border: rgba(180, 83, 9, 0.42);
+  --coach-role-line: rgba(180, 83, 9, 0.18);
+  background:
+    radial-gradient(circle at 10% 18%, rgba(180, 83, 9, 0.08), transparent 25%),
+    linear-gradient(140deg, #fffaf5, #fdf7f1 58%, #f8efe7) !important;
+  color: #111827 !important;
+}
+
+body.light-theme .coach-requests-page .page-header h1,
+body.light-theme .coach-sessions-page .page-header h1,
+body.light-theme .coach-leavings-page .page-header h1,
+body.light-theme .coach-events-page .page-header h1,
+body.light-theme .group-classes-page .page-header h1,
+body.light-theme .coach-requests-page .eyebrow,
+body.light-theme .coach-sessions-page .eyebrow,
+body.light-theme .coach-leavings-page .eyebrow,
+body.light-theme .coach-events-page .eyebrow,
+body.light-theme .group-classes-page .eyebrow,
+body.light-theme .coach-requests-page .filters-title small,
+body.light-theme .coach-sessions-page .filters-title small,
+body.light-theme .coach-events-page .filters-title small,
+body.light-theme .group-classes-page .filters-title small,
+body.light-theme .coach-leavings-page .section-heading small,
+body.light-theme .group-classes-page .section-heading small,
+body.light-theme .coach-requests-page .results-bar strong,
+body.light-theme .coach-sessions-page .results-bar strong,
+body.light-theme .coach-events-page .results-bar strong,
+body.light-theme .group-classes-page .results-bar strong,
+body.light-theme .coach-requests-page .request-card h2,
+body.light-theme .coach-sessions-page .session-card h2,
+body.light-theme .coach-events-page .event-card h2,
+body.light-theme .group-classes-page .class-card h2 {
+  color: var(--coach-role) !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page .filters-title h2,
+body.light-theme .coach-sessions-page .filters-title h2,
+body.light-theme .coach-events-page .filters-title h2,
+body.light-theme .group-classes-page .filters-title h2,
+body.light-theme .coach-leavings-page .section-heading h2,
+body.light-theme .group-classes-page .section-heading h2 {
+  color: var(--coach-role-dark) !important;
+  text-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page .filters-card,
+body.light-theme .coach-requests-page .request-card,
+body.light-theme .coach-requests-page .empty-card,
+body.light-theme .coach-sessions-page .filters-card,
+body.light-theme .coach-sessions-page .session-card,
+body.light-theme .coach-sessions-page .empty-card,
+body.light-theme .coach-leavings-page .form-card,
+body.light-theme .coach-leavings-page .list-card,
+body.light-theme .coach-leavings-page .empty-card,
+body.light-theme .coach-events-page .filters-card,
+body.light-theme .coach-events-page .event-card,
+body.light-theme .coach-events-page .empty-card,
+body.light-theme .group-classes-page .form-card,
+body.light-theme .group-classes-page .filters-card,
+body.light-theme .group-classes-page .class-card,
+body.light-theme .group-classes-page .empty-card {
+  background: #ffffff !important;
+  border-color: var(--coach-role-border) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page input,
+body.light-theme .coach-requests-page select,
+body.light-theme .coach-requests-page textarea,
+body.light-theme .coach-sessions-page input,
+body.light-theme .coach-sessions-page select,
+body.light-theme .coach-sessions-page textarea,
+body.light-theme .coach-leavings-page input,
+body.light-theme .coach-leavings-page select,
+body.light-theme .coach-leavings-page textarea,
+body.light-theme .coach-events-page input,
+body.light-theme .coach-events-page select,
+body.light-theme .coach-events-page textarea,
+body.light-theme .group-classes-page input,
+body.light-theme .group-classes-page select,
+body.light-theme .group-classes-page textarea {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: var(--coach-role-border) !important;
+  box-shadow: none !important;
+  accent-color: var(--coach-role) !important;
+}
+
+body.light-theme .coach-requests-page input:focus,
+body.light-theme .coach-requests-page select:focus,
+body.light-theme .coach-requests-page textarea:focus,
+body.light-theme .coach-sessions-page input:focus,
+body.light-theme .coach-sessions-page select:focus,
+body.light-theme .coach-sessions-page textarea:focus,
+body.light-theme .coach-leavings-page input:focus,
+body.light-theme .coach-leavings-page select:focus,
+body.light-theme .coach-leavings-page textarea:focus,
+body.light-theme .coach-events-page input:focus,
+body.light-theme .coach-events-page select:focus,
+body.light-theme .coach-events-page textarea:focus,
+body.light-theme .group-classes-page input:focus,
+body.light-theme .group-classes-page select:focus,
+body.light-theme .group-classes-page textarea:focus {
+  border-color: var(--coach-role) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page .back-btn,
+body.light-theme .coach-sessions-page .back-btn,
+body.light-theme .coach-leavings-page .back-btn,
+body.light-theme .coach-events-page .back-btn,
+body.light-theme .group-classes-page .back-btn,
+body.light-theme .coach-requests-page .clear-filters-btn,
+body.light-theme .coach-sessions-page .clear-filters-btn,
+body.light-theme .coach-events-page .clear-filters-btn,
+body.light-theme .group-classes-page .clear-filters-btn,
+body.light-theme .group-classes-page .clear-btn {
+  color: var(--coach-role) !important;
+  border-color: var(--coach-role) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page .back-btn:hover,
+body.light-theme .coach-sessions-page .back-btn:hover,
+body.light-theme .coach-leavings-page .back-btn:hover,
+body.light-theme .coach-events-page .back-btn:hover,
+body.light-theme .group-classes-page .back-btn:hover,
+body.light-theme .coach-requests-page .clear-filters-btn:hover,
+body.light-theme .coach-sessions-page .clear-filters-btn:hover,
+body.light-theme .coach-events-page .clear-filters-btn:hover,
+body.light-theme .group-classes-page .clear-filters-btn:hover,
+body.light-theme .group-classes-page .clear-btn:hover {
+  color: #ffffff !important;
+  border-color: var(--coach-role) !important;
+  background: var(--coach-role) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .coach-requests-page .accept-btn,
+body.light-theme .coach-leavings-page .submit-btn,
+body.light-theme .group-classes-page .publish-btn,
+body.light-theme .coach-events-page .participate-btn {
+  color: #ffffff !important;
+  border-color: var(--coach-role) !important;
+  background: var(--coach-role) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme .coach-requests-page .accept-btn:hover,
+body.light-theme .coach-leavings-page .submit-btn:hover,
+body.light-theme .group-classes-page .publish-btn:hover,
+body.light-theme .coach-events-page .participate-btn:hover:not(:disabled) {
+  border-color: var(--coach-role-dark) !important;
+  background: var(--coach-role-dark) !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.light-theme .coach-requests-page .results-line,
+body.light-theme .coach-sessions-page .results-line,
+body.light-theme .coach-events-page .results-line,
+body.light-theme .group-classes-page .results-line {
+  background: var(--coach-role-line) !important;
+}
+
+body.light-theme .coach-leavings-page thead {
+  background: var(--coach-role-dark) !important;
+}
+
+body.light-theme .coach-leavings-page th {
+  color: #ffffff !important;
+}
+
+body.light-theme .coach-requests-page *:focus-visible,
+body.light-theme .coach-sessions-page *:focus-visible,
+body.light-theme .coach-leavings-page *:focus-visible,
+body.light-theme .coach-events-page *:focus-visible,
+body.light-theme .group-classes-page *:focus-visible {
+  outline-color: var(--coach-role) !important;
+}
+
+/* Admin back button - canonical */
+button.admin-back-btn {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  min-width: 230px !important;
+  min-height: 46px !important;
+  margin: 24px auto 0 !important;
+  padding: 11px 20px !important;
+  box-sizing: border-box !important;
+  border: 1px solid #29b6f6 !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  color: #29b6f6 !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease !important;
+}
+
+button.admin-back-btn::before,
+button.admin-back-btn::after {
+  content: none !important;
+  display: none !important;
+}
+
+button.admin-back-btn:hover,
+button.admin-back-btn:active {
+  border-color: #29b6f6 !important;
+  background: #29b6f6 !important;
+  color: #03101d !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+button.admin-back-btn:focus-visible {
+  outline: 2px solid #29b6f6 !important;
+  outline-offset: 3px !important;
+}
+
+body.light-theme button.admin-back-btn {
+  border-color: #0369a1 !important;
+  background: transparent !important;
+  color: #0369a1 !important;
+}
+
+body.light-theme button.admin-back-btn:hover,
+body.light-theme button.admin-back-btn:active {
+  border-color: #0369a1 !important;
+  background: #0369a1 !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 560px) {
+  button.admin-back-btn {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Light mode visibility upgrade - Coach and Admin */
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow-x: hidden !important;
+}
+
+/* Coach light background */
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page
+) {
+  --light-role: #b45309;
+  --light-role-strong: #92400e;
+  --light-role-border: rgba(180, 83, 9, 0.62);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(249, 115, 22, 0.20), transparent 24%),
+    radial-gradient(circle at 88% 16%, rgba(245, 158, 11, 0.17), transparent 22%),
+    radial-gradient(circle at 76% 82%, rgba(234, 88, 12, 0.12), transparent 24%),
+    linear-gradient(145deg, #fff7ed 0%, #fffaf5 44%, #ffedd5 100%) !important;
+}
+
+/* Admin light background */
+body.light-theme :is(
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) {
+  --light-role: #0369a1;
+  --light-role-strong: #075985;
+  --light-role-border: rgba(3, 105, 161, 0.62);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(14, 165, 233, 0.19), transparent 24%),
+    radial-gradient(circle at 88% 16%, rgba(37, 99, 235, 0.16), transparent 22%),
+    radial-gradient(circle at 74% 84%, rgba(6, 182, 212, 0.12), transparent 24%),
+    linear-gradient(145deg, #eff8ff 0%, #f8fbff 45%, #e6f3ff 100%) !important;
+}
+
+/* Fixed decorative drawings in light mode */
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+)::before {
+  content: "" !important;
+  position: fixed !important;
+  z-index: -2 !important;
+  top: 82px !important;
+  right: -115px !important;
+  width: 470px !important;
+  height: 470px !important;
+  pointer-events: none !important;
+  border: 2px solid color-mix(in srgb, var(--light-role) 34%, transparent) !important;
+  border-radius: 34px !important;
+  background:
+    linear-gradient(90deg, transparent 49.65%, color-mix(in srgb, var(--light-role) 36%, transparent) 49.65% 50.35%, transparent 50.35%),
+    linear-gradient(transparent 49.65%, color-mix(in srgb, var(--light-role) 36%, transparent) 49.65% 50.35%, transparent 50.35%),
+    radial-gradient(circle at center, color-mix(in srgb, var(--light-role) 18%, transparent) 0 34px, transparent 35px) !important;
+  transform: rotate(-10deg) !important;
+  opacity: 0.72 !important;
+  box-shadow: none !important;
+}
+
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+)::after {
+  content: "" !important;
+  position: fixed !important;
+  z-index: -2 !important;
+  left: -88px !important;
+  bottom: -72px !important;
+  width: 220px !important;
+  height: 220px !important;
+  pointer-events: none !important;
+  border: 2px solid color-mix(in srgb, var(--light-role) 30%, transparent) !important;
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--light-role) 16%, transparent) 0 42%, transparent 43%),
+    repeating-radial-gradient(circle, transparent 0 25px, color-mix(in srgb, var(--light-role) 20%, transparent) 26px 27px) !important;
+  opacity: 0.74 !important;
+  box-shadow: none !important;
+}
+
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stronger light borders for cards and containers */
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) :is(
+  .dashboard-card,
+  .announcements-section,
+  .stat-item,
+  .filters-card,
+  .form-card,
+  .list-card,
+  .table-card,
+  .empty-card,
+  .request-card,
+  .session-card,
+  .leave-card,
+  .event-card,
+  .class-card,
+  .group-class-card,
+  .court-card,
+  .reservation-card,
+  .announcement-card,
+  .stat-card
+) {
+  border-width: 1.5px !important;
+  border-style: solid !important;
+  border-color: var(--light-role-border) !important;
+  box-shadow: none !important;
+}
+
+/* Stronger light borders for controls */
+body.light-theme :is(
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) :is(input, select, textarea) {
+  border-width: 1.5px !important;
+  border-style: solid !important;
+  border-color: color-mix(in srgb, var(--light-role) 62%, white) !important;
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: none !important;
+}
+
+body.light-theme :is(
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) :is(input, select, textarea):focus {
+  border-color: var(--light-role) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--light-role) 14%, transparent) !important;
+}
+
+@media (max-width: 760px) {
+  body.light-theme :is(
+    .coach-dashboard,
+    .coach-requests-page,
+    .coach-sessions-page,
+    .coach-leavings-page,
+    .coach-events-page,
+    .group-classes-page,
+    .admin-dashboard,
+    .admin-users-page,
+    .admin-clients-page,
+    .admin-coaches-page,
+    .admin-courts-page,
+    .admin-reservations-page,
+    .admin-coach-requests-page,
+    .admin-coach-leavings-page,
+    .admin-events-page,
+    .admin-announcements-page,
+    .admin-statistics-page
+  )::before {
+    right: -260px !important;
+    opacity: 0.45 !important;
+  }
+}
+
+/* Light mode background only: clear drawings, no glow */
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page
+) {
+  background: linear-gradient(145deg, #fff9f2 0%, #fffdf9 52%, #fff4e8 100%) !important;
+}
+
+body.light-theme :is(
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+) {
+  background: linear-gradient(145deg, #f2f8ff 0%, #fbfdff 52%, #eaf4ff 100%) !important;
+}
+
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+)::before {
+  opacity: 0.58 !important;
+  filter: none !important;
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--light-role) 7%, transparent) !important;
+  background:
+    linear-gradient(90deg, transparent 49.8%, color-mix(in srgb, var(--light-role) 34%, transparent) 49.8% 50.2%, transparent 50.2%),
+    linear-gradient(transparent 49.8%, color-mix(in srgb, var(--light-role) 34%, transparent) 49.8% 50.2%, transparent 50.2%),
+    radial-gradient(circle at center, color-mix(in srgb, var(--light-role) 12%, transparent) 0 32px, transparent 33px) !important;
+}
+
+body.light-theme :is(
+  .coach-dashboard,
+  .coach-requests-page,
+  .coach-sessions-page,
+  .coach-leavings-page,
+  .coach-events-page,
+  .group-classes-page,
+  .admin-dashboard,
+  .admin-users-page,
+  .admin-clients-page,
+  .admin-coaches-page,
+  .admin-courts-page,
+  .admin-reservations-page,
+  .admin-coach-requests-page,
+  .admin-coach-leavings-page,
+  .admin-events-page,
+  .admin-announcements-page,
+  .admin-statistics-page
+)::after {
+  opacity: 0.54 !important;
+  filter: none !important;
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--light-role) 6%, transparent) !important;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--light-role) 10%, transparent) 0 42%, transparent 43%),
+    repeating-radial-gradient(circle, transparent 0 25px, color-mix(in srgb, var(--light-role) 20%, transparent) 26px 27px) !important;
+}

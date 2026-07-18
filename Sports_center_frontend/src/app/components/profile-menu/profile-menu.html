@@ -1,5 +1,8 @@
 @if (isLoggedIn()) {
-  <div class="top-actions-wrapper">
+  <div class="top-actions-wrapper"
+    [class.client-actions]="getRole().toUpperCase() === 'CLIENT'"
+    [class.coach-actions]="getRole().toUpperCase() === 'COACH'"
+    [class.admin-actions]="getRole().toUpperCase() === 'ADMIN'">
 
     <!-- Notifications -->
     <button

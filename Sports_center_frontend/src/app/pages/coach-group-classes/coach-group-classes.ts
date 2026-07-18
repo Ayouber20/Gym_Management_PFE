@@ -163,10 +163,6 @@ export class CoachGroupClasses {
     const search = this.searchTerm().toLowerCase().trim();
 
     return this.groupClasses().filter(course => {
-      if (this.isPastGroupClass(course)) {
-        return false;
-      }
-
       const title = (course.title || '').toLowerCase();
       const description = (course.description || '').toLowerCase();
 
@@ -214,6 +210,14 @@ export class CoachGroupClasses {
     const date = new Date();
     date.setDate(date.getDate() + 1);
     return date.toISOString().split('T')[0];
+  }
+
+  getCourseStatus(course: any): string {
+    if (this.isPastGroupClass(course)) {
+      return 'COMPLETED';
+    }
+
+    return course.status || 'ACTIVE';
   }
 
   isPastGroupClass(course: any): boolean {

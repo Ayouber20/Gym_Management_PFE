@@ -1,163 +1,40 @@
 <div class="reservations-page">
+  <div class="page-art" aria-hidden="true"><span class="calendar-sheet"></span><span class="timeline-line"></span></div>
+  <div class="page-shell">
+    <header class="page-header"><span class="eyebrow">Planning sportif</span><h1>Mes réservations</h1><p>Retrouvez chaque séance sous forme de planning et gérez vos créneaux de tennis.</p><button routerLink="/client" class="back-btn">← Retour à l’espace client</button></header>
 
-  <div class="page-header">
-    <h1>Mes réservations</h1>
+    @if (successMessage()) { <div class="message success-message"><span>✓</span><p>{{ successMessage() }}</p></div> }
+    @if (errorMessage()) { <div class="message error-message"><span>!</span><p>{{ errorMessage() }}</p></div> }
 
-    <p>
-      Consultez vos réservations de terrains de tennis et annulez celles que vous ne souhaitez plus garder.
-    </p>
+    <section class="filters-card">
+      <div class="filters-title"><span>⌕</span><div><small>Affiner le planning</small><h2>Filtres</h2></div></div>
+      <div class="filter-group"><label>Date</label><input type="date" [ngModel]="selectedDate()" (ngModelChange)="selectedDate.set($event)"></div>
+      <div class="filter-group"><label>Terrain</label><select [ngModel]="selectedCourtFilter()" (ngModelChange)="selectedCourtFilter.set($event)"><option value="ALL">Tous les terrains</option>@for (courtNumber of getCourtNumbers(); track courtNumber) { <option [value]="courtNumber">Terrain {{ courtNumber }}</option> }</select></div>
+      <div class="filter-group"><label>Statut</label><select [ngModel]="selectedStatusFilter()" (ngModelChange)="selectedStatusFilter.set($event)">@for (status of statusFilters; track status) { <option [value]="status">{{ status === 'ALL' ? 'Tous les statuts' : status }}</option> }</select></div>
+      <button type="button" class="clear-filters-btn" (click)="resetFilters()">Réinitialiser</button>
+    </section>
 
-    <button routerLink="/client" class="back-btn">
-      Retour à l’espace client
-    </button>
-  </div>
+    <div class="results-bar"><div><strong>{{ filteredReservations().length }}</strong><span>réservation(s)</span></div><span class="results-line"></span></div>
 
-  @if (successMessage()) {
-    <div class="success-message">
-      ✅ {{ successMessage() }}
-    </div>
-  }
+    @if (loaded() && reservations().length === 0) { <div class="empty-card"><span>🎾</span><h3>Aucune réservation trouvée</h3><p>Vos prochains créneaux apparaîtront ici.</p></div> }
+    @if (loaded() && reservations().length > 0 && filteredReservations().length === 0) { <div class="empty-card"><span>⌕</span><h3>Aucun résultat</h3><p>Aucune réservation ne correspond aux filtres.</p></div> }
 
-  @if (errorMessage()) {
-    <div class="error-message">
-      ❌ {{ errorMessage() }}
-    </div>
-  }
-
-  <div class="filters-card">
-
-    <div class="filter-group">
-      <label>Date :</label>
-      <input
-        type="date"
-        [ngModel]="selectedDate()"
-        (ngModelChange)="selectedDate.set($event)">
-    </div>
-
-    <div class="filter-group">
-      <label>Terrain :</label>
-      <select
-        [ngModel]="selectedCourtFilter()"
-        (ngModelChange)="selectedCourtFilter.set($event)">
-        <option value="ALL">Tous les terrains</option>
-
-        @for (courtNumber of getCourtNumbers(); track courtNumber) {
-          <option [value]="courtNumber">
-            Terrain {{ courtNumber }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Statut :</label>
-      <select
-        [ngModel]="selectedStatusFilter()"
-        (ngModelChange)="selectedStatusFilter.set($event)">
-        @for (status of statusFilters; track status) {
-          <option [value]="status">
-            {{ status === 'ALL' ? 'Tous les statuts' : status }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <button
-      type="button"
-      class="clear-filters-btn"
-      (click)="resetFilters()">
-      Réinitialiser
-    </button>
-
-  </div>
-
-  <div class="results-count">
-    {{ filteredReservations().length }} réservation(s) affichée(s)
-  </div>
-
-  @if (loaded() && reservations().length === 0) {
-    <div class="empty-card">
-      <p>Aucune réservation trouvée.</p>
-    </div>
-  }
-
-  @if (loaded() && reservations().length > 0 && filteredReservations().length === 0) {
-    <div class="empty-card">
-      <p>Aucune réservation ne correspond aux filtres.</p>
-    </div>
-  }
-
-  @if (filteredReservations().length > 0) {
-    <div class="reservations-grid">
-
-      @for (reservation of filteredReservations(); track reservation.id) {
-        <div class="reservation-card">
-
-          @if (reservation.status === 'CANCELLED' || reservation.status === 'COMPLETED') {
-            <button
-              type="button"
-              class="hide-reservation-btn"
-              (click)="hideCancelledReservation(reservation.id)">
-              ✕
-            </button>
-          }
-
-          <h2>Terrain {{ reservation.court.courtNumber }}</h2>
-
-          <p>
-            <strong>Date :</strong>
-            {{ reservation.reservationDate }}
-          </p>
-
-          <p>
-            <strong>Créneau :</strong>
-            {{ reservation.startTime.slice(0, 5) }} - {{ reservation.endTime.slice(0, 5) }}
-          </p>
-
-          <p>
-            <strong>Statut :</strong>
-            {{ reservation.status }}
-          </p>
-
-          @if (reservation.status === 'CONFIRMED') {
-            <button
-              type="button"
-              class="cancel-btn"
-              (click)="deleteReservation(reservation.id)">
-              Annuler
-            </button>
-          }
-
-          @if (reservation.status === 'CANCELLED') {
-            <div class="suggestion-box">
-              <h4>💡 Suggestion</h4>
-
-              <p>
-                Cette réservation a été annulée car le terrain n’est plus disponible.
-                Vous pouvez consulter les autres terrains disponibles ou abandonner cette réservation.
-              </p>
-
-              <div class="suggestion-actions">
-                <button
-                  type="button"
-                  class="available-courts-btn"
-                  (click)="goToAvailableCourts()">
-                  Voir terrains disponibles
-                </button>
-
-                <button
-                  type="button"
-                  class="abandon-btn"
-                  (click)="abandonCancelledReservation(reservation.id)">
-                  Abandonner
-                </button>
-              </div>
+    @if (filteredReservations().length > 0) {
+      <div class="reservations-grid">
+        @for (reservation of filteredReservations(); track reservation.id) {
+          <article class="reservation-card">
+            @if (reservation.status === 'CANCELLED' || reservation.status === 'COMPLETED') { <button type="button" class="hide-reservation-btn" (click)="hideCancelledReservation(reservation.id)">✕</button> }
+            <div class="reservation-visual"><span class="court-mark">{{ reservation.court.courtNumber }}</span><div class="mini-court"><i></i><b></b></div></div>
+            <div class="reservation-body">
+              <div class="reservation-heading"><div><small>Terrain réservé</small><h2>Terrain {{ reservation.court.courtNumber }}</h2></div><span class="status" [class.cancelled]="reservation.status === 'CANCELLED'" [class.completed]="reservation.status === 'COMPLETED'">{{ reservation.status }}</span></div>
+              <div class="schedule-row"><div class="date-tile"><small>Date</small><span>{{ reservation.reservationDate }}</span></div><div class="time-block"><small>Créneau</small><strong>{{ reservation.startTime.slice(0, 5) }} — {{ reservation.endTime.slice(0, 5) }}</strong></div></div>
+              <div class="timeline"><span></span><i></i><span></span></div>
+              @if (reservation.status === 'CONFIRMED') { <button type="button" class="cancel-btn" (click)="deleteReservation(reservation.id)">Annuler la réservation</button> }
+              @if (reservation.status === 'CANCELLED') { <div class="suggestion-box"><h4>Nouvelle option</h4><p>Ce créneau n’est plus disponible. Consultez les autres terrains ou archivez cette réservation.</p><div class="suggestion-actions"><button type="button" class="available-courts-btn" (click)="goToAvailableCourts()">Voir les terrains</button><button type="button" class="abandon-btn" (click)="abandonCancelledReservation(reservation.id)">Abandonner</button></div></div> }
             </div>
-          }
-        </div>
-      }
-
-    </div>
-  }
-
+          </article>
+        }
+      </div>
+    }
+  </div>
 </div>

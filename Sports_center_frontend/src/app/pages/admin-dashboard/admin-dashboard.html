@@ -1,106 +1,177 @@
 <div class="admin-dashboard">
-  <h1>Espace Admin</h1>
 
-  <p class="subtitle">
-    Bienvenue dans votre espace administrateur. Gérez les utilisateurs, les ressources et les activités du centre sportif.
-  </p>
+  <div class="dashboard-shell">
 
-  <div class="dashboard-cards">
+    <header class="dashboard-hero">
 
-    <div class="dashboard-card users-card">
-      <h2>👤 Utilisateurs</h2>
-      <p>Créer, consulter, modifier ou supprimer les comptes utilisateurs.</p>
+      <span class="eyebrow">
+        Centre sportif
+      </span>
 
-      <button routerLink="/admin/users">
-        Gérer les utilisateurs
-      </button>
-    </div>
+      <h1>Espace Admin</h1>
 
-    <div class="dashboard-card clients-card">
-      <h2>🧍 Clients</h2>
-      <p>Inscrire les clients du club et consulter leurs informations.</p>
+      <p class="subtitle">
+        Bienvenue dans votre espace administrateur. Gérez les utilisateurs,
+        les ressources et les activités du centre sportif.
+      </p>
 
-      <button routerLink="/admin/clients">
-        Gérer les clients
-      </button>
-    </div>
+      <div class="hero-stats">
 
-    <div class="dashboard-card coaches-card">
-      <h2>🏋️ Coachs</h2>
-      <p>Ajouter les coachs, gérer leurs spécialités et leurs disponibilités.</p>
+        <div class="stat-item">
+          <strong>10</strong>
+          <span>Services</span>
+        </div>
 
-      <button routerLink="/admin/coaches">
-        Gérer les coachs
-      </button>
-    </div>
+        <div class="stat-item">
+          <strong>{{ notifications().length }}</strong>
+          <span>Notifications</span>
+        </div>
 
-    <div class="dashboard-card courts-card">
-      <h2>🎾 Terrains</h2>
-      <p>Consulter les terrains et modifier leur statut.</p>
+        <div class="stat-item">
+          <strong>{{ notificationBadgeCount() }}</strong>
+          <span>Non lues</span>
+        </div>
 
-      <button routerLink="/admin/courts">
-        Gérer les terrains
-      </button>
-    </div>
+      </div>
 
-    <div class="dashboard-card reservations-card">
-      <h2>📅 Réservations</h2>
-      <p>Voir toutes les réservations et les annuler si nécessaire.</p>
+    </header>
 
-      <button routerLink="/admin/reservations">
-        Voir les réservations
-      </button>
-    </div>
+    <section class="services-section">
 
-    <div class="dashboard-card requests-card">
-      <h2>💪 Demandes coach</h2>
-      <p>Consulter toutes les demandes de coaching et leur état.</p>
+      <div class="services-heading">
+        <span class="section-kicker">Pilotage du centre</span>
+        <h2>Choisissez une fonctionnalité</h2>
+      </div>
 
-      <button routerLink="/admin/coach-requests">
-        Voir les demandes
-      </button>
-    </div>
+      <div class="dashboard-cards">
 
-    <div class="dashboard-card coach-leavings-card">
+        <article class="dashboard-card users-card">
+          <div class="card-content">
+            <span class="card-label">Comptes</span>
+            <h2>Utilisateurs</h2>
+            <p>Créer, consulter, modifier ou supprimer les comptes utilisateurs.</p>
+            <button routerLink="/admin/users">
+              <span>Gérer les utilisateurs</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-      @if (hasCoachLeaveNotification()) {
-        <span class="red-dot"></span>
-      }
+        <article class="dashboard-card clients-card">
+          <div class="card-content">
+            <span class="card-label">Adhérents</span>
+            <h2>Clients</h2>
+            <p>Inscrire les clients du club et consulter leurs informations.</p>
+            <button routerLink="/admin/clients">
+              <span>Gérer les clients</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-      <h2>🌴 Congés coachs</h2>
-      <p>Consulter et traiter les demandes de congé envoyées par les coachs.</p>
+        <article class="dashboard-card coaches-card">
+          <div class="card-content">
+            <span class="card-label">Équipe sportive</span>
+            <h2>Coachs</h2>
+            <p>Ajouter les coachs, gérer leurs spécialités et leurs disponibilités.</p>
+            <button routerLink="/admin/coaches">
+              <span>Gérer les coachs</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-      <button type="button" (click)="goToCoachLeavings()">
-        Voir les congés
-      </button>
-    </div>
+        <article class="dashboard-card courts-card">
+          <div class="card-content">
+            <span class="card-label">Infrastructures</span>
+            <h2>Terrains</h2>
+            <p>Consulter les terrains et modifier leur statut.</p>
+            <button routerLink="/admin/courts">
+              <span>Gérer les terrains</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-    <div class="dashboard-card events-card">
-      <h2>🎉 Événements</h2>
-      <p>Créer et gérer les événements du centre sportif.</p>
+        <article class="dashboard-card reservations-card">
+          <div class="card-content">
+            <span class="card-label">Planning</span>
+            <h2>Réservations</h2>
+            <p>Voir toutes les réservations et les annuler si nécessaire.</p>
+            <button routerLink="/admin/reservations">
+              <span>Voir les réservations</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-      <button routerLink="/admin/events">
-        Gérer les événements
-      </button>
-    </div>
+        <article class="dashboard-card requests-card">
+          <div class="card-content">
+            <span class="card-label">Accompagnement</span>
+            <h2>Demandes coach</h2>
+            <p>Consulter toutes les demandes de coaching et leur état.</p>
+            <button routerLink="/admin/coach-requests">
+              <span>Voir les demandes</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-    <div class="dashboard-card announcements-card" routerLink="/admin/announcements">
-      <h2>📢 Annonces</h2>
-      <p>Publier des informations visibles par les clients et les coachs.</p>
+        <article class="dashboard-card coach-leavings-card">
+          @if (hasCoachLeaveNotification()) {
+            <span class="red-dot"></span>
+          }
 
-      <button type="button">
-        Gérer les annonces
-      </button>
-    </div>
+          <div class="card-content">
+            <span class="card-label">Disponibilité</span>
+            <h2>Congés coachs</h2>
+            <p>Consulter et traiter les demandes de congé envoyées par les coachs.</p>
+            <button type="button" (click)="goToCoachLeavings()">
+              <span>Voir les congés</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-    <div class="dashboard-card statistics-card">
-      <h2>📊 Statistiques</h2>
-      <p>Consulter les statistiques générales du centre sportif.</p>
+        <article class="dashboard-card events-card">
+          <div class="card-content">
+            <span class="card-label">Communauté</span>
+            <h2>Événements</h2>
+            <p>Créer et gérer les événements du centre sportif.</p>
+            <button routerLink="/admin/events">
+              <span>Gérer les événements</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
 
-      <button routerLink="/admin/statistics">
-        Voir les statistiques
-      </button>
-    </div>
+        <article class="dashboard-card announcements-card" routerLink="/admin/announcements">
+          <div class="card-content">
+            <span class="card-label">Communication</span>
+            <h2>Annonces</h2>
+            <p>Publier des informations visibles par les clients et les coachs.</p>
+            <button type="button">
+              <span>Gérer les annonces</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="dashboard-card statistics-card">
+          <div class="card-content">
+            <span class="card-label">Analyse</span>
+            <h2>Statistiques</h2>
+            <p>Consulter les statistiques générales du centre sportif.</p>
+            <button routerLink="/admin/statistics">
+              <span>Voir les statistiques</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
 
   </div>
 

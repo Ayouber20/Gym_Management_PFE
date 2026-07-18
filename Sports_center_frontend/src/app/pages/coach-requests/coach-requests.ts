@@ -95,7 +95,6 @@ export class CoachRequests {
       .subscribe({
         next: (data) => {
           const coachRequests = data
-            .filter(request => request.status === 'PENDING')
             .sort((a, b) => {
             if (a.status === 'PENDING' && b.status !== 'PENDING') {
               return -1;

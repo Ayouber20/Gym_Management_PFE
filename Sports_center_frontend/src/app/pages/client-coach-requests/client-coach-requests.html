@@ -1,168 +1,32 @@
 <div class="client-coach-requests-page">
+  <div class="page-art" aria-hidden="true"><span class="path-ring"></span><span class="path-line"></span></div>
+  <div class="page-shell">
+    <header class="page-header"><span class="eyebrow">Suivi personnalisé</span><h1>Mes demandes de coach</h1><p>Visualisez l’avancement de chaque demande et retrouvez rapidement les informations de votre séance.</p><button routerLink="/client" class="back-btn">← Retour à l’espace client</button></header>
+    @if (errorMessage()) { <div class="message error-message"><span>!</span><p>{{ errorMessage() }}</p></div> }
 
-  <div class="page-header">
-    <h1>Mes demandes de coach</h1>
+    <section class="filters-card"><div class="filters-title"><span>⌕</span><div><small>Affiner la liste</small><h2>Filtres</h2></div></div><div class="filter-group"><label>Activité</label><select [ngModel]="selectedActivityFilter()" (ngModelChange)="selectedActivityFilter.set($event)">@for (activity of activityFilters; track activity) { <option [value]="activity">{{ activity === 'ALL' ? 'Toutes les activités' : activity }}</option> }</select></div><div class="filter-group"><label>Statut</label><select [ngModel]="selectedStatusFilter()" (ngModelChange)="selectedStatusFilter.set($event)">@for (status of statusFilters; track status) { <option [value]="status">{{ status === 'ALL' ? 'Tous les statuts' : status }}</option> }</select></div><div class="filter-group"><label>Date</label><input type="date" [ngModel]="selectedDate()" (ngModelChange)="selectedDate.set($event)"></div><button type="button" class="clear-filters-btn" (click)="resetFilters()">Réinitialiser</button></section>
+    <div class="results-bar"><strong>{{ filteredRequests().length }}</strong><span>demande(s) affichée(s)</span><i></i></div>
 
-    <p>
-      Consultez l’état de vos demandes de coach pour le tennis, la salle de gym ou la piscine.
-    </p>
+    @if (loaded() && requests().length === 0) { <div class="empty-card"><span>💪</span><h3>Aucune demande trouvée</h3><p>Vos demandes de coaching apparaîtront ici.</p></div> }
+    @if (loaded() && requests().length > 0 && filteredRequests().length === 0) { <div class="empty-card"><span>⌕</span><h3>Aucun résultat</h3><p>Aucune demande ne correspond aux filtres.</p></div> }
 
-    <button routerLink="/client" class="back-btn">
-      Retour à l’espace client
-    </button>
-  </div>
-
-  @if (errorMessage()) {
-    <div class="error-message">
-      ❌ {{ errorMessage() }}
-    </div>
-  }
-
-  <div class="filters-card">
-
-    <div class="filter-group">
-      <label>Activité :</label>
-      <select
-        [ngModel]="selectedActivityFilter()"
-        (ngModelChange)="selectedActivityFilter.set($event)">
-        @for (activity of activityFilters; track activity) {
-          <option [value]="activity">
-            {{ activity === 'ALL' ? 'Toutes les activités' : activity }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Statut :</label>
-      <select
-        [ngModel]="selectedStatusFilter()"
-        (ngModelChange)="selectedStatusFilter.set($event)">
-        @for (status of statusFilters; track status) {
-          <option [value]="status">
-            {{ status === 'ALL' ? 'Tous les statuts' : status }}
-          </option>
-        }
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Date :</label>
-      <input
-        type="date"
-        [ngModel]="selectedDate()"
-        (ngModelChange)="selectedDate.set($event)">
-    </div>
-
-    <button
-      type="button"
-      class="clear-filters-btn"
-      (click)="resetFilters()">
-      Réinitialiser
-    </button>
-
-  </div>
-
-  <div class="results-count">
-    {{ filteredRequests().length }} demande(s) affichée(s)
-  </div>
-
-  @if (loaded() && requests().length === 0) {
-    <div class="empty-card">
-      <p>Aucune demande de coach trouvée.</p>
-    </div>
-  }
-
-  @if (loaded() && requests().length > 0 && filteredRequests().length === 0) {
-    <div class="empty-card">
-      <p>Aucune demande ne correspond aux filtres.</p>
-    </div>
-  }
-
-  @if (filteredRequests().length > 0) {
-    <div class="requests-grid">
-
-      @for (request of filteredRequests(); track request.id) {
-        <div class="request-card">
-
-          @if (
-            request.status === 'REJECTED' ||
-            request.status === 'CANCELLED' ||
-            request.status === 'EXPIRED' ||
-            request.status === 'COMPLETED'
-          ) {
-            <button
-              type="button"
-              class="hide-request-btn"
-              (click)="hideRejectedRequest(request.id)">
-              ✕
-            </button>
-          }
-
-          <h2>{{ request.activity }}</h2>
-
-          <p>
-            <strong>Date :</strong>
-            {{ request.requestDate }}
-          </p>
-
-          <p>
-            <strong>Heure :</strong>
-            {{ request.requestTime.slice(0, 5) }}
-          </p>
-
-          <p>
-            <strong>Coach :</strong>
-            {{ request.coach.user.firstName }} {{ request.coach.user.lastName }}
-          </p>
-
-          <p>
-            <strong>Statut :</strong>
-            <span
-              [class.pending]="request.status === 'PENDING'"
-              [class.accepted]="request.status === 'ACCEPTED'"
-              [class.rejected]="request.status === 'REJECTED'"
-              [class.cancelled]="request.status === 'CANCELLED'"
-              [class.expired]="request.status === 'EXPIRED'">
-              {{ request.status }}
-            </span>
-          </p>
-
-          @if (
-            request.status === 'REJECTED' ||
-            request.status === 'CANCELLED' ||
-            request.status === 'EXPIRED'
-          ) {
-            <div class="suggestion-box">
-              <h4>💡 Suggestion</h4>
-
-              <p>
-                Cette demande de coach n’a pas abouti. Vous pouvez envoyer une nouvelle
-                demande à un coach ou abandonner cette demande.
-              </p>
-
-              <div class="suggestion-actions">
-                <button
-                  type="button"
-                  class="new-request-btn"
-                  (click)="goToCoachRequestForm()">
-                  Faire une nouvelle demande
-                </button>
-
-                <button
-                  type="button"
-                  class="abandon-btn"
-                  (click)="hideRejectedRequest(request.id)">
-                  Abandonner
-                </button>
-              </div>
+    @if (filteredRequests().length > 0) {
+      <div class="requests-grid">
+        @for (request of filteredRequests(); track request.id) {
+          <article class="request-card">
+            @if (request.status === 'REJECTED' || request.status === 'CANCELLED' || request.status === 'EXPIRED' || request.status === 'COMPLETED') { <button type="button" class="hide-request-btn" (click)="hideRejectedRequest(request.id)">✕</button> }
+            <div class="request-visual"><span class="activity-symbol">{{ request.activity === 'TENNIS' ? '🎾' : request.activity === 'SWIMMING' ? '🏊' : '🏋️' }}</span><span class="visual-label">{{ request.activity }}</span></div>
+            <div class="request-body">
+              <div class="request-heading"><div><small>Activité</small><h2>{{ request.activity }}</h2></div><span class="status-pill" [class.pending]="request.status === 'PENDING'" [class.accepted]="request.status === 'ACCEPTED'" [class.rejected]="request.status === 'REJECTED'" [class.cancelled]="request.status === 'CANCELLED'" [class.expired]="request.status === 'EXPIRED'">{{ request.status }}</span></div>
+              <div class="coach-row"><div class="coach-avatar">{{ request.coach.user.firstName.slice(0,1) }}{{ request.coach.user.lastName.slice(0,1) }}</div><div><small>Coach sélectionné</small><strong>{{ request.coach.user.firstName }} {{ request.coach.user.lastName }}</strong></div></div>
+              <div class="appointment-grid"><div><small>Date</small><strong>{{ request.requestDate }}</strong></div><div><small>Heure</small><strong>{{ request.requestTime.slice(0, 5) }}</strong></div></div>
+              <div class="status-track"><span class="done"></span><i></i><span [class.done]="request.status !== 'PENDING'"></span><i></i><span [class.done]="request.status === 'COMPLETED' || request.status === 'ACCEPTED'"></span></div>
+              <div class="track-labels"><small>Envoyée</small><small>Traitée</small><small>Confirmée</small></div>
+              @if (request.status === 'REJECTED' || request.status === 'CANCELLED' || request.status === 'EXPIRED') { <div class="suggestion-box"><h4>Prochaine étape</h4><p>Cette demande n’a pas abouti. Vous pouvez recommencer avec un autre coach ou l’archiver.</p><div class="suggestion-actions"><button type="button" class="new-request-btn" (click)="goToCoachRequestForm()">Nouvelle demande</button><button type="button" class="abandon-btn" (click)="hideRejectedRequest(request.id)">Abandonner</button></div></div> }
             </div>
-          }
-
-        </div>
-      }
-
-    </div>
-  }
-
+          </article>
+        }
+      </div>
+    }
+  </div>
 </div>

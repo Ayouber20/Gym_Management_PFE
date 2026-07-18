@@ -1,112 +1,91 @@
 <div class="client-dashboard">
-  <h1>Espace Client</h1>
+  <div class="dashboard-background" aria-hidden="true">
+    <span class="orbit orbit-one"></span>
+    <span class="orbit orbit-two"></span>
+    <span class="sport-dot dot-one"></span>
+    <span class="sport-dot dot-two"></span>
+  </div>
 
-  <p class="subtitle">
-    Bienvenue dans votre espace client. Choisissez une fonctionnalité.
-  </p>
+  <div class="dashboard-shell">
+    <header class="dashboard-hero">
+      <span class="eyebrow">Centre sportif</span>
+      <h1>Espace Client</h1>
+      <p class="subtitle">Votre point de départ pour réserver, participer et suivre toutes vos activités.</p>
+      <div class="hero-stats">
+        <div><strong>6</strong><span>Services</span></div>
+        <div><strong>{{ announcements().length }}</strong><span>Annonces</span></div>
+        <div><strong>{{ notifications().length }}</strong><span>Notifications</span></div>
+      </div>
+    </header>
 
-  @if (announcementsLoaded() && announcements().length > 0) {
-    <div class="announcements-section">
-      <h2>📢 Annonces</h2>
-
-      @for (announcement of announcements(); track announcement.id) {
-        <div class="announcement-item">
-          <h3>{{ announcement.title }}</h3>
-          <p>{{ announcement.message }}</p>
+    @if (announcementsLoaded() && announcements().length > 0) {
+      <section class="announcements-section">
+        <div class="section-title-row">
+          <div>
+            <span class="section-kicker">Actualités du centre</span>
+            <h2>📢 Annonces</h2>
+          </div>
+          <span class="count-pill">{{ announcements().length }}</span>
         </div>
-      }
-    </div>
-  }
 
-  <div class="dashboard-cards">
+        <div class="announcement-list">
+          @for (announcement of announcements(); track announcement.id) {
+            <article class="announcement-item">
+              <span class="announcement-icon">i</span>
+              <div>
+                <h3>{{ announcement.title }}</h3>
+                <p>{{ announcement.message }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
 
-    <div class="dashboard-card tennis-card">
-      <h2>🎾 Tennis</h2>
+    <section class="services-section">
+      <div class="section-title-row services-heading">
+        <div>
+          <span class="section-kicker">Votre parcours sportif</span>
+          <h2>Choisissez une fonctionnalité</h2>
+        </div>
+      </div>
 
-      <p>
-        Réserver un terrain de tennis selon les créneaux disponibles.
-      </p>
+      <div class="dashboard-cards">
+        <article class="dashboard-card tennis-card">
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Réservation</span><h2>Tennis</h2><p>Réservez un terrain selon les créneaux disponibles.</p><button routerLink="/client/tennis">Réserver un terrain <span>→</span></button></div>
+        </article>
 
-      <button routerLink="/client/tennis">
-        Réserver un terrain
-      </button>
-    </div>
+        <article class="dashboard-card coach-card">
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Accompagnement</span><h2>Demande de coach</h2><p>Choisissez votre activité, votre horaire et votre coach.</p><button routerLink="/demande-coach">Demander un coach <span>→</span></button></div>
+        </article>
 
-    <div class="dashboard-card coach-card">
+        <article class="dashboard-card reservations-card">
+          @if (hasReservationNotification()) { <span class="red-dot"></span> }
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Planning</span><h2>Mes réservations</h2><p>Consultez vos créneaux et gérez vos réservations.</p><button routerLink="/client/reservations">Voir mes réservations <span>→</span></button></div>
+        </article>
 
-      <h2>💪 Demande de coach</h2>
+        <article class="dashboard-card requests-card">
+          @if (hasCoachRequestNotification()) { <span class="red-dot"></span> }
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Suivi</span><h2>Mes demandes</h2><p>Suivez chaque étape de vos demandes de coaching.</p><button routerLink="/client/coach-requests">Voir mes demandes <span>→</span></button></div>
+        </article>
 
-      <p>
-        Demander un coach pour le tennis, la salle de gym ou la piscine.
-      </p>
+        <article class="dashboard-card group-classes-card">
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Énergie collective</span><h2>Cours collectifs</h2><p>Découvrez les séances et rejoignez un groupe.</p><button routerLink="/client/group-classes">Voir les cours <span>→</span></button></div>
+        </article>
 
-      <button routerLink="/demande-coach">
-        Demander un coach
-      </button>
-    </div>
-
-    <div class="dashboard-card reservations-card">
-      @if (hasReservationNotification()) {
-        <span class="red-dot"></span>
-      }
-
-      <h2>📅 Mes réservations</h2>
-
-      <p>
-        Consulter et annuler vos réservations de terrains.
-      </p>
-
-      <button routerLink="/client/reservations">
-        Voir mes réservations
-      </button>
-    </div>
-
-    <div class="dashboard-card requests-card">
-      @if (hasCoachRequestNotification()) {
-        <span class="red-dot"></span>
-      }
-
-      <h2>📋 Mes demandes</h2>
-
-      <p>
-        Suivre l’état de vos demandes de coach.
-      </p>
-
-      <button routerLink="/client/coach-requests">
-        Voir mes demandes
-      </button>
-    </div>
-
-    <div class="dashboard-card group-classes-card">
-      <h2>🏋️ Cours collectifs</h2>
-
-      <p>
-        Consultez les cours collectifs proposés par les coachs et participez aux séances disponibles.
-      </p>
-
-      <button routerLink="/client/group-classes">
-        Voir les cours
-      </button>
-    </div>
-
-    <div class="dashboard-card events-card">
-      @if (hasEventNotification()) {
-        <span class="red-dot"></span>
-      }
-
-      <h2>🎉 Événements</h2>
-
-      <p>
-        Consultez les événements du centre sportif et participez aux activités disponibles.
-      </p>
-
-      <button routerLink="/client/events">
-        Voir les événements
-      </button>
-    </div>
-
+        <article class="dashboard-card events-card">
+          @if (hasEventNotification()) { <span class="red-dot"></span> }
+          <div class="card-visual" aria-hidden="true"></div>
+          <div class="card-content"><span class="card-label">Communauté</span><h2>Événements</h2><p>Participez aux temps forts organisés par le centre.</p><button routerLink="/client/events">Voir les événements <span>→</span></button></div>
+        </article>
+      </div>
+    </section>
   </div>
 
   <app-chatbot></app-chatbot>
-
 </div>
